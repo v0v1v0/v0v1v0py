@@ -1,0 +1,86 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>Srates</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Interest rates of the Svensson's model.</h2>
+
+<h3>Description</h3>
+
+<p>Returns the interest rates by Svensson's model.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">Srates(Coeff, maturity, whichRate = "Forward")
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>Coeff</code></td>
+<td>
+<p> vector or matrix of the beta's coefficients and of <code class="reqn">\lambda_1</code> and <code class="reqn">\lambda_2</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>maturity</code></td>
+<td>
+<p>maturity of the yield curve of which want to return the interest rates.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>whichRate</code></td>
+<td>
+<p>which rate want to return: "Spot" or "Forward" rates. </p>
+</td>
+</tr>
+</table>
+<h3>Details</h3>
+
+<p><code>Coeff</code> is a vector or matrix of the four coefficients of the Svensson's model, while <code>lambdaValues</code> is a vector or matrix of two lambda values of Svensson's model.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Return interest rates in matrix object with number of rows equal to <code>nrow(Coeff)</code> and number of columns equal to <code>length(maturity)</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Sergio Salvino Guirreri</p>
+
+
+<h3>References</h3>
+
+ 
+<p>Svensson, L.E. (1994), Estimating and Interpreting Forward Interest Rates: Sweden 1992-1994, <em>IMF Working Paper</em>, <b>WP/94/114</b>.
+</p>
+<p>Nelson, C.R., and A.F. Siegel (1987), Parsimonious Modeling of Yield Curve, <em>The Journal of Business</em>, <b>60</b>, 473-489.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">data(ECBYieldCurve)
+rate.ECB = first(ECBYieldCurve,'2 day')
+maturity.ECB = c(0.25,0.5,seq(1,30,by=1))
+SvenssonParameters &lt;- Svensson(rate.ECB, maturity.ECB)
+Svensson.rate &lt;- Srates( SvenssonParameters ,maturity.ECB,"Spot")
+
+plot(maturity.ECB, last(rate.ECB,'1 day'),main="Fitting Svensson yield curve",
+  xlab=c("Pillars in years"), ylab=c("Rates"),type="o")
+lines(maturity.ECB, last(Svensson.rate,'1 day'), col=2)
+legend("topleft",legend=c("observed yield curve","fitted yield curve"),
+col=c(1,2),lty=1)
+grid()
+</code></pre>
+
+
+</div>

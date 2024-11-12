@@ -1,0 +1,81 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>unclassified.dvec</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Unclassify Decorated Vector</h2>
+
+<h3>Description</h3>
+
+<p>Unclassifies dvec.  A non-operation, since dvec is not classified.
+Needed for completness by <code>resolve.dvec</code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">## S3 method for class 'dvec'
+unclassified(x, ...)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>x</code></td>
+<td>
+<p>dvec</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+<p>ignored</p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>dvec
+</p>
+
+
+<h3>See Also</h3>
+
+<p>Other dvec: 
+<code>[.dvec()</code>,
+<code>[&lt;-.dvec()</code>,
+<code>[[.dvec()</code>,
+<code>[[&lt;-.dvec()</code>,
+<code>as.data.frame.dvec()</code>,
+<code>as_dvec()</code>,
+<code>as_dvec.character()</code>,
+<code>as_dvec.complex()</code>,
+<code>as_dvec.dvec()</code>,
+<code>as_dvec.integer()</code>,
+<code>as_dvec.logical()</code>,
+<code>as_dvec.numeric()</code>,
+<code>c.dvec()</code>,
+<code>classified.dvec()</code>,
+<code>desolve.dvec()</code>,
+<code>explicit_guide.data.frame()</code>,
+<code>format.dvec()</code>,
+<code>implicit_guide.dvec()</code>,
+<code>length.dvec()</code>,
+<code>print.dvec()</code>,
+<code>resolve.classified()</code>,
+<code>resolve.dvec()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">library(magrittr)
+x &lt;- structure(as_dvec(1), guide = 'misc')
+unclassified(x)
+</code></pre>
+
+
+</div>

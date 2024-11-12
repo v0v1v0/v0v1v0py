@@ -1,0 +1,58 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>add.dependency</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Private function that adds a package to the list of dependencies
+that will be installed on the ScienceOps server</h2>
+
+<h3>Description</h3>
+
+<p>Private function that adds a package to the list of dependencies
+that will be installed on the ScienceOps server
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">add.dependency(name, importName, src, version, install)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>name</code></td>
+<td>
+<p>name of the package to be installed</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>importName</code></td>
+<td>
+<p>name under which the package is imported (for a github package,
+this may be different from the name used to install it)</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>src</code></td>
+<td>
+<p>source that the package is installed from (CRAN or github)</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>version</code></td>
+<td>
+<p>version of the package</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>install</code></td>
+<td>
+<p>whether or not the package should be installed in the model image</p>
+</td>
+</tr>
+</table>
+</div>

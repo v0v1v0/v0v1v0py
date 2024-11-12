@@ -1,0 +1,84 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>as.character.yamlet</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Coerce Yamlet to Character</h2>
+
+<h3>Description</h3>
+
+<p>Coerces yamlet to character.  See also <code>as_yamlet.character</code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">## S3 method for class 'yamlet'
+as.character(x, sort = TRUE, ...)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>x</code></td>
+<td>
+<p>yamlet</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>sort</code></td>
+<td>
+<p>whether to coerce attribute order using <code>canonical.yamlet</code></p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+<p>passed to <code>as.character.yam</code> and <code>as_yam.yamlet</code></p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>character
+</p>
+
+
+<h3>See Also</h3>
+
+<p>Other yamlet: 
+<code>[.yamlet()</code>,
+<code>as_yamlet()</code>,
+<code>as_yamlet.character()</code>,
+<code>as_yamlet.data.frame()</code>,
+<code>as_yamlet.list()</code>,
+<code>as_yamlet.yam()</code>,
+<code>as_yamlet.yamlet()</code>,
+<code>print.yamlet()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">
+as.character(as_yamlet('ID: subject identifier'))
+as.character(as_yamlet(c('id: subject','amt: dose')))
+as.character(as_yamlet(c('id: subject\namt: dose')))
+foo &lt;- as_yamlet(system.file(package = 'yamlet', 'extdata','quinidine.yaml'))
+class(foo)
+writeLines(as.character(foo))
+identical(foo, as_yamlet(as.character(foo)))
+identical(as.character(foo), as.character(as_yamlet(as.character(foo))))
+file &lt;- system.file(package = 'yamlet','extdata','quinidine.csv')
+file
+foo &lt;- resolve(decorate(file))
+as.character(as_yamlet(foo))
+as.character(as_yamlet(foo, exclude_attr = 'class'))
+
+</code></pre>
+
+
+</div>

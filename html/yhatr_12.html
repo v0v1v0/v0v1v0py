@@ -1,0 +1,56 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>yhat.post</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Private function for performing a POST request</h2>
+
+<h3>Description</h3>
+
+<p>Private function for performing a POST request
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">yhat.post(endpoint, query = c(), data, silent = TRUE, bulk = FALSE)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>endpoint</code></td>
+<td>
+<p>/path for REST request</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>query</code></td>
+<td>
+<p>url parameters for request</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>data</code></td>
+<td>
+<p>payload to be converted to raw JSON</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>silent</code></td>
+<td>
+<p>should output of url to console be silenced?
+Default is <code>FALSE</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>bulk</code></td>
+<td>
+<p>is this a bulk style request? Default is <code>FALSE</code>.</p>
+</td>
+</tr>
+</table>
+</div>

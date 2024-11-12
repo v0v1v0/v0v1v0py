@@ -1,0 +1,81 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>wrap</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Wrap strings</h2>
+
+<h3>Description</h3>
+
+<p>Wrap strings with flanking characters
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">wrap(x, left, right = left)
+
+dbl_quote(..., sep = "")
+
+sngl_quote(..., sep = "")
+
+bracket(..., sep = "")
+
+brace(..., sep = "")
+
+parens(..., sep = "")
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>x</code></td>
+<td>
+<p>character to wrap</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>left, right</code></td>
+<td>
+<p>character pair to wrap with</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>sep, ...</code></td>
+<td>
+<p>passed to <code>base::paste</code> before wrapping</p>
+</td>
+</tr>
+</table>
+<h3>See Also</h3>
+
+<p><code>unwrap</code> <code>p0</code> <code>sentence</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">wrap("abc", "__")  #  __abc__
+parens("abc")      #   (abc)
+sngl_quote("abc")  #   'abc'
+dbl_quote("abc")   #   "abc"
+bracket("abc")     #   [abc]
+brace("abc")       #   {abc}
+
+label &lt;- p("name", parens("attribute"))
+
+label             # "name (attribute)"
+unparens(label)   # "name attribute"
+
+# make your own function like this:
+# markdown bold
+bold &lt;- function(...) wrap(paste(...), "**")
+p("make a word", bold("bold"))
+# see unbold example in ?unwrap
+</code></pre>
+
+
+</div>

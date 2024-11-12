@@ -1,0 +1,81 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>yhat.deploy</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Deploy a model to Yhat's servers</h2>
+
+<h3>Description</h3>
+
+<p>This function takes model.transform and model.predict and creates
+a model on Yhat's servers which can be called from any programming language
+via Yhat's REST API (see <code>yhat.predict</code>).
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">yhat.deploy(model_name, packages = c(), confirm = TRUE,
+  custom_image = NULL)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>model_name</code></td>
+<td>
+<p>name of your model</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>packages</code></td>
+<td>
+<p>list of packages to install using apt-get</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>confirm</code></td>
+<td>
+<p>boolean indicating whether to prompt before deploying</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>custom_image</code></td>
+<td>
+<p>name of the image you'd like your model to use</p>
+</td>
+</tr>
+</table>
+<h3>Examples</h3>
+
+<pre><code class="language-R">yhat.config &lt;- c(
+ username = "your username",
+ apikey = "your apikey",
+ env = "http://sandbox.yhathq.com/"
+)
+iris$Sepal.Width_sq &lt;- iris$Sepal.Width^2
+fit &lt;- glm(I(Species)=="virginica" ~ ., data=iris)
+
+model.require &lt;- function() {
+ # require("randomForest")
+}
+
+model.transform &lt;- function(df) {
+ df$Sepal.Width_sq &lt;- df$Sepal.Width^2
+ df
+}
+model.predict &lt;- function(df) {
+ data.frame("prediction"=predict(fit, df, type="response"))
+}
+## Not run: 
+yhat.deploy("irisModel")
+yhat.deploy("irisModelCustomImage", custom_image="myImage:latest")
+
+## End(Not run)
+</code></pre>
+
+
+</div>

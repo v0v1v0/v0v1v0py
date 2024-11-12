@@ -1,0 +1,48 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>channel_videos</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Channel Videos List</h2>
+
+<h3>Description</h3>
+
+<p>Returns all videos in channel. Note: As of July 2023, the YouTube Data API
+fails to return ALL videos on a channel by getting all videos from the "uploads" playlist
+for large YouTube channels. As a result this function's work-around is to pull
+all additional playlists from the channel, pull all video lists from all playlists,
+and append the result to the uploads return.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">channel_videos(token = getOption("YouTube_Token"))
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table><tr style="vertical-align: top;">
+<td><code>token</code></td>
+<td>
+<p>YouTube token</p>
+</td>
+</tr></table>
+<h3>Value</h3>
+
+<p>data.frame
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">## Not run: 
+channel_videos()
+
+## End(Not run)
+</code></pre>
+
+
+</div>

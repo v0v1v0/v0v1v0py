@@ -1,0 +1,226 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>grmsd</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Generalized Root Mean Square Distance Between Observed and Imputed Values</h2>
+
+<h3>Description</h3>
+
+<p>Computes the root mean square distance between predicted and corresponding
+observed values in an orthogonal multivariate space. This value is the mean
+Mahalanobis distance between observed and imputed values in a space defined by
+observations and variables were observed and predicted values are defined. 
+The statistic provides a way to compare imputation (or prediction) results. 
+While it is designed to work with imputation, the function can be used with objects 
+that inherit from <code>lm</code> or with matrices and data frames that 
+follow the column naming convention described in the details.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">grmsd(...,ancillaryData=NULL,vars=NULL,wts=NULL,rtnVectors=FALSE,imputeMethod="closest")
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+<p>objects created by any combination of
+<code>yai</code>, <code>impute.yai</code>, <code>ensembleImpute</code>,
+<code>buildConsensus</code>, <code>lm</code> and data frames or matrices
+that follow the column naming convention described in the details below. 
+If an object is of class <code>yai</code>, a call to 
+<code>impute.yai</code> is generated internally.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>ancillaryData</code></td>
+<td>
+<p>a data frame that defines variables, passed to 
+<code>impute.yai</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>vars</code></td>
+<td>
+<p>a list of variable names you want to include; if NULL all available
+variables are included (note that if impute.yai the 
+<em>Y</em>-variables are returned when <code>vars=NULL</code>).</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>wts</code></td>
+<td>
+<p>A vector of weights used to compute the mean distances, see 
+details below.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>rtnVectors</code></td>
+<td>
+<p>The vectors of individual distances are returned (see Value) 
+rather than the mean Mahalanobis distance.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>imputeMethod</code></td>
+<td>
+<p>passed as <code>method</code> to <code>impute.yai</code>.</p>
+</td>
+</tr>
+</table>
+<h3>Details</h3>
+
+ 
+<p>This function is designed to compute the root mean square distance between observed
+and predicted observations over several variables at once. It is the Mahalanobis 
+distance between observed and predicted but the name emphasizes the similarities 
+to root mean square difference (or error, see <code>rmsd</code>). 
+Here are some notable characteristics.
+</p>
+
+<ol>
+<li>
+<p>In the univariate case this function returns the same value as 
+<code>rmsd</code> with <code>scale=TRUE</code>. In that case
+the root mean square difference is computed after <code>scale</code>
+has been called on the variable.
+</p>
+</li>
+<li>
+<p>Like <code>rmsd</code>, <code>grmsd</code> is zero if the imputed values are
+exactly the same as the observed values over all variables.
+</p>
+</li>
+<li>
+<p>Like <code>rmsd</code>, <code>grmsd</code> is ~1.0 when the mean of each 
+variable is imputed in place of a near neighbor (it would be exactly 1.0 if 
+the maximum likelihood estimate of the covariance were used rather than
+the unbiased estimate – it approaches 1 as <em>n</em> gets large.) 
+This situation corresponds to regression where the slope is zero. 
+It indicates that the imputation error is, over all, the same as it 
+would be if the means of the variables were imputed rather than near 
+neighbors (it does not signal that the means were imputed). 
+</p>
+</li>
+<li>
+<p>Like <code>rmsd</code>, values of grmsd &gt; 1.0 indicate that, on average,
+the errors in the imputation are greater than they would be if the mean
+of the corresponding variables were imputed for each observation. 
+</p>
+</li>
+<li>
+<p>Note that individual <code>rmsd</code> values can be computed even when 
+the variance of the variable is zero. In contrast, <code>grmsd</code> can 
+only be computed in the situation where the observed data matrix is full rank.
+Rank is determined using <code>qr</code> and columns are removed from the 
+analysis to create this condition if necessary (with a warning). 
+</p>
+</li>
+</ol>
+<p>Observed and predicted are matched using the column names. Column names
+that have "<code>.o</code>" are matched to those that do not. Columns that do not
+have matching observed and imputed (predicted) values are ignored. 
+</p>
+<p>Several objects may be passed as "...". Function <code>impute.yai</code> is
+called for any objects that were created by <code>yai</code>;
+<code>ancillaryData</code> and <code>vars</code> are passed to <code>impute.yai</code>
+when it is used.
+</p>
+<p>When objects inherit from <code>lm</code>, a suitable matrix is formed using
+by calling the <code>predict</code> and <code>resid</code> functions.
+</p>
+<p>Factors, if found, are removed (with a warning).
+</p>
+<p>When argument <code>wts</code> is defined there must be one value for each pair of
+observed and predicted variables. If the values are named (preferred), then
+the names are matched to the names of predicted variables (no <code>.o</code> suffix).
+The matched values effectively scale the axes in which distances are computed. 
+When this is done, the resulting distances are not Mahalanobis distances.
+</p>
+
+
+<h3>Value</h3>
+
+<p>When <code>rtnVectors=FALSE</code>, a sorted named vector of mean distances 
+is returned; the names are taken from the arguments.
+</p>
+<p>When <code>rtnVectors=TRUE</code> the function returns vectors of distances, sorted and
+named as done wnen this argument is FALSE.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Nicholas L. Crookston <a href="mailto:ncrookston.fs@gmail.com">ncrookston.fs@gmail.com</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code>yai</code>, <code>impute.yai</code>, <code>rmsd.yai</code>, 
+<code>notablyDifferent</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">require(yaImpute)
+
+data(iris)
+set.seed(12345)
+
+# form some test data
+refs=sample(rownames(iris),50)
+x &lt;- iris[,1:2]      # Sepal.Length Sepal.Width
+y &lt;- iris[refs,3:4]  # Petal.Length Petal.Width
+
+# build yai objects using 2 methods
+msn &lt;- yai(x=x,y=y)
+mal &lt;- yai(x=x,y=y,method="mahalanobis")
+
+# compute the average distances between observed and imputed (predicted)
+grmsd(msn,mal,lmFit=lm(as.matrix(y) ~ ., data=x[refs,]))
+
+# use the all variables and observations in iris
+# Species is a factor and is automatically deleted with a warning
+grmsd(msn,mal,ancillaryData=iris)
+
+# here is an example using lm, and another using column
+# means as predictions.
+
+impMean &lt;- y 
+colnames(impMean) &lt;- paste0(colnames(impMean),".o")
+impMean &lt;- cbind(impMean,y)
+# set the predictions to the mean's of the variables
+impMean[,"Petal.Length"] &lt;- mean(impMean[,"Petal.Length"])
+impMean[,"Petal.Width"]  &lt;- mean(impMean[,"Petal.Width"])
+
+grmsd(msn, mal, lmFit=lm(as.matrix(y) ~ ., data=x[refs,]), impMean )
+
+# compare to using function rmsd (values match):
+msnimp &lt;- na.omit(impute(msn))
+grmsd(msnimp[,c("Petal.Length","Petal.Length.o")])   
+rmsd(msnimp[,c("Petal.Length","Petal.Length.o")],scale=TRUE)
+
+# these are multivariate cases and they don't match
+# because the covariance of the two variables is &gt; 0.
+grmsd(msnimp)
+colSums(rmsd(msnimp,scale=TRUE))/2
+
+# get the vectors and make a boxplot, identify outliers
+stats &lt;- boxplot(grmsd(msn,mal,ancillaryData=iris[,-5],rtnVectors=TRUE),
+                 ylab="Mahalanobis distance")
+stats$out
+#     118      132 
+#2.231373 1.990961 
+</code></pre>
+
+
+</div>

@@ -1,0 +1,70 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>as.character.yam</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Coerce Yam to Character</h2>
+
+<h3>Description</h3>
+
+<p>Coerces class yam to character.  Forms the basis for a
+yamlet emitter.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">## S3 method for class 'yam'
+as.character(x, ...)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>x</code></td>
+<td>
+<p>yam</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+<p>ignored; keys is an attribute of yam</p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>character
+</p>
+
+
+<h3>See Also</h3>
+
+<p>Other yam: 
+<code>as_yam()</code>,
+<code>as_yam.character()</code>,
+<code>as_yam.yamlet()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">foo &lt;- as_yamlet(c('id: subject','amt: dose'))
+class(foo)
+bar &lt;- as_yam(foo)
+class(bar)
+as.character(bar)
+as.character(
+as_yam(
+as_yamlet(
+"race: [label: race, guide: [ white: 0, black: 1, asian: 2 ], multiple: ['yes': 1, 'no': 0]]"
+)))
+
+</code></pre>
+
+
+</div>

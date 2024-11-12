@@ -1,0 +1,72 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>vec_ptype2.classified.classified</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Find Common Type for classified, classified</h2>
+
+<h3>Description</h3>
+
+<p>Find common type for classified, classified.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">## S3 method for class 'classified.classified'
+vec_ptype2(x, y, ...)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>x</code></td>
+<td>
+<p>classified</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>y</code></td>
+<td>
+<p>classified</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+<p>ignored</p>
+</td>
+</tr>
+</table>
+<h3>Examples</h3>
+
+<pre><code class="language-R">library(vctrs)
+library(magrittr)
+c1 &lt;- classified('a', levels = c('a','b')) %&gt;% structure(label = 'c1')
+c2 &lt;- classified('b', levels = c('a','b')) %&gt;% structure(label = 'c2')
+c3 &lt;- classified('c', levels = c('a','c')) %&gt;% structure(label = 'c3')
+f1 &lt;- factor('a', levels = c('a','b')) %&gt;% structure(label = 'f1')
+f2 &lt;- factor('b', levels = c('a','b')) %&gt;% structure(label = 'f2')
+f3 &lt;- factor('c', levels = c('a','c')) %&gt;% structure(label = 'f3')
+
+vec_c(c1, c1) # combined data, same codelist
+vec_c(c1, c2) # combined data, same codelist
+vec_c(c2, c1) # reversed data, same codelist
+
+vec_c(c1, c3) # combined data, combined codelist
+vec_c(c3, c1) # reversed data, revised codelist
+vec_c(c1, f1) # matching levels: return classified
+vec_c(f1, c1) # matching levels: return classified
+
+vec_c(c1, f2) # matching levels: return classified
+vec_c(f2, c1) # matching levels: return classified
+
+vec_c(c1, f3) # mismatched levels: return factor
+vec_c(f3, c1) # mismatched levels: return factor
+</code></pre>
+
+
+</div>

@@ -1,0 +1,227 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>pagedown_business_card_template</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Generate a full YAML template for your pagedown business card</h2>
+
+<h3>Description</h3>
+
+<p>pagedown has a unique output type to make business cards:
+<code>pagedown::business_card()</code>. <code>pagedown_business_card_template()</code> creates a
+YAML template to use for this output. What's unique about this output type is
+that almost all of the contents are supplied through YAML. An R Markdown file
+that only contains YAML related to the business card is enough to produce the
+output, although you can also customize the output in the body of the
+document (see the <a href="https://pagedown.rbind.io/">pagedown vignette</a>). A good
+workflow to write a business card is to use
+<code>pagedown_business_card_template()</code> to specify the YAML and pass it to
+<code>use_rmarkdown()</code>, which you can then to knit into business cards.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">pagedown_business_card_template(
+  name = yml_blank(),
+  person = yml_blank(),
+  title = yml_blank(),
+  phone = yml_blank(),
+  email = yml_blank(),
+  url = yml_blank(),
+  address = yml_blank(),
+  logo = yml_blank(),
+  .repeat = yml_blank(),
+  paperwidth = yml_blank(),
+  paperheight = yml_blank(),
+  cardwidth = yml_blank(),
+  cardheight = yml_blank(),
+  cols = yml_blank(),
+  rows = yml_blank(),
+  mainfont = yml_blank(),
+  googlefonts = yml_blank(),
+  ...
+)
+
+pagedown_person(...)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>name</code></td>
+<td>
+<p>The name</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>person</code></td>
+<td>
+<p>When you are creating business cards for numerous people with
+shared information, passing values to the <code>person</code> field can override the
+default values, which can be any of the values accepted by this function.
+Use <code>pagedown_person()</code> to do so or manually provide them using <code>list(field = value)</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>title</code></td>
+<td>
+<p>The title of the person</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>phone</code></td>
+<td>
+<p>A phone number</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>email</code></td>
+<td>
+<p>An email address</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>url</code></td>
+<td>
+<p>A website URL</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>address</code></td>
+<td>
+<p>The address</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>logo</code></td>
+<td>
+<p>A path to a logo file</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>.repeat</code></td>
+<td>
+<p>The number of cards to repeat. Note that the actual YAML field
+is <code>repeat</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>paperwidth</code></td>
+<td>
+<p>The paper width</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>paperheight</code></td>
+<td>
+<p>The paper height</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>cardwidth</code></td>
+<td>
+<p>The width of the card</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>cardheight</code></td>
+<td>
+<p>The height of the card</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>cols</code></td>
+<td>
+<p>The number of columns in the card grid</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>rows</code></td>
+<td>
+<p>The rows of columns in the card grid</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>mainfont</code></td>
+<td>
+<p>The font</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>googlefonts</code></td>
+<td>
+<p>A character vector of Google Fonts</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+<p>additional named R objects, such as characters or lists, to
+transform into YAML</p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>a <code>yml</code> object
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code>use_rmarkdown()</code>
+</p>
+<p>Other pagedown: 
+<code>yml_pagedown_opts()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">pagedown_business_card_template(
+  name = "Jane Doe",
+  title = "Miss Nobody",
+  phone = "+1 123-456-7890",
+  email = "jane.doe@example.com",
+  url = "www.example.com",
+  address = "2020 South Street,
+  Sunshine, CA 90000",
+  logo = "logo.png",
+  .repeat = 12
+)
+
+pagedown_business_card_template(
+  phone = "+1 123-456-7890",
+  url = "www.example.com",
+  address = "2020 South Street,
+  Sunshine, CA 90000",
+  logo = "logo.png",
+  person = list(
+    pagedown_person(
+      name = "Jane Doe",
+      title = "Miss Nobody",
+      email = "jane.doe@example.com",
+      .repeat = 6
+    ),
+    pagedown_person(
+      name = "John Doe",
+      title = "Mister Nobody",
+      phone = "+1 777-777-7777", # overrides the default phone
+      email = "john.doe@example.com",
+      .repeat = 6
+    )
+  ),
+  paperwidth = "8.5in",
+  paperheight = "11in",
+  cols = 4,
+  rows = 3
+)
+
+</code></pre>
+
+
+</div>

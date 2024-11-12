@@ -1,0 +1,87 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>decorations_groups.data.frame</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Recover Groups Decorations for Data Frame</h2>
+
+<h3>Description</h3>
+
+<p>Recovers groups decorations for class 'data.frame'.
+Seeks a sequentially-valued integer attribute 
+with name 'groups' for each column, sorts these,
+and returns a character vector like <code>group_vars(x)</code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">## S3 method for class 'data.frame'
+decorations_groups(x, ...)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>x</code></td>
+<td>
+<p>data.frame</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+<p>ignored</p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>character: names of groups columns
+</p>
+
+
+<h3>See Also</h3>
+
+<p>Other decorate: 
+<code>as_decorated()</code>,
+<code>as_decorated.default()</code>,
+<code>decorate()</code>,
+<code>decorate.character()</code>,
+<code>decorate.data.frame()</code>,
+<code>decorate.list()</code>,
+<code>decorate_groups()</code>,
+<code>decorate_groups.data.frame()</code>,
+<code>decorations()</code>,
+<code>decorations.data.frame()</code>,
+<code>decorations_groups()</code>,
+<code>group_by_decorations()</code>,
+<code>group_by_decorations.data.frame()</code>,
+<code>redecorate()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">library(magrittr)
+library(dplyr)
+Theoph %&lt;&gt;% group_by(Subject, Time)
+Theoph %&gt;% group_vars
+Theoph %&gt;% decorations_groups # nothing!
+Theoph %&lt;&gt;% decorate_groups
+Theoph %&gt;% decorations_groups # something!
+Theoph %&lt;&gt;% ungroup
+Theoph %&gt;% group_vars # gone!
+Theoph %&lt;&gt;% group_by(across(all_of(decorations_groups(.))))
+Theoph %&gt;% group_vars # recovered!
+Theoph %&lt;&gt;% group_by_decorations
+Theoph %&gt;% group_vars # same
+rm(Theoph)
+
+</code></pre>
+
+
+</div>

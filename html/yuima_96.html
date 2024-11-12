@@ -1,0 +1,152 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>setCarmaHawkes</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>
+Hawkes Process with a Continuous Autoregressive Moving Average(p, q) intensity
+</h2>
+
+<h3>Description</h3>
+
+<p>'setCarmaHawkes' describes a self-exciting Hawkes process where the intensity is a CARMA(p,q) process. The model admits the Hawkes process with exponential kernel as a special case but it is able to reproduce a more complex time-dependence structure
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">setCarmaHawkes(p, q, law = NULL, base.Int = "mu0", 
+ar.par = "a", ma.par = "b", Counting.Process = "N", 
+Intensity.var = "lambda", Latent.var = "x", time.var = "t", 
+Type.Jump = FALSE, XinExpr = FALSE)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>p</code></td>
+<td>
+<p>a non-negative integer that indicates the number of the autoregressive coefficients.
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>q</code></td>
+<td>
+<p>a non-negative integer that indicates the number of the moving average coefficients.
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>law</code></td>
+<td>
+<p> An object of <code>yuima.law-class</code> that describes the jump size. If it is <code>NULL</code>, the jump size is unitary.
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>base.Int</code></td>
+<td>
+<p>a character-string that is the label of the baseline Intensity parameter. Defaults to <code>"mu0"</code>.
+
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>ar.par</code></td>
+<td>
+<p>a character-string that is the label of the autoregressive coefficients. The default Value is <code>ar.par="a"</code>.
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>ma.par</code></td>
+<td>
+<p>a character-string that is the label of the moving average coefficients. The default Value is <code>ma.par="b"</code>.
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>Counting.Process</code></td>
+<td>
+<p>a character-string that is the label of the Counting process. Defaults to <code>"N"</code>.
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>Intensity.var</code></td>
+<td>
+<p>a character-string that is the label of the Intensity process. Defaults to <code>"lambda"</code>
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>Latent.var</code></td>
+<td>
+
+<p>a character-string that is the label of the unobserved process. Defaults to <code>"x"</code>.
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>time.var</code></td>
+<td>
+
+<p>the name of the time variable.
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>Type.Jump</code></td>
+<td>
+
+<p>a logical value. If it is <code>TRUE</code>, the jump size is deterministic. 
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>XinExpr</code></td>
+<td>
+ 
+<p>a logical variable. The default value <code>XinExpr=FALSE</code> implies that the starting condition for <code>Latent.var</code> is zero. If <code>XinExpr=TRUE</code>, each component of <code>Latent.var</code> has a parameter as a initial value.
+</p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>Model an object of <code>yuima.carmaHawkes-class</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>The YUIMA Project Team
+</p>
+<p>Contacts: Lorenzo Mercuri <a href="mailto:lorenzo.mercuri@unimi.it">lorenzo.mercuri@unimi.it</a>
+</p>
+
+
+<h3>References</h3>
+
+<p>Mercuri, L., Perchiazzo, A., &amp; Rroji, E. (2022). A Hawkes model with CARMA (p, q) intensity. <a href="https://doi.org/10.48550/arXiv.2208.02659">doi:10.48550/arXiv.2208.02659</a>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">## Not run: 
+# Definition of an Hawkes with exponential Kernel
+mod1 &lt;- setCarmaHawkes(p = 1, q = 0)
+
+# Definition of an Hawkes with a CARMA(2,1) Intensity process
+mod2 &lt;- setCarmaHawkes(p = 2, q = 1)
+
+## End(Not run)
+</code></pre>
+
+
+</div>

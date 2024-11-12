@@ -1,0 +1,252 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>yml_rticles_opts</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Set YAML related to rticles output formats</h2>
+
+<h3>Description</h3>
+
+<p>The rticles package include numerous output formats specific to academic
+journals. All of these can take YAML similar to <code>pdf_document()</code>.
+Additionally, two templates include custom YAML, <code>rticles::sage_article()</code>
+and <code>rticles::sim_article()</code>. See the help pages for these functions for more
+details and the sources of the LaTeX templates used for each.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">yml_rticles_opts(
+  .yml,
+  title = yml_blank(),
+  runninghead = yml_blank(),
+  author = yml_blank(),
+  authormark = yml_blank(),
+  address = yml_blank(),
+  corrauth = yml_blank(),
+  corres = yml_blank(),
+  email = yml_blank(),
+  abstract = yml_blank(),
+  received = yml_blank(),
+  revised = yml_blank(),
+  accepted = yml_blank(),
+  keywords = yml_blank(),
+  bibliography = yml_blank(),
+  longtable = yml_blank(),
+  classoption = yml_blank(),
+  header_includes = yml_blank(),
+  include_after = yml_blank(),
+  ...
+)
+
+rticles_author(name = yml_blank(), num = yml_blank())
+
+rticles_address(name = yml_blank(), org = yml_blank())
+
+rticles_corr_author(
+  name = yml_blank(),
+  author = yml_blank(),
+  address = yml_blank()
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>.yml</code></td>
+<td>
+<p>a <code>yml</code> object created by <code>yml()</code>, <code>as_yml()</code>, or returned by
+a <code style="white-space: pre;">⁠yml_*()⁠</code> function</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>title</code></td>
+<td>
+<p>Title of the manuscript</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>runninghead</code></td>
+<td>
+<p>A character vector, a short author list for the header
+(sage_article)</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>author</code></td>
+<td>
+<p>A list of authors, containing <code>name</code> and <code>num</code> fields
+(sage_article, sim_article). Use <code>rticles_author()</code> or a list to specify.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>authormark</code></td>
+<td>
+<p>A character vector, the short author list for the header
+(sim_article)</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>address</code></td>
+<td>
+<p>list containing <code>num</code> and <code>org</code> for defining author
+affiliations (sage_article, sim_article). Use <code>rticles_address()</code> or a list
+to specify.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>corrauth</code></td>
+<td>
+<p>corresponding author <code>name</code> and <code>address</code> (sage_article). Use
+<code>rticles_corr_author()</code> or a list to specify.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>corres</code></td>
+<td>
+<p><code>author</code> and <code>address</code> for correspondence (sim_article). Use
+<code>rticles_corr_author()</code> or a list to specify.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>email</code></td>
+<td>
+<p>The email of the correspondence author (sage_article)</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>abstract</code></td>
+<td>
+<p>The abstract, limited to 200 words (sage_article), 250 words
+(sim_article)</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>received, revised, accepted</code></td>
+<td>
+<p>The dates of submission, revision, and
+acceptance of the manuscript (sim_article)</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>keywords</code></td>
+<td>
+<p>The keywords for the article (sage_article), up to 6 keywords
+(sim_article)</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>bibliography</code></td>
+<td>
+<p>BibTeX <code>.bib</code> file name  (sage_article, sim_article)</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>longtable</code></td>
+<td>
+<p>Logical. Include the longtable package? Used by default from
+pandoc to convert markdown to LaTeX code (sim_article)</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>classoption</code></td>
+<td>
+<p>a character vector of <code>classoption</code> options for the
+<code>sagej</code> class (sage_article)</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>header_includes</code></td>
+<td>
+<p>additional LaTeX code to include in the header, before
+the <code style="white-space: pre;">⁠\\begin\{document\}⁠</code> statement (sage_article, sim_article). Note that
+the actual YAML field is <code>header-includes</code></p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>include_after</code></td>
+<td>
+<p>additional LaTeX code to include before the
+<code style="white-space: pre;">⁠\\end\{document\}⁠</code> statement (sage_article, sim_article). Note that the
+actual YAML field is <code>include-after</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+<p>additional named R objects, such as characters or lists, to
+transform into YAML</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>name</code></td>
+<td>
+<p>The author's name</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>num</code></td>
+<td>
+<p>The author's number or address number</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>org</code></td>
+<td>
+<p>The author's organization</p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>a <code>yml</code> object
+</p>
+
+
+<h3>See Also</h3>
+
+<p>Other yml: 
+<code>asis_yaml_output()</code>,
+<code>bib2yml()</code>,
+<code>draw_yml_tree()</code>,
+<code>has_field()</code>,
+<code>read_json()</code>,
+<code>use_yml_defaults()</code>,
+<code>use_yml_file()</code>,
+<code>use_yml()</code>,
+<code>yml_author()</code>,
+<code>yml_blogdown_opts()</code>,
+<code>yml_bookdown_opts()</code>,
+<code>yml_citations()</code>,
+<code>yml_clean()</code>,
+<code>yml_distill_opts()</code>,
+<code>yml_latex_opts()</code>,
+<code>yml_output()</code>,
+<code>yml_pagedown_opts()</code>,
+<code>yml_params()</code>,
+<code>yml_pkgdown()</code>,
+<code>yml_reference()</code>,
+<code>yml_replace()</code>,
+<code>yml_resource_files()</code>,
+<code>yml_rsconnect_email()</code>,
+<code>yml_runtime()</code>,
+<code>yml_site_opts()</code>,
+<code>yml_toc()</code>,
+<code>yml_vignette()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">
+yml() %&gt;%
+  yml_rticles_opts(received = "09-12-2014")
+
+</code></pre>
+
+
+</div>

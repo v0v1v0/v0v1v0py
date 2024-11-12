@@ -1,0 +1,176 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>conf_mat</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Confusion Matrix for Categorical Data</h2>
+
+<h3>Description</h3>
+
+<p>Calculates a cross-tabulation of observed and predicted classes.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">conf_mat(data, ...)
+
+## S3 method for class 'data.frame'
+conf_mat(
+  data,
+  truth,
+  estimate,
+  dnn = c("Prediction", "Truth"),
+  case_weights = NULL,
+  ...
+)
+
+## S3 method for class 'conf_mat'
+tidy(x, ...)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>data</code></td>
+<td>
+<p>A data frame or a <code>base::table()</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+<p>Not used.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>truth</code></td>
+<td>
+<p>The column identifier for the true class results
+(that is a <code>factor</code>). This should be an unquoted column name although
+this argument is passed by expression and supports
+quasiquotation (you can unquote column
+names). For <code style="white-space: pre;">⁠_vec()⁠</code> functions, a <code>factor</code> vector.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>estimate</code></td>
+<td>
+<p>The column identifier for the predicted class
+results (that is also <code>factor</code>). As with <code>truth</code> this can be
+specified different ways but the primary method is to use an
+unquoted variable name. For <code style="white-space: pre;">⁠_vec()⁠</code> functions, a <code>factor</code> vector.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>dnn</code></td>
+<td>
+<p>A character vector of dimnames for the table.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>case_weights</code></td>
+<td>
+<p>The optional column identifier for case weights.
+This should be an unquoted column name that evaluates to a numeric column
+in <code>data</code>. For <code style="white-space: pre;">⁠_vec()⁠</code> functions, a numeric vector,
+<code>hardhat::importance_weights()</code>, or <code>hardhat::frequency_weights()</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>x</code></td>
+<td>
+<p>A <code>conf_mat</code> object.</p>
+</td>
+</tr>
+</table>
+<h3>Details</h3>
+
+<p>For <code>conf_mat()</code> objects, a <code>broom</code> <code>tidy()</code> method has been created
+that collapses the cell counts by cell into a data frame for
+easy manipulation.
+</p>
+<p>There is also a <code>summary()</code> method that computes various classification
+metrics at once. See <code>summary.conf_mat()</code>
+</p>
+<p>There is a <code>ggplot2::autoplot()</code>
+method for quickly visualizing the matrix. Both a heatmap and mosaic type
+is implemented.
+</p>
+<p>The function requires that the factors have exactly the same levels.
+</p>
+
+
+<h3>Value</h3>
+
+<p><code>conf_mat()</code> produces an object with class <code>conf_mat</code>. This contains the
+table and other objects. <code>tidy.conf_mat()</code> generates a tibble with columns
+<code>name</code> (the cell identifier) and <code>value</code> (the cell count).
+</p>
+<p>When used on a grouped data frame, <code>conf_mat()</code> returns a tibble containing
+columns for the groups along with <code>conf_mat</code>, a list-column
+where each element is a <code>conf_mat</code> object.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code>summary.conf_mat()</code> for computing a large number of metrics from one
+confusion matrix.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">library(dplyr)
+data("hpc_cv")
+
+# The confusion matrix from a single assessment set (i.e. fold)
+cm &lt;- hpc_cv %&gt;%
+  filter(Resample == "Fold01") %&gt;%
+  conf_mat(obs, pred)
+cm
+
+# Now compute the average confusion matrix across all folds in
+# terms of the proportion of the data contained in each cell.
+# First get the raw cell counts per fold using the `tidy` method
+library(tidyr)
+
+cells_per_resample &lt;- hpc_cv %&gt;%
+  group_by(Resample) %&gt;%
+  conf_mat(obs, pred) %&gt;%
+  mutate(tidied = lapply(conf_mat, tidy)) %&gt;%
+  unnest(tidied)
+
+# Get the totals per resample
+counts_per_resample &lt;- hpc_cv %&gt;%
+  group_by(Resample) %&gt;%
+  summarize(total = n()) %&gt;%
+  left_join(cells_per_resample, by = "Resample") %&gt;%
+  # Compute the proportions
+  mutate(prop = value / total) %&gt;%
+  group_by(name) %&gt;%
+  # Average
+  summarize(prop = mean(prop))
+
+counts_per_resample
+
+# Now reshape these into a matrix
+mean_cmat &lt;- matrix(counts_per_resample$prop, byrow = TRUE, ncol = 4)
+rownames(mean_cmat) &lt;- levels(hpc_cv$obs)
+colnames(mean_cmat) &lt;- levels(hpc_cv$obs)
+
+round(mean_cmat, 3)
+
+# The confusion matrix can quickly be visualized using autoplot()
+library(ggplot2)
+
+autoplot(cm, type = "mosaic")
+autoplot(cm, type = "heatmap")
+</code></pre>
+
+
+</div>

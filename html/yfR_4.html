@@ -1,0 +1,49 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>yf_convert_to_wide</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Transforms a long (stacked) data frame into a list of wide data frames</h2>
+
+<h3>Description</h3>
+
+<p>Transforms a long (stacked) data frame into a list of wide data frames
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">yf_convert_to_wide(df_in)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table><tr style="vertical-align: top;">
+<td><code>df_in</code></td>
+<td>
+<p>dataframe in the long format (probably the output of yf_get())</p>
+</td>
+</tr></table>
+<h3>Value</h3>
+
+<p>A list with dataframes in the wide format (each element is a
+different column)
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">
+my_f &lt;- system.file("extdata/example_data_yfR.rds", package = "yfR")
+df_tickers &lt;- readRDS(my_f)
+
+print(df_tickers)
+
+l_wide &lt;- yf_convert_to_wide(df_tickers)
+l_wide
+</code></pre>
+
+
+</div>

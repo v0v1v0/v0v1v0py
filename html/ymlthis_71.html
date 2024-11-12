@@ -1,0 +1,159 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>yml_citations</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Set citation-related YAML options</h2>
+
+<h3>Description</h3>
+
+<p><code>yml_citations()</code> sets citation-related YAML fields, such as specifying a
+bibliography file or style. For controlling the citation engine in PDF
+documents, see the <code>citation_package</code> argument in
+<code>rmarkdown::pdf_document()</code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">yml_citations(
+  .yml,
+  bibliography = yml_blank(),
+  biblio_style = yml_blank(),
+  biblio_title = yml_blank(),
+  csl = yml_blank(),
+  citation_abbreviations = yml_blank(),
+  link_citations = yml_blank(),
+  nocite = yml_blank(),
+  suppress_bibliography = yml_blank()
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>.yml</code></td>
+<td>
+<p>a <code>yml</code> object created by <code>yml()</code>, <code>as_yml()</code>, or returned by
+a <code style="white-space: pre;">⁠yml_*()⁠</code> function</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>bibliography</code></td>
+<td>
+<p>a path to a bibliography file, such as a .bib file</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>biblio_style</code></td>
+<td>
+<p>bibliography style, when used with
+<a href="https://ctan.org/pkg/natbib">natbib</a> and
+<a href="https://ctan.org/pkg/biblatex">biblatex</a>. Note that the actual YAML field
+is <code>biblio-style</code></p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>biblio_title</code></td>
+<td>
+<p>bibliography title, when used with
+<a href="https://ctan.org/pkg/natbib">natbib</a> and
+<a href="https://ctan.org/pkg/biblatex">biblatex</a>. Note that the actual YAML field
+is <code>biblio-title</code></p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>csl</code></td>
+<td>
+<p>a path to a Citation Style Language (CSL) file. CSL files are used
+to specify the citation style; see the <a href="https://github.com/citation-style-language/styles">CSL repository</a> for the CSL
+files of dozens of journals.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>citation_abbreviations</code></td>
+<td>
+<p>Path to a CSL abbreviations JSON file. See the
+<a href="https://manpages.ubuntu.com/manpages/xenial/man1/pandoc-citeproc.1.html">pandoc-citeproc documentation</a>.
+Note that the actual YAML field is <code>citation-abbreviations</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>link_citations</code></td>
+<td>
+<p>Logical. Add citations hyperlinks to the corresponding
+bibliography entries?  Note that the actual YAML field is <code>link-citations</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>nocite</code></td>
+<td>
+<p>Citation IDs (<code>"@item1"</code>) to include in the bibliography even if
+they are not cited in the document. Including the wildcard pattern <code>"@*"</code>
+will include all citations in the bibliography regardless of if they're
+cited in the document.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>suppress_bibliography</code></td>
+<td>
+<p>Logical. Suppress bibliography?</p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>a <code>yml</code> object
+</p>
+
+
+<h3>See Also</h3>
+
+<p>Other yml: 
+<code>asis_yaml_output()</code>,
+<code>bib2yml()</code>,
+<code>draw_yml_tree()</code>,
+<code>has_field()</code>,
+<code>read_json()</code>,
+<code>use_yml_defaults()</code>,
+<code>use_yml_file()</code>,
+<code>use_yml()</code>,
+<code>yml_author()</code>,
+<code>yml_blogdown_opts()</code>,
+<code>yml_bookdown_opts()</code>,
+<code>yml_clean()</code>,
+<code>yml_distill_opts()</code>,
+<code>yml_latex_opts()</code>,
+<code>yml_output()</code>,
+<code>yml_pagedown_opts()</code>,
+<code>yml_params()</code>,
+<code>yml_pkgdown()</code>,
+<code>yml_reference()</code>,
+<code>yml_replace()</code>,
+<code>yml_resource_files()</code>,
+<code>yml_rsconnect_email()</code>,
+<code>yml_rticles_opts()</code>,
+<code>yml_runtime()</code>,
+<code>yml_site_opts()</code>,
+<code>yml_toc()</code>,
+<code>yml_vignette()</code>
+</p>
+<p>Other citations: 
+<code>bib2yml()</code>,
+<code>yml_reference()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">
+yml() %&gt;%
+  yml_citations(bibliography = "references.bib", csl = "aje.csl")
+
+</code></pre>
+
+
+</div>

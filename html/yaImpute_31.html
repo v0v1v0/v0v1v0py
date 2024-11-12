@@ -1,0 +1,176 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>TallyLake</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Tally Lake, Flathead National Forest, Montana, USA</h2>
+
+<h3>Description</h3>
+
+<p>Polygon-based reference data used by Stage and Crookston (2007)
+to demonstrate partitioning of error components and related statistics.
+Observations are summaries of data collected on forest stands (ploygons).
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">data(TallyLake)
+</code></pre>
+
+
+<h3>Format</h3>
+
+<p>A data frame with 847 rows and 29 columns: <br><br>
+Ground based measurements of trees (Y-variables):
+</p>
+
+<ol>
+<li>
+<p> TopHt   - Height of tallest trees (ft)
+</p>
+</li>
+<li>
+<p> LnVolL  - Log of the volume <code class="reqn">(ft^3/acre)</code> of western larch
+</p>
+</li>
+<li>
+<p> LnVolDF - Log of the volume <code class="reqn">(ft^3/acre)</code> of Douglas-fir
+</p>
+</li>
+<li>
+<p> LnVolLP - Log of the volume <code class="reqn">(ft^3/acre)</code> of lodgepole pine
+</p>
+</li>
+<li>
+<p> LnVolES - Log of the volume <code class="reqn">(ft^3/acre)</code> of Engelmann spruce
+</p>
+</li>
+<li>
+<p> LnVolAF - Log of the volume <code class="reqn">(ft^3/acre)</code> of alpine fir
+</p>
+</li>
+<li>
+<p> LnVolPP - Log of the volume <code class="reqn">(ft^3/acre)</code> of ponderosa pine
+</p>
+</li>
+<li>
+<p> CCover  - Canopy cover (percent)
+</p>
+</li>
+</ol>
+<p>Geographic Location, Slope, and Aspect (X-variables):
+</p>
+
+<ol>
+<li>
+<p> utmx - UTM easting at plot center
+</p>
+</li>
+<li>
+<p> utmy - UTM northing at plot center
+</p>
+</li>
+<li>
+<p> elevm - Mean elevation (ft) above sea level over plot
+</p>
+</li>
+<li>
+<p> eevsqrd - <code class="reqn">(elevm-1600)^2</code>
+</p>
+</li>
+<li>
+<p> slopem - Mean slope (percent) over plot
+</p>
+</li>
+<li>
+<p> slpcosaspm - Mean of slope (proportion) times the cosine of aspect (see
+Stage (1976) for description of this transformation
+</p>
+</li>
+<li>
+<p> slpsinaspm - Mean of slope (proportion) times the sine of aspect
+</p>
+</li>
+</ol>
+<p>Additional X-variables:
+</p>
+
+<ol>
+<li>
+<p> ctim     - Mean of slope curviture over pixels in stand
+</p>
+</li>
+<li>
+<p> tmb1m    - Mean of LandSat band 1 over pixels in stand
+</p>
+</li>
+<li>
+<p> tmb2m    - Mean of LandSat band 2 over pixels in stand
+</p>
+</li>
+<li>
+<p> tmb3m    - Mean of LandSat band 3 over pixels in stand
+</p>
+</li>
+<li>
+<p> tmb4m    - Mean of LandSat band 4 over pixels in stand
+</p>
+</li>
+<li>
+<p> tmb5m    - Mean of LandSat band 5 over pixels in stand
+</p>
+</li>
+<li>
+<p> tmb6m    - Mean of LandSat band 6 over pixels in stand
+</p>
+</li>
+<li>
+<p> durm     - Mean of light duration over pixels in stand
+</p>
+</li>
+<li>
+<p> insom    - Mean of solar insolation over pixels in stand
+</p>
+</li>
+<li>
+<p> msavim   - Mean of AVI for pixels in stand
+</p>
+</li>
+<li>
+<p> ndvim    - Mean of NDVI for pixels in stand
+</p>
+</li>
+<li>
+<p> crvm     - Mean of slope curviture for pixels in stand
+</p>
+</li>
+<li>
+<p> tancrvm  - Mean of tangent curvature for pixels in stand
+</p>
+</li>
+<li>
+<p> tancrvsd - Standard deviation of tangent curvature for pixels in stand
+</p>
+</li>
+</ol>
+<h3>Source</h3>
+
+<p>USDA Forest Service
+</p>
+
+
+<h3>References</h3>
+
+<p>Stage, A.R.; Crookston, N.L. 2007. Partitioning error components
+for accuracy-assessment of near neighbor methods of imputation.
+<em>For. Sci.</em> 53(1):62-72 <a href="https://academic.oup.com/forestscience/article/53/1/62/4604364">https://academic.oup.com/forestscience/article/53/1/62/4604364</a>
+</p>
+<p>Stage, A.R. (1976). An expression for the effect of aspect, slope, and
+habitat type on tree growth. <em>For. Sci.</em> 22(4):457-460.  
+<a href="https://academic.oup.com/forestscience/article-abstract/22/4/457/4675852">https://academic.oup.com/forestscience/article-abstract/22/4/457/4675852</a>
+</p>
+
+
+</div>

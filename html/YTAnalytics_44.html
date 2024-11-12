@@ -1,0 +1,71 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>video_time_period</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Video Time Period Views</h2>
+
+<h3>Description</h3>
+
+<p>Returns video views by day or month.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">video_time_period(
+  videoId = NULL,
+  period = "day",
+  endDate = as.character(format(Sys.Date(), "%Y-%m-01")),
+  ...
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>videoId</code></td>
+<td>
+<p>Required. String. Id of YouTube video.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>period</code></td>
+<td>
+<p>Required. Time period to breakdown data by. Supported values are
+<code>day</code> and <code>month</code></p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>endDate</code></td>
+<td>
+<p>Required. String. Data returned up until the last day specified,
+so for monthly period the end date must end with a day of <code>01</code></p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+<p>Addt. arguments passed to <code>analytics_request</code></p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>data.frame
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">## Not run: 
+video_time_period(videoId = "dQw4w9WgXcQ", period = "month")
+
+## End(Not run) 
+</code></pre>
+
+
+</div>

@@ -1,0 +1,93 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>ypr_yields</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Yields</h2>
+
+<h3>Description</h3>
+
+<p>Calculates the yield(s) for a population based on one or more capture rates.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">ypr_yields(
+  object,
+  pi = seq(0, 1, length.out = 100),
+  Ly = 0,
+  harvest = TRUE,
+  biomass = FALSE
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>object</code></td>
+<td>
+<p>The population or populations.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>pi</code></td>
+<td>
+<p>A vector of probabilities of capture to calculate the yield for.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>Ly</code></td>
+<td>
+<p>The minimum length (trophy) fish to consider when calculating the
+yield (cm).</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>harvest</code></td>
+<td>
+<p>A flag specifying whether to calculate the yield for harvested
+fish or captures.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>biomass</code></td>
+<td>
+<p>A flag specifying whether to calculate the yield in terms of
+the biomass versus number of individuals.</p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>A numeric vector of the yields.
+</p>
+
+
+<h3>See Also</h3>
+
+<p>Other yield: 
+<code>ypr_plot_yield()</code>,
+<code>ypr_tabulate_yield()</code>,
+<code>ypr_yield()</code>
+</p>
+<p>Other calculate: 
+<code>ypr_age_at_length()</code>,
+<code>ypr_exploitation()</code>,
+<code>ypr_length_at_age()</code>,
+<code>ypr_optimize()</code>,
+<code>ypr_yield()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">pi &lt;- seq(0, 1, length.out = 30)
+plot(pi, ypr_yields(ypr_population(), pi), type = "l")
+</code></pre>
+
+
+</div>

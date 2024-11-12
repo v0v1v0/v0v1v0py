@@ -1,0 +1,108 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>phi.test</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Phi-divergence test statistic for stochastic differential equations</h2>
+
+<h3>Description</h3>
+
+<p>Phi-divergence test statistic for stochastic differential equations.</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">phi.test(yuima, H0, H1, phi, print=FALSE,...)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>yuima</code></td>
+<td>
+<p>a yuima object.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>H0</code></td>
+<td>
+<p>a named list of parameter under H0.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>H1</code></td>
+<td>
+<p>a named list of parameter under H1.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>phi</code></td>
+<td>
+<p>the phi function to be used in the test. See Details.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>print</code></td>
+<td>
+<p>you can see a progress of the estimation when print is <code>TRUE</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+<p>passed to <code>qmle</code> function.</p>
+</td>
+</tr>
+</table>
+<h3>Details</h3>
+
+<p><code>phi.test</code> executes a Phi-divergence test. If <code>H1</code> is not specified
+this hypothesis is filled with the QMLE estimates.
+</p>
+<p>If <code>phi</code> is missing, then <code>phi(x)=1-x+x*log(x)</code> and the
+Phi-divergence statistic corresponds to the likelihood ratio test statistic.
+</p>
+
+
+<h3>Value</h3>
+
+<table><tr style="vertical-align: top;">
+<td><code>ans</code></td>
+<td>
+<p>an obkect of class <code>phitest</code>.</p>
+</td>
+</tr></table>
+<h3>Author(s)</h3>
+
+<p>The YUIMA Project Team</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">## Not run: 
+model&lt;- setModel(drift="t1*(t2-x)",diffusion="t3")
+T&lt;-10
+n&lt;-1000
+sampling &lt;- setSampling(Terminal=T,n=n)
+yuima&lt;-setYuima(model=model, sampling=sampling)
+
+h0 &lt;- list(t1=0.3, t2=1, t3=0.25)
+X &lt;- simulate(yuima, xinit=1, true=h0)
+h1 &lt;- list(t1=0.3, t2=0.2, t3=0.1)
+
+phi1 &lt;- function(x) 1-x+x*log(x)
+
+phi.test(X, H0=h0, H1=h1,phi=phi1)
+phi.test(X, H0=h0, phi=phi1, start=h0, lower=list(t1=0.1, t2=0.1, t3=0.1), 
+   upper=list(t1=2,t2=2,t3=2),method="L-BFGS-B")
+phi.test(X, H0=h1, phi=phi1, start=h0, lower=list(t1=0.1, t2=0.1, t3=0.1), 
+  upper=list(t1=2,t2=2,t3=2),method="L-BFGS-B")
+
+## End(Not run)
+</code></pre>
+
+
+</div>

@@ -1,0 +1,51 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>yardstick_remove_missing</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Developer function for handling missing values in new metrics</h2>
+
+<h3>Description</h3>
+
+<p><code>yardstick_remove_missing()</code>,  and <code>yardstick_any_missing()</code> are useful
+alongside the metric-summarizers functions for implementing new custom
+metrics. <code>yardstick_remove_missing()</code> removes any observations that contains
+missing values across, <code>truth</code>, <code>estimate</code> and <code>case_weights</code>.
+<code>yardstick_any_missing()</code> returns <code>FALSE</code> if there is any missing values in
+the inputs.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">yardstick_remove_missing(truth, estimate, case_weights)
+
+yardstick_any_missing(truth, estimate, case_weights)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>truth, estimate</code></td>
+<td>
+<p>Vectors of the same length.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>case_weights</code></td>
+<td>
+<p>A vector of the same length as <code>truth</code> and <code>estimate</code>, or
+<code>NULL</code> if case weights are not being used.</p>
+</td>
+</tr>
+</table>
+<h3>See Also</h3>
+
+<p>metric-summarizers
+</p>
+
+
+</div>

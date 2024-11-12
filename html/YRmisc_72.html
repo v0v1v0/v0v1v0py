@@ -1,0 +1,45 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>reg.linreg</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Linear regression processor</h2>
+
+<h3>Description</h3>
+
+<p>This function will take a data frame and the dependent variable and fit all possible combinations of models.
+The result will be a data frame of models and test statistics for all the models possible. The test statistics are current set and contain all
+the following: R-squared, Adjusted R-squared, Degree of freedom, Residual standard error, AIC, BIC, Durbin-Watson statistic.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">reg.linreg(dataframe,dependent)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>dataframe</code></td>
+<td>
+<p>:a data frame, which includes the dependent variable</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>dependent</code></td>
+<td>
+<p>:dependent variable</p>
+</td>
+</tr>
+</table>
+<h3>Examples</h3>
+
+<pre><code class="language-R">reg.linreg(mtcars,"mpg")
+</code></pre>
+
+
+</div>

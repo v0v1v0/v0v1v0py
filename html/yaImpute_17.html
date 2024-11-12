@@ -1,0 +1,78 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>mostused</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Tabulate references most often used in imputation</h2>
+
+<h3>Description</h3>
+
+<p>Provides a matrix of reference observations that are used most often
+as sources of imputation and a column of the counts. The observations
+are listed in sorted order, most often used first.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">mostused(object,n=20,kth=NULL)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>object</code></td>
+<td>
+<p>(1) a data frame created by <code>foruse</code>, or (2) an object
+created by <code>yai</code> in which case <code>foruse</code> is called automatically.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>n</code></td>
+<td>
+<p>the number of mostused in sorted order.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>kth</code></td>
+<td>
+<p>passed to <code>foruse</code>, if called.</p>
+</td>
+</tr>
+</table>
+<h3>Author(s)</h3>
+
+<p>Nicholas L. Crookston <a href="mailto:ncrookston.fs@gmail.com">ncrookston.fs@gmail.com</a> <br>
+Andrew O. Finley <a href="mailto:finleya@msu.edu">finleya@msu.edu</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code>yai</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">require(yaImpute)
+
+data(iris)
+
+# form some test data
+refs=sample(rownames(iris),50)
+x &lt;- iris[,1:3]      # Sepal.Length Sepal.Width Petal.Length
+y &lt;- iris[refs,4:5]  # Petal.Width Species
+
+# build a yai object using mahalanobis
+mal &lt;- yai(x=x,y=y,method="mahalanobis")
+
+mostused(mal,kth=1)
+
+</code></pre>
+
+
+</div>

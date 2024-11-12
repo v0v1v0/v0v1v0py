@@ -1,0 +1,123 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>data_channel_request</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Channel Data Requests - YouTube Data API</h2>
+
+<h3>Description</h3>
+
+<p>This is a function to make API calls to the YouTube Data API for channel specific data.
+While it can be called directly, it is primarily intended to help get lists of videos within
+a channel. For more in-depth use of the Data API, please refer to <code>tuber</code>. For
+more details on the following arguments, please refer to
+<a href="https://developers.google.com/youtube/v3/docs/channels/list">https://developers.google.com/youtube/v3/docs/channels/list</a>
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">data_channel_request(
+  part = NULL,
+  categoryId = NULL,
+  forUsername = NULL,
+  hl = NULL,
+  id = NULL,
+  managedByMe = NULL,
+  maxResults = 5,
+  mine = NULL,
+  onBehalfOfContentOwner = NULL,
+  pageToken = NULL,
+  token = getOption("YouTube_Token")
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>part</code></td>
+<td>
+<p>Required. String.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>categoryId</code></td>
+<td>
+<p>String.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>forUsername</code></td>
+<td>
+<p>String.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>hl</code></td>
+<td>
+<p>String.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>id</code></td>
+<td>
+<p>String.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>managedByMe</code></td>
+<td>
+<p>String.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>maxResults</code></td>
+<td>
+<p>Integer.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>mine</code></td>
+<td>
+<p>String.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>onBehalfOfContentOwner</code></td>
+<td>
+<p>String.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>pageToken</code></td>
+<td>
+<p>String.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>token</code></td>
+<td>
+<p>Required.</p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>data.frame
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">## Not run: 
+data_channel_request(part = "contentDetails",
+                     mine = "true")
+
+## End(Not run)
+</code></pre>
+
+
+</div>

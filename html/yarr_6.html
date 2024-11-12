@@ -1,0 +1,89 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>write.arff</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Write a data.frame onto an ARFF file</h2>
+
+<h3>Description</h3>
+
+<p>Takes a data frame and records it in ARFF (Attribute-Relation
+File Format).
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">write.arff(x, relation = NULL, types = NULL, file = "",
+  sparse = FALSE, append = FALSE, ...)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>x</code></td>
+<td>
+<p>A data.frame</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>relation</code></td>
+<td>
+<p>Name of the dataset (optional, it may be inferred from the
+<code>relation</code> attribute or the name of the variable passed as argument)</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>types</code></td>
+<td>
+<p>A character vector indicating the type of each variable
+(optional, may be inferred from the <code>attributes</code> attribute or computed from
+the class of each variable)</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>file</code></td>
+<td>
+<p>Name of the file where the data is to be written. Use <code>""</code> to
+write to standard output</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>sparse</code></td>
+<td>
+<p>Logical: write in sparse format?</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>append</code></td>
+<td>
+<p>Logical: append to an existing file?</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+<p>Extra parameters for internal functions</p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>Invisibly, the name of the file.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">
+library(yarr)
+
+write.arff(iris, "iris", file = tempfile())
+
+</code></pre>
+
+
+</div>

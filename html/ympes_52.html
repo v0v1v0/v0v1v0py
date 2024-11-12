@@ -1,0 +1,67 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>plot_palette</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Plot a colour palette</h2>
+
+<h3>Description</h3>
+
+<p><code>plot_palette()</code> plots a palette from a vector of colour values (name or hex).
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">plot_palette(values, label = TRUE, square = FALSE)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>values</code></td>
+<td>
+<p><code style="white-space: pre;">⁠[character]⁠</code>
+</p>
+<p>Vector of named or hex colours.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>label</code></td>
+<td>
+<p><code style="white-space: pre;">⁠[bool]⁠</code>
+</p>
+<p>Do you want to label the plot or not?
+</p>
+<p>If <code>values</code> is a named vector the names are used for labels, otherwise,
+the values.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>square</code></td>
+<td>
+<p><code style="white-space: pre;">⁠[bool]⁠</code>
+</p>
+<p>Display palette as square?</p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>The input (invisibly).
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">
+plot_palette(c("#5FE756", "red", "black"))
+plot_palette(c("#5FE756", "red", "black"), square = TRUE)
+
+</code></pre>
+
+
+</div>

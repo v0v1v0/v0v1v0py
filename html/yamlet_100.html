@@ -1,0 +1,94 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>ggready</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Prepare Data for GGplot</h2>
+
+<h3>Description</h3>
+
+<p>Prepares data for ggplot.
+Generic, with methods for data.frame, and decorated.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">ggready(x, ...)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>x</code></td>
+<td>
+<p>object</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+<p>passed arguments</p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>see methods
+</p>
+
+
+<h3>See Also</h3>
+
+<p>Other ggready: 
+<code>ggready.data.frame()</code>,
+<code>ggready.decorated()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">file &lt;- system.file(package = 'yamlet', 'extdata','quinidine.csv')
+x &lt;- decorate(file)
+decorations(x, Weight)
+decorations(as.data.frame(x), Weight) # downgrade still has attributes
+class(x)
+class(ggready(as.data.frame(x)))
+class(ggready(x))
+class(ggready(resolve(x)))
+x &lt;- ggready(x)
+library(magrittr)
+library(ggplot2)
+
+# Here we filter on-the-fly
+# without loss of attributes.
+# Notice mg/L rendering; this is actually part of an expression.
+file %&gt;%
+ decorate %&gt;%
+ filter(!is.na(conc)) %&gt;%
+ ggready %&gt;%
+ ggplot(aes(x = time, y = conc, color = Heart)) +
+ geom_point()
+
+# By default ggready resolves everything that is decorated.
+# But we can intervene to resolve selectively,
+# And further intervene to 'ggready' selectively.
+#
+x &lt;- file %&gt;% decorate %&gt;% filter(!is.na(conc))
+x %&gt;%
+resolve(conc, time) %&gt;%   # Heart left unresolved!
+ggready(conc, Heart, resolve = FALSE) %&gt;%  # time left unreadied!
+ggplot(aes(x = time, y = conc, color = Heart)) + geom_point()
+
+# Still, all the labels were actually expressions:
+x %&gt;%
+resolve(conc, time) %&gt;%
+ggready(conc, Heart, resolve = FALSE) %&gt;%
+decorations(conc, time, Heart)
+</code></pre>
+
+
+</div>

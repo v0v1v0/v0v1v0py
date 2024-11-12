@@ -1,0 +1,158 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>concordance_survival</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Concordance index for right-censored data</h2>
+
+<h3>Description</h3>
+
+<p>Compute the Concordance index for right-censored data
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">concordance_survival(data, ...)
+
+## S3 method for class 'data.frame'
+concordance_survival(
+  data,
+  truth,
+  estimate,
+  na_rm = TRUE,
+  case_weights = NULL,
+  ...
+)
+
+concordance_survival_vec(
+  truth,
+  estimate,
+  na_rm = TRUE,
+  case_weights = NULL,
+  ...
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>data</code></td>
+<td>
+<p>A <code>data.frame</code> containing the columns specified by <code>truth</code> and
+<code>...</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+<p>Currently not used.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>truth</code></td>
+<td>
+<p>The column identifier for the true survival result (that
+is created using <code>survival::Surv()</code>.). This should be an unquoted column name
+although this argument is passed by expression and supports
+quasiquotation (you can unquote column names). For
+<code style="white-space: pre;">⁠_vec()⁠</code> functions, an <code>survival::Surv()</code> object.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>estimate</code></td>
+<td>
+<p>The column identifier for the predicted time, this should be
+a numeric variables. This should be an unquoted column name although this
+argument is passed by expression and supports
+quasiquotation (you can unquote column names). For
+<code style="white-space: pre;">⁠_vec()⁠</code> functions, a numeric vector.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>na_rm</code></td>
+<td>
+<p>A <code>logical</code> value indicating whether <code>NA</code>
+values should be stripped before the computation proceeds.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>case_weights</code></td>
+<td>
+<p>The optional column identifier for case weights.
+This should be an unquoted column name that evaluates to a numeric column
+in <code>data</code>. For <code style="white-space: pre;">⁠_vec()⁠</code> functions, a numeric vector,
+<code>hardhat::importance_weights()</code>, or <code>hardhat::frequency_weights()</code>.</p>
+</td>
+</tr>
+</table>
+<h3>Details</h3>
+
+<p>The concordance index is defined as the proportion of all comparable pairs in
+which the predictions and outcomes are concordant.
+</p>
+<p>Two observations are comparable if:
+</p>
+
+<ol>
+<li>
+<p> both of the observations experienced an event (at different times), or
+</p>
+</li>
+<li>
+<p> the observation with the shorter observed survival time experienced an
+event, in which case the event-free subject “outlived” the other.
+</p>
+</li>
+</ol>
+<p>A pair is not comparable if they experienced events at the same time.
+</p>
+<p>Concordance intuitively means that two samples were ordered correctly by the
+model. More specifically, two samples are concordant, if the one with a
+higher estimated risk score has a shorter actual survival time.
+</p>
+<p>Larger values of the score are associated with better model performance.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A <code>tibble</code> with columns <code>.metric</code>, <code>.estimator</code>,
+and <code>.estimate</code> and 1 row of values.
+</p>
+<p>For grouped data frames, the number of rows returned will be the same as
+the number of groups.
+</p>
+<p>For <code>concordance_survival_vec()</code>, a single <code>numeric</code> value (or <code>NA</code>).
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Emil Hvitfeldt
+</p>
+
+
+<h3>References</h3>
+
+<p>Harrell, F.E., Califf, R.M., Pryor, D.B., Lee, K.L., Rosati, R.A,
+“Multivariable prognostic models: issues in developing models, evaluating
+assumptions and adequacy, and measuring and reducing errors”, Statistics in
+Medicine, 15(4), 361-87, 1996.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">concordance_survival(
+  data = lung_surv,
+  truth = surv_obj,
+  estimate = .pred_time
+)
+</code></pre>
+
+
+</div>

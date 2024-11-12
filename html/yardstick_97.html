@@ -1,0 +1,132 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>metric_summarizer</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Developer function for summarizing new metrics</h2>
+
+<h3>Description</h3>
+
+<p><a href="https://lifecycle.r-lib.org/articles/stages.html#deprecated"><img src="../help/figures/lifecycle-deprecated.svg" alt="[Deprecated]"></a>
+</p>
+<p><code>metric_summarizer()</code> has been soft-deprecated as of yardstick 1.2.0. Please
+switch to use <code>class_metric_summarizer()</code>, <code>numeric_metric_summarizer()</code>,
+<code>prob_metric_summarizer()</code>, or <code>curve_metric_summarizer()</code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">metric_summarizer(
+  metric_nm,
+  metric_fn,
+  data,
+  truth,
+  estimate,
+  estimator = NULL,
+  na_rm = TRUE,
+  event_level = NULL,
+  case_weights = NULL,
+  ...,
+  metric_fn_options = list()
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>metric_nm</code></td>
+<td>
+<p>A single character representing the name of the metric to
+use in the <code>tibble</code> output. This will be modified to include the type
+of averaging if appropriate.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>metric_fn</code></td>
+<td>
+<p>The vector version of your custom metric function. It
+generally takes <code>truth</code>, <code>estimate</code>, <code>na_rm</code>, and any other extra arguments
+needed to calculate the metric.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>data</code></td>
+<td>
+<p>The data frame with <code>truth</code> and <code>estimate</code> columns passed
+in from the data frame version of your metric function that called
+<code>metric_summarizer()</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>truth</code></td>
+<td>
+<p>The unquoted column name corresponding to the <code>truth</code> column.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>estimate</code></td>
+<td>
+<p>Generally, the unquoted column name corresponding to
+the <code>estimate</code> column. For metrics that take multiple columns through <code>...</code>
+like class probability metrics, this is a result of <code>dots_to_estimate()</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>estimator</code></td>
+<td>
+<p>For numeric metrics, this is left as <code>NULL</code> so averaging
+is not passed on to the metric function implementation. For classification
+metrics, this can either be <code>NULL</code> for the default auto-selection of
+averaging (<code>"binary"</code> or <code>"macro"</code>), or a single character to pass along
+to the metric implementation describing the kind of averaging to use.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>na_rm</code></td>
+<td>
+<p>A <code>logical</code> value indicating whether <code>NA</code> values should be
+stripped before the computation proceeds. The removal is executed in
+<code>metric_vec_template()</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>event_level</code></td>
+<td>
+<p>For numeric metrics, this is left as <code>NULL</code> to prevent
+it from being passed on to the metric function implementation. For
+classification metrics, this can either be <code>NULL</code> to use the default
+<code>event_level</code> value of the <code>metric_fn</code> or a single string of either
+<code>"first"</code> or <code>"second"</code> to pass along describing which level should be
+considered the "event".</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>case_weights</code></td>
+<td>
+<p>For metrics supporting case weights, an unquoted
+column name corresponding to case weights can be passed here. If not <code>NULL</code>,
+the case weights will be passed on to <code>metric_fn</code> as the named argument
+<code>case_weights</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+<p>Currently not used. Metric specific options are passed in
+through <code>metric_fn_options</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>metric_fn_options</code></td>
+<td>
+<p>A named list of metric specific options. These
+are spliced into the metric function call using <code style="white-space: pre;">⁠!!!⁠</code> from <code>rlang</code>. The
+default results in nothing being spliced into the call.</p>
+</td>
+</tr>
+</table>
+</div>

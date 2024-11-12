@@ -1,0 +1,119 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>classified.data.frame</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Classify Data Frame</h2>
+
+<h3>Description</h3>
+
+<p>Coerces items in data.frame with codelist attribute to 'classified':
+a factor with a codelist attribute.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">## S3 method for class 'data.frame'
+classified(x, ..., exclude = NA, ordered = is.ordered(x), nmax = NA)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>x</code></td>
+<td>
+<p>data.frame</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+<p>passed to <code>select</code> to limit column scope</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>exclude</code></td>
+<td>
+<p>see <code>factor</code></p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>ordered</code></td>
+<td>
+<p>see <code>factor</code></p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>nmax</code></td>
+<td>
+<p>see <code>factor</code></p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>data.frame
+</p>
+
+
+<h3>See Also</h3>
+
+<p>Other classified: 
+<code>[.classified()</code>,
+<code>[&lt;-.classified()</code>,
+<code>[[.classified()</code>,
+<code>[[&lt;-.classified()</code>,
+<code>as.integer.classified()</code>,
+<code>c.classified()</code>,
+<code>classified()</code>,
+<code>classified.classified()</code>,
+<code>classified.default()</code>,
+<code>classified.dvec()</code>,
+<code>classified.factor()</code>,
+<code>desolve.classified()</code>,
+<code>unclassified()</code>,
+<code>unclassified.classified()</code>,
+<code>unclassified.data.frame()</code>
+</p>
+<p>Other interface: 
+<code>canonical.decorated()</code>,
+<code>decorate.character()</code>,
+<code>decorate.data.frame()</code>,
+<code>desolve.decorated()</code>,
+<code>ggplot.decorated()</code>,
+<code>io_csv.character()</code>,
+<code>io_csv.data.frame()</code>,
+<code>io_res.character()</code>,
+<code>io_res.decorated()</code>,
+<code>io_table.character()</code>,
+<code>io_table.data.frame()</code>,
+<code>io_yamlet.character()</code>,
+<code>io_yamlet.data.frame()</code>,
+<code>is_parseable.default()</code>,
+<code>mimic.default()</code>,
+<code>modify.default()</code>,
+<code>promote.list()</code>,
+<code>read_yamlet()</code>,
+<code>resolve.decorated()</code>,
+<code>scripted.default()</code>,
+<code>selected.default()</code>,
+<code>write_yamlet()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">library(magrittr)
+file &lt;- system.file(package = 'yamlet', 'extdata','quinidine.csv')
+x &lt;- decorate(file)
+x %&gt;% explicit_guide %&gt;% decorations(Age, Race, Heart:glyco)
+x %&gt;% explicit_guide %&gt;% classified %&gt;% decorations(Age, Race, Heart:glyco)
+x %&gt;% explicit_guide %&gt;% classified(Heart:glyco) %&gt;% decorations(Age, Race, Heart:glyco)
+</code></pre>
+
+
+</div>

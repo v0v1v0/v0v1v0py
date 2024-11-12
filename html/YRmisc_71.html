@@ -1,0 +1,36 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>reg.dw</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Durbin-Watson Test</h2>
+
+<h3>Description</h3>
+
+<p>Performs the Durbin-Watson Test for a regression model
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">reg.dw(fit)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table><tr style="vertical-align: top;">
+<td><code>fit</code></td>
+<td>
+<p>:a lm object</p>
+</td>
+</tr></table>
+<h3>Examples</h3>
+
+<pre><code class="language-R">fit &lt;- lm(mpg~wt, mtcars, na.action = na.omit)
+reg.dw(fit)
+</code></pre>
+
+
+</div>

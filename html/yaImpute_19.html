@@ -1,0 +1,190 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>notablyDifferent</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Finds observations with large differences between observed and imputed values</h2>
+
+<h3>Description</h3>
+
+<p>This routine identifies observations with large errors as measured by scaled 
+root mean square error (see <code>rmsd.yai</code>). A <em>threshold</em> 
+is used to detect observations with large differences.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">notablyDifferent(object,vars=NULL,threshold=NULL,p=.05,...)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>object</code></td>
+<td>
+<p>an object of class <code>yai</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>vars</code></td>
+<td>
+<p>a vector of character strings naming the variables to use, if 
+null the X-variables form <code>object</code> are used.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>threshold</code></td>
+<td>
+<p>a threshold that if exceeded the observations are listed as 
+<em>notably</em> different.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>p</code></td>
+<td>
+<p><code>(1-p)*100</code> is the percentile point in the distribution 
+of differences used to compute the threshold (used when 
+<code>threshold</code> is NULL).</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+<p>additional arguments passed to <code>impute.yai</code>.</p>
+</td>
+</tr>
+</table>
+<h3>Details</h3>
+
+<p>The scaled differences are computed a follows:
+</p>
+
+<ol>
+<li>
+<p> A matrix of differences between observed and imputed values is 
+computed for each observation (rows) and each variable (columns).
+</p>
+</li>
+<li>
+<p> These differences are scaled by dividing by the standard deviation
+of the observed values among the <em>reference</em> observations.
+</p>
+</li>
+<li>
+<p> The scaled differences are squared.
+</p>
+</li>
+<li>
+<p> Row means are computed resulting in one value for each observation. 
+</p>
+</li>
+<li>
+<p> The square root of each of these values is taken.
+</p>
+</li>
+</ol>
+<p>These values are Euclidean distances between the target 
+observations and their nearest references as measured using specified variables. All
+the variables that are used must have observed and imputed values. Generally, this
+will be the <em>X</em>-variables and not the <em>Y</em>-variables. 
+</p>
+<p>When <code>threshold</code> is NULL, the function computes one using the 
+<code>quantile</code> function with its default arguments and <code>probs=1-p</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A named list of several items. In all cases vectors are named using the observation
+ids which are the row names of the data used to build the <code>yai</code>object.
+</p>
+<table>
+<tr style="vertical-align: top;">
+<td><code>call</code></td>
+<td>
+<p>The call.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>vars</code></td>
+<td>
+<p>The variables used (may be fewer than requested).</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>threshold</code></td>
+<td>
+<p>The threshold value.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>notablyDifferent.refs</code></td>
+<td>
+<p>A sorted named vector of <em>references</em> that exceed 
+the threshold.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>notablyDifferent.trgs</code></td>
+<td>
+<p>A sorted named vector of <em>targets</em> that exceed 
+the threshold.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>rmsdS.refs</code></td>
+<td>
+<p>A sorted named vector of scaled RMSD <em>references</em>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>rmsdS.trgs</code></td>
+<td>
+<p>A sorted named vector of scaled RMSD <em>targets</em>.</p>
+</td>
+</tr>
+</table>
+<h3>Author(s)</h3>
+
+<p>Nicholas L. Crookston <a href="mailto:ncrookston.fs@gmail.com">ncrookston.fs@gmail.com</a> <br></p>
+
+
+<h3>See Also</h3>
+
+<p><code>notablyDistant</code>, <code>plot.notablyDifferent</code>, 
+<code>yai</code>, <code>grmsd</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">data(iris)
+
+set.seed(12345)
+
+# form some test data
+refs=sample(rownames(iris),50)
+x &lt;- iris[,1:3]      # Sepal.Length Sepal.Width Petal.Length
+y &lt;- iris[refs,4:5]  # Petal.Width Species
+
+# build an msn run, first build dummy variables for species.
+
+sp1 &lt;- as.integer(iris$Species=="setosa")
+sp2 &lt;- as.integer(iris$Species=="versicolor")
+y2 &lt;- data.frame(cbind(iris[,4],sp1,sp2),row.names=rownames(iris))
+y2 &lt;- y2[refs,]
+
+names(y2) &lt;- c("Petal.Width","Sp1","Sp2")
+
+msn &lt;- yai(x=x,y=y2,method="msn")
+
+notablyDifferent(msn)
+
+</code></pre>
+
+
+</div>

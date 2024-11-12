@@ -1,0 +1,101 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>yml_output</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Capture, validate, and write output YAML</h2>
+
+<h3>Description</h3>
+
+<p><code>yml_output()</code> writes valid YAML for the <code>output</code> field of R Markdown YAML.
+<code>yml_output()</code> captures the actual output functions, such as
+<code>pdf_document()</code>, and translates them to YAML. This function accepts multiple
+output formats (separated by commas) and validates each by evaluating the
+function internally. The YAML fields in under <code>output</code> come from arguments in
+their respective R functions. If you wanted to see the available fields in
+<code>pdf_document()</code>, for instance, you would read the documentation for that
+function using <code>?pdf_document</code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">yml_output(.yml, ...)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>.yml</code></td>
+<td>
+<p>a <code>yml</code> object created by <code>yml()</code>, <code>as_yml()</code>, or returned by
+a <code style="white-space: pre;">⁠yml_*()⁠</code> function</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+<p>valid R code calling functions that return objects of class
+<code>rmarkdown_output_format</code>, such as the <code style="white-space: pre;">⁠*_document()⁠</code> functions in
+rmarkdown.</p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>a <code>yml</code> object
+</p>
+
+
+<h3>See Also</h3>
+
+<p>Other yml: 
+<code>asis_yaml_output()</code>,
+<code>bib2yml()</code>,
+<code>draw_yml_tree()</code>,
+<code>has_field()</code>,
+<code>read_json()</code>,
+<code>use_yml_defaults()</code>,
+<code>use_yml_file()</code>,
+<code>use_yml()</code>,
+<code>yml_author()</code>,
+<code>yml_blogdown_opts()</code>,
+<code>yml_bookdown_opts()</code>,
+<code>yml_citations()</code>,
+<code>yml_clean()</code>,
+<code>yml_distill_opts()</code>,
+<code>yml_latex_opts()</code>,
+<code>yml_pagedown_opts()</code>,
+<code>yml_params()</code>,
+<code>yml_pkgdown()</code>,
+<code>yml_reference()</code>,
+<code>yml_replace()</code>,
+<code>yml_resource_files()</code>,
+<code>yml_rsconnect_email()</code>,
+<code>yml_rticles_opts()</code>,
+<code>yml_runtime()</code>,
+<code>yml_site_opts()</code>,
+<code>yml_toc()</code>,
+<code>yml_vignette()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">
+yml() %&gt;%
+  yml_output(html_document())
+
+yml() %&gt;%
+  yml_output(
+    pdf_document(keep_tex = TRUE, includes = includes2(after_body = "footer.tex")),
+    bookdown::html_document2()
+  )
+
+</code></pre>
+
+
+</div>

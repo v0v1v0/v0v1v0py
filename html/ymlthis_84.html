@@ -1,0 +1,38 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>yml_load</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Load YAML from string</h2>
+
+<h3>Description</h3>
+
+<p><code>yml_load()</code> is a wrapper for <code>yaml::yaml.load()</code> that also converts the
+object to the <code>yml</code> class.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">yml_load(x)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table><tr style="vertical-align: top;">
+<td><code>x</code></td>
+<td>
+<p>an object to pass to <code>yaml::yaml.load()</code></p>
+</td>
+</tr></table>
+<h3>Examples</h3>
+
+<pre><code class="language-R">c("title: my title", "author: Malcolm Barrett") %&gt;%
+  yml_load()
+
+</code></pre>
+
+
+</div>

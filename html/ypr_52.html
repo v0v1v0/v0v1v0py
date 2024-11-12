@@ -1,0 +1,98 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>ypr_plot_fish</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Plot Fish</h2>
+
+<h3>Description</h3>
+
+<p>Produces a frequency histogram of the number of fish in the 'Survivors',
+'Spawners', 'Caught', 'Harvested' or 'Released' categories by 'Length', 'Age'
+or 'Weight' class.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">ypr_plot_fish(
+  population,
+  x = "Age",
+  y = "Survivors",
+  percent = FALSE,
+  binwidth = 1L,
+  color = NULL
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>population</code></td>
+<td>
+<p>An object of class <code>ypr_population()</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>x</code></td>
+<td>
+<p>The object to coerce.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>y</code></td>
+<td>
+<p>A string of the term on the y-axis.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>percent</code></td>
+<td>
+<p>A flag specifying whether to plot the number of fish as a
+percent or frequency (the default).</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>binwidth</code></td>
+<td>
+<p>A positive integer of the width of the bins for grouping.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>color</code></td>
+<td>
+<p>A string of the color around each bar (or NULL).</p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>A ggplot2 object.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code>ggplot2::geom_histogram()</code>
+</p>
+<p>Other fish: 
+<code>ypr_tabulate_fish()</code>
+</p>
+<p>Other plot: 
+<code>ypr_plot_biomass()</code>,
+<code>ypr_plot_schedule()</code>,
+<code>ypr_plot_sr()</code>,
+<code>ypr_plot_yield()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">ypr_plot_fish(ypr_population(), color = "white")
+</code></pre>
+
+
+</div>

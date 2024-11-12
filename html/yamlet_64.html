@@ -1,0 +1,136 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>decorate.character</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Decorate Character</h2>
+
+<h3>Description</h3>
+
+<p>Treats <code>x</code> as a file path. By default,
+metadata is sought from a file with the same
+base but the 'yaml' extension.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">## S3 method for class 'character'
+decorate(
+  x,
+  meta = NULL,
+  ...,
+  read = getOption("yamlet_import", as.csv),
+  ext = getOption("yamlet_extension", ".yaml")
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>x</code></td>
+<td>
+<p>file path for table data</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>meta</code></td>
+<td>
+<p>file path for corresponding yamlet metadata, or a yamlet object</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+<p>passed to <code>read</code> (if accepted) and to <code>as_yamlet.character</code></p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>read</code></td>
+<td>
+<p>function or function name for reading x</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>ext</code></td>
+<td>
+<p>file extension for metadata file, if relevant</p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>class 'decorated' 'data.frame'
+</p>
+
+
+<h3>See Also</h3>
+
+<p>Other decorate: 
+<code>as_decorated()</code>,
+<code>as_decorated.default()</code>,
+<code>decorate()</code>,
+<code>decorate.data.frame()</code>,
+<code>decorate.list()</code>,
+<code>decorate_groups()</code>,
+<code>decorate_groups.data.frame()</code>,
+<code>decorations()</code>,
+<code>decorations.data.frame()</code>,
+<code>decorations_groups()</code>,
+<code>decorations_groups.data.frame()</code>,
+<code>group_by_decorations()</code>,
+<code>group_by_decorations.data.frame()</code>,
+<code>redecorate()</code>
+</p>
+<p>Other interface: 
+<code>canonical.decorated()</code>,
+<code>classified.data.frame()</code>,
+<code>decorate.data.frame()</code>,
+<code>desolve.decorated()</code>,
+<code>ggplot.decorated()</code>,
+<code>io_csv.character()</code>,
+<code>io_csv.data.frame()</code>,
+<code>io_res.character()</code>,
+<code>io_res.decorated()</code>,
+<code>io_table.character()</code>,
+<code>io_table.data.frame()</code>,
+<code>io_yamlet.character()</code>,
+<code>io_yamlet.data.frame()</code>,
+<code>is_parseable.default()</code>,
+<code>mimic.default()</code>,
+<code>modify.default()</code>,
+<code>promote.list()</code>,
+<code>read_yamlet()</code>,
+<code>resolve.decorated()</code>,
+<code>scripted.default()</code>,
+<code>selected.default()</code>,
+<code>write_yamlet()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">
+# find data file
+file &lt;- system.file(package = 'yamlet', 'extdata','quinidine.csv')
+file
+
+# find metadata file
+meta &lt;- system.file(package = 'yamlet', 'extdata','quinidine.yaml')
+meta
+
+# decorate with explicit metadata reference
+a &lt;- decorate(file, meta)
+
+# rely on default metadata path
+b &lt;- decorate(file)
+
+# in this case: same
+stopifnot(identical(a, b))
+</code></pre>
+
+
+</div>

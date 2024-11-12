@@ -1,0 +1,122 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>load_yaml_dir</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Load all YAML fragments from all files in a directory</h2>
+
+<h3>Description</h3>
+
+<p>These function extracts all YAML fragments from all files in a
+directory returning a list of character vectors containing the
+extracted fragments.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">load_yaml_dir(
+  path,
+  recursive = TRUE,
+  fileRegexes = c("^[^\\.]+.*$"),
+  select = ".*",
+  delimiterRegEx = "^---$",
+  ignoreOddDelimiters = FALSE,
+  encoding = "UTF-8",
+  silent = TRUE
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>path</code></td>
+<td>
+<p>The path containing the files.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>recursive</code></td>
+<td>
+<p>Whether to also process subdirectories (<code>TRUE</code>)
+or not (<code>FALSE</code>).</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>fileRegexes</code></td>
+<td>
+<p>A vector of regular expressions to match the files
+against: only files matching one or more regular expressions in this
+vector are processed. The default regex (<code style="white-space: pre;">⁠^[^\.]+.*$⁠</code>) matches all
+files except those that start with a period (<code>.</code>).</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>select</code></td>
+<td>
+<p>A vector of regular expressions specifying object names
+to retain. The default (<code style="white-space: pre;">⁠.*⁠</code>) matches everything, so by default, all
+objects are retained.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>delimiterRegEx</code></td>
+<td>
+<p>The regular expression used to locate YAML
+fragments.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>ignoreOddDelimiters</code></td>
+<td>
+<p>Whether to throw an error (FALSE) or
+delete the last delimiter (TRUE) if an odd number of delimiters is
+encountered.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>encoding</code></td>
+<td>
+<p>The encoding to use when calling <code>readLines()</code>. Set to
+NULL to let <code>readLines()</code> guess.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>silent</code></td>
+<td>
+<p>Whether to be silent (<code>TRUE</code>) or informative (<code>FALSE</code>).</p>
+</td>
+</tr>
+</table>
+<h3>Details</h3>
+
+<p>These function extracts all YAML fragments from all files in a
+directory and then calls <code>yaml::yaml.load()</code> to parse them. It
+then returns a list where each element is a list with the parsed
+fragments in a file.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A list of lists of objects.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">### First get the directory where 'yum' is installed
+yumDir &lt;- system.file(package="yum");
+### Specify the path of some example files
+examplePath &lt;- file.path(yumDir, "extdata");
+### Show files (should be three .dct files)
+list.files(examplePath);
+### Load these files
+yum::load_yaml_dir(path=examplePath);
+</code></pre>
+
+
+</div>

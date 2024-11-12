@@ -1,0 +1,75 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>bestVars</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Computes the number of <em>best</em> X-variables</h2>
+
+<h3>Description</h3>
+
+<p>The number of <em>best</em> variables is estimated by finding an 
+apparent inflection point in the relationship between the 
+generalized root mean square distance (see <code>grmsd</code> and the number
+of <em>X</em>-variables. 
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">bestVars(obj,nbest=NULL)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>obj</code></td>
+<td>
+<p>an object create by <code>varSelection</code></p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>nbest</code></td>
+<td>
+<p>number of variables designated as the best;
+if null the number is estimated</p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>An character vector of variable names in decreasing order of importance.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Nicholas L. Crookston <a href="mailto:ncrookston.fs@gmail.com">ncrookston.fs@gmail.com</a> <br></p>
+
+
+<h3>See Also</h3>
+
+<p><code>varSelection</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">require(yaImpute)
+
+data(iris)
+set.seed(12345)
+
+x &lt;- iris[,1:2]  # Sepal.Length Sepal.Width 
+y &lt;- iris[,3:4]  # Petal.Length Petal.Width 
+
+vsel &lt;- varSelection(x=x,y=y,nboot=5,useParallel=FALSE)
+
+bestVars(vsel)
+
+</code></pre>
+
+
+</div>

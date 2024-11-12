@@ -1,0 +1,155 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>greprows</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Pattern matching on data frame rows</h2>
+
+<h3>Description</h3>
+
+<p><code>greprows()</code> searches for pattern matches within a data frames columns and
+returns the related rows or row indices.
+</p>
+<p><code>grepvrows()</code> is identical to <code>greprows()</code> except with the default
+<code>value = TRUE</code>.
+</p>
+<p><code>greplrows()</code> returns a logical vector (match or not for each row of dat).
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">greprows(
+  dat,
+  pattern,
+  cols = NULL,
+  value = FALSE,
+  ignore.case = FALSE,
+  perl = FALSE,
+  fixed = FALSE,
+  invert = FALSE
+)
+
+greplrows(
+  dat,
+  pattern,
+  cols = NULL,
+  ignore.case = FALSE,
+  perl = FALSE,
+  fixed = FALSE,
+  invert = FALSE
+)
+
+grepvrows(
+  dat,
+  pattern,
+  cols = NULL,
+  value = TRUE,
+  ignore.case = FALSE,
+  perl = FALSE,
+  fixed = FALSE,
+  invert = FALSE
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>dat</code></td>
+<td>
+<p>Data frame</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>pattern</code></td>
+<td>
+<p>character string containing a regular expression
+(or character string for <code>fixed = TRUE</code>) to be matched
+in the given character vector.  Coerced by
+<code>as.character</code> to a character string if possible.  If a
+character vector of length 2 or more is supplied, the first element
+is used with a warning.  Missing values are allowed except for
+<code>regexpr</code>, <code>gregexpr</code> and <code>regexec</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>cols</code></td>
+<td>
+<p><code style="white-space: pre;">⁠[character]⁠</code>
+</p>
+<p>Character vector of columns to search.
+</p>
+<p>If <code>NULL</code> (default) all character and factor columns will be searched.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>value</code></td>
+<td>
+<p><code style="white-space: pre;">⁠[logical]⁠</code>
+</p>
+<p>Should a data frame of rows be returned.
+</p>
+<p>If <code>FALSE</code> (defauly) row indices will be returned instead of the rows
+themselves.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>ignore.case</code></td>
+<td>
+<p>if <code>FALSE</code>, the pattern matching is <em>case
+sensitive</em> and if <code>TRUE</code>, case is ignored during matching.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>perl</code></td>
+<td>
+<p>logical.  Should Perl-compatible regexps be used?</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>fixed</code></td>
+<td>
+<p>logical.  If <code>TRUE</code>, <code>pattern</code> is a string to be
+matched as is.  Overrides all conflicting arguments.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>invert</code></td>
+<td>
+<p>logical.  If <code>TRUE</code> return indices or values for
+elements that do <em>not</em> match.</p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>A data frame of the corresponding rows or, if <code>value = FALSE</code>, the
+corresponding row numbers.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code>grep()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">
+dat &lt;- data.frame(
+    first = letters,
+    second = factor(rev(LETTERS)),
+    third = "Q"
+)
+greprows(dat, "A|b")
+greprows(dat, "A|b", ignore.case = TRUE)
+greprows(dat, "c", value = FALSE)
+
+</code></pre>
+
+
+</div>

@@ -1,0 +1,85 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>teamBowlingPerfDetails</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>get team bowling performance details</h2>
+
+<h3>Description</h3>
+
+<p>This function computes performance of bowlers of a team a
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">teamBowlingPerfDetails(match,theTeam,includeInfo=FALSE)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>match</code></td>
+<td>
+<p>The data frame of all match</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>theTeam</code></td>
+<td>
+<p>The team for which the performance is required</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>includeInfo</code></td>
+<td>
+<p>If true details like venie,winner, result etc are included</p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>dataframe
+The dataframe of bowling performance
+</p>
+
+
+<h3>Note</h3>
+
+<p>Maintainer: Tinniam V Ganesh <a href="mailto:tvganesh.85@gmail.com">tvganesh.85@gmail.com</a>
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Tinniam V Ganesh
+</p>
+
+
+<h3>References</h3>
+
+<p><a href="https://cricsheet.org/">https://cricsheet.org/</a><br><a href="https://gigadom.in/">https://gigadom.in/</a><br><a href="https://github.com/tvganesh/yorkrData/">https://github.com/tvganesh/yorkrData/</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code>teamBatsmenPartnershipAllOppnAllMatches</code><br><code>teamBatsmenPartnershipAllOppnAllMatchesPlot</code><br><code>teamBatsmenPartnershipOppnAllMatchesChart</code><br><code>teamBowlersVsBatsmenAllOppnAllMatchesRept</code><br><code>teamBowlersWicketRunsOppnAllMatches</code><br></p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">## Not run: 
+# Get all matches between India and Australia
+match &lt;- getMatchDetails("England","Pakistan","2006-09-05",dir="../temp")
+teamBowlingPerf(match,"India",includeInfo=TRUE)
+
+## End(Not run)
+
+</code></pre>
+
+
+</div>

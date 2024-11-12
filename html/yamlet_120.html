@@ -1,0 +1,76 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>io_yamlet</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Import and Export Yamlet</h2>
+
+<h3>Description</h3>
+
+<p>Imports and exports yamlet.
+Generic, with a read method <code>io_yamlet.character</code>
+for character and a write method <code>io_yamlet.data.frame</code>
+for data.frame. See also <code>io_yamlet.yamlet</code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">io_yamlet(x, ...)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>x</code></td>
+<td>
+<p>object</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+<p>passed arguments</p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>see methods
+</p>
+
+
+<h3>See Also</h3>
+
+<p>Other io: 
+<code>io_csv()</code>,
+<code>io_csv.character()</code>,
+<code>io_csv.data.frame()</code>,
+<code>io_res()</code>,
+<code>io_res.character()</code>,
+<code>io_res.decorated()</code>,
+<code>io_table()</code>,
+<code>io_table.character()</code>,
+<code>io_table.data.frame()</code>,
+<code>io_yamlet.character()</code>,
+<code>io_yamlet.data.frame()</code>,
+<code>io_yamlet.yamlet()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">file &lt;- system.file(package = 'yamlet', 'extdata','quinidine.yaml')
+x &lt;- io_yamlet(file)
+tmp &lt;- tempdir()
+out &lt;- file.path(tmp, 'tmp.yaml')
+
+# we can losslessly 'round-trip' x using to generic calls
+identical(x, io_yamlet(io_yamlet(x, out)))
+</code></pre>
+
+
+</div>

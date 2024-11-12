@@ -1,0 +1,66 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>is_clade</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Test if a lineage belongs to a clade</h2>
+
+<h3>Description</h3>
+
+<p>Test if a lineage belongs to a clade
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">is_clade(lineage, clade, rank = c(".", yatah::all_ranks))
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>lineage</code></td>
+<td>
+<p>string. Vector of lineages.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>clade</code></td>
+<td>
+<p>string.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>rank</code></td>
+<td>
+<p>string. One of <code>c("kingdom", "phylum", "class",
+"order", "family", "genus", "species", "strain")</code> with partial matching.</p>
+</td>
+</tr>
+</table>
+<h3>Details</h3>
+
+<p>If <code>rank</code> is set to <code>.</code>, clade is looked for
+among all ranks.
+</p>
+
+
+<h3>Value</h3>
+
+<p>logical.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">lineage1 &lt;- "k__Bacteria|p__Verrucomicrobia|c__Verrucomicrobiae"
+lineage2 &lt;- "k__Bacteria|p__Firmicutes|c__Clostridia"
+is_clade(c(lineage1, lineage2), clade = "Verrucomicrobia", rank = "phylum")
+is_clade(c(lineage1, lineage2), clade = "Clostridia")
+</code></pre>
+
+
+</div>

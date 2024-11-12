@@ -1,0 +1,72 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>yaiRFsummary</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Build Summary Data For Method RandomForest </h2>
+
+<h3>Description</h3>
+
+<p>When method <code>randomforest</code> is used to build a <code>yai</code>
+object, the <code>randomForest</code> package computes
+several statistics. This function summarizes some of them, including
+the variable importance scores computed by function <code>yaiVarImp</code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">yaiRFsummary(object, nTop=0)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>object</code></td>
+<td>
+<p>an object of class <code>yai</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>nTop</code></td>
+<td>
+<p>the <code>nTop</code> most important variables are plotted (returned).</p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>A list containing:
+</p>
+<table>
+<tr style="vertical-align: top;">
+<td><code>forestAttributes</code></td>
+<td>
+<p>a data frame reporting the error rates and other data
+from the randomForest(s).</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>scaledImportance</code></td>
+<td>
+<p>the data frame computed by <code>yaiVarImp</code>.</p>
+</td>
+</tr>
+</table>
+<h3>Author(s)</h3>
+
+<p>Nicholas L. Crookston <a href="mailto:ncrookston.fs@gmail.com">ncrookston.fs@gmail.com</a> <br>
+Andrew O. Finley <a href="mailto:finleya@msu.edu">finleya@msu.edu</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code>yai</code>, <code>yaiVarImp</code>
+</p>
+
+
+</div>

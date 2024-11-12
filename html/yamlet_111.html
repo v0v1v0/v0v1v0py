@@ -1,0 +1,85 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>io_csv</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Import and Export Documented Tables as CSV</h2>
+
+<h3>Description</h3>
+
+<p>Imports or exports documented tables as comma-separated variable.
+Generic, with methods that extend <code>as.csv</code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">io_csv(x, ...)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>x</code></td>
+<td>
+<p>object</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+<p>passed arguments</p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>See methods.
+</p>
+
+
+<h3>See Also</h3>
+
+<p>Other io: 
+<code>io_csv.character()</code>,
+<code>io_csv.data.frame()</code>,
+<code>io_res()</code>,
+<code>io_res.character()</code>,
+<code>io_res.decorated()</code>,
+<code>io_table()</code>,
+<code>io_table.character()</code>,
+<code>io_table.data.frame()</code>,
+<code>io_yamlet()</code>,
+<code>io_yamlet.character()</code>,
+<code>io_yamlet.data.frame()</code>,
+<code>io_yamlet.yamlet()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R"># generate some decorated data
+file &lt;- system.file(package = 'yamlet', 'extdata','quinidine.csv')
+x &lt;- decorate(file)
+
+# get a temporary filepath
+out &lt;- file.path(tempdir(), 'out.csv')
+
+# save file using io_csv (returns filepath)
+foo &lt;- io_csv(x, out)
+stopifnot(identical(out, foo))
+
+# read using this filepath
+y &lt;- io_csv(foo)
+
+# lossless round-trip (ignoring source attribute)
+attr(x, 'source') &lt;- NULL
+attr(y, 'source') &lt;- NULL
+stopifnot(identical(x, y))
+</code></pre>
+
+
+</div>

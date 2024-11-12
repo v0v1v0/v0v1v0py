@@ -1,0 +1,176 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>yamlet_options</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Display Global Yamlet Options</h2>
+
+<h3>Description</h3>
+
+<p>Displays global yamlet options: those options
+whose names begin with 'yamlet_'.
+</p>
+
+<ul>
+<li> <p><strong>yamlet_append_units_open</strong>: see <code>append_units.default</code>.
+Controls how labels are constructed for variables
+with 'units' attributes.  In brief, units are wrapped in parentheses,
+and appended to the label.
+</p>
+</li>
+<li> <p><strong>yamlet_append_units_close</strong>: see <code>append_units.default</code>.
+Controls how labels are constructed for variables
+with 'units' attributes.  In brief, units are wrapped in parentheses,
+and appended to the label.
+</p>
+</li>
+<li> <p><strong>yamlet_append_units_style</strong>: see <code>append_units.default</code>.
+Determines parsing as 'plotmath' or 'latex', or 'plain' for no parsing.
+</p>
+</li>
+<li> <p><strong>yamlet_append_units_target</strong>: see <code>append_units.default</code>.
+By default, append result is assigned to attribute 'label', but could be
+something else like 'title'.
+</p>
+</li>
+<li> <p><strong>yamlet_default_keys</strong>: see <code>as_yamlet.character</code>.
+The first two yaml attributes without specified names
+are assumed to be 'label' and 'guide'.
+</p>
+</li>
+<li> <p><strong>yamlet_persistence</strong>: see <code>decorate.list</code> and
+<code>as.integer.classified</code>. By default, persistence
+of column attributes is implemented by creating 'dvec' objects
+(decorated vectors) using <span class="pkg">vctrs</span> methodology.
+</p>
+</li>
+<li> <p><strong>yamlet_cell_value</strong>: see <code>as.data.frame.yamlet</code>.
+Controls how cells are calculated when converting yamlet
+(decorations) to a data.frame.
+</p>
+</li>
+<li> <p><strong>yamlet_import</strong>: see <code>decorate.character</code>.
+Controls how primary data is read from file (default: as.csv()).
+</p>
+</li>
+<li> <p><strong>yamlet_extension</strong>: see <code>decorate.character</code>.
+Controls what file extension is expected for yaml metadata
+(default: '.yaml')
+</p>
+</li>
+<li> <p><strong>yamlet_overwrite</strong>: see <code>decorate.list</code>.
+Controls whether existing decorations are overwritten.
+</p>
+</li>
+<li> <p><strong>yamlet_exclude_attr</strong>: see <code>decorations.data.frame</code>
+Controls what attributes are excluded from display.
+</p>
+</li>
+<li> <p><strong>yamlet_with_title</strong>: see <code>make_title.dvec</code> and <code>drop_title.dvec</code>.
+For objects with (implied) units attributes, titles are by default
+automatically created on resolve() and destroyed on desolve().
+Interacts with yamlet_append_units_*.
+</p>
+</li>
+<li> <p><strong>yamlet_infer_guide</strong>: see <code>explicit_guide.yamlet</code>.
+Identifies the function that will be used to reclassify 'guide' as something
+more explicit.
+</p>
+</li>
+<li> <p><strong>yamlet_explicit_guide_overwrite</strong>: see <code>explicit_guide.data.frame</code>
+and <code>explicit_guide.dvec</code>. In the latter case, controls
+whether existing attributes are overwritten.
+</p>
+</li>
+<li> <p><strong>yamlet_explicit_guide_simplify</strong>: <code>explicit_guide.data.frame</code>
+and <code>explicit_guide.dvec</code>. Ordinarily, the 'guide' attribute
+is removed if something more useful can be inferred.
+</p>
+</li>
+<li> <p><strong>yamlet_decorated_ggplot_search</strong>: see <code>print.decorated_ggplot</code>.
+The print method for decorated_ggplot populates axis labels by searching
+first for attributes named 'expression', 'title', and 'label'.  Customizable.
+</p>
+</li>
+<li> <p><strong>yamlet_decorated_ggplot_discrete</strong>: see <code>print.decorated_ggplot</code>.
+Discrete aesthetics to map from data decorations where available.
+</p>
+</li>
+<li> <p><strong>yamlet_decorated_ggplot_drop</strong>: see <code>print.decorated_ggplot</code>.
+Should unused factor levels be omitted from data-driven discrete scales?
+</p>
+</li>
+<li> <p><strong>yamlet_ggready_parse</strong>: see <code>ggready.data.frame</code>,
+<code>ggready.decorated</code>. Whether to parse axis labels.
+TRUE by default, but may be problematic if unintended.
+</p>
+</li>
+<li> <p><strong>yamlet_modify_reserved</strong>: see <code>modify.default</code>. A list of
+reserved labels that warn on reassignment.
+</p>
+</li>
+<li> <p><strong>yamlet_promote_reserved</strong>: see <code>promote.list</code>.
+Attributes to leave untouched when promoting singularities.
+</p>
+</li>
+<li> <p><strong>yamlet_promote</strong>: see <code>filter.decorated</code>.
+Whether to promote when filtering 'decorated'.
+</p>
+</li>
+<li> <p><strong>yamlet_as_units_preserve</strong>: <code>as_units.dvec</code>.
+What attributes to preserve when converting dvec to units.
+Just 'label' by default.
+Assign <code>options(yamlet_as_units_preserve = character(0))</code>
+to remove all.
+</p>
+</li>
+<li> <p><strong>yamlet_print_simplify</strong>: <code>print.yamlet</code>.
+Whether to collapse interactively-displayed decorations
+into a single line for lists that have no (nested) names
+and have the same length when unlisted. True by default.
+Can be misleading for lists with fine detail, but in
+most cases fine detail will likely have names.
+</p>
+</li>
+<li> <p><strong>yamlet_format</strong>: <code>scripted.default</code>.
+Choice of 'html' or 'latex', guessed if not supplied.
+</p>
+</li>
+<li> <p><strong>yamlet_warn_conflicted</strong>: <code>c.classified</code>.
+Whether to warn when codelists for combined classified
+factors have conflicting names (which will be dropped).
+</p>
+</li>
+<li> <p><strong>yamlet_expand_codelist</strong>: <code>explicit_guide.yamlet</code>.
+If TRUE (default) an empty list as a guide attribute
+is short-hand for <code>sort(unique(x))</code>.
+</p>
+</li>
+<li> <p><strong>yamlet_collapse_codelist</strong>: <code>implicit_guide.data.frame</code>.
+An integer (default: 10) giving the maximum number of (un-named)
+codelist elements to store explicitly. Else, if <code>sort(unique(x))</code>
+has exactly the same values as codelist, <code>implicit_guide</code> will
+substitute an empty list.
+</p>
+</li>
+</ul>
+<h3>Usage</h3>
+
+<pre><code class="language-R">yamlet_options()
+</code></pre>
+
+
+<h3>Value</h3>
+
+<p>list
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">yamlet_options()
+</code></pre>
+
+
+</div>

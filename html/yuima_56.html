@@ -1,0 +1,69 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>rconst</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>
+Fictitious rng for the constant random variable used to generate and describe
+Poisson jumps.
+</h2>
+
+<h3>Description</h3>
+
+<p>Fictitious rng for the constant random variable used to generate and describe
+Poisson jumps.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">rconst(n, k = 1)
+dconst(x, k = 1)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>n</code></td>
+<td>
+<p>number of replications</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>k</code></td>
+<td>
+<p>the size of the jump</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>x</code></td>
+<td>
+<p>the fictitious argument</p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>returns a numeric vector
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>The YUIMA Project Team</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">dconst(1,1)
+dconst(2,1)
+dconst(2,2)
+
+rconst(10,3)
+</code></pre>
+
+
+</div>

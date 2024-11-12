@@ -1,0 +1,139 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>yuima-class</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Class for stochastic differential equations</h2>
+
+<h3>Description</h3>
+
+<p>The <code>yuima</code> S4 class is a class of the <span class="pkg">yuima</span> package.
+</p>
+
+
+<h3>Details</h3>
+
+<p>The <code>yuima-class</code> object is the main object of the <span class="pkg">yuima</span> package.
+Some of the slots may be missing.
+</p>
+<p>The <code>data</code> slot contains the data, either empirical or simulated.
+</p>
+<p>The <code>model</code> contains the description of the
+(statistical) model which is used to generate the <code>data</code> via different
+simulation schemes, to draw inference from the <code>data</code> or both.
+</p>
+<p>The <code>sampling</code> slot contains information on how the <code>data</code> have been
+collected or how they should be generated.
+</p>
+<p>The slot <code>characteristic</code> contains information on
+<code>PLEASE FINISH THIS</code>.
+The slot <code>functional</code> contains information on
+<code>PLEASE FINISH THIS</code>.
+</p>
+
+
+<h3>Slots</h3>
+
+
+<dl>
+<dt>
+<code>data</code>:</dt>
+<dd>
+<p>an object of class <code>yuima.data-class</code></p>
+</dd>
+<dt>
+<code>model</code>:</dt>
+<dd>
+<p>an object of class <code>yuima.model-class</code></p>
+</dd>
+<dt>
+<code>sampling</code>:</dt>
+<dd>
+<p>an object of class
+<code>yuima.sampling-class</code></p>
+</dd>
+<dt>
+<code>characteristic</code>:</dt>
+<dd>
+<p>an object of class
+<code>yuima.characteristic-class</code></p>
+</dd>
+<dt>
+<code>functional</code>:</dt>
+<dd>
+<p>an object of class
+<code>yuima.functional-class</code></p>
+</dd>
+</dl>
+<h3>Methods</h3>
+
+
+<dl>
+<dt>new</dt>
+<dd>
+<p><code>signature(x = "yuima", data = "yuima.data",
+	  model = "yuima.model", sampling = "yuima.sampling",
+	  characteristic = "yuima.characteristic"</code>: the function makes a copy of
+the prototype object from the class definition of
+<code>yuima-class</code>, then calls the <code>initialize</code> method
+passing as arguments the newly created object and the remaining
+arguments.</p>
+</dd>
+<dt>initialize</dt>
+<dd>
+<p><code>signature(x = "yuima", data = "yuima.data",
+	  model = "yuima.model", sampling = "yuima.sampling",
+	  characteristic = "yuima.characteristic"</code>:  makes a copy of each argument
+in the corresponding slots of the object <code>x</code>.</p>
+</dd>
+<dt>get.data</dt>
+<dd>
+<p><code>signature(x = "yuima")</code>: returns the content of the
+slot <code>data</code>.</p>
+</dd>
+<dt>plot</dt>
+<dd>
+<p><code>signature(x = "yuima", ...)</code>: calls
+<code>plot</code> from the <code>zoo</code> package with argument
+<code>x@data@zoo.data</code>. Additional arguments <code>...</code> are passed
+as is to the <code>plot</code> function.</p>
+</dd>
+<dt>dim</dt>
+<dd>
+<p><code>signature(x = "yuima")</code>: the number of SDEs in the
+<code>yuima</code> object.</p>
+</dd>
+<dt>length</dt>
+<dd>
+<p><code>signature(x = "yuima")</code>: a vector of length of
+each SDE described in the <code>yuima</code> object.</p>
+</dd>
+<dt>cce</dt>
+<dd>
+<p><code>signature(x = "yuima")</code>: calculates the asyncronous
+covariance estimator on the data contained in <code>x@data@zoo.data</code>.
+For more details see <code>cce</code>.</p>
+</dd>
+<dt>llag</dt>
+<dd>
+<p><code>signature(x = "yuima")</code>: calculates the lead lag estimate
+r on the data contained in <code>x@data@zoo.data</code>.
+For more details see <code>llag</code>.</p>
+</dd>
+<dt>simulate</dt>
+<dd>
+<p>simulation method. For more information see
+<code>simulate</code>.</p>
+</dd>
+<dt>cbind</dt>
+<dd>
+<p><code>signature(x = "yuima")</code>: bind yuima.data object.</p>
+</dd>
+</dl>
+<h3>Author(s)</h3>
+
+<p>The YUIMA Project Team</p>
+
+
+</div>

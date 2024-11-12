@@ -1,0 +1,113 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>big.read.table</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Read in chunks from a large file with row/column filtering
+to obtain a reasonable-sized data.frame.</h2>
+
+<h3>Description</h3>
+
+<p>Read in chunks from a large file with row/column filtering
+to obtain a reasonable-sized data.frame.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">big.read.table(
+  file,
+  nrows = 1e+05,
+  sep = ",",
+  header = TRUE,
+  row.names = NULL,
+  cols = NULL,
+  rowfilter = NULL,
+  as.is = TRUE,
+  estimate = FALSE
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>file</code></td>
+<td>
+<p>the name of the file, obviously</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>nrows</code></td>
+<td>
+<p>the chunk size; consider reducing this if there are
+lots of columns</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>sep</code></td>
+<td>
+<p>by default we expect a CSV file</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>header</code></td>
+<td>
+<p>is <code>TRUE</code> by default</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>row.names</code></td>
+<td>
+<p>I really dislike row names</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>cols</code></td>
+<td>
+<p>for filtering column by name or number (supporting negative indexing)</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>rowfilter</code></td>
+<td>
+<p>a function that is assumed to take a chunk as a
+data frame and return a smaller data frame (with fewer rows), separately
+from the column filtering.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>as.is</code></td>
+<td>
+<p><code>TRUE</code> by default</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>estimate</code></td>
+<td>
+<p>do a preliminary estimation of the work to be done,
+and then have a chance to bail out if it looks like a bad idea</p>
+</td>
+</tr>
+</table>
+<h3>Note</h3>
+
+<p>This is very much 'in development' and could be buggy.  I put it here
+as I used some example in one of my courses, but then I needed to update
+the package to keep CRAN happy.  So here it is.  Buyer Beware.  - Jay
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">data(CO2)
+write.csv(CO2, "CO2.csv", row.names=FALSE)
+x &lt;- big.read.table("CO2.csv", nrows=10)
+unlink("CO2.csv")
+head(x)
+</code></pre>
+
+
+</div>

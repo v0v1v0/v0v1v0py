@@ -1,0 +1,65 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>write_json_str</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Convert R object to JSON string</h2>
+
+<h3>Description</h3>
+
+<p>Convert R object to JSON string
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">write_json_str(x, opts = list(), ...)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>x</code></td>
+<td>
+<p>the object to be encoded</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>opts</code></td>
+<td>
+<p>Named list of serialization options. Usually created by <code>opts_write_json()</code></p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+<p>Other named options can be used to override any options in <code>opts</code>.
+The valid named options are identical to arguments to <code>opts_write_json()</code></p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>Single string containing JSON
+</p>
+
+
+<h3>See Also</h3>
+
+<p>Other JSON Serializer: 
+<code>write_json_file()</code>,
+<code>write_ndjson_file()</code>,
+<code>write_ndjson_str()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">write_json_str(head(iris, 3), pretty = TRUE)
+</code></pre>
+
+
+</div>

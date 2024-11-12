@@ -1,0 +1,115 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>yml_toc</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Specify Table of Contents options</h2>
+
+<h3>Description</h3>
+
+<p>It's generally better to specify Table of Contents in the output function you
+are using so you have a clearer idea of your options (e.g. <code>html_document(toc = TRUE, toc_float = TRUE)</code>). However, you can also generally specify at the
+top level of YAML.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">yml_toc(
+  .yml,
+  toc = yml_blank(),
+  toc_depth = yml_blank(),
+  toc_title = yml_blank(),
+  ...
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>.yml</code></td>
+<td>
+<p>a <code>yml</code> object created by <code>yml()</code>, <code>as_yml()</code>, or returned by
+a <code style="white-space: pre;">⁠yml_*()⁠</code> function</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>toc</code></td>
+<td>
+<p>Logical. Use a Table of Contents?</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>toc_depth</code></td>
+<td>
+<p>An integer. The depth of headers to use in the TOC. Note
+that the actual YAML field is <code>toc-depth</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>toc_title</code></td>
+<td>
+<p>The title of the TOC. Note that the actual YAML field is
+<code>toc-title</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+<p>additional named R objects, such as characters or lists, to
+transform into YAML</p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>a <code>yml</code> object
+</p>
+
+
+<h3>See Also</h3>
+
+<p>Other yml: 
+<code>asis_yaml_output()</code>,
+<code>bib2yml()</code>,
+<code>draw_yml_tree()</code>,
+<code>has_field()</code>,
+<code>read_json()</code>,
+<code>use_yml_defaults()</code>,
+<code>use_yml_file()</code>,
+<code>use_yml()</code>,
+<code>yml_author()</code>,
+<code>yml_blogdown_opts()</code>,
+<code>yml_bookdown_opts()</code>,
+<code>yml_citations()</code>,
+<code>yml_clean()</code>,
+<code>yml_distill_opts()</code>,
+<code>yml_latex_opts()</code>,
+<code>yml_output()</code>,
+<code>yml_pagedown_opts()</code>,
+<code>yml_params()</code>,
+<code>yml_pkgdown()</code>,
+<code>yml_reference()</code>,
+<code>yml_replace()</code>,
+<code>yml_resource_files()</code>,
+<code>yml_rsconnect_email()</code>,
+<code>yml_rticles_opts()</code>,
+<code>yml_runtime()</code>,
+<code>yml_site_opts()</code>,
+<code>yml_vignette()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">
+yml() %&gt;%
+ yml_toc(toc = TRUE, toc_depth = 1, toc_title = "Article Outline")
+
+</code></pre>
+
+
+</div>

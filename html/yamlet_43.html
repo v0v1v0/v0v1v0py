@@ -1,0 +1,67 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>as_yamlet.data.frame</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Coerce Data Frame to Yamlet</h2>
+
+<h3>Description</h3>
+
+<p>Coerces data.frame to yamlet by calling <code>decorations</code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">## S3 method for class 'data.frame'
+as_yamlet(x, ...)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>x</code></td>
+<td>
+<p>data.frame</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+<p>passed to <code>decorations</code></p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>yamlet
+</p>
+
+
+<h3>See Also</h3>
+
+<p>Other yamlet: 
+<code>[.yamlet()</code>,
+<code>as.character.yamlet()</code>,
+<code>as_yamlet()</code>,
+<code>as_yamlet.character()</code>,
+<code>as_yamlet.list()</code>,
+<code>as_yamlet.yam()</code>,
+<code>as_yamlet.yamlet()</code>,
+<code>print.yamlet()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">library(csv)
+file &lt;- system.file(package = 'yamlet', 'extdata','quinidine.csv')
+x &lt;- decorate(as.csv(file))
+as_yamlet(x)
+</code></pre>
+
+
+</div>

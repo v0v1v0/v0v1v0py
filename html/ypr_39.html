@@ -1,0 +1,60 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>ypr_age_at_length</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Age At Length</h2>
+
+<h3>Description</h3>
+
+<p>Age At Length
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">ypr_age_at_length(population, length)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>population</code></td>
+<td>
+<p>An object of class <code>ypr_population()</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>length</code></td>
+<td>
+<p>A numeric vector of the length (cm).</p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>A double vector of the lengths.
+</p>
+
+
+<h3>See Also</h3>
+
+<p>Other calculate: 
+<code>ypr_exploitation()</code>,
+<code>ypr_length_at_age()</code>,
+<code>ypr_optimize()</code>,
+<code>ypr_yields()</code>,
+<code>ypr_yield()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">ypr_age_at_length(ypr_population(), seq(0, 100, by = 10))
+</code></pre>
+
+
+</div>

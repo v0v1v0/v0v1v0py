@@ -1,0 +1,350 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>cca</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2> Canonical Correlation Analysis </h2>
+
+<h3>Description</h3>
+
+<p>Performs a canonical correlation (and canonical redundancy) analysis on two sets of variables.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">cca(x, y, xlab = colnames(x), ylab = colnames(y), xcenter = TRUE, 
+    ycenter = TRUE, xscale = FALSE, yscale = FALSE,
+    standardize.scores = TRUE, use = "complete.obs", na.rm = TRUE,
+    use.eigs = FALSE, max.dim = Inf, reg.param = NULL)
+
+## S3 method for class 'cca'
+plot(x, ...)
+
+## S3 method for class 'cca'
+print(x, ...)
+
+## S3 method for class 'cca'
+summary(object, ...)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>x</code></td>
+<td>
+<p> for <code>cca</code>, a single vector or a matrix whose columns contain the <code>x</code> variables.  Otherwise, a <code>cca</code> object.  </p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>y</code></td>
+<td>
+<p> a single vector or a matrix whose columns contain the <code>x</code> variables. </p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>xlab</code></td>
+<td>
+<p> an optional vector of <code>x</code> labels. </p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>ylab</code></td>
+<td>
+<p> an optional vector of <code>y</code> labels. </p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>xcenter</code></td>
+<td>
+<p> boolean; demean the <code>x</code> variables? </p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>ycenter</code></td>
+<td>
+<p> boolean; demean the <code>y</code> variables? </p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>xscale</code></td>
+<td>
+<p> boolean; scale the <code>x</code> variables to unit variance? </p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>yscale</code></td>
+<td>
+<p> boolean; scale the <code>y</code> variables to unit variance? </p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>standardize.scores</code></td>
+<td>
+<p> boolean; rescale scores (and coefficients) to produce scores of unit variance?</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>use</code></td>
+<td>
+ <p><code>use</code> argument to be passed to <code>var</code> when creating covariance matrices. </p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>na.rm</code></td>
+<td>
+<p> boolean; remove missing values during redundancy analysis? </p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>use.eigs</code></td>
+<td>
+<p>boolean; use <code>eigs</code> instead of <code>eigen</code> for diagonalization?</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>max.dim</code></td>
+<td>
+<p> maximum number of canonical variates to extract (only relevant if less than the minimum of the number of columns of <code>x</code> and <code>y</code>)</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>reg.param</code></td>
+<td>
+<p> an optional L2 regularization parameter (or vector thereof). </p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>object</code></td>
+<td>
+<p> a <code>cca</code> object.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+<p> additional arguments.</p>
+</td>
+</tr>
+</table>
+<h3>Details</h3>
+
+<p>Canonical correlation analysis (CCA) is a form of linear subspace analysis, and involves the projection of two sets of vectors (here, the variable sets <code>x</code> and <code>y</code>) onto a joint subspace.  The goal of (CCA) is to find a squence of linear transformations of each variable set, such that the correlations between the transformed variables are maximized (under the proviso that each transformed variable must be orthogonal to those preceding it).  These transformed variables – known as “canonical variates” (CVs) – can be thought of as expressing the common variation across the data sets, in a manner analogous to the role of principal components in within-set analysis (see, e.g., <code>princomp</code>).  Since the rank of the joint subspace is equal to the minimum of the ranks of the two spaces spanned by the initial data vectors, it follows that the number of CVs will usually be equal to the minimum of the number of <code>x</code> and <code>y</code> variables (perhaps fewer, if the sets are not of full rank or if <code>max.dim</code> is used to constrain the number of variables extracted).
+</p>
+<p>Formally, we may describe the CCA solution as follows.  Given data matrices <code class="reqn">X</code> and <code class="reqn">Y</code>, let <code class="reqn">\Sigma_{XX}</code>, <code class="reqn">\Sigma_{XY}</code>, <code class="reqn">\Sigma_{YX}</code> and <code class="reqn">\Sigma_{YY}</code> be the respective sample covariance matrices for <code class="reqn">X</code> versus itself, <code class="reqn">X</code> versus <code class="reqn">Y</code>, <code class="reqn">Y</code> versus <code class="reqn">X</code>, and <code class="reqn">Y</code> versus itself.  Now, for some <code class="reqn">i</code> less than or equal to the minimum rank of <code class="reqn">X</code> and <code class="reqn">Y</code>, let <code class="reqn">u_i</code> be the <code class="reqn">i</code>th eigenvector of <code class="reqn">\Sigma_{XX}^{-1} \Sigma_{XY} \Sigma_{YY}^{-1} \Sigma_{YX}</code>, with corresponding eigenvalue <code class="reqn">\lambda_i</code>.  Then the vector <code class="reqn">u_i</code> contains the coefficients projecting <code class="reqn">X</code> onto the <code class="reqn">i
+</code>th canonical variate; the corresponding scores are given by <code class="reqn">X u_i</code>.  Similarly, let <code class="reqn">v_i</code> be the <code class="reqn">i</code>th eigenvector of <code class="reqn">\Sigma_{YY}^{-1} \Sigma_{YX} \Sigma_{XX}^{-1} \Sigma_{XY}</code>.  Then <code class="reqn">v_i</code> contains the coefficients projecting <code class="reqn">Y</code> onto the <code class="reqn">i</code>th canonical variate (with scores <code class="reqn">Y v_i</code>).  The eigenvalue in the second case will be the same as the first, and corresponds to the square of the <code class="reqn">i</code>th canonical correlation for the CCA solution – that is, the correlation between the <code class="reqn">X</code> and <code class="reqn">Y</code> scores on the <code class="reqn">i</code>th canonical variate.  Since the canonical correlation structure is unaffected by rescaling of the canonical variate scores, it is common to adjust the coefficients <code class="reqn">u_i</code> and <code class="reqn">v_i</code> to ensure that the resulting scores have unit variance; this option is controlled here via the <code>standardize.scores</code> argument.
+</p>
+<p>CCA output can be fairly complex.  Quantities of particular interest include the correlations between the original variables in each set and their respective canonical variates (<em>structural correlations</em> or <em>loadings</em>), the coefficients which take the original variables into the CVs, and of course the correlations between the CV scores in one set and their corresponding scores in the opposite set (the <em>canonical correlations</em>).  The canonical correlations provide a basic measure of concordance between the transformed variables, but are surprisingly uninformative by themselves; canonical redundancies (see below) are of more typical interest.  Interpretation of CVs is usually performed by inspection of loadings, which reveal the extent to which each CV is associated with particular variables in each set.  The squared loadings, in particular, convey the fraction of variance in each original variable which is accounted for by a given CV (though not necessarily by the variables in the opposite set!).
+</p>
+<p>A common interest in the context of CCA is the extent to which the variance of one set of variables can be accounted for by the other (in the usual least squares sense).  While it is tempting to interpret the squared canonical correlations in this manner, this is incorrect: the squared canonical correlations convey the fraction of variance in the CV scores from one variable set which can be accounted for by scores from the other, but say nothing about the extent to which the CVs themselves account for variation in the original variables.  The variance in one set explainable by the other is instead expressed via the so-called <em>redundancy index</em>, which combines the squared canonical correlations with the <em>canonical adequacy</em> (within-set variance accounted for) for each CV.  The use of the redundancy index in this way is sometimes called “(canonical) redundancy analysis”, although it is simply an alternate means of presenting CCA results.
+</p>
+<p>As the name of the technique implies, CCA is a symmetric procedure: the designation of one variable set as <code>x</code> and another as <code>y</code> is arbitrary, and may be reversed without incident.  (Note, however, that the coefficients and redundancies are set-specific, and will also be reversed in this case.)  CCA with one <code>x</code> or <code>y</code> variable is equivalent to OLS regression (with the squared canonical correlation corresponding to the <code class="reqn">R^2</code>), and CCA on one variable pair yields the familiar Pearson product-moment correlation.  Centering and scaling data prior to analysis is equivalent to working with correlation matrices in the underlying analysis (with interpretation/effects analogous to the principal components case).
+</p>
+<p>Finding the CCA solution can pose numerical challenges, ironically more so when the degree of potential dimension reduction is highest.  In recalcitrant cases, it can be useful to apply regularization to the solution for purposes of stabilization.  The optional <code>reg.param</code> can be used for this purpose: if given as a single numeric value, it adds an L2 (aka “ridge”) penalty to each variable set with the corresponding multiplier value.  <code>reg.param</code> can also be given as a vector of length 2, in which case the first value is applied to the <code>x</code> variables and the second is applied to the <code>y</code> variables.  Relatedly, in high-dimension/low-rank problems it can be useful to extract a much smaller number of canonical variates than the nominal maximum.  This can be controlled by <code>max.dim</code>, though the default diagonalization method computes the entire eigendecomposition prior to canonical variate extraction.  In such cases, it can be helpful to employ the alternative diagonalization method controlled by the <code>use.eigs</code> argument to compute only those dimensions that are actually required.  Experience suggests that this method (<code>eigs</code>) is less stable than the base <code>eigen</code>, but it can be much faster in high-dimensional settings.
+</p>
+
+
+<h3>Value</h3>
+
+<p>An object of class <code>cca</code>, whose elements are as follows:
+</p>
+<table>
+<tr style="vertical-align: top;">
+<td><code>corr </code></td>
+<td>
+<p>Canonical correlations.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>corrsq </code></td>
+<td>
+<p>Squared canonical correlations (shared variance across canonical variates).</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>xcoef </code></td>
+<td>
+<p>Coefficients for the <code>x</code> variables on each canonical variate.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>ycoef </code></td>
+<td>
+<p>Coefficients for the <code>y</code> variables on each canonical variate.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>canvarx </code></td>
+<td>
+<p>Canonical variate scores for the <code>x</code> variables.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>canvary </code></td>
+<td>
+<p>Canonical variate scores for the <code>y</code> variables.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>xstructcorr </code></td>
+<td>
+<p>Structural correlations (loadings) for <code>x</code> variables on each canonical variate.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>ystructcorr </code></td>
+<td>
+<p>Structural correlations (loadings) for <code>y</code> variables on each canonical variate.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>xstructcorrsq </code></td>
+<td>
+<p>Squared structural correlations for <code>x</code> variables on each canonical variate (i.e., fraction of <code>x</code> variance associated with each variate).</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>ystructcorrsq </code></td>
+<td>
+<p>Squared structural correlations for <code>y</code> variables on each canonical variate (i.e., fraction of <code>y</code> variance associated with each variate).</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>xcrosscorr </code></td>
+<td>
+<p>Canonical cross-loadings for <code>x</code> variables on the <code>y</code> scores for each canonical variate.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>ycrosscorr </code></td>
+<td>
+<p>Canonical cross-loadings for <code>y</code> variables on the <code>y</code> scores for each canonical variate.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>xcrosscorrsq </code></td>
+<td>
+<p>Squared canonical cross-loadings for <code>x</code> variables on the <code>y</code> scores for each canonical variate (i.e., the fraction of variance in each <code>x</code> variable attributable to <code>y</code> through the respective CVs).</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>ycrosscorrsq </code></td>
+<td>
+<p>Squared canonical cross-loadings for <code>y</code> variables on the <code>x</code> scores for each canonical variate (i.e., the fraction of variance in each <code>y</code> variable attributable to <code>x</code> through the respective CVs).</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>xcancom </code></td>
+<td>
+<p>Canonical communalities for <code>x</code> variables (for each <code>x</code> variable, fraction associated with all canonical variates).</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>ycancom </code></td>
+<td>
+<p>Canonical communalities for <code>y</code> variables (for each <code>y</code> variable, fraction associated with all canonical variates).</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>xcanvad </code></td>
+<td>
+<p>Canonical variate adequacies for <code>x</code> variables (for each canonical variate, fraction of total <code>x</code> variance for which it is associated).</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>ycanvad </code></td>
+<td>
+<p>Canonical variate adequacies for <code>y</code> variables (for each canonical variate, fraction of total <code>y</code> variance for which it is associated).</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>xvrd </code></td>
+<td>
+<p>Canonical redundancies for <code>x</code> variables (i.e., total fraction of <code>x</code> variance accounted for by <code>y</code> variables, through each canonical variate).</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>yvrd </code></td>
+<td>
+<p>Canonical redundancies for <code>y</code> variables (i.e., total fraction of <code>y</code> variance accounted for by <code>x</code> variables, through each canonical variate).</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>xrd </code></td>
+<td>
+<p>Total canonical redundancy for <code>x</code> variables (i.e., total fraction of <code>x</code> variance accounted for by <code>y</code> variables, through all canonical variates).</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>yrd </code></td>
+<td>
+<p>Total canonical redundancy for <code>y</code> variables (i.e., total fraction of <code>y</code> variance accounted for by <code>x</code> variables, through all canonical variates).</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>chisq </code></td>
+<td>
+<p>Sequential <code class="reqn">\chi^2</code> values for tests of each respective canonical variate using Bartlett's omnibus statistic.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>df </code></td>
+<td>
+<p>Degrees of freedom for Bartlett's test.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>xlab </code></td>
+<td>
+<p>Variable names for <code>x</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>ylab </code></td>
+<td>
+<p>Variable names for <code>y</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>reg.param </code></td>
+<td>
+<p>Regularization parameter (if any).</p>
+</td>
+</tr>
+</table>
+<h3>Author(s)</h3>
+
+<p> Carter T. Butts &lt;buttsc@uci.edu&gt; </p>
+
+
+<h3>References</h3>
+
+<p> Mardia, K. V.; Kent, J. T.; and Bibby, J. M.  1979.  <em>Multivariate Analysis</em>.  London: Academic Press. </p>
+
+
+<h3>See Also</h3>
+
+ <p><code>F.test.cca</code>, <code>cancor</code>, <code>princomp</code> </p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">#Example parallels the R builtin cancor example
+data(LifeCycleSavings)
+pop &lt;- LifeCycleSavings[, 2:3]
+oec &lt;- LifeCycleSavings[, -(2:3)]
+cca.fit &lt;- cca(pop, oec)
+cca.regfit &lt;- cca(pop, oec, reg.param=1) # Some minimal regularization
+
+#View the results
+cca.fit
+summary(cca.fit)
+plot(cca.fit)
+cca.regfit       #Not a vast difference, usually....
+</code></pre>
+
+
+</div>

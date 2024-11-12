@@ -1,0 +1,200 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>ntv</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>
+Volatility Estimation and Jump Test Using Nearest Neighbor Truncation
+
+</h2>
+
+<h3>Description</h3>
+
+
+<p><code>minrv</code> and <code>medrv</code> respectively compute the MinRV and MedRV estimators introduced in Andersen, Dobrev and Schaumburg (2012).
+</p>
+<p><code>minrv.test</code> and <code>medrv.test</code> respectively perform Haussman type tests for the null hypothesis that the realized path has no jump using the MinRV and MedRV estimators. 
+See Section 4.4 in Andersen, Dobrev and Schaumburg (2014) for a concise discussion. 
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">minrv(yuima)
+medrv(yuima)
+
+minrv.test(yuima, type = "ratio", adj = TRUE)
+medrv.test(yuima, type = "ratio", adj = TRUE)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>yuima</code></td>
+<td>
+
+
+<p>an object of  <code>yuima-class</code> or <code>yuima.data-class</code>.
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>type</code></td>
+<td>
+
+
+<p>type of the test statistic to use. <code>ratio</code> is default.
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>adj</code></td>
+<td>
+
+
+<p>logical; if <code>TRUE</code>, the maximum adjustment suggested in Barndorff-Nielsen and Shephard (2004) is applied to the test statistic when <code>type</code> is equal to either “<code>log</code>” or “<code>ratio</code>”. See also Section 2.5 in Dumitru and Urga (2012).
+</p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+
+
+
+
+
+<p><code>minrv</code> and <code>medrv</code> return a numeric vector with the same length as <code>dim(yuima)</code>. Each component of the vector is a volatility estimate for the corresponding component of <code>yuima</code>.
+</p>
+<p><code>minrv.test</code> and <code>medrv.test</code> return a list with the same length as <code>dim(yuima)</code>. Each component of the list has class “<code>htest</code>” and contains the following components:
+</p>
+<table>
+<tr style="vertical-align: top;">
+<td><code>statistic</code></td>
+<td>
+<p>the value of the test statistic of the corresponding component of <code>yuima</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>p.value</code></td>
+<td>
+<p>an approximate p-value for the test of the corresponding component.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>method</code></td>
+<td>
+<p>the character string “<code>Andersen-Dobrev-Schaumburg jump test based on xxx</code>”, where xxx is either MinRV or MedRV.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>data.name</code></td>
+<td>
+<p>the character string “<code>xi</code>”, where <code>i</code> is the number of the component.</p>
+</td>
+</tr>
+</table>
+<h3>Author(s)</h3>
+
+
+<p>Yuta Koike with YUIMA Project Team
+</p>
+
+
+<h3>References</h3>
+
+
+<p>Andersen, T. G., Dobrev D. and Schaumburg, E. (2012)
+Jump-robust volatility estimation using nearest neighbor truncation.
+<em>Journal of Econometrics</em>, <b>169</b>, 75–93.
+</p>
+<p>Andersen, T. G., Dobrev D. and Schaumburg, E. (2014)
+A robust neighborhood truncation approach to estimation of integrated quarticity.
+<em>Econometric Theory</em>, <b>30</b>, 3–59.
+</p>
+<p>Dumitru, A.-M. and Urga, G. (2012)
+Identifying jumps in financial assets: A comparison between nonparametric jump tests.
+<em>Journal of Business and Economic Statistics</em>, <b>30</b>, 242–255.
+</p>
+<p>Maneesoonthorn, W., Martin, G. M. and Forbes, C. S. (2020)
+High-frequency jump tests: Which test should we use?
+<em>Journal of Econometrics</em>, <b>219</b>, 478–487.
+</p>
+<p>Theodosiou, M. and Zikes, F. (2011)
+A comprehensive comparison of alternative tests for jumps in asset prices. 
+Central Bank of Cyprus Working Paper 2011-2.
+</p>
+
+
+<h3>See Also</h3>
+
+
+<p><code>mpv</code>, <code>cce</code>, <code>bns.test</code>, <code>lm.jumptest</code>, <code>pz.test</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">## Not run: 
+set.seed(123)
+
+# One-dimensional case
+## Model: dXt=t*dWt+t*dzt, 
+## where zt is a compound Poisson process with intensity 5
+## and jump sizes distribution N(0,1).
+
+model &lt;- setModel(drift=0,diffusion="t",jump.coeff="t",measure.type="CP",
+                  measure=list(intensity=5,df=list("dnorm(z,0,1)")),
+                  time.variable="t")
+
+yuima.samp &lt;- setSampling(Terminal = 1, n = 390) 
+yuima &lt;- setYuima(model = model, sampling = yuima.samp) 
+yuima &lt;- simulate(yuima)
+plot(yuima) # The path evidently has some jumps
+
+## Volatility estimation
+minrv(yuima) # minRV (true value = 1/3)
+medrv(yuima) # medRV (true value = 1/3)
+
+## Jump test
+minrv.test(yuima, type = "standard")
+minrv.test(yuima,type="log")
+minrv.test(yuima,type="ratio")
+
+medrv.test(yuima, type = "standard")
+medrv.test(yuima,type="log")
+medrv.test(yuima,type="ratio")
+
+
+# Multi-dimensional case
+## Model: Bivariate standard BM + CP
+## Only the first component has jumps
+
+mod &lt;- setModel(drift = c(0, 0), diffusion = diag(2),
+                jump.coeff = diag(c(1, 0)),
+                measure = list(intensity = 5, 
+                               df = "dmvnorm(z,c(0,0),diag(2))"),
+                jump.variable = c("z"), measure.type=c("CP"),
+                solve.variable=c("x1","x2"))
+
+samp &lt;- setSampling(Terminal = 1, n = 390) 
+yuima &lt;- setYuima(model = model, sampling = yuima.samp)
+yuima &lt;- simulate(object = mod, sampling = samp)
+plot(yuima)
+
+## Volatility estimation
+minrv(yuima) # minRV (true value = c(1, 1))
+medrv(yuima) # medRV (true value = c(1, 1))
+
+## Jump test
+minrv.test(yuima) # test is performed component-wise
+medrv.test(yuima) # test is performed component-wise
+
+## End(Not run)
+</code></pre>
+
+
+</div>

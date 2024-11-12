@@ -1,0 +1,52 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>pt.dalpha</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Dual-alpha</h2>
+
+<h3>Description</h3>
+
+<p>Dual-alpha method is to divide market alpha into downside beta and upside alpha. The principle
+behind is that upside and downside alphas are not the same.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">pt.dalpha(ar,mr,rf)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>ar</code></td>
+<td>
+<p>:a vector of a risk asset return</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>mr</code></td>
+<td>
+<p>:a vector of market return</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>rf</code></td>
+<td>
+<p>:risk free rate</p>
+</td>
+</tr>
+</table>
+<h3>Examples</h3>
+
+<pre><code class="language-R">artn &lt;- runif(24,0,1) # generate random number to simulate returns
+mrtn &lt;- runif(24,-1,1)
+pt.dalpha(artn,mrtn,0.024)
+</code></pre>
+
+
+</div>

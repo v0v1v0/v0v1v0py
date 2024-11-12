@@ -1,0 +1,92 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>getTeamBowlingDetails</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Get the team bowling details</h2>
+
+<h3>Description</h3>
+
+<p>This function  gets the bowling details of a team in all matchs against all
+oppositions. This gets all the details of the bowlers for e.g deliveries, maidens, runs,
+wickets, venue, date, winner ec
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">getTeamBowlingDetails(team,dir=".",save=FALSE, odir=".")
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>team</code></td>
+<td>
+<p>The team for which detailed bowling info is required</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>dir</code></td>
+<td>
+<p>The source directory of RData files obtained with  convertAllYaml2RDataframes()</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>save</code></td>
+<td>
+<p>Whether the data frame needs to be saved as RData or not. It is recommended to set save=TRUE
+as the data can be used for a lot of analyses of batsmen</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>odir</code></td>
+<td>
+<p>The output directory</p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>bowlingDetails
+The dataframe with the bowling details
+</p>
+
+
+<h3>Note</h3>
+
+<p>Maintainer: Tinniam V Ganesh <a href="mailto:tvganesh.85@gmail.com">tvganesh.85@gmail.com</a>
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Tinniam V Ganesh
+</p>
+
+
+<h3>References</h3>
+
+<p><a href="https://cricsheet.org/">https://cricsheet.org/</a><br><a href="https://gigadom.in/">https://gigadom.in/</a><br><a href="https://github.com/tvganesh/yorkrData/">https://github.com/tvganesh/yorkrData/</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code>getBatsmanDetails</code><br><code>getBowlerWicketDetails</code><br><code>batsmanDismissals</code><br><code>getTeamBattingDetails</code><br></p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">## Not run: 
+a &lt;- getTeamBowlingDetails("India",dir="../data",save=TRUE,odir=".")
+
+## End(Not run)
+
+</code></pre>
+
+
+</div>

@@ -1,0 +1,54 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td> virtual</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>virtual Data Set for the example</h2>
+
+<h3>Description</h3>
+
+<p>This virtual data set is created to show how to use the package.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">data(virtual)</code></pre>
+
+
+<h3>Format</h3>
+
+<p>The data has the following information:
+</p>
+
+<dl>
+<dt><code>time</code></dt>
+<dd>
+<p>the numeric matrix of event times for all interim looks up to the current look.</p>
+</dd>
+<dt><code>event</code></dt>
+<dd>
+<p>the numeric matrix of right-censoring indicators corresponding to <code>time</code> (event = 1, censored = 0).</p>
+</dd>
+<dt><code>group</code></dt>
+<dd>
+<p>the numeric vector of the group indicator (treatment = 1, control = 0).</p>
+</dd>
+</dl>
+<h3>See Also</h3>
+
+<p><code>ypinterim</code></p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">library(YPInterimTesting)
+data(virtual)
+time &lt;- virtual$time
+colnames(time) # Check the order of the column names.
+head(time)
+</code></pre>
+
+
+</div>

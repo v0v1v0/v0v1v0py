@@ -1,0 +1,293 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>precision</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Precision</h2>
+
+<h3>Description</h3>
+
+<p>These functions calculate the <code>precision()</code> of a measurement system for
+finding relevant documents compared to reference results
+(the truth regarding relevance). Highly related functions are <code>recall()</code>
+and <code>f_meas()</code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">precision(data, ...)
+
+## S3 method for class 'data.frame'
+precision(
+  data,
+  truth,
+  estimate,
+  estimator = NULL,
+  na_rm = TRUE,
+  case_weights = NULL,
+  event_level = yardstick_event_level(),
+  ...
+)
+
+precision_vec(
+  truth,
+  estimate,
+  estimator = NULL,
+  na_rm = TRUE,
+  case_weights = NULL,
+  event_level = yardstick_event_level(),
+  ...
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>data</code></td>
+<td>
+<p>Either a <code>data.frame</code> containing the columns specified by the
+<code>truth</code> and <code>estimate</code> arguments, or a <code>table</code>/<code>matrix</code> where the true
+class results should be in the columns of the table.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+<p>Not currently used.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>truth</code></td>
+<td>
+<p>The column identifier for the true class results
+(that is a <code>factor</code>). This should be an unquoted column name although
+this argument is passed by expression and supports
+quasiquotation (you can unquote column
+names). For <code style="white-space: pre;">⁠_vec()⁠</code> functions, a <code>factor</code> vector.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>estimate</code></td>
+<td>
+<p>The column identifier for the predicted class
+results (that is also <code>factor</code>). As with <code>truth</code> this can be
+specified different ways but the primary method is to use an
+unquoted variable name. For <code style="white-space: pre;">⁠_vec()⁠</code> functions, a <code>factor</code> vector.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>estimator</code></td>
+<td>
+<p>One of: <code>"binary"</code>, <code>"macro"</code>, <code>"macro_weighted"</code>,
+or <code>"micro"</code> to specify the type of averaging to be done. <code>"binary"</code> is
+only relevant for the two class case. The other three are general methods
+for calculating multiclass metrics. The default will automatically choose
+<code>"binary"</code> or <code>"macro"</code> based on <code>estimate</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>na_rm</code></td>
+<td>
+<p>A <code>logical</code> value indicating whether <code>NA</code>
+values should be stripped before the computation proceeds.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>case_weights</code></td>
+<td>
+<p>The optional column identifier for case weights.
+This should be an unquoted column name that evaluates to a numeric column
+in <code>data</code>. For <code style="white-space: pre;">⁠_vec()⁠</code> functions, a numeric vector,
+<code>hardhat::importance_weights()</code>, or <code>hardhat::frequency_weights()</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>event_level</code></td>
+<td>
+<p>A single string. Either <code>"first"</code> or <code>"second"</code> to specify
+which level of <code>truth</code> to consider as the "event". This argument is only
+applicable when <code>estimator = "binary"</code>. The default uses an internal helper
+that defaults to <code>"first"</code>.</p>
+</td>
+</tr>
+</table>
+<h3>Details</h3>
+
+<p>The precision is the percentage of predicted truly relevant results
+of the total number of predicted relevant results and
+characterizes the "purity in retrieval performance" (Buckland
+and Gey, 1994).
+</p>
+<p>When the denominator of the calculation is <code>0</code>, precision is undefined. This
+happens when both <code style="white-space: pre;">⁠# true_positive = 0⁠</code> and <code style="white-space: pre;">⁠# false_positive = 0⁠</code> are true,
+which mean that there were no predicted events. When computing binary
+precision, a <code>NA</code> value will be returned with a warning. When computing
+multiclass precision, the individual <code>NA</code> values will be removed, and the
+computation will procede, with a warning.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A <code>tibble</code> with columns <code>.metric</code>, <code>.estimator</code>,
+and <code>.estimate</code> and 1 row of values.
+</p>
+<p>For grouped data frames, the number of rows returned will be the same as
+the number of groups.
+</p>
+<p>For <code>precision_vec()</code>, a single <code>numeric</code> value (or <code>NA</code>).
+</p>
+
+
+<h3>Relevant Level</h3>
+
+<p>There is no common convention on which factor level should
+automatically be considered the "event" or "positive" result
+when computing binary classification metrics. In <code>yardstick</code>, the default
+is to use the <em>first</em> level. To alter this, change the argument
+<code>event_level</code> to <code>"second"</code> to consider the <em>last</em> level of the factor the
+level of interest. For multiclass extensions involving one-vs-all
+comparisons (such as macro averaging), this option is ignored and
+the "one" level is always the relevant result.
+</p>
+
+
+<h3>Multiclass</h3>
+
+<p>Macro, micro, and macro-weighted averaging is available for this metric.
+The default is to select macro averaging if a <code>truth</code> factor with more
+than 2 levels is provided. Otherwise, a standard binary calculation is done.
+See <code>vignette("multiclass", "yardstick")</code> for more information.
+</p>
+
+
+<h3>Implementation</h3>
+
+<p>Suppose a 2x2 table with notation:
+</p>
+
+<table>
+<tr>
+<td style="text-align: right;"> </td>
+<td style="text-align: center;"> Reference </td>
+<td style="text-align: center;"> </td>
+</tr>
+<tr>
+<td style="text-align: right;"> Predicted </td>
+<td style="text-align: center;"> Relevant </td>
+<td style="text-align: center;">
+Irrelevant </td>
+</tr>
+<tr>
+<td style="text-align: right;"> Relevant </td>
+<td style="text-align: center;"> A </td>
+<td style="text-align: center;"> B </td>
+</tr>
+<tr>
+<td style="text-align: right;"> Irrelevant </td>
+<td style="text-align: center;"> C </td>
+<td style="text-align: center;"> D </td>
+</tr>
+<tr>
+<td style="text-align: right;"> </td>
+</tr>
+</table>
+<p>The formulas used here are:
+</p>
+<p style="text-align: center;"><code class="reqn">recall = A/(A+C)</code>
+</p>
+
+<p style="text-align: center;"><code class="reqn">precision = A/(A+B)</code>
+</p>
+
+<p style="text-align: center;"><code class="reqn">F_{meas} = (1+\beta^2) * precision * recall/((\beta^2 * precision)+recall)</code>
+</p>
+
+<p>See the references for discussions of the statistics.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Max Kuhn
+</p>
+
+
+<h3>References</h3>
+
+<p>Buckland, M., &amp; Gey, F. (1994). The relationship
+between Recall and Precision. <em>Journal of the American Society
+for Information Science</em>, 45(1), 12-19.
+</p>
+<p>Powers, D. (2007). Evaluation: From Precision, Recall and F
+Factor to ROC, Informedness, Markedness and Correlation.
+Technical Report SIE-07-001, Flinders University
+</p>
+
+
+<h3>See Also</h3>
+
+<p>Other class metrics: 
+<code>accuracy()</code>,
+<code>bal_accuracy()</code>,
+<code>detection_prevalence()</code>,
+<code>f_meas()</code>,
+<code>j_index()</code>,
+<code>kap()</code>,
+<code>mcc()</code>,
+<code>npv()</code>,
+<code>ppv()</code>,
+<code>recall()</code>,
+<code>sens()</code>,
+<code>spec()</code>
+</p>
+<p>Other relevance metrics: 
+<code>f_meas()</code>,
+<code>recall()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R"># Two class
+data("two_class_example")
+precision(two_class_example, truth, predicted)
+
+# Multiclass
+library(dplyr)
+data(hpc_cv)
+
+hpc_cv %&gt;%
+  filter(Resample == "Fold01") %&gt;%
+  precision(obs, pred)
+
+# Groups are respected
+hpc_cv %&gt;%
+  group_by(Resample) %&gt;%
+  precision(obs, pred)
+
+# Weighted macro averaging
+hpc_cv %&gt;%
+  group_by(Resample) %&gt;%
+  precision(obs, pred, estimator = "macro_weighted")
+
+# Vector version
+precision_vec(
+  two_class_example$truth,
+  two_class_example$predicted
+)
+
+# Making Class2 the "relevant" level
+precision_vec(
+  two_class_example$truth,
+  two_class_example$predicted,
+  event_level = "second"
+)
+</code></pre>
+
+
+</div>

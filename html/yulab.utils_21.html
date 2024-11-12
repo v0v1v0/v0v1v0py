@@ -1,0 +1,50 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>mat2df</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>mat2df</h2>
+
+<h3>Description</h3>
+
+<p>convert a matrix to a tidy data frame
+(from wide to long format as described in the tidyverse concept)
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">mat2df(x)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table><tr style="vertical-align: top;">
+<td><code>x</code></td>
+<td>
+<p>the input matrix</p>
+</td>
+</tr></table>
+<h3>Value</h3>
+
+<p>a data.frame in long format with the 'value' column stores the original values
+and 'row' and 'col' columns stored in row and column index as in x
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Guangchuang Yu
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">x &lt;- matrix(1:15, nrow = 3)
+mat2df(x)
+</code></pre>
+
+
+</div>

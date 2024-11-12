@@ -1,0 +1,33 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>last_yml</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Return the most recently printed YAML</h2>
+
+<h3>Description</h3>
+
+<p>ymlthis stores the most recently printed <code>yml</code> object; you can use
+<code>last_yml()</code> to retrieve it to modify, pass to <code style="white-space: pre;">⁠use_*()⁠</code> functions, and so
+on.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">last_yml()
+</code></pre>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">yml() %&gt;%
+  yml_author("Yihui Xie")
+
+last_yml()
+
+</code></pre>
+
+
+</div>

@@ -1,0 +1,84 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>convertAllYaml2RDataframes</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Convert and save all Yaml files  to dataframes</h2>
+
+<h3>Description</h3>
+
+<p>This function coverts all Yaml files from source directory to data frames. The data frames
+are then stored as .RData. The saved files are of the format team1-team2-date.RData
+For e.g. England-India-2008-04-06.RData etc
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">convertAllYaml2RDataframes(sourceDir=".",targetDirMen=".",targetDirWomen=".")
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>sourceDir</code></td>
+<td>
+<p>The source directory of the yaml files</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>targetDirMen</code></td>
+<td>
+<p>The target directory in which the data frames for men are stored as RData files</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>targetDirWomen</code></td>
+<td>
+<p>The target directory in which the data frames for women are stored as RData files</p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>None
+</p>
+
+
+<h3>Note</h3>
+
+<p>Maintainer: Tinniam V Ganesh <a href="mailto:tvganesh.85@gmail.com">tvganesh.85@gmail.com</a>
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Tinniam V Ganesh
+</p>
+
+
+<h3>References</h3>
+
+<p><a href="https://cricsheet.org/">https://cricsheet.org/</a><br><a href="https://gigadom.in/">https://gigadom.in/</a><br><a href="https://github.com/tvganesh/yorkrData/">https://github.com/tvganesh/yorkrData/</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code>bowlerMovingAverage</code><br><code>bowlerWicketsVenue</code><br><code>convertYaml2RDataframe</code><br></p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">## Not run: 
+# In the example below ../yamldir is the source dir for the yaml files
+convertAllYaml2RDataframes("../yamldir","../data")
+
+## End(Not run)
+</code></pre>
+
+
+</div>

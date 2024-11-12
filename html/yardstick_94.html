@@ -1,0 +1,147 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>metrics</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>General Function to Estimate Performance</h2>
+
+<h3>Description</h3>
+
+<p>This function estimates one or more common performance estimates depending
+on the class of <code>truth</code> (see <strong>Value</strong> below) and returns them in a three
+column tibble. If you wish to modify the metrics used or how they are used
+see <code>metric_set()</code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">metrics(data, ...)
+
+## S3 method for class 'data.frame'
+metrics(data, truth, estimate, ..., na_rm = TRUE, options = list())
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>data</code></td>
+<td>
+<p>A <code>data.frame</code> containing the columns specified by <code>truth</code>,
+<code>estimate</code>, and <code>...</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+<p>A set of unquoted column names or one or more
+<code>dplyr</code> selector functions to choose which variables contain the
+class probabilities. If <code>truth</code> is binary, only 1 column should be selected,
+and it should correspond to the value of <code>event_level</code>. Otherwise, there
+should be as many columns as factor levels of <code>truth</code> and the ordering of
+the columns should be the same as the factor levels of <code>truth</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>truth</code></td>
+<td>
+<p>The column identifier for the true results (that
+is <code>numeric</code> or <code>factor</code>). This should be an unquoted column name
+although this argument is passed by expression and support
+quasiquotation (you can unquote column
+names).</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>estimate</code></td>
+<td>
+<p>The column identifier for the predicted results
+(that is also <code>numeric</code> or <code>factor</code>). As with <code>truth</code> this can be
+specified different ways but the primary method is to use an
+unquoted variable name.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>na_rm</code></td>
+<td>
+<p>A <code>logical</code> value indicating whether <code>NA</code>
+values should be stripped before the computation proceeds.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>options</code></td>
+<td>
+<p><code style="white-space: pre;">⁠[deprecated]⁠</code>
+</p>
+<p>No longer supported as of yardstick 1.0.0. If you pass something here it
+will be ignored with a warning.
+</p>
+<p>Previously, these were options passed on to <code>pROC::roc()</code>. If you need
+support for this, use the pROC package directly.</p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>A three column tibble.
+</p>
+
+<ul>
+<li>
+<p> When <code>truth</code> is a factor, there are rows for <code>accuracy()</code> and the
+Kappa statistic (<code>kap()</code>).
+</p>
+</li>
+<li>
+<p> When <code>truth</code> has two levels and 1 column of class probabilities is
+passed to <code>...</code>, there are rows for the two class versions of
+<code>mn_log_loss()</code> and <code>roc_auc()</code>.
+</p>
+</li>
+<li>
+<p> When <code>truth</code> has more than two levels and a full set of class probabilities
+are passed to <code>...</code>, there are rows for the multiclass version of
+<code>mn_log_loss()</code> and the Hand Till generalization of <code>roc_auc()</code>.
+</p>
+</li>
+<li>
+<p> When <code>truth</code> is numeric, there are rows for <code>rmse()</code>, <code>rsq()</code>,
+and <code>mae()</code>.
+</p>
+</li>
+</ul>
+<h3>See Also</h3>
+
+<p><code>metric_set()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">
+# Accuracy and kappa
+metrics(two_class_example, truth, predicted)
+
+# Add on multinomal log loss and ROC AUC by specifying class prob columns
+metrics(two_class_example, truth, predicted, Class1)
+
+# Regression metrics
+metrics(solubility_test, truth = solubility, estimate = prediction)
+
+# Multiclass metrics work, but you cannot specify any averaging
+# for roc_auc() besides the default, hand_till. Use the specific function
+# if you need more customization
+library(dplyr)
+
+hpc_cv %&gt;%
+  group_by(Resample) %&gt;%
+  metrics(obs, pred, VF:L) %&gt;%
+  print(n = 40)
+
+</code></pre>
+
+
+</div>

@@ -1,0 +1,215 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>setSampling</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>
+Set sampling information and create a ‘sampling’ object.
+</h2>
+
+<h3>Description</h3>
+
+<p><code>setSampling</code> is a constructor for <code>yuima.sampling-class</code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">  setSampling(Initial = 0, Terminal = 1, n = 100, delta, 
+   grid, random = FALSE, sdelta=as.numeric(NULL), 
+   sgrid=as.numeric(NULL), interpolation="pt" )
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+  
+<table>
+<tr style="vertical-align: top;">
+<td><code>Initial</code></td>
+<td>
+<p>Initial time of the grid.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>Terminal</code></td>
+<td>
+<p>Terminal time of the grid.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>n</code></td>
+<td>
+<p>number of time intervals.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>delta</code></td>
+<td>
+<p>mesh size in case of regular time grid.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>grid</code></td>
+<td>
+<p>a grid of times for the simulation, possibly empty.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>random</code></td>
+<td>
+<p>specify if it is random sampling. See Details.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>sdelta</code></td>
+<td>
+<p>mesh size in case of regular space grid.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>sgrid</code></td>
+<td>
+<p>a grid in space for the simulation, possibly empty.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>interpolation</code></td>
+<td>
+<p>a rule of interpolation in case of subsampling. 
+By default, the previous tick interpolation. See Details.</p>
+</td>
+</tr>
+</table>
+<h3>Details</h3>
+
+<p>The function creates an object of type 
+<code>yuima.sampling-class</code> with several slots.
+</p>
+
+<dl>
+<dt>
+<code>Initial</code>:</dt>
+<dd>
+<p>initial time of the grid.</p>
+</dd>
+<dt>
+<code>Terminal</code>:</dt>
+<dd>
+<p>terminal time fo the grid.</p>
+</dd>
+<dt>
+<code>n</code>:</dt>
+<dd>
+<p>the number of observations - 1.</p>
+</dd>
+<dt>
+<code>delta</code>:</dt>
+<dd>
+<p>in case of a regular time grid it is the mesh.</p>
+</dd>
+<dt>
+<code>grid</code>:</dt>
+<dd>
+<p>the grid of times.</p>
+</dd>
+<dt>
+<code>random</code>:</dt>
+<dd>
+<p>either <code>FALSE</code> or the distribution 
+of the random times.</p>
+</dd>
+<dt>
+<code>regular</code>:</dt>
+<dd>
+<p>indicator of whether the grid is regular or not.
+For internal use only.</p>
+</dd>
+<dt>
+<code>sdelta</code>:</dt>
+<dd>
+<p>in case of a regular space grid it is the mesh.</p>
+</dd>
+<dt>
+<code>sgrid</code>:</dt>
+<dd>
+<p>the grid in space.</p>
+</dd>
+<dt>
+<code>oindex</code>:</dt>
+<dd>
+<p>in case of interpolation, a vector of indexes 
+corresponding to the original observations used for the approximation.</p>
+</dd>
+<dt>
+<code>interpolation</code>:</dt>
+<dd>
+<p>the name of the interpolation method used.</p>
+</dd>
+</dl>
+<p>In case of subsampling, the observations are subsampled on some given 
+<code>grid</code>/<code>sgrid</code> or according to some <code>random</code> times. When 
+the original observations do not exist at a give point of the grid they are
+obtained by some approximation method. Available methods are <code>"pt"</code> or
+<code>"previous tick"</code> observation method, <code>"nt"</code> or <code>"next tick"</code> 
+observation method, or by l<code>"linear"</code> interpolation.
+In case of interpolation, the slot <code>oindex</code> contains the vector of indexes 
+corresponding to the original observations used for the approximation. For the
+linear method the index corresponds to the left-most observation.
+</p>
+<p>The slot <code>random</code> is used as information in case a <code>grid</code> is
+already determined (e.g. <code>n</code> or <code>delta</code>, etc. ot the <code>grid</code>
+itself are given) or if some subsampling has occurred or if some particular
+method which causes a random grid is used in simulation (for example the
+space discretized Euler scheme). The slot <code>random</code> contains a list
+of two elements <code>distr</code> and <code>scale</code>, where <code>distr</code> is a
+the distribution of independent random times and <code>scale</code> is either a 
+scaling constant or a scaling function.
+If the <code>grid</code> of times is deterministic, then <code>random</code> is <code>FALSE</code>.
+</p>
+<p>If not specified and <code>random=FALSE</code>, the slot <code>grid</code> is filled 
+automatically by the function. It is eventually modified or created
+after the call to the function <code>simulate</code>.
+</p>
+<p>If <code>delta</code> is not specified, it is calculated as <code>(Terminal-Initial)/n)</code>.
+If <code>delta</code> is specified, the <code>Terminal</code> is adjusted to be equal to
+<code>Initial+n*delta</code>.
+</p>
+<p>The vectors <code>delta</code>, <code>n</code>, <code>Initial</code> and <code>Terminal</code> may
+have different lengths, but then they are extended to the maximal length to
+keep consistency. See examples.
+</p>
+<p>If <code>grid</code> is specified, it takes precedence over all other arguments.
+</p>
+
+
+<h3>Value</h3>
+
+<p>An object of type <code>yuima.sampling-class</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>The YUIMA Project Team</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">samp &lt;- setSampling(Terminal=1, n=1000)
+str(samp)
+
+samp &lt;- setSampling(Terminal=1, n=1000, delta=0.3)
+str(samp)
+
+
+samp &lt;- setSampling(Terminal=1, n=1000, delta=c(0.1,0.3))
+str(samp)
+
+samp &lt;- setSampling(Terminal=1:3, n=1000)
+str(samp)
+</code></pre>
+
+
+</div>

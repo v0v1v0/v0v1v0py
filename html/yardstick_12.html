@@ -1,0 +1,167 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>brier_class</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Brier score for classification models</h2>
+
+<h3>Description</h3>
+
+<p>Compute the Brier score for a classification model.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">brier_class(data, ...)
+
+## S3 method for class 'data.frame'
+brier_class(data, truth, ..., na_rm = TRUE, case_weights = NULL)
+
+brier_class_vec(truth, estimate, na_rm = TRUE, case_weights = NULL, ...)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>data</code></td>
+<td>
+<p>A <code>data.frame</code> containing the columns specified by <code>truth</code> and
+<code>...</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+<p>A set of unquoted column names or one or more
+<code>dplyr</code> selector functions to choose which variables contain the
+class probabilities. If <code>truth</code> is binary, only 1 column should be selected,
+and it should correspond to the value of <code>event_level</code>. Otherwise, there
+should be as many columns as factor levels of <code>truth</code> and the ordering of
+the columns should be the same as the factor levels of <code>truth</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>truth</code></td>
+<td>
+<p>The column identifier for the true class results
+(that is a <code>factor</code>). This should be an unquoted column name although
+this argument is passed by expression and supports
+quasiquotation (you can unquote column
+names). For <code style="white-space: pre;">⁠_vec()⁠</code> functions, a <code>factor</code> vector.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>na_rm</code></td>
+<td>
+<p>A <code>logical</code> value indicating whether <code>NA</code>
+values should be stripped before the computation proceeds.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>case_weights</code></td>
+<td>
+<p>The optional column identifier for case weights.
+This should be an unquoted column name that evaluates to a numeric column
+in <code>data</code>. For <code style="white-space: pre;">⁠_vec()⁠</code> functions, a numeric vector,
+<code>hardhat::importance_weights()</code>, or <code>hardhat::frequency_weights()</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>estimate</code></td>
+<td>
+<p>If <code>truth</code> is binary, a numeric vector of class probabilities
+corresponding to the "relevant" class. Otherwise, a matrix with as many
+columns as factor levels of <code>truth</code>. <em>It is assumed that these are in the
+same order as the levels of <code>truth</code>.</em></p>
+</td>
+</tr>
+</table>
+<h3>Details</h3>
+
+<p>The Brier score is analogous to the mean squared error in regression models.
+The difference between a binary indicator for a class and its corresponding
+class probability are squared and averaged.
+</p>
+<p>This function uses the convention in Kruppa <em>et al</em> (2014) and divides the
+result by two.
+</p>
+<p>Smaller values of the score are associated with better model performance.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A <code>tibble</code> with columns <code>.metric</code>, <code>.estimator</code>,
+and <code>.estimate</code> and 1 row of values.
+</p>
+<p>For grouped data frames, the number of rows returned will be the same as
+the number of groups.
+</p>
+<p>For <code>brier_class_vec()</code>, a single <code>numeric</code> value (or <code>NA</code>).
+</p>
+
+
+<h3>Multiclass</h3>
+
+<p>Brier scores can be computed in the same way for any number of classes.
+Because of this, no averaging types are supported.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Max Kuhn
+</p>
+
+
+<h3>References</h3>
+
+<p>Kruppa, J., Liu, Y., Diener, H.-C., Holste, T., Weimar, C.,
+Koonig, I. R., and Ziegler, A. (2014) Probability estimation with machine
+learning methods for dichotomous and multicategory outcome: Applications.
+Biometrical Journal, 56 (4): 564-583.
+</p>
+
+
+<h3>See Also</h3>
+
+<p>Other class probability metrics: 
+<code>average_precision()</code>,
+<code>classification_cost()</code>,
+<code>gain_capture()</code>,
+<code>mn_log_loss()</code>,
+<code>pr_auc()</code>,
+<code>roc_auc()</code>,
+<code>roc_aunp()</code>,
+<code>roc_aunu()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R"># Two class
+data("two_class_example")
+brier_class(two_class_example, truth, Class1)
+
+# Multiclass
+library(dplyr)
+data(hpc_cv)
+
+# You can use the col1:colN tidyselect syntax
+hpc_cv %&gt;%
+  filter(Resample == "Fold01") %&gt;%
+  brier_class(obs, VF:L)
+
+# Groups are respected
+hpc_cv %&gt;%
+  group_by(Resample) %&gt;%
+  brier_class(obs, VF:L)
+
+</code></pre>
+
+
+</div>

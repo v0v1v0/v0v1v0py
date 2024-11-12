@@ -1,0 +1,143 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>yuima.cogarch-class</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Class for the mathematical description of CoGarch(p,q) model</h2>
+
+<h3>Description</h3>
+
+<p>The <code>yuima.cogarch</code> class is a class of the  <span class="pkg">yuima</span> package that extends the <code>yuima.model-class</code>. 
+</p>
+
+
+<h3>Objects from the Class</h3>
+
+<p>Objects can be created by calls of the function <code>setCogarch</code>.
+
+</p>
+
+
+<h3>Slots</h3>
+
+
+<dl>
+<dt>
+<code>info</code>:</dt>
+<dd>
+<p>is an <code>cogarch.info-class</code> object that describes the structure of the Cogarch(p,q) model.</p>
+</dd>
+<dt>
+<code>drift</code>:</dt>
+<dd>
+<p>is an <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> expression which specifies the drift 
+coefficient (a vector).</p>
+</dd>
+<dt>
+<code>diffusion</code>:</dt>
+<dd>
+<p>is an <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> expression which specifies the diffusion 
+coefficient (a matrix).</p>
+</dd>
+<dt>
+<code>hurst</code>:</dt>
+<dd>
+<p>the Hurst parameter of the gaussian noise. </p>
+</dd>
+<dt>
+<code>jump.coeff</code>:</dt>
+<dd>
+<p>a vector of <code>"expressions"</code> for the jump component. </p>
+</dd>
+<dt>
+<code>measure</code>:</dt>
+<dd>
+<p>Levy measure for the jump component. </p>
+</dd>
+<dt>
+<code>measure.type</code>:</dt>
+<dd>
+<p>Type of specification for Levy measure </p>
+</dd>
+<dt>
+<code>parameter</code>:</dt>
+<dd>
+<p>is an object of class <code>model.parameter-class</code>. </p>
+</dd>
+<dt>
+<code>state.variable</code>:</dt>
+<dd>
+<p>the state variable. </p>
+</dd>
+<dt>
+<code>jump.variable</code>:</dt>
+<dd>
+<p>the jump variable. </p>
+</dd>
+<dt>
+<code>time.variable</code>:</dt>
+<dd>
+<p>the time variable. </p>
+</dd>
+<dt>
+<code>noise.number</code>:</dt>
+<dd>
+<p>Object of class <code>"numeric"</code> </p>
+</dd>
+<dt>
+<code>equation.number</code>:</dt>
+<dd>
+<p>dimension of the stochastic differential equation.</p>
+</dd>
+<dt>
+<code>dimension</code>:</dt>
+<dd>
+<p>number of parameters. </p>
+</dd>
+<dt>
+<code>solve.variable</code>:</dt>
+<dd>
+<p>the solve variable</p>
+</dd>
+<dt>
+<code>xinit</code>:</dt>
+<dd>
+<p>Object of class <code>"expression"</code> that contains the starting function for the SDE. </p>
+</dd>
+<dt>
+<code>J.flag</code>:</dt>
+<dd>
+<p>wheather jump.coeff include jump.variable.</p>
+</dd>
+</dl>
+<h3>Extends</h3>
+
+<p>Class <code>"yuima.model"</code>, directly.
+</p>
+
+
+<h3>Methods</h3>
+
+
+<dl>
+<dt>simulate</dt>
+<dd>
+<p>simulation method. For more information see <code>simulate</code> </p>
+</dd>
+<dt>toLatex</dt>
+<dd>
+<p>This method converts an object of <code>yuima.cogarch-class</code> to character vectors with LaTeX markup.
+</p>
+</dd>
+<dt>qmle</dt>
+<dd>
+<p>Quasi maximum likelihood estimation procedure. For more information see <code>qmle</code>. </p>
+</dd>
+</dl>
+<h3>Author(s)</h3>
+
+<p>The YUIMA Project Team</p>
+
+
+</div>

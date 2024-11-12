@@ -1,0 +1,50 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>df.stack</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Stack data frame by one classifier</h2>
+
+<h3>Description</h3>
+
+<p>Stack data frame by one classifier. This function takes the first column as a ordering variable.
+Then it take the variables names and repeat as the second column. The last column will be data under each variable name. This
+function is created to enable easier investigation with apply functions.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">df.stack(df,name)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>df</code></td>
+<td>
+<p>: a data frame used to stack</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>name</code></td>
+<td>
+<p>: new variable names of the data frame</p>
+</td>
+</tr>
+</table>
+<h3>Examples</h3>
+
+<pre><code class="language-R">df &lt;- data.frame(matrix(nrow=100,ncol=100))
+for(i in 1:100){
+ df[,i] &lt;- rep(runif(1,1,100),100)
+}
+dim(df)
+hdf &lt;- df.stack(df,c("date","tkr","price"))
+</code></pre>
+
+
+</div>

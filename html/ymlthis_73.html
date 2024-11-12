@@ -1,0 +1,59 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>yml_code</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Take code and write it as valid YAML</h2>
+
+<h3>Description</h3>
+
+<p><code>yml_code()</code> takes R code and writes it as valid YAML to be evaluated during
+knitting. Note that <code>yml_code()</code> does not evaluate or validate the R code but
+only captures it to use in the YAML field. R code needs to be formatted
+differently when using in the <code>params</code> field for parameterized reports;
+<code>yml_params_code</code> will format this correctly for you.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">yml_code(x)
+
+yml_params_code(x)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table><tr style="vertical-align: top;">
+<td><code>x</code></td>
+<td>
+<p>valid R code</p>
+</td>
+</tr></table>
+<h3>Value</h3>
+
+<p>a character vector with class <code>verbatim</code>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code>yml_verbatim()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">
+yml_empty() %&gt;%
+  yml_date(yml_code(sys.Date()))
+
+yml_empty() %&gt;%
+  yml_params(date = yml_params_code(sys.Date()))
+
+</code></pre>
+
+
+</div>

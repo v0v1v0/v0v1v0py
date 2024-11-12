@@ -1,0 +1,84 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>bib2yml</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Convert bib files to YAML</h2>
+
+<h3>Description</h3>
+
+<p><code>bib2yml()</code> uses pandoc to convert a .bib file to YAML. It also accepts an
+optional <code>yml</code> object to prepend to the the YAML from the .bib file. If you
+want to cite several R packages, see <code>knitr::write_bib()</code> to write a
+bibliography file and convert it with <code>bib2yml()</code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">bib2yml(.yml = NULL, path)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>.yml</code></td>
+<td>
+<p>a <code>yml</code> object created by <code>yml()</code>, <code>as_yml()</code>, or returned by
+a <code style="white-space: pre;">⁠yml_*()⁠</code> function</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>path</code></td>
+<td>
+<p>a path to the .bib file</p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>a <code>yml</code> object
+</p>
+
+
+<h3>See Also</h3>
+
+<p>Other yml: 
+<code>asis_yaml_output()</code>,
+<code>draw_yml_tree()</code>,
+<code>has_field()</code>,
+<code>read_json()</code>,
+<code>use_yml_defaults()</code>,
+<code>use_yml_file()</code>,
+<code>use_yml()</code>,
+<code>yml_author()</code>,
+<code>yml_blogdown_opts()</code>,
+<code>yml_bookdown_opts()</code>,
+<code>yml_citations()</code>,
+<code>yml_clean()</code>,
+<code>yml_distill_opts()</code>,
+<code>yml_latex_opts()</code>,
+<code>yml_output()</code>,
+<code>yml_pagedown_opts()</code>,
+<code>yml_params()</code>,
+<code>yml_pkgdown()</code>,
+<code>yml_reference()</code>,
+<code>yml_replace()</code>,
+<code>yml_resource_files()</code>,
+<code>yml_rsconnect_email()</code>,
+<code>yml_rticles_opts()</code>,
+<code>yml_runtime()</code>,
+<code>yml_site_opts()</code>,
+<code>yml_toc()</code>,
+<code>yml_vignette()</code>
+</p>
+<p>Other citations: 
+<code>yml_citations()</code>,
+<code>yml_reference()</code>
+</p>
+
+
+</div>

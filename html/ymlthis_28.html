@@ -1,0 +1,62 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>pkgdown_template</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Generate a full YAML template for your pkgdown site</h2>
+
+<h3>Description</h3>
+
+<p>pkgdown includes three helpful <code style="white-space: pre;">⁠pkgdown::template_*()⁠</code> functions to generate
+the navbar, reference, and article YAML for the <code style="white-space: pre;">⁠_pkgdown.yml⁠</code> file.
+<code>pkgdown_template()</code> is a wrapper function that runs all three, combines
+them, and converts them to a <code>yml</code> object. You may also pass
+<code style="white-space: pre;">⁠pkgdown::template_*()⁠</code> functions to <code>as_yml()</code> to convert the individual
+sections. <code>pkgdown_template()</code> is particularly useful with
+<code>use_pkgdown_yml()</code> to write directly to the <code style="white-space: pre;">⁠_pkgdown.yml⁠</code> file.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">pkgdown_template(path = ".")
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table><tr style="vertical-align: top;">
+<td><code>path</code></td>
+<td>
+<p>The path to your package directory</p>
+</td>
+</tr></table>
+<h3>Value</h3>
+
+<p>a <code>yml</code> object
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code>use_pkgdown_yml()</code>
+</p>
+<p>Other pkgdown: 
+<code>yml_pkgdown()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">## Not run: 
+# requires this to be a package directory
+pkgdown_template() %&gt;%
+  use_pkgdown_yml()
+
+## End(Not run)
+
+</code></pre>
+
+
+</div>

@@ -1,0 +1,62 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>ungroup.decorated</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Ungroup Decorated</h2>
+
+<h3>Description</h3>
+
+<p>Preserves class when ungrouping decorated.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">## S3 method for class 'decorated'
+ungroup(x, ...)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>x</code></td>
+<td>
+<p>A <code>tbl()</code></p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+<p>In <code>group_by()</code>, variables or computations to group by.
+Computations are always done on the ungrouped data frame.
+To perform computations on the grouped data, you need to use
+a separate <code>mutate()</code> step before the <code>group_by()</code>.
+Computations are not allowed in <code>nest_by()</code>.
+In <code>ungroup()</code>, variables to remove from the grouping.</p>
+</td>
+</tr>
+</table>
+<h3>See Also</h3>
+
+<p>Other dplyr: 
+<code>anti_join.decorated()</code>,
+<code>arrange.decorated()</code>,
+<code>full_join.decorated()</code>,
+<code>group_by.decorated()</code>,
+<code>inner_join.decorated()</code>,
+<code>left_join.decorated()</code>,
+<code>mutate.decorated()</code>,
+<code>right_join.decorated()</code>,
+<code>select.decorated()</code>,
+<code>semi_join.decorated()</code>,
+<code>slice.decorated()</code>,
+<code>summarise.decorated()</code>,
+<code>summarize.decorated()</code>
+</p>
+
+
+</div>

@@ -1,0 +1,92 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>buildConsensus</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Finds the consensus imputations among a list of yai objects</h2>
+
+<h3>Description</h3>
+
+<p>Several objects of class <code>yai</code> are combined into a new
+object forming a consensus among the many. The intention is that the many would
+be formed by running yai several times with <code>bootstrap=TRUE</code> or by varying
+other options.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">buildConsensus(reps, noTrgs=FALSE, noRefs=FALSE, k=NULL)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>reps</code></td>
+<td>
+<p>a list of objects class <code>yai</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>noTrgs</code></td>
+<td>
+<p>If <code>TRUE</code> neighbor relationships for target observations are not merged.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>noRefs</code></td>
+<td>
+<p>If <code>TRUE</code> neighbor relationships for reference observations are not merged.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>k</code></td>
+<td>
+<p>If not specified, the minimum value of <code>k</code> among the objects is used.</p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>An object of class <code>yai</code>
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Nicholas L. Crookston <a href="mailto:ncrookston.fs@gmail.com">ncrookston.fs@gmail.com</a> <br>
+John Coulston <a href="mailto:jcoulston@fs.fed.us">jcoulston@fs.fed.us</a> <br></p>
+
+
+<h3>See Also</h3>
+
+<p><code>yai</code> 
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">
+require (yaImpute)
+data(iris)
+
+set.seed(123) 
+
+# form some test data, y's are defined only for reference
+# observations.
+refs=sample(rownames(iris),50)
+x &lt;- iris[,1:2]      # Sepal.Length Sepal.Width
+y &lt;- iris[refs,3:4]  # Petal.Length Petal.Width
+
+reps &lt;- replicate(20, yai(x=x,y=y,method="msn",bootstrap=TRUE,k=2),
+                  simplify=FALSE)
+
+buildConsensus(reps)
+
+</code></pre>
+
+
+</div>

@@ -1,0 +1,62 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>update</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Update an rmd_doc</h2>
+
+<h3>Description</h3>
+
+<p>Alternative to modify settings and content in <code>rmd_doc</code> objects. Note that to
+skip some elements of the YAML header, you can set the argument NULL to the
+respective parameter.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">## S3 method for class 'rmd_doc'
+update(object, ...)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>object</code></td>
+<td>
+<p>An object of class <code>rmd_doc</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+<p>Named arguments to be inserted in the YAML header (passed to
+<code>write_rmd()</code>).</p>
+</td>
+</tr>
+</table>
+<h3>Examples</h3>
+
+<pre><code class="language-R">## Create a document from a list
+my_document &lt;- list(
+    title = "Sample Document",
+    author = "Miguel Alavarez",
+    output = "html_document",
+    body = txt_body(
+        "# Intro",
+        "",
+        "This is just an example."
+    ))
+my_document &lt;- as(my_document, "rmd_doc")
+my_document
+
+## Change output format
+my_document &lt;- update(my_document, output = "pdf_document")
+my_document
+</code></pre>
+
+
+</div>

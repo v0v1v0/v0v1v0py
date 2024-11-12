@@ -1,0 +1,277 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>yml_blogdown_opts</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Set Top-level YAML options for blogdown</h2>
+
+<h3>Description</h3>
+
+<p>YAML in blogdown comes from a variety of sources. Most YAML will be for your
+posts, as described in the <a href="https://bookdown.org/yihui/blogdown/content.html#yaml-metadata">blogdown book</a>).
+Common R Markdown fields can be used, but there are two other main sources
+for YAML fields: Hugo itself and the Hugo theme you are using. Hugo has
+numerous top-level YAML to control the output (see the <a href="https://gohugo.io/content-management/front-matter/">Hugo documentation</a>).
+<code>yml_blogdown_opts()</code> supports Hugo YAML. Your Hugo theme may also add fields
+to use. To find YAML specific to your theme, see <code>blogdown_template()</code>. In
+addition to these sources of YAML, the configuration file for your blog can
+also be in YAML, but this is not very common; most use a <code>config.toml</code> file,
+based on TOML (see the <a href="https://bookdown.org/yihui/blogdown/configuration.html">blogdown book</a> for more).
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">yml_blogdown_opts(
+  .yml,
+  draft = yml_blank(),
+  publishdate = yml_blank(),
+  weight = yml_blank(),
+  slug = yml_blank(),
+  aliases = yml_blank(),
+  audio = yml_blank(),
+  date = yml_blank(),
+  description = yml_blank(),
+  expiration_date = yml_blank(),
+  headless = yml_blank(),
+  images = yml_blank(),
+  keywords = yml_blank(),
+  layout = yml_blank(),
+  lastmod = yml_blank(),
+  link_title = yml_blank(),
+  resources = yml_blank(),
+  series = yml_blank(),
+  summary = yml_blank(),
+  title = yml_blank(),
+  type = yml_blank(),
+  url = yml_blank(),
+  videos = yml_blank(),
+  ...
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>.yml</code></td>
+<td>
+<p>a <code>yml</code> object created by <code>yml()</code>, <code>as_yml()</code>, or returned by
+a <code style="white-space: pre;">⁠yml_*()⁠</code> function</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>draft</code></td>
+<td>
+<p>Logical. Set post as a draft? Draft posts will not be rendered
+if the site is built via <code>blogdown::build_site()</code> or
+<code>blogdown::hugo_build()</code> but will be rendered in the local preview mode.
+See <a href="https://bookdown.org/yihui/blogdown/local-preview.html#local-preview">Section D.3 of the blogdown book</a>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>publishdate</code></td>
+<td>
+<p>A future date to publish the post. Future posts are only
+rendered in the local preview mode</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>weight</code></td>
+<td>
+<p>This field can take a numeric value to tell Hugo the order of
+pages when sorting them, e.g., when you generate a list of all pages under
+a directory, and two posts have the same date, you may assign different
+weights to them to get your desired order on the list</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>slug</code></td>
+<td>
+<p>A character string used as the tail of the post URL. It is
+particularly useful when you define custom rules for permanent URLs. See
+<a href="https://bookdown.org/yihui/blogdown/configuration.html#options">Section 2.2.2 of the blogdown book</a>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>aliases</code></td>
+<td>
+<p>A character vector of one or more aliases (e.g., old published
+paths of renamed content) that will be created in the output directory
+structure</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>audio</code></td>
+<td>
+<p>A character vector of paths to audio files related to the page</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>date</code></td>
+<td>
+<p>The date assigned to this page. This is usually fetched from the
+<code>date</code> field in front matter, but this behavior is configurable.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>description</code></td>
+<td>
+<p>The description for the content</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>expiration_date</code></td>
+<td>
+<p>the date at which the content should no longer be
+published by Hugo. Note that the actual YAML field is <code>expiryDate</code></p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>headless</code></td>
+<td>
+<p>if <code>TRUE</code>, sets a leaf bundle to be
+<a href="https://gohugo.io/content-management/page-bundles/#headless-bundle">headless</a>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>images</code></td>
+<td>
+<p>A character vector of paths to images related to the page</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>keywords</code></td>
+<td>
+<p>A character vector of the keywords for the content.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>layout</code></td>
+<td>
+<p>The layout Hugo should use while rendering the content. By
+default, <code>layout</code> matches <code>type</code> and is thus based on the directory.
+However, it's possible to use additional layouts within a type. See <a href="https://gohugo.io/content-management/types/#defining-a-content-type">Hugo's Defining a Content Type documentation</a>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>lastmod</code></td>
+<td>
+<p>The date the content was last modified at</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>link_title</code></td>
+<td>
+<p>used for creating links to content.  Note that the actual
+YAML field is <code>linkTitle</code></p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>resources</code></td>
+<td>
+<p>A named list. Used for configuring page bundle resources.
+See <a href="https://gohugo.io/content-management/page-resources/">Hugo's Page Resources documentation</a></p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>series</code></td>
+<td>
+<p>A character vector of series this page belongs to</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>summary</code></td>
+<td>
+<p>A summary of the content in the <code>.Summary</code> Hugo page variable;
+see the
+<a href="https://gohugo.io/content-management/summaries/">content-summaries</a>
+section of Hugo's documentation.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>title</code></td>
+<td>
+<p>The title for the content</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>type</code></td>
+<td>
+<p>The type of the content, which is based on the from the directory
+of the content if not specified</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>url</code></td>
+<td>
+<p>The full path to the content from the web root</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>videos</code></td>
+<td>
+<p>A character vector of paths to videos related to the page</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+<p>additional named R objects, such as characters or lists, to
+transform into YAML</p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>a <code>yml</code> object
+</p>
+
+
+<h3>See Also</h3>
+
+<p>Other yml: 
+<code>asis_yaml_output()</code>,
+<code>bib2yml()</code>,
+<code>draw_yml_tree()</code>,
+<code>has_field()</code>,
+<code>read_json()</code>,
+<code>use_yml_defaults()</code>,
+<code>use_yml_file()</code>,
+<code>use_yml()</code>,
+<code>yml_author()</code>,
+<code>yml_bookdown_opts()</code>,
+<code>yml_citations()</code>,
+<code>yml_clean()</code>,
+<code>yml_distill_opts()</code>,
+<code>yml_latex_opts()</code>,
+<code>yml_output()</code>,
+<code>yml_pagedown_opts()</code>,
+<code>yml_params()</code>,
+<code>yml_pkgdown()</code>,
+<code>yml_reference()</code>,
+<code>yml_replace()</code>,
+<code>yml_resource_files()</code>,
+<code>yml_rsconnect_email()</code>,
+<code>yml_rticles_opts()</code>,
+<code>yml_runtime()</code>,
+<code>yml_site_opts()</code>,
+<code>yml_toc()</code>,
+<code>yml_vignette()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">
+yml() %&gt;%
+  yml_blogdown_opts(
+    draft = TRUE,
+    slug = "blog-post"
+  )
+</code></pre>
+
+
+</div>

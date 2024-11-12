@@ -1,0 +1,76 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>yesno</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Yes No with Variable Responses</h2>
+
+<h3>Description</h3>
+
+<p>Asks a custom yes-no question with randomly varying responses.
+Returns a flag indicating whether the user answered yes or no.
+It is designed to be used in situations where the users needs to confirm
+an affirmative action.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">yesno(...)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table><tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+<p>Objects to paste and then output to produce the question.</p>
+</td>
+</tr></table>
+<h3>Details</h3>
+
+<p>The objects are first pasted without separators
+and collapsed using <code style="white-space: pre;">⁠[paste0](..., collapse = "")⁠</code>
+before being output using <code>cat()</code>.
+</p>
+<p>The order and phrasing of the possible responses varies randomly to ensure
+the user consciously chooses
+(as opposed to automatically types their response).
+</p>
+<p>A total of three responses are offered - two of which correspond to No and
+one of which corresponds to Yes.
+The possible responses are skewed to No to reduce the chances that
+a blindly-typing
+user mistakenly chooses an affirmative action.
+For the same reason, selection of uncertain responses such as
+'Uhhh... Maybe?'
+is considered to be a No.
+Selection of a 0 (to exit) is also considered to be No.
+Questions should be phrased accordingly.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A flag indicating whether the user answered yes or no.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code>yesno2()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">## Not run: 
+yesno("Do you like ", R.Version()$nickname, "?")
+
+## End(Not run)
+</code></pre>
+
+
+</div>

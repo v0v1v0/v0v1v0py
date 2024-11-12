@@ -1,0 +1,57 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>gastric</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Data from Gastrointestinal Tumor Study Group</h2>
+
+<h3>Description</h3>
+
+<p>A  sample data set from the Gastrointestinal Tumor Study Group (1982),on  comparing chemotherapy with combined chemotherapy and radiation therapy, in the treatment of locally unresectable gastric cancer. Each treatment arm had 45 patients, with two observations of the chemotherapy group and six of the combination group censored. Kaplan-Meier plots of the two estimated survival curves cross at around 1000 days.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">data(gastric)</code></pre>
+
+
+<h3>Format</h3>
+
+<p>A dataframe with 90 observations on the following 3 variables.
+</p>
+
+<dl>
+<dt><code>V1</code></dt>
+<dd>
+<p>Lifetime vector (unite: year), where <code class="reqn">X = \min(T, C)</code> and <code class="reqn">T</code> is the pooled lifetimes of the two groups</p>
+</dd>
+<dt><code>V2</code></dt>
+<dd>
+<p>Censor indicator vector, where <code class="reqn">\delta = I(T \leq C)</code> and <code class="reqn">I(\cdot)</code> is the indicator function.</p>
+</dd>
+<dt><code>V3</code></dt>
+<dd>
+<p>Group indicator vector, where <code class="reqn">Z = I(i &gt; n_1)</code>, <code class="reqn">i = 1, ..., n</code> and <code class="reqn">n_1 &lt; n</code> is the size of the control group.</p>
+</dd>
+</dl>
+<h3>References</h3>
+
+<p>GASTROINTESTINAL TUMOR STUDY GROUP (1982). A comparison of combination chemotherapy and combined modality therapy for locally advanced gastric carcinoma. Cancer.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code>YPmodel</code></p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">library(YPmodel)
+data(gastric)
+</code></pre>
+
+
+</div>

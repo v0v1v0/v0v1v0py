@@ -1,0 +1,135 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>classified.default</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Create Classified by Default</h2>
+
+<h3>Description</h3>
+
+<p>Creates a factor of subclass 'classified',
+for which there are attribute-preserving methods.
+In particular, classified has a codelist attribute
+indicating the origin of its levels: it is
+constructed from the codelist attribute of x
+if available, or from 'levels' and 'labels'
+by default. Unlike the case for <code>factor</code>,
+length of labels cannot be one (i.e., different from
+length of levels).
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">## Default S3 method:
+classified(
+  x = character(),
+  levels,
+  labels,
+  exclude = NA,
+  ordered = is.ordered(x),
+  nmax = NA,
+  token = character(0),
+  ...
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>x</code></td>
+<td>
+<p>see <code>factor</code></p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>levels</code></td>
+<td>
+<p>see <code>factor</code></p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>labels</code></td>
+<td>
+<p>see <code>factor</code>, must have same length as levels</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>exclude</code></td>
+<td>
+<p>see <code>factor</code></p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>ordered</code></td>
+<td>
+<p>see <code>factor</code></p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>nmax</code></td>
+<td>
+<p>see <code>factor</code></p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>token</code></td>
+<td>
+<p>informative label for messages</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+<p>ignored</p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>'classified' 'factor'
+</p>
+
+
+<h3>See Also</h3>
+
+<p>Other classified: 
+<code>[.classified()</code>,
+<code>[&lt;-.classified()</code>,
+<code>[[.classified()</code>,
+<code>[[&lt;-.classified()</code>,
+<code>as.integer.classified()</code>,
+<code>c.classified()</code>,
+<code>classified()</code>,
+<code>classified.classified()</code>,
+<code>classified.data.frame()</code>,
+<code>classified.dvec()</code>,
+<code>classified.factor()</code>,
+<code>desolve.classified()</code>,
+<code>unclassified()</code>,
+<code>unclassified.classified()</code>,
+<code>unclassified.data.frame()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">
+# classified creates a factor with a corresponding codelist attribute
+classified(c('a','b','c'))
+
+# codelist 'remembers' the origins of levels
+classified(c('a','b','c'), labels = c('A','B','C'))
+
+# classified is 'reversible'
+library(magrittr)
+c('a','b','c') %&gt;%
+  classified(labels = c('A','B','C')) %&gt;%
+  unclassified
+</code></pre>
+
+
+</div>

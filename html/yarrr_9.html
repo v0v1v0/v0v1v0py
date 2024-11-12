@@ -1,0 +1,335 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>pirateplot</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>pirateplot</h2>
+
+<h3>Description</h3>
+
+<p>The pirateplot function creates an RDI (Raw data, Descriptive and Inferential statistic) plot showing the relationship between 1 to 3 categorical independent variables and 1 continuous dependent variable.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">pirateplot(formula = NULL, data = NULL, plot = TRUE,
+  avg.line.fun = mean, pal = "basel", mix.col = "white", mix.p = 0,
+  back.col = NULL, point.cex = NULL, point.pch = NULL, point.lwd = 1,
+  jitter.val = 0.03, theme = 1, bean.b.o = NULL, bean.f.o = NULL,
+  point.o = NULL, bar.f.o = NULL, bar.b.o = NULL, inf.f.o = NULL,
+  inf.b.o = NULL, avg.line.o = NULL, gl.col = NULL, point.col = NULL,
+  point.bg = NULL, bar.f.col = NULL, bean.b.col = NULL,
+  bean.f.col = NULL, inf.f.col = NULL, inf.b.col = NULL,
+  avg.line.col = NULL, bar.b.col = NULL, quant.col = NULL,
+  avg.line.lwd = 4, bean.lwd = 1, bean.lty = 1, inf.lwd = NULL,
+  bar.lwd = 1, at = NULL, bw = "nrd0", adjust = 1, add = FALSE,
+  sortx = "alphabetical", decreasing = FALSE, cex.lab = 1, cex.axis = 1,
+  cex.names = 1, quant = NULL, quant.length = NULL, quant.lwd = NULL,
+  quant.boxplot = FALSE, bty = "o", cap.beans = TRUE, family = NULL,
+  inf.method = "hdi", inf.within = NULL, inf.p = NULL, hdi.iter = 1000,
+  inf.disp = NULL, cut.min = NULL, cut.max = NULL, width.min = 0.3,
+  width.max = NA, ylim = NULL, xlim = NULL, xlab = NULL, ylab = NULL,
+  main = NULL, yaxt = NULL, xaxt = NULL, gl = NULL, gl.lwd = NULL,
+  gl.lty = NULL, bar.b.lwd = NULL, line.fun = NULL, line.o = NULL,
+  inf.o = NULL, bean.o = NULL, inf.col = NULL, theme.o = NULL,
+  bar.o = NULL, inf = NULL, hdi.o = NULL, inf.type = NULL,
+  inf.band = NULL)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>formula</code></td>
+<td>
+<p>formula. A formula in the form <code>y ~ x1 + x2 + x3</code> indicating the vertical response variable (y) and up to three independent variables</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>data</code></td>
+<td>
+<p>Either a dataframe containing the variables specified in formula, a list of numeric vectors, or a numeric dataframe / matrix.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>plot</code></td>
+<td>
+<p>logical. If <code>TRUE</code> (the default), thent the pirateplot is produced. If <code>FALSE</code>, the data summaries created in the plot are returned as a list.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>avg.line.fun</code></td>
+<td>
+<p>function. A function that determines how average lines and bar heights are determined (default is mean).</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>pal</code></td>
+<td>
+<p>string. The color palette of the plot. Can be a single color, a vector of colors, or the name of a palette in the piratepal() function (e.g.; "basel", "google", "southpark"). To see all the palettes, run <code>piratepal(palette = "all", action = "show")</code></p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>mix.col, mix.p</code></td>
+<td>
+<p>Optional color mixing arguments to be passed to <code>piratepal</code>. See <code>?piratepal</code> for examples.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>back.col</code></td>
+<td>
+<p>string. Color of the plotting background.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>point.cex, point.pch, point.lwd</code></td>
+<td>
+<p>numeric.  The size, pch type, and line width of raw data points.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>jitter.val</code></td>
+<td>
+<p>numeric. Amount of jitter added to points horizontally. Defaults to 0.05.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>theme</code></td>
+<td>
+<p>integer. An integer in the set 0, 1, 2 specifying a theme (that is, new default values for opacities and colors). <code>theme = 0</code> turns off all opacities which can then be individually specified individually.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>bar.f.o, point.o, inf.f.o, inf.b.o, avg.line.o, bean.b.o, bean.f.o, bar.b.o</code></td>
+<td>
+<p>numeric. A number between 0 and 1 indicating how opaque to make the bars, points, inference band, average line, and beans respectively. These values override whatever is in the specified theme</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>point.col, bar.f.col, bean.b.col, bean.f.col, inf.f.col, inf.b.col, avg.line.col, bar.b.col, quant.col, point.bg</code></td>
+<td>
+<p>string. Vectors of colors specifying the colors of the plotting elements. This will override values in the palette. f stands for filling, b stands for border.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>bean.lwd, bean.lty, inf.lwd, avg.line.lwd, bar.lwd</code></td>
+<td>
+<p>numeric. Vectors of numbers customizing the look of beans and lines.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>at</code></td>
+<td>
+<p>integer. Locations of the beans. Especially helpful when adding beans to an existing plot with add = TRUE</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>bw, adjust</code></td>
+<td>
+<p>Arguments passed to density calculations for beans (see ?density)</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>add</code></td>
+<td>
+<p>logical. Should the pirateplot elements be added to an existing plotting space?</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>sortx</code></td>
+<td>
+<p>string. How to sort the x values. Can be "sequential" (as they are found in the original dataframe), "alphabetical", or a string in the set ("mean", "median", "min", "max") indicating a function</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>decreasing</code></td>
+<td>
+<p>logical. If sortx is a named function, should values be sorted in decreasing order?</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>cex.lab, cex.axis, cex.names</code></td>
+<td>
+<p>Size of the labels, axes, and bean names.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>quant</code></td>
+<td>
+<p>numeric. Adds horizontal lines representing custom quantiles.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>quant.length, quant.lwd</code></td>
+<td>
+<p>numeric. Specifies line lengths/widths of <code>quant</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>quant.boxplot</code></td>
+<td>
+<p>logical. Should standard values be included?</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>bty, xlim, ylim, xlab, ylab, main, yaxt, xaxt</code></td>
+<td>
+<p>General plotting arguments</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>cap.beans</code></td>
+<td>
+<p>logical. Should maximum and minimum values of the bean densities be capped at the limits found in the data? Default is FALSE.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>family</code></td>
+<td>
+<p>a font family (Not currently in use)</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>inf.method</code></td>
+<td>
+<p>string. A string indicating what types of inference bands to calculate. "ci" means frequentist confidence intervals, "hdi" means Bayesian Highest Density Intervals (HDI), "iqr" means interquartile range, "sd" means standard deviation, "se" means standard error, "withinci" means frequentist confidence intervals in a within design (Morey, 2008).</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>inf.within</code></td>
+<td>
+<p>string. The variable which serves as an ID variable in a within design.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>inf.p</code></td>
+<td>
+<p>numeric. A number adjusting how inference ranges are calculated. for <code>"ci"</code> and <code>"hdi"</code>, a number between 0 and 1 indicating the level of confidence (default is .95). For <code>"sd"</code> and <code>"se"</code>, the number of standard deviations / standard errors added to or subtracted from the mean (default is 1).</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>hdi.iter</code></td>
+<td>
+<p>integer. Number of iterations to run when calculating the HDI. Larger values lead to better estimates, but can be more time consuming.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>inf.disp</code></td>
+<td>
+<p>string. How should inference ranges be displayed? <code>"line"</code> creates a classic vertical line, <code>"rect"</code> creates a rectangle, <code>"bean"</code> forms the inference around the bean.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>cut.min, cut.max</code></td>
+<td>
+<p>numeric. Optional minimum and maximum values of the beans.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>width.min, width.max</code></td>
+<td>
+<p>numeric. The minimum/maximum width of the beans.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>gl</code></td>
+<td>
+<p>numeric. Locations of the horizontal grid lines</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>gl.lwd, gl.lty, gl.col</code></td>
+<td>
+<p>Customization for grid lines. Can be entered as vectors for alternating gridline types</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>bar.b.lwd, line.fun, inf.o, bean.o, inf.col, theme.o, inf, inf.type, inf.band, bar.o, line.o, hdi.o</code></td>
+<td>
+<p>depricated arguments</p>
+</td>
+</tr>
+</table>
+<h3>Examples</h3>
+
+<pre><code class="language-R">
+
+# Default pirateplot of weight by Time
+pirateplot(formula = weight ~ Time,
+          data = ChickWeight)
+
+# Same but in grayscale
+pirateplot(formula = weight ~ Time,
+          data = ChickWeight,
+          pal = "gray")
+
+
+# Now using theme 2
+pirateplot(formula = weight ~ Time,
+          data = ChickWeight,
+          main = "Chicken weight by time",
+          theme = 2) # theme 2
+
+# theme 3
+pirateplot(formula = weight ~ Time,
+          data = ChickWeight,
+          main = "Chicken weight by time",
+          theme = 3) # theme 3
+
+# theme 4
+pirateplot(formula = weight ~ Time,
+          data = ChickWeight,
+          main = "Chicken weight by time",
+          theme = 4) # theme 4
+
+# Start with theme 2, but then customise!
+pirateplot(formula = weight ~ Time,
+          data = ChickWeight,
+          theme = 2, # theme 2
+          pal = "xmen", # xmen palette
+          main = "Chicken weights by Time",
+          point.o = .4, # Add points
+          point.col = "black",
+          point.bg = "white",
+          point.pch = 21,
+          bean.f.o = .2, # Turn down bean filling
+          inf.f.o = .8, # Turn up inf filling
+          gl.col = "gray", # gridlines
+          gl.lwd = c(.5, 0)) # turn off minor grid lines
+
+# 2 IVs
+pirateplot(formula = len ~ dose + supp,
+          data = ToothGrowth,
+          main = "Guinea pig tooth length by supplement",
+          point.pch = 16,  # Point specifications...
+          point.col = "black",
+          point.o = .7,
+          inf.f.o = .9, # inference band opacity
+          gl.col = "gray")
+
+
+# Build everything from scratch with theme 0
+#  And use 3 IVs
+pirateplot(formula = height ~ headband + eyepatch + sex,
+          data = pirates,
+          pal = gray(.1), # Dark gray palette
+          theme = 0, # Start from scratch
+          inf.f.o = .7, # Band opacity
+          inf.f.col = piratepal("basel"), # Add color to bands
+          point.o = .1, # Point opacity
+          avg.line.o = .8, # Average line opacity
+          gl.col = gray(.6), # Gridline specifications
+          gl.lty = 1,
+          gl.lwd = c(.5, 0))
+
+  # See the vignette for more details
+ vignette("pirateplot", package = "yarrr")
+
+
+</code></pre>
+
+
+</div>

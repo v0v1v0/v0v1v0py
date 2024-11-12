@@ -1,0 +1,86 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>carmaHawkes.info-class</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Class for information on the Hawkes process with a CARMA(p,q) intensity</h2>
+
+<h3>Description</h3>
+
+<p>The <code>carmaHawkes.info-class</code> is a class of the  <span class="pkg">yuima</span> package.  
+</p>
+
+
+<h3>Details</h3>
+
+<p>The <code>carmaHawkes.info-class</code> object cannot be directly specified by the user
+but it is constructed when the <code>yuima.carmaHawkes-class</code> object is
+constructed via <code>setCarmaHawkes</code>.
+</p>
+
+
+<h3>Slots</h3>
+
+
+<dl>
+<dt>
+<code>p</code>:</dt>
+<dd>
+<p>Number of autoregressive coefficients.</p>
+</dd>
+<dt>
+<code>q</code>:</dt>
+<dd>
+<p>Number of moving average coefficients.</p>
+</dd>
+<dt>
+<code>Counting.Process</code>:</dt>
+<dd>
+<p>Label of Counting process.</p>
+</dd>
+<dt>
+<code>base.Int</code>:</dt>
+<dd>
+<p>Label of baseline Intensity parameter.</p>
+</dd>
+<dt>
+<code>ar.par</code>:</dt>
+<dd>
+<p>Label of autoregressive coefficients.</p>
+</dd>
+<dt>
+<code>ma.par</code>:</dt>
+<dd>
+<p>Label of moving average coefficients.</p>
+</dd>
+<dt>
+<code>Intensity.var</code>:</dt>
+<dd>
+<p>Label of the Intensity process.</p>
+</dd>
+<dt>
+<code>Latent.var</code>:</dt>
+<dd>
+<p>Label of the unobserved process.</p>
+</dd>
+<dt>
+<code>XinExpr</code>:</dt>
+<dd>
+<p>Logical variable. If <code>XinExpr=FALSE</code>, the starting condition of <code>Latent.var</code> is zero otherwise each component of Latent.var has a parameter as a starting point. </p>
+</dd>
+<dt>
+<code>Type.Jump</code>:</dt>
+<dd>
+<p>Logical variable. If <code>XinExpr=TRUE</code>, the jump size is deterministic</p>
+</dd>
+</dl>
+<h3>Author(s)</h3>
+
+<p>The YUIMA Project Team
+</p>
+<p>Contacts: Lorenzo Mercuri <a href="mailto:lorenzo.mercuri@unimi.it">lorenzo.mercuri@unimi.it</a>
+</p>
+
+
+</div>

@@ -1,0 +1,73 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>to_yamlet.list</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Coerce list to yamlet Storage Format</h2>
+
+<h3>Description</h3>
+
+<p>Coerces list to yamlet storage format. Operates recursively on list members.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">## S3 method for class 'list'
+to_yamlet(x, ..., bracket_all = FALSE)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>x</code></td>
+<td>
+<p>object</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+<p>ignored</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>bracket_all</code></td>
+<td>
+<p>FALSE at top level, but TRUE recursively downward; supports 'ITEM: definition' which would otherwise be bracketted</p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>length-one character
+</p>
+
+
+<h3>See Also</h3>
+
+<p>Other to_yamlet: 
+<code>to_yamlet()</code>,
+<code>to_yamlet.NULL()</code>,
+<code>to_yamlet.character()</code>,
+<code>to_yamlet.default()</code>,
+<code>to_yamlet.numeric()</code>,
+<code>to_yamlet.yamlet()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">to_yamlet(list())
+to_yamlet(list(a = 1, b = 2, c = NULL))
+to_yamlet(list(a = 1, b = list(c = 3, d = list(e = 4, f = 'g', 'h'))))
+to_yamlet(setNames(1:3, c('a','b',NA)))
+to_yamlet(setNames(c(1,2,NA), c('a','b','c')))
+
+</code></pre>
+
+
+</div>

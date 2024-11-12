@@ -1,0 +1,97 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>getAllMatchesAllOpposition</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Get data on all matches against all opposition</h2>
+
+<h3>Description</h3>
+
+<p>This function gets all the matches for a particular team for e.g India, Pakistan,
+Australia etc against all other oppositions. It constructs a huge dataframe of all these
+matches. This can be saved by the user which can be used in function in which analyses are
+done for all matches and for all oppositions. This is done by loading the saved .RData for
+each match and performing an rbind of the data frames for each match
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">getAllMatchesAllOpposition(team,dir=".",save=FALSE,odir=".")
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>team</code></td>
+<td>
+<p>The team for which all matches and all opposition has to be obtained e.g. India, Pakistan</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>dir</code></td>
+<td>
+<p>The input directory</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>save</code></td>
+<td>
+<p>Default=FALSE. This parameter indicates whether the combined data frame needs to be saved or not. It is recommended
+to save this large dataframe as the creation of this data frame takes a several seconds depending
+on the number of matches</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>odir</code></td>
+<td>
+<p>The output directory</p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>match
+The combined data frame
+</p>
+
+
+<h3>Note</h3>
+
+<p>Maintainer: Tinniam V Ganesh <a href="mailto:tvganesh.85@gmail.com">tvganesh.85@gmail.com</a>
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Tinniam V Ganesh
+</p>
+
+
+<h3>References</h3>
+
+<p><a href="https://cricsheet.org/">https://cricsheet.org/</a><br><a href="https://gigadom.in/">https://gigadom.in/</a><br><a href="https://github.com/tvganesh/yorkrData/">https://github.com/tvganesh/yorkrData/</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code>bowlerMovingAverage</code><br><code>bowlerWicketsVenue</code><br><code>bowlerMeanRunsConceded</code><br></p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">## Not run: 
+# Get all matches for team India
+getAllMatchesAllOpposition("India",dir="../data/",save=TRUE)
+getAllMatchesAllOpposition("Australia",dir="./mysavedata/",save=TRUE)
+
+## End(Not run)
+
+</code></pre>
+
+
+</div>

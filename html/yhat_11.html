@@ -1,0 +1,132 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>commonalityCoefficients</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Commonality Coefficents</h2>
+
+<h3>Description</h3>
+
+<p>Commonality Coefficients returns a list of two tables. The first 
+table <code>CC</code> contains the list of commonality coefficients and 
+the percent variance for each effect. The second <code>CCTotByVar</code> 
+totals the unique and common effects for each independent variable.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">  commonalityCoefficients(dataMatrix, dv, ivlist, imat=FALSE)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>dataMatrix</code></td>
+<td>
+
+<p>Dataset containing the dependent and independent variables
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>dv</code></td>
+<td>
+
+<p>The dependent variable named in the dataset
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>ivlist</code></td>
+<td>
+
+<p>List of independent variables named in the dataset
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>imat</code></td>
+<td>
+
+<p>Echo flag, default to FALSE
+</p>
+</td>
+</tr>
+</table>
+<h3>Details</h3>
+
+<p>When echo flag is true, transitional matrices during commonality 
+coefficient calculation are sent to output window. Default for 
+this option is false. When set to true, the intermediate matrices 
+for each commonality coefficient and regression combinations are 
+printed in the output window.
+</p>
+
+
+<h3>Value</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>CC</code></td>
+<td>
+ 
+<p>Matrix containing commonality coefficients and percentage of 
+variance for each effect.
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>CCTotalByVar</code></td>
+<td>
+ 
+<p>Table of unique and common effects for each independent 
+variable.
+</p>
+</td>
+</tr>
+</table>
+<h3>Author(s)</h3>
+
+<p> Kim Nimon &lt;kim.nimon@gmail.com&gt;</p>
+
+
+<h3>References</h3>
+
+<p>Nimon, K., Lewis, M., Kane, R. &amp; Haynes, R. M. (2008) An R  package to compute commonality coefficients in the multiple regression case: An introduction to the package and a practical example.<em>Behavior Research Methods</em>, <em>40</em>, 457-466.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code>canonCommonality</code>
+<code>genList</code>
+<code>odd</code>
+<code>setBits</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">  ## Predict miles per gallon based on vehicle weight, type of 
+  ## carborator, &amp; number of engine cylinders
+     commonalityCoefficients(mtcars,"mpg",list("wt","carb","cyl"))
+
+  ## Predict paragraph comprehension based on four verbal
+  ## tests: general info, sentence comprehension, word
+  ## classification, &amp; word type 
+  ## Use HS dataset in MBESS 
+     if (require ("MBESS")){
+     data(HS)
+  ## Commonality Coefficient Analysis
+     commonalityCoefficients(HS,"t6_paragraph_comprehension",list("t5_general_information",
+       "t7_sentence","t8_word_classification","t9_word_meaning"))
+     }
+
+</code></pre>
+
+
+</div>

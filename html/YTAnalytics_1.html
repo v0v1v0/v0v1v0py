@@ -1,0 +1,134 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>analytics_request</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Analytics Request Function - YouTube Analytics API</h2>
+
+<h3>Description</h3>
+
+<p>This is the function to make API calls to the YouTube Analytics API. Most other
+functions in this package are wrappers for this function with some arguments already populated.
+If none of the other prebuilt functions work for your use case, this is the function to turn to.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">analytics_request(
+  dimensions = NULL,
+  metrics = "views,estimatedMinutesWatched",
+  sort = NULL,
+  maxResults = 10,
+  filters = NULL,
+  startDate = "2000-01-01",
+  endDate = as.character(Sys.Date()),
+  ids = "channel==MINE",
+  currency = NULL,
+  startIndex = NULL,
+  includeHistoricalChannelData = NULL,
+  token = getOption("YouTube_Token")
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>dimensions</code></td>
+<td>
+<p>String. See <a href="https://developers.google.com/youtube/analytics/dimensions">https://developers.google.com/youtube/analytics/dimensions</a>
+for valid arguments.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>metrics</code></td>
+<td>
+<p>String. See <a href="https://developers.google.com/youtube/analytics/metrics">https://developers.google.com/youtube/analytics/metrics</a>
+for valid arguments.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>sort</code></td>
+<td>
+<p>String. Specify by which metric/dimensions to sort output if applicable.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>maxResults</code></td>
+<td>
+<p>Integer. Specify the number of results to return. Maximum is 200.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>filters</code></td>
+<td>
+<p>String. Specify dimension to filter on if applicable. Ex: video==dQw4w9WgXcQ</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>startDate</code></td>
+<td>
+<p>Required. String specifying start date.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>endDate</code></td>
+<td>
+<p>Required. String specifying end date.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>ids</code></td>
+<td>
+<p>Required. Specify the channel. By default the function will specify <code>"channel==MINE"</code></p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>currency</code></td>
+<td>
+<p>String. Specify currency if applicable</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>startIndex</code></td>
+<td>
+<p>Integer. Specify index of first entity to retrieve, if applicable.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>includeHistoricalChannelData</code></td>
+<td>
+<p>String. Indicates whether the API response should include
+channels' watch time and view data from the time period prior
+to when the channels were linked to the content owner. Only
+applies to content owner reports. Either 'true' or 'false'.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>token</code></td>
+<td>
+<p>Required.</p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>data.frame
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">## Not run: 
+analytics_request(startDate = "2018-05-01", 
+                  endDate = "2017-01-01", 
+                  metrics = "views,comments,likes,dislikes,estimatedMinutesWatched")
+
+## End(Not run)
+</code></pre>
+
+
+</div>

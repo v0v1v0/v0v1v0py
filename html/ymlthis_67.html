@@ -1,0 +1,232 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>yml_bookdown_opts</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Set Top-level YAML options for bookdown</h2>
+
+<h3>Description</h3>
+
+<p>bookdown uses YAML in three main places, as described in the <a href="https://bookdown.org/yihui/rmarkdown/bookdown-project.html">bookdown book</a>:
+<code>index.Rmd</code>, <code style="white-space: pre;">⁠_output.yml⁠</code>, and <code style="white-space: pre;">⁠_bookdown.yml⁠</code>. <code>index.Rmd</code> can take most
+YAML. <code style="white-space: pre;">⁠_output.yml⁠</code> is intended for output-related YAML, such as that
+produced by <code>yml() %&gt;% yml_output(bookdown::pdf_book())</code>. <code style="white-space: pre;">⁠_bookdown.yml⁠</code> is
+intended for configuring the build of the book. Pass the results of the
+<code style="white-space: pre;">⁠yml_*()⁠</code> functions to <code>use_index_rmd()</code>, <code>use_bookdown_yml()</code>,
+<code>use_output_yml()</code> to write them to these files. <code>yml_bookdown_site()</code> adds
+the <code>site: "bookdown::bookdown_site"</code> to the YAML metadata.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">yml_bookdown_opts(
+  .yml,
+  book_filename = yml_blank(),
+  delete_merged_file = yml_blank(),
+  before_chapter_script = yml_blank(),
+  after_chapter_script = yml_blank(),
+  edit = yml_blank(),
+  history = yml_blank(),
+  rmd_files = yml_blank(),
+  rmd_subdir = yml_blank(),
+  output_dir = yml_blank(),
+  clean = yml_blank(),
+  ...
+)
+
+yml_bookdown_site(.yml)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>.yml</code></td>
+<td>
+<p>a <code>yml</code> object created by <code>yml()</code>, <code>as_yml()</code>, or returned by
+a <code style="white-space: pre;">⁠yml_*()⁠</code> function</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>book_filename</code></td>
+<td>
+<p>A character vector, the filename of the main <code>.Rmd</code>
+file, the <code>.Rmd</code> file that is created by merging all chapters. By default,
+it is called "_main.Rmd".</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>delete_merged_file</code></td>
+<td>
+<p>Logical. Delete the main <code>.Rmd</code> file if it exists?</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>before_chapter_script, after_chapter_script</code></td>
+<td>
+<p>A character vector of one
+or more R scripts to be executed before or after each chapter</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>edit</code></td>
+<td>
+<p>A URL that collaborators can click to edit the <code>.Rmd</code> source
+document of the current page, usually a link to a GitHub repository. This
+link should have <code style="white-space: pre;">⁠%s⁠</code> where the actual <code>.Rmd</code> filename for each page will
+go.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>history</code></td>
+<td>
+<p>Similar to <code>edit</code>, a link to the edit/commit history of the
+current page.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>rmd_files</code></td>
+<td>
+<p>A character vector, the order order of <code>.Rmd</code> files for the
+book. <code>rmd_files</code> can also be a named list where each element of the list
+is named for the output type, e.g. "html" or "latex". By default, bookdown
+merges all <code>.Rmd</code> files by the order of filenames.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>rmd_subdir</code></td>
+<td>
+<p>whether to search for book source <code>.Rmd</code> files in
+subdirectories (by default, only the root directory is searched). This may
+be either a boolean (e.g. <code>TRUE</code> will search for book source <code>.Rmd</code> files
+in the project directory and all subdirectories) or vector of paths if you
+want to search for book source <code>.Rmd</code> files in a subset of subdirectories.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>output_dir</code></td>
+<td>
+<p>the output directory of the book ("_book" by default)</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>clean</code></td>
+<td>
+<p>a character vector of files and directories to be cleaned by the
+<code>bookdown::clean_book()</code> function.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+<p>additional named R objects, such as characters or lists, to
+transform into YAML</p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>a <code>yml</code> object
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code>use_index_rmd()</code> <code>use_bookdown_yml()</code> <code>use_output_yml()</code>
+</p>
+<p>Other yml: 
+<code>asis_yaml_output()</code>,
+<code>bib2yml()</code>,
+<code>draw_yml_tree()</code>,
+<code>has_field()</code>,
+<code>read_json()</code>,
+<code>use_yml_defaults()</code>,
+<code>use_yml_file()</code>,
+<code>use_yml()</code>,
+<code>yml_author()</code>,
+<code>yml_blogdown_opts()</code>,
+<code>yml_citations()</code>,
+<code>yml_clean()</code>,
+<code>yml_distill_opts()</code>,
+<code>yml_latex_opts()</code>,
+<code>yml_output()</code>,
+<code>yml_pagedown_opts()</code>,
+<code>yml_params()</code>,
+<code>yml_pkgdown()</code>,
+<code>yml_reference()</code>,
+<code>yml_replace()</code>,
+<code>yml_resource_files()</code>,
+<code>yml_rsconnect_email()</code>,
+<code>yml_rticles_opts()</code>,
+<code>yml_runtime()</code>,
+<code>yml_site_opts()</code>,
+<code>yml_toc()</code>,
+<code>yml_vignette()</code>
+</p>
+<p>Other bookdown: 
+<code>gitbook_config()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">
+yml_empty() %&gt;%
+  yml_bookdown_opts(
+    book_filename = "my-book.Rmd",
+    before_chapter_script = c("script1.R", "script2.R"),
+    after_chapter_script = "script3.R",
+    edit = "https =//github.com/rstudio/bookdown-demo/edit/master/%s",
+    output_dir = "book-output",
+    clean = c("my-book.bbl", "R-packages.bib")
+ )
+
+yml_empty() %&gt;%
+  yml_bookdown_opts(
+    rmd_files = list(
+      html = c("index.Rmd", "abstract.Rmd", "intro.Rmd"),
+      latex = c("abstract.Rmd", "intro.Rmd")
+    )
+ )
+
+ x &lt;- yml_empty() %&gt;%
+  yml_title("A Minimal Book Example") %&gt;%
+  yml_date(yml_code(Sys.Date())) %&gt;%
+  yml_author("Yihui Xie") %&gt;%
+  yml_bookdown_site() %&gt;%
+  yml_latex_opts(
+    documentclass = "book",
+    bibliography = c("book.bib", "packages.bib"),
+    biblio_style = "apalike"
+  ) %&gt;%
+  yml_citations(
+    link_citations = TRUE
+  ) %&gt;%
+  yml_description("This is a minimal example of using
+  the bookdown package to write a book.")
+
+x
+
+
+
+output_yml &lt;- yml_empty() %&gt;%
+  yml_output(
+    bookdown::gitbook(
+      lib_dir = "assets",
+      split_by = "section",
+      config = gitbook_config(toolbar_position = "static")
+    ),
+    bookdown::pdf_book(keep_tex = TRUE),
+    bookdown::html_book(css = "toc.css")
+  )
+output_yml
+
+
+
+</code></pre>
+
+
+</div>

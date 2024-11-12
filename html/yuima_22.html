@@ -1,0 +1,88 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>yuima.carma.qmle-class</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Class for Quasi Maximum Likelihood Estimation of CARMA(p,q) model</h2>
+
+<h3>Description</h3>
+
+<p>The <code>yuima.carma.qmle</code> class is a class of the  <span class="pkg">yuima</span> package that extends the <code>mle-class</code> of the <span class="pkg">stats4</span> package.  
+</p>
+
+
+<h3>Slots</h3>
+
+
+<dl>
+<dt>
+<code>Incr.Lev</code>:</dt>
+<dd>
+<p>is an object of class <code>zoo</code> that contains the estimated increments of the noise obtained using <code>CarmaNoise</code>.</p>
+</dd>
+<dt>
+<code>model</code>:</dt>
+<dd>
+<p>is an object of of <code>yuima.carma-class</code>.</p>
+</dd>
+<dt>
+<code>logL.Incr</code>:</dt>
+<dd>
+<p>is an object of class <code>numeric</code> that contains the value of the log-likelihood for estimated Levy increments.</p>
+</dd>
+<dt>
+<code>call</code>:</dt>
+<dd>
+<p>is an object of class <code>language</code>. </p>
+</dd>
+<dt>
+<code>coef</code>:</dt>
+<dd>
+<p>is an object of class <code>numeric</code> that contains estimated parameters.</p>
+</dd>
+<dt>
+<code>fullcoef</code>:</dt>
+<dd>
+<p>is an object of class <code>numeric</code> that contains estimated and fixed parameters.</p>
+</dd>
+<dt>
+<code>vcov</code>:</dt>
+<dd>
+<p>is an object of class <code>matrix</code>.</p>
+</dd>
+<dt>
+<code>min</code>:</dt>
+<dd>
+<p>is an object of class <code>numeric</code>.</p>
+</dd>
+<dt>
+<code>minuslogl</code>:</dt>
+<dd>
+<p>is an object of class <code>function</code>.</p>
+</dd>
+<dt>
+<code>method</code>:</dt>
+<dd>
+<p>is an object of class <code>character</code>.</p>
+</dd>
+</dl>
+<h3>Methods</h3>
+
+
+<dl>
+<dt>plot</dt>
+<dd>
+<p>Plot method for estimated increment of the noise.</p>
+</dd>
+<dt>Methods mle</dt>
+<dd>
+<p>All methods for <code>mle-class</code> are available.</p>
+</dd>
+</dl>
+<h3>Author(s)</h3>
+
+<p>The YUIMA Project Team</p>
+
+
+</div>

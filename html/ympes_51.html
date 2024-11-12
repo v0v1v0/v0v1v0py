@@ -1,0 +1,121 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>new_package</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Create a package skeleton (Experimental)</h2>
+
+<h3>Description</h3>
+
+<p><code>new_package()</code> create a package skeleton based on my preferred folder
+structure. It is somewhat experimental in nature and should be treated
+accordingly.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">new_package(
+  name = "mypackage",
+  dir = ".",
+  firstname = getOption("ympes.firstname", "Joe"),
+  surname = getOption("ympes.surname", "Bloggs"),
+  email = getOption("ympes.email", "Joe.Bloggs@missing.com"),
+  orcid = getOption("ympes.orcid", default = NULL),
+  enter = TRUE
+)
+
+np(
+  name = "mypackage",
+  dir = ".",
+  firstname = getOption("ympes.firstname", "Joe"),
+  surname = getOption("ympes.surname", "Bloggs"),
+  email = getOption("ympes.email", "Joe.Bloggs@missing.com"),
+  orcid = getOption("ympes.orcid", default = NULL),
+  enter = TRUE
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>name</code></td>
+<td>
+<p><code style="white-space: pre;">⁠[character]⁠</code>
+</p>
+<p>Package name</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>dir</code></td>
+<td>
+<p><code style="white-space: pre;">⁠[character]⁠</code>
+</p>
+<p>Directory to start in.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>firstname</code></td>
+<td>
+<p><code style="white-space: pre;">⁠[character]⁠</code>
+</p>
+<p>Maintainer's firstname.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>surname</code></td>
+<td>
+<p><code style="white-space: pre;">⁠[character]⁠</code>
+</p>
+<p>Maintainer's surname.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>email</code></td>
+<td>
+<p><code style="white-space: pre;">⁠[character]⁠</code>
+</p>
+<p>Maintainer's email address.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>orcid</code></td>
+<td>
+<p><code style="white-space: pre;">⁠[character]⁠</code>
+</p>
+<p>Maintainer's ORCID.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>enter</code></td>
+<td>
+<p><code style="white-space: pre;">⁠[bool]⁠</code>
+</p>
+<p>Should you move in to the package directory after creation.
+</p>
+<p>Only applicable in interactive sessions.</p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>Created directory (invisibly)
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">
+# usage without entering directory
+p &lt;- new_package("my_package_1", dir = tempdir(), enter = FALSE)
+
+# clean up
+unlink(p, recursive = TRUE)
+
+</code></pre>
+
+
+</div>

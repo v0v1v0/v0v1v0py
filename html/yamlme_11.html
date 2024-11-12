@@ -1,0 +1,91 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>render_rmd</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Render documents from object</h2>
+
+<h3>Description</h3>
+
+<p>This function is a wrapper of <code>rmarkdown::render()</code> and will also work with
+file names but also enables the possibility of rendering from objects created
+by <code>write_rmd()</code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">render_rmd(input, ...)
+
+## S3 method for class 'character'
+render_rmd(input, ...)
+
+## S3 method for class 'rmd_doc'
+render_rmd(input, output_file, delete_rmd = TRUE, ...)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>input</code></td>
+<td>
+<p>Either a character value indicating the path and the name of the
+r-markdown file, or an object of class <code>rmd_doc</code>, written by
+<code>write_rmd()</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+<p>Further parameters passed to <code>rmarkdown::render()</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>output_file</code></td>
+<td>
+<p>A character value indicating the name of the output file.
+This argument is passed to <code>rmarkdown::render()</code>. Note that the argument
+only contains the name of the file without extension and can only be
+written at the working directory.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>delete_rmd</code></td>
+<td>
+<p>A logical value idicating whether the temporary Rmd file
+should be deleted or not. If not, the file gets the same name as the
+rendered file.</p>
+</td>
+</tr>
+</table>
+<h3>Examples</h3>
+
+<pre><code class="language-R">## Not run: 
+## copy example to your working directory
+filename &lt;- "taxlistjourney.Rmd"
+file.copy(from = file.path(path.package("yamlme"), filename), to = filename)
+
+## Render the file with rmarkdown::render()
+render_rmd(filename, output_file = "example")
+browseURL("example.html")
+
+## Render the file with yamlme
+text_document &lt;- read_rmd(filename)
+
+text_document &lt;- update(text_document,
+  title = "my title", author = "my name",
+  output = "html_document"
+)
+
+render_rmd(text_document, output_file = "example2")
+browseURL("example2.html")
+
+## End(Not run)
+
+</code></pre>
+
+
+</div>

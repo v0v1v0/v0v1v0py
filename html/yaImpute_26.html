@@ -1,0 +1,78 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>predict.yai</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Generic predict function for class yai</h2>
+
+<h3>Description</h3>
+
+<p>Provides a generic interface for getting predicted values for <code>yai</code> objects.</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">## S3 method for class 'yai'
+predict(object,newdata,...)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>object</code></td>
+<td>
+<p>an object of class <code>yai</code> which is passed as argument to 
+<code>newtargets</code>, <code>impute.yai</code>, or both of these functions, see details.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>newdata</code></td>
+<td>
+<p>a data frame that at a minimum contains the <em>X</em>-variables for 
+new observations.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+<p>passed to <code>newtargets</code> and <code>impute.yai</code>, see details.</p>
+</td>
+</tr>
+</table>
+<h3>Details</h3>
+
+<p>When argument <code>newdata</code> is present function <code>newtargets</code> is called followed by a
+call to <code>impute.yai</code>. If include in the ..., the arguments <code>k</code> and <code>ann</code> 
+are passed to <code>newtargets</code>. 
+</p>
+<p>When argument <code>newdata</code> is absent, <code>impute.yai</code> is called without first calling
+<code>newtargets</code>.
+</p>
+<p>All of the ... arguments are passed to <code>impute.yai</code>.
+</p>
+<p>Another form of prediction in imputation is to get the identity of the imputed observations.
+Use function <code>foruse</code> for this purpose.
+</p>
+
+
+<h3>Value</h3>
+
+<p>An object of class <code>impute.yai</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Nicholas L. Crookston <a href="mailto:ncrookston.fs@gmail.com">ncrookston.fs@gmail.com</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code>foruse</code>, <code>newtargets</code> <code>impute.yai</code></p>
+
+
+</div>

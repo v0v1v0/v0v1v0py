@@ -1,0 +1,64 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>yuima.ae-class</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Class for the asymptotic expansion of diffusion processes</h2>
+
+<h3>Description</h3>
+
+<p>The <code>yuima.ae</code> class is used to describe the output of the functions <code>ae</code> and <code>aeMarginal</code>.
+</p>
+
+
+<h3>Slots</h3>
+
+
+<dl>
+<dt><code>order</code></dt>
+<dd>
+<p>integer. The order of the expansion.</p>
+</dd>
+<dt><code>var</code></dt>
+<dd>
+<p>character. The state variables.</p>
+</dd>
+<dt><code>u.var</code></dt>
+<dd>
+<p>character. The variables of the characteristic function.</p>
+</dd>
+<dt><code>eps.var</code></dt>
+<dd>
+<p>character. The perturbation variable.</p>
+</dd>
+<dt><code>characteristic</code></dt>
+<dd>
+<p>expression. The characteristic function.</p>
+</dd>
+<dt><code>density</code></dt>
+<dd>
+<p>expression. The probability density function.</p>
+</dd>
+<dt><code>Z0</code></dt>
+<dd>
+<p>numeric. The solution to the deterministic process obtained by setting the perturbation to zero.</p>
+</dd>
+<dt><code>Mu</code></dt>
+<dd>
+<p>numeric. The drift vector for the representation of Z1.</p>
+</dd>
+<dt><code>Sigma</code></dt>
+<dd>
+<p>matrix. The diffusion matrix for the representation of Z1.</p>
+</dd>
+<dt><code>c.gamma</code></dt>
+<dd>
+<p>list. The coefficients of the Hermite polynomials.</p>
+</dd>
+<dt><code>h.gamma</code></dt>
+<dd>
+<p>list. Hermite polynomials.</p>
+</dd>
+</dl>
+</div>

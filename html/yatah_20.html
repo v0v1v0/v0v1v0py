@@ -1,0 +1,50 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>taxtable</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Taxonomic table</h2>
+
+<h3>Description</h3>
+
+<p>Compute taxonomic table from lineages.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">taxtable(lineage)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table><tr style="vertical-align: top;">
+<td><code>lineage</code></td>
+<td>
+<p>string. Vector of lineages.</p>
+</td>
+</tr></table>
+<h3>Details</h3>
+
+<p>Duplicated lineages are removed.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A data.frame with columns corresponding to different ranks.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">lineage1 &lt;- "k__Bacteria|p__Verrucomicrobia|c__Verrucomicrobiae"
+lineage2 &lt;- "k__Bacteria|p__Firmicutes|c__Clostridia"
+lineage3 &lt;- "k__Bacteria|p__Firmicutes|c__Bacilli"
+taxtable(c(lineage1, lineage2, lineage3))
+</code></pre>
+
+
+</div>

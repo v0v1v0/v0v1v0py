@@ -1,0 +1,134 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>yuima.poisson-class</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Class for the mathematical description of Compound Poisson processes</h2>
+
+<h3>Description</h3>
+
+<p>The <code>yuima.poisson</code> class is a class of the  <span class="pkg">yuima</span> package that extends the <code>yuima.model-class</code>.
+</p>
+
+
+<h3>Slots</h3>
+
+
+<dl>
+<dt>
+<code>drift</code>:</dt>
+<dd>
+<p>always <code>expression((0))</code>.</p>
+</dd>
+<dt>
+<code>diffusion</code>:</dt>
+<dd>
+<p>a list of <code>expression((0))</code>.</p>
+</dd>
+<dt>
+<code>hurst</code>:</dt>
+<dd>
+<p>always <code>h=0.5</code>, but ignored for this model.</p>
+</dd>
+<dt>
+<code>jump.coeff</code>:</dt>
+<dd>
+<p>set according to <code>scale</code> in <code>setPoisson</code>.</p>
+</dd>
+<dt>
+<code>measure</code>:</dt>
+<dd>
+<p>a list containting the intensity measure and the jump distribution.</p>
+</dd>
+<dt>
+<code>measure.type</code>:</dt>
+<dd>
+<p>always <code>"CP"</code>.</p>
+</dd>
+<dt>state.variable</dt>
+<dd>
+<p>a vector of names identifying the names used to 
+denote the state variable in the drift and diffusion specifications.</p>
+</dd>
+<dt>
+<code>parameter</code>:</dt>
+<dd>
+<p>which is a short name for “parameters”, is an 
+object of class <code>model.parameter-class</code>. For more details see 
+<code>model.parameter-class</code> documentation page.</p>
+</dd>
+<dt>
+<code>state.variable</code>:</dt>
+<dd>
+<p>identifies the state variables in the <span style="font-family: Courier New, Courier; color: #666666;"><b>R</b></span> 
+expression.</p>
+</dd>
+<dt>
+<code>jump.variable</code>:</dt>
+<dd>
+<p>identifies the variable for the jump 
+coefficient.</p>
+</dd>
+<dt>
+<code>time.variable</code>:</dt>
+<dd>
+<p>the time variable.</p>
+</dd>
+<dt>
+<code>noise.number</code>:</dt>
+<dd>
+<p>denotes the number of sources of noise.</p>
+</dd>
+<dt>
+<code>equation.number</code>:</dt>
+<dd>
+<p>denotes the dimension of the stochastic 
+differential equation.</p>
+</dd>
+<dt>
+<code>dimension</code>:</dt>
+<dd>
+<p>the dimensions of the parameter given in the 
+<code>parameter</code> slot.</p>
+</dd>
+<dt>
+<code>solve.variable</code>:</dt>
+<dd>
+<p>identifies the variable with respect to which 
+the stochastic differential equation has to be solved.</p>
+</dd>
+<dt>
+<code>xinit</code>:</dt>
+<dd>
+<p>contains the initial value of the stochastic 
+differential equation.</p>
+</dd>
+<dt>
+<code>J.flag</code>:</dt>
+<dd>
+<p>wheather jump.coeff include jump.variable.</p>
+</dd>
+</dl>
+<h3>Methods</h3>
+
+
+<dl>
+<dt>simulate</dt>
+<dd>
+<p>simulation method. For more information see
+<code>simulate</code>.</p>
+</dd>
+</dl>
+<dl>
+<dt>qmle</dt>
+<dd>
+<p>Quasi maximum likelihood estimation procedure. For more information see <code>qmle</code>. </p>
+</dd>
+</dl>
+<h3>Author(s)</h3>
+
+<p>The YUIMA Project Team</p>
+
+
+</div>

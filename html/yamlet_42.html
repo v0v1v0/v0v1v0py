@@ -1,0 +1,99 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>as_yamlet.character</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Coerce Character To Yamlet Format</h2>
+
+<h3>Description</h3>
+
+<p>Coerces character to yamlet format.
+Length-one character is understood as a file path
+if the file exists.  Otherwise, it is treated as data.
+The file is a mapping of (nested) sequences,
+where map keys are data item names, and
+sequences represent data item attributes.
+Attributes may be named or anonymous.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">## S3 method for class 'character'
+as_yamlet(
+  x,
+  default_keys = getOption("yamlet_default_keys", list("label", "guide")),
+  ...
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>x</code></td>
+<td>
+<p>length-one filepath or actual data</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>default_keys</code></td>
+<td>
+<p>character: default keys for the first n anonymous members of each element</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+<p>passed to <code>as_yam.character</code> and <code>as_yamlet.yam</code></p>
+</td>
+</tr>
+</table>
+<h3>Details</h3>
+
+<p>If an attribute is anonymous, an attempt
+is made to name it using available defaults.
+A special item named '_keys' if present identifies a sequence of
+key names that over-ride <code>default_keys</code>.
+Attribute names are sought first in the explicit yaml,
+then in the special item named '_keys',
+then in the <code>default_keys</code> argument passed to <code>as_yamlet</code>,
+then in <code>options()$yamlet_default_keys</code>,
+then in the defaults for argument <code>default_keys</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>yamlet: a named list with default keys applied
+</p>
+
+
+<h3>See Also</h3>
+
+<p>Other yamlet: 
+<code>[.yamlet()</code>,
+<code>as.character.yamlet()</code>,
+<code>as_yamlet()</code>,
+<code>as_yamlet.data.frame()</code>,
+<code>as_yamlet.list()</code>,
+<code>as_yamlet.yam()</code>,
+<code>as_yamlet.yamlet()</code>,
+<code>print.yamlet()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">file &lt;- system.file(package = 'yamlet', 'extdata','quinidine.yaml')
+as_yamlet(file)
+as_yamlet('ID: subject identifier')
+as_yamlet(c('id: subject','amt: dose'))
+as_yamlet(c('id: subject\namt: dose'))
+
+</code></pre>
+
+
+</div>

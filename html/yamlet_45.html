@@ -1,0 +1,79 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>as_yamlet.yam</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Coerce Yam To Yamlet Format</h2>
+
+<h3>Description</h3>
+
+<p>Coerces yam to yamlet format. If the object
+or user specifies default keys, these are applied
+See <code>as_yamlet.character</code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">## S3 method for class 'yam'
+as_yamlet(
+  x,
+  default_keys = getOption("yamlet_default_keys", list("label", "guide")),
+  ...
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>x</code></td>
+<td>
+<p>a yam object; see <code>as_yam</code></p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>default_keys</code></td>
+<td>
+<p>character: default keys for the first n anonymous members of each element</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+<p>ignored</p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>yamlet: a named list with default keys applied
+</p>
+
+
+<h3>See Also</h3>
+
+<p>Other yamlet: 
+<code>[.yamlet()</code>,
+<code>as.character.yamlet()</code>,
+<code>as_yamlet()</code>,
+<code>as_yamlet.character()</code>,
+<code>as_yamlet.data.frame()</code>,
+<code>as_yamlet.list()</code>,
+<code>as_yamlet.yamlet()</code>,
+<code>print.yamlet()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">file &lt;- system.file(package = 'yamlet', 'extdata','quinidine.yaml')
+file
+as_yamlet(as_yam(file))
+
+</code></pre>
+
+
+</div>

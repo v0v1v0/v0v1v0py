@@ -1,0 +1,106 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>regr</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Regression effect reporting for lm class objects</h2>
+
+<h3>Description</h3>
+
+<p>The <code>regr</code> reports beta weights, standardized beta weights, 
+structure coefficients, adjusted effect sizes, and commonality 
+coefficients for <code>lm</code> class objects.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">regr(lm.out)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table><tr style="vertical-align: top;">
+<td><code>lm.out</code></td>
+<td>
+<p>lm class object</p>
+</td>
+</tr></table>
+<h3>Details</h3>
+
+<p>The function <code>regr</code> takes the lm class object and reports
+beta weights, standardized beta weights, structure coefficients, 
+adjusted effect sizes, and commonality 
+coefficients for <code>lm</code> class objects.
+</p>
+
+
+<h3>Value</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>LM_Output</code></td>
+<td>
+<p>The summary of the output from the <code>lm</code> class object</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>Beta_Weights</code></td>
+<td>
+<p>Beta weights for the regression effects</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>Structure_Coefficients</code></td>
+<td>
+<p>Structure coefficients for the regression effects</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>Commonality_Data</code></td>
+<td>
+<p>Commonality coefficients for the regression effects. The output only
+produces a parsed version of CCdata</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>Effect_Size</code></td>
+<td>
+<p>Adjusted effect size computations based on R^2 adjustments</p>
+</td>
+</tr>
+</table>
+<h3>Author(s)</h3>
+
+<p>J. Kyle Roberts &lt;kyler@smu.edu&gt;, Kim Nimon &lt;kim.nimon@gmail.com&gt;
+</p>
+
+
+<h3>References</h3>
+
+<p>Kraha, A., Turner, H., Nimon, K., Zientek, L., Henson, R. (2012). Tools to support multiple regression in the face of multicollinearity.<em>Frontiers in Psychology</em>, <em>3</em>(102), 1-13.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code>commonalityCoefficients</code>, 
+<code>effect.size</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">     if (require ("MBESS")){
+     data(HS)
+     attach(HS)
+     lm.out&lt;-lm(t20_deduction~t10_addition*t24_woody_mccall)
+     regr(lm.out)
+     detach(HS)
+     }
+</code></pre>
+
+
+</div>

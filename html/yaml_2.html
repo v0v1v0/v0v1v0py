@@ -1,0 +1,128 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>read_yaml</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Read a YAML file</h2>
+
+<h3>Description</h3>
+
+<p>Read a YAML document from a file and create an R object from it
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">  read_yaml(file, fileEncoding = "UTF-8", text, error.label, readLines.warn=TRUE, ...)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>file</code></td>
+<td>
+<p>either a character string naming a file or a connection
+open for writing</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>fileEncoding</code></td>
+<td>
+<p>character string: if non-empty declares the
+encoding used on a file (not a connection) so the character data can
+be re-encoded.  See <code>file</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>text</code></td>
+<td>
+<p>character string: if <code>file</code> is not supplied and this is,
+then data are read from the value of <code>text</code> via a text connection.
+Notice that a literal string can be used to include (small) data sets
+within R code.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>error.label</code></td>
+<td>
+<p>a label to prepend to error messages (see Details).</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>readLines.warn</code></td>
+<td>
+<p>logical (default:TRUE) suppress warnings from readLines used inside read_yaml</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+<p>arguments to pass to <code>yaml.load</code></p>
+</td>
+</tr>
+</table>
+<h3>Details</h3>
+
+<p>This function is a convenient wrapper for <code>yaml.load</code> and is a
+nicer alternative to <code>yaml.load_file</code>.
+</p>
+<p>You can specify a label to be prepended to error messages via the
+<code>error.label</code> argument.  If <code>error.label</code> is missing,
+<code>read_yaml</code> will make an educated guess for the value of
+<code>error.label</code> by either using the specified filename (when <code>file</code>
+is a character vector) or using the description of the supplied connection
+object (via the <code>summary</code> function).  If <code>text</code> is used, the
+default value of <code>error.label</code> will be <code>NULL</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>If the root YAML object is a map, a named list or list with an attribute of 'keys' is
+returned.  If the root object is a sequence, a list or vector is returned, depending
+on the contents of the sequence.  A vector of length 1 is returned for single objects.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Jeremy Stephens &lt;jeremy.f.stephens@vumc.org&gt;</p>
+
+
+<h3>References</h3>
+
+<p>YAML: http://yaml.org
+</p>
+<p>libyaml: https://pyyaml.org/wiki/LibYAML
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code>yaml.load</code>, <code>write_yaml</code>, <code>yaml.load_file</code></p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">## Not run: 
+  # reading from a file connection
+  filename &lt;- tempfile()
+  cat("test: data\n", file = filename)
+  con &lt;- file(filename, "r")
+  read_yaml(con)
+  close(con)
+
+  # using a filename to specify input file
+  read_yaml(filename)
+
+## End(Not run)
+
+  # reading from a character vector
+  read_yaml(text="- hey\n- hi\n- hello")
+</code></pre>
+
+
+</div>

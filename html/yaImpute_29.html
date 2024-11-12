@@ -1,0 +1,86 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>rmsd.yai</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Root Mean Square Difference between observed and imputed</h2>
+
+<h3>Description</h3>
+
+<p>Computes the root mean square difference (RMSD) between
+observed and imputed values for each observation that has both. RMSD
+is computationally like RMSE, but they differ in interpretation. The RMSD
+values can be scaled to afford comparisons among variables.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">rmsd.yai (object,vars=NULL,scale=FALSE,...)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>object</code></td>
+<td>
+<p>an object created by <code>yai</code> or <code>impute.yai</code></p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>vars</code></td>
+<td>
+<p>a list of variable names you want to include, if NULL all available
+variables are included</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>scale</code></td>
+<td>
+<p>when <code>TRUE</code>, the values are scaled (see details), if a named vector,
+the values are scaled by the corresponding values.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+<p>passed to called methods, very useful for passing argument
+<code>ancillaryData</code> to function <code>impute.yai</code></p>
+</td>
+</tr>
+</table>
+<h3>Details</h3>
+
+<p>By default, RMSD is computed using standard formula for its related statistic,
+RMSE. When <code>scale=TRUE</code>, or set of values is supplied, RMSD is divided by the 
+scaling factor. The scaling factor is the standard deviation of the
+<em>reference</em> observations under the assumption that they are representative
+of the population.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A data frame with the row names as vars and the column as <code>rmsd</code>. When
+<code>scale=TRUE</code>, the column name is <code>rmsdS</code>. The scaling factors used, if any,
+are returned as an attribute.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Nicholas L. Crookston <a href="mailto:ncrookston.fs@gmail.com">ncrookston.fs@gmail.com</a> <br>
+Andrew O. Finley <a href="mailto:finleya@msu.edu">finleya@msu.edu</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code>yai</code>, <code>impute.yai</code> and <a href="https://doi.org/10.18637/jss.v023.i10">doi:10.18637/jss.v023.i10</a>.
+</p>
+
+
+</div>

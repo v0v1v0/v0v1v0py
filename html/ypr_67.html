@@ -1,0 +1,74 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>ypr_tabulate_fish</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Tabulate Fish Numbers</h2>
+
+<h3>Description</h3>
+
+<p>Produces a data frame of the number of fish in the 'Survivors', 'Spawners',
+'Caught', 'Harvested', 'Released' and 'HandlingMortalities' categories by
+'Length', 'Age' or 'Weight' class and 'Ecotype' (NA if not applicable)
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">ypr_tabulate_fish(population, x = "Age", binwidth = 1L)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>population</code></td>
+<td>
+<p>An object of class <code>ypr_population()</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>x</code></td>
+<td>
+<p>The object to coerce.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>binwidth</code></td>
+<td>
+<p>A positive integer of the width of the bins for grouping.</p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>A data frame
+</p>
+
+
+<h3>See Also</h3>
+
+<p>Other tabulate: 
+<code>ypr_detabulate_parameters()</code>,
+<code>ypr_report()</code>,
+<code>ypr_tabulate_biomass()</code>,
+<code>ypr_tabulate_parameters()</code>,
+<code>ypr_tabulate_schedule()</code>,
+<code>ypr_tabulate_sr()</code>,
+<code>ypr_tabulate_yields()</code>,
+<code>ypr_tabulate_yield()</code>
+</p>
+<p>Other fish: 
+<code>ypr_plot_fish()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">ypr_tabulate_fish(ypr_population())
+</code></pre>
+
+
+</div>

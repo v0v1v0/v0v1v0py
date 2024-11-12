@@ -1,0 +1,108 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>metric_vec_template</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Developer function for calling new metrics</h2>
+
+<h3>Description</h3>
+
+<p><a href="https://lifecycle.r-lib.org/articles/stages.html#deprecated"><img src="../help/figures/lifecycle-deprecated.svg" alt="[Deprecated]"></a>
+</p>
+<p><code>metric_vec_template()</code> has been soft-deprecated as of yardstick 1.2.0.
+Please switch to use check_metric and yardstick_remove_missing functions.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">metric_vec_template(
+  metric_impl,
+  truth,
+  estimate,
+  na_rm = TRUE,
+  cls = "numeric",
+  estimator = NULL,
+  case_weights = NULL,
+  ...
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>metric_impl</code></td>
+<td>
+<p>The core implementation function of your custom metric.
+This core implementation function is generally defined inside the vector
+method of your metric function.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>truth</code></td>
+<td>
+<p>The realized vector of <code>truth</code>. This is either a factor
+or a numeric.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>estimate</code></td>
+<td>
+<p>The realized <code>estimate</code> result. This is either a numeric
+vector, a factor vector, or a numeric matrix (in the case of multiple
+class probability columns) depending on your metric function.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>na_rm</code></td>
+<td>
+<p>A <code>logical</code> value indicating whether <code>NA</code> values should be
+stripped before the computation proceeds. <code>NA</code> values are removed
+before getting to your core implementation function so you do not have to
+worry about handling them yourself. If <code>na_rm=FALSE</code> and any <code>NA</code> values
+exist, then <code>NA</code> is automatically returned.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>cls</code></td>
+<td>
+<p>A character vector of length 1 or 2 corresponding to the
+class that <code>truth</code> and <code>estimate</code> should be, respectively. If <code>truth</code> and
+<code>estimate</code> are of the same class, just supply a vector of length 1. If
+they are different, supply a vector of length 2. For matrices, it is best
+to supply <code>"numeric"</code> as the class to check here.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>estimator</code></td>
+<td>
+<p>The type of averaging to use. By this point, the averaging
+type should be finalized, so this should be a character vector of length 1\.
+By default, this character value is required to be one of: <code>"binary"</code>,
+<code>"macro"</code>, <code>"micro"</code>, or <code>"macro_weighted"</code>. If your metric allows more
+or less averaging methods, override this with <code>averaging_override</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>case_weights</code></td>
+<td>
+<p>Optionally, the realized case weights, as a numeric
+vector. This must be the same length as <code>truth</code>, and will be considered in
+the <code>na_rm</code> checks. If supplied, this will be passed on to <code>metric_impl</code> as
+the named argument <code>case_weights</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+<p>Extra arguments to your core metric function, <code>metric_impl</code>, can
+technically be passed here, but generally the extra args are added through
+R's scoping rules because the core metric function is created on the fly
+when the vector method is called.</p>
+</td>
+</tr>
+</table>
+</div>

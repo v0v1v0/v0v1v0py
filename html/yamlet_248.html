@@ -1,0 +1,97 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>[.decorated</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>a &lt;- as_decorated(as.list(setNames(letters[1:3], LETTERS[1:3])))
+attr(a$B, 'label') &lt;- 'foo'
+a &lt;- a[1:3]
+attributes(a)
+Subset Decorated</h2>
+
+<h3>Description</h3>
+
+<p>Subsets decorated. Calls <code>promote</code>
+internally to improve ambiguous conditional
+attributes where possible.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">## S3 method for class 'decorated'
+x[..., .promote = getOption("yamlet_promote", TRUE)]
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>x</code></td>
+<td>
+<p>decorated</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+<p>passed to next method</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>.promote</code></td>
+<td>
+<p>whether to auto-promote plural attributes</p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>decorated (unless dimension is dropped)
+</p>
+
+
+<h3>See Also</h3>
+
+<p>Other promote: 
+<code>filter.decorated()</code>,
+<code>promote()</code>,
+<code>promote.data.frame()</code>,
+<code>promote.list()</code>,
+<code>singularity()</code>
+</p>
+<p>Other decorated: 
+<code>[&lt;-.decorated()</code>,
+<code>[[.decorated()</code>,
+<code>[[&lt;-.decorated()</code>,
+<code>merge.decorated()</code>,
+<code>names&lt;-.decorated()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">library(magrittr)
+file &lt;- system.file(package = 'yamlet', 'extdata','phenobarb.csv')
+x &lt;- file %&gt;% decorate
+x %&gt;% decorations(event, value)
+
+# Subsetting promotes automatically.
+x[x$event == 'dose',] %&gt;% decorations(event, value)
+x[x$event == 'conc',] %&gt;% decorations(event, value)
+
+# Dimension may be dropped
+x[1,1]
+
+# Conventional subsetting
+a &lt;- as_decorated(as.list(setNames(letters[1:3], LETTERS[1:3])))
+attr(a$B, 'label') &lt;- 'foo'
+a &lt;- a[1:3]
+attributes(a)
+
+</code></pre>
+
+
+</div>

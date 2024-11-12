@@ -1,0 +1,78 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>as_yam.yamlet</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Coerce Yamlet to Yam</h2>
+
+<h3>Description</h3>
+
+<p>Coerces class yamlet to yam, negotiating the default keys.
+For each member of x, names of sub-members will be dropped
+if all previous such have been dropped.  I.e., attribute
+order is preserved, and 'guide' (by default) will not be
+made implicit unless 'label' has already been encountered
+(and made implicit).  Default keys are attached as the 'keys'
+attribute of the result.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">## S3 method for class 'yamlet'
+as_yam(
+  x,
+  ...,
+  default_keys = getOption("yamlet_default_keys", list("label", "guide"))
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>x</code></td>
+<td>
+<p>yamlet</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+<p>ignored</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>default_keys</code></td>
+<td>
+<p>names that may be omitted in left subsets</p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>yam
+</p>
+
+
+<h3>See Also</h3>
+
+<p>Other yam: 
+<code>as.character.yam()</code>,
+<code>as_yam()</code>,
+<code>as_yam.character()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">as_yam(as_yamlet(c('id: subject','amt: dose')))
+as_yam(as_yamlet(c('amt: [ dose, mg ]')))
+as_yam(as_yamlet(c('amt: [ guide: mg, label: dose ]')))
+
+</code></pre>
+
+
+</div>

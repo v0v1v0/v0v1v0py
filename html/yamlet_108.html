@@ -1,0 +1,115 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>implicit_guide.dvec</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Coerce Decorated Vector Guide to Something More Implicit</h2>
+
+<h3>Description</h3>
+
+<p>Coerces dvec guide-like attributes to 'guide'.
+The attribute 'guide' generally suggests a guide
+to interpretation of a data item, such as units, formats, codelists,
+and encodings.  The idea here is to replace these with 'guide':
+i.e., to undo the effects of <code>explicit_guide.dvec</code>.
+If guide attribute is still present, the explicit attribute is removed.
+Otherwise the explicit element is renamed.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">## S3 method for class 'dvec'
+implicit_guide(x, ...)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>x</code></td>
+<td>
+<p>dvec</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+<p>ignored</p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>dvec
+</p>
+
+
+<h3>See Also</h3>
+
+<p>Other explicit_guide: 
+<code>explicit_guide()</code>,
+<code>explicit_guide.data.frame()</code>,
+<code>explicit_guide.dvec()</code>,
+<code>explicit_guide.yamlet()</code>,
+<code>implicit_guide()</code>,
+<code>implicit_guide.data.frame()</code>,
+<code>infer_guide()</code>
+</p>
+<p>Other dvec: 
+<code>[.dvec()</code>,
+<code>[&lt;-.dvec()</code>,
+<code>[[.dvec()</code>,
+<code>[[&lt;-.dvec()</code>,
+<code>as.data.frame.dvec()</code>,
+<code>as_dvec()</code>,
+<code>as_dvec.character()</code>,
+<code>as_dvec.complex()</code>,
+<code>as_dvec.dvec()</code>,
+<code>as_dvec.integer()</code>,
+<code>as_dvec.logical()</code>,
+<code>as_dvec.numeric()</code>,
+<code>c.dvec()</code>,
+<code>classified.dvec()</code>,
+<code>desolve.dvec()</code>,
+<code>explicit_guide.data.frame()</code>,
+<code>format.dvec()</code>,
+<code>length.dvec()</code>,
+<code>print.dvec()</code>,
+<code>resolve.classified()</code>,
+<code>resolve.dvec()</code>,
+<code>unclassified.dvec()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">library(magrittr)
+x &lt;- data.frame(
+ ID = as_dvec(1),
+ CONC = as_dvec(1),
+ RACE = as_dvec(1),
+ SEX = as_dvec(1),
+ DATE = as_dvec(1)
+)
+x %&lt;&gt;% modify(ID, label = 'subject identifier')
+x %&lt;&gt;% modify(CONC, label = 'concentration', guide = 'ng/mL')
+x %&lt;&gt;% modify(RACE, label = 'race', guide = list(white = 0, black = 1, asian = 2))
+x %&lt;&gt;% modify(SEX, label = 'sex', guide = list(female = 0, male = 1))
+x %&lt;&gt;% modify(DATE, label  = 'date', guide = '%Y-%m-%d')
+x %&gt;% decorations
+x %&gt;% explicit_guide %&gt;% decorations
+x %&gt;% explicit_guide %&gt;% implicit_guide %&gt;% decorations
+x %&gt;% explicit_guide %&gt;% implicit_guide(DATE) %&gt;% decorations # limit scope
+x %&gt;% explicit_guide(simplify = FALSE) %&gt;% decorations
+x %&gt;% explicit_guide(simplify = FALSE) %&gt;% implicit_guide %&gt;% decorations
+x %&lt;&gt;% explicit_guide
+a &lt;- x$DATE
+str(a)
+str(a %&gt;% implicit_guide)
+</code></pre>
+
+
+</div>

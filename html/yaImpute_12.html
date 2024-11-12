@@ -1,0 +1,87 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>foruse</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Report a complete imputation</h2>
+
+<h3>Description</h3>
+
+<p>Provides a matrix of all observations with the reference observation
+identification best used to represent it, followed by the distance.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">foruse(object,kth=NULL,method="kth",targetsOnly=FALSE)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>object</code></td>
+<td>
+<p>an object created by <code>yai</code></p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>kth</code></td>
+<td>
+<p>when <code>NULL</code> (and <code>method="kth"</code>),
+the best pick is reported (a reference observation represents itself),
+otherwise the kth neighbor is picked.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>method</code></td>
+<td>
+<p>the method used to select references to represent observations,
+as follows: <br><code>kth</code>: the <em>kth</em> nearest neighbor is picked; <br><code>random</code>: for each observation, the value of <em>kth</em> is selected at
+random from the 1 to <code>k</code> neighbors (1 to <code>kth</code> if is <code>kth</code>
+specified); <br><code>randomWeighted</code>: <code>1/(1+d)</code> is used as a probability weight factor
+in selecting the value of <em>kth</em>, where d is the distance..</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>targetsOnly</code></td>
+<td>
+<p>when is TRUE, reporting of references is not done.</p>
+</td>
+</tr>
+</table>
+<h3>Author(s)</h3>
+
+<p>Nicholas L. Crookston <a href="mailto:ncrookston.fs@gmail.com">ncrookston.fs@gmail.com</a> <br>
+Andrew O. Finley <a href="mailto:finleya@msu.edu">finleya@msu.edu</a>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">require(yaImpute)
+
+data(iris)
+
+# form some test data
+set.seed(1234)
+refs=sample(rownames(iris),50)
+x &lt;- iris[,1:3]      # Sepal.Length Sepal.Width Petal.Length
+y &lt;- iris[refs,4:5]  # Petal.Width Species
+
+# build a yai object using mahalanobis
+mal &lt;- yai(x=x,y=y,method="mahalanobis",k=3)
+
+foruse(mal)  # for references, use is equal to the rowname
+foruse(mal,kth=1) # for references, use is an row to the kth reference.
+
+# get all the choices:
+cbind(foruse(mal),foruse(mal,kth=1),foruse(mal,kth=2),foruse(mal,kth=3))
+
+</code></pre>
+
+
+</div>

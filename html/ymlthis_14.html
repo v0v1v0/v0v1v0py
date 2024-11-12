@@ -1,0 +1,191 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>gitbook_config</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Configure <code>bookdown::gitbook()</code> output</h2>
+
+<h3>Description</h3>
+
+<p><code>gitbook_config()</code> is a helper function to specify the <code>config</code> argument in
+<code>bookdown::gitbook()</code>, as described in the <a href="https://bookdown.org/yihui/bookdown/html.html">bookdown book</a>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">gitbook_config(
+  toc_collapse = yml_blank(),
+  toc_scroll_highlight = yml_blank(),
+  toc_before = yml_blank(),
+  toc_after = yml_blank(),
+  toolbar_position = yml_blank(),
+  edit = yml_blank(),
+  download = yml_blank(),
+  search = yml_blank(),
+  fontsettings_theme = yml_blank(),
+  fontsettings_family = yml_blank(),
+  fontsettings_size = yml_blank(),
+  sharing_facebook = yml_blank(),
+  sharing_twitter = yml_blank(),
+  sharing_google = yml_blank(),
+  sharing_linkedin = yml_blank(),
+  sharing_weibo = yml_blank(),
+  sharing_instapaper = yml_blank(),
+  sharing_vk = yml_blank(),
+  sharing_all = yml_blank(),
+  ...
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>toc_collapse</code></td>
+<td>
+<p>Collapse some items initially when a page is loaded via
+the collapse option. Its possible values are "subsection" (the default),
+"section", "none", or <code>NULL</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>toc_scroll_highlight</code></td>
+<td>
+<p>Logical. Enable highlighting of TOC items as you
+scroll the book body? The default is <code>TRUE</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>toc_before, toc_after</code></td>
+<td>
+<p>a character vector of HTML to add more items
+before and after the TOC using the HTML tag <code style="white-space: pre;">⁠&lt;li&gt;⁠</code>. These items will be
+separated from the TOC using a horizontal divider.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>toolbar_position</code></td>
+<td>
+<p>The toolbar position: "fixed" or "static." The
+default ("fixed") is that the toolbar will be fixed at the top of the page,
+whereas when set to "static" the toolbar will not scroll with the page.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>edit</code></td>
+<td>
+<p>If not empty, an edit button will be added to the toolbar.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>download</code></td>
+<td>
+<p>This option takes either a character vector or a list of
+character vectors with the length of each vector being 2. When it is a
+character vector, it should be either a vector of filenames or filename
+extensions. When you only provide the filename extensions, the filename is
+derived from the book filename of the configuration file <code style="white-space: pre;">⁠_bookdown.yml⁠</code></p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>search</code></td>
+<td>
+<p>Include a search bar?</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>fontsettings_theme</code></td>
+<td>
+<p>The theme. "White" (the default), "Sepia", or
+"Night".</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>fontsettings_family</code></td>
+<td>
+<p>The font family. "sans" (the default) or "serif".</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>fontsettings_size</code></td>
+<td>
+<p>The font size. Default is 2.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>sharing_facebook</code></td>
+<td>
+<p>Logical. Include Facebook share link? Default is
+<code>TRUE</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>sharing_twitter</code></td>
+<td>
+<p>Logical. Include Twitter share link? Default is
+<code>TRUE</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>sharing_google</code></td>
+<td>
+<p>Logical. Include Google share link? Default is <code>FALSE</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>sharing_linkedin</code></td>
+<td>
+<p>Logical. Include LinkedIn share link? Default is
+<code>FALSE</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>sharing_weibo</code></td>
+<td>
+<p>Logical. Include Weibo share link? Default is <code>FALSE</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>sharing_instapaper</code></td>
+<td>
+<p>Logical. Include Instapaper share link? Default is
+<code>FALSE</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>sharing_vk</code></td>
+<td>
+<p>Logical. Include VK share link? Default is <code>FALSE</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>sharing_all</code></td>
+<td>
+<p>Logical. Include all share links? Default is <code>FALSE</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+<p>additional named R objects, such as characters or lists, to
+transform into YAML</p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>a list to use in the <code>config</code> argument of <code>bookdown::gitbook()</code>
+</p>
+
+
+<h3>See Also</h3>
+
+<p>Other bookdown: 
+<code>yml_bookdown_opts()</code>
+</p>
+
+
+</div>

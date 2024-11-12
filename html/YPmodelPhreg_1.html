@@ -1,0 +1,90 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>YPmodelPhreg-package</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>
+The Short-Term and Long-Term Hazard Ratio Model with Proportional Adjustment
+</h2>
+
+<h3>Description</h3>
+
+<p>This package fits a semiparametric short term and long term hazard ratio model for the group variable, adjusted for proportional covariate effects. The model was studied in Yang and Prentice (2015), and it extends the two sample results in Yang and Prentice (2005). The model accommodates various non-proportional hazards scenarios including those with crossing hazards or survival functions. The main function of the package is <code>ypreg</code>, which provides the estimates and confidence intervals  of the model parameters, the average hazard ratio, and the hazard ratios at user-specified time points. Plots of point-wise and simultaneous confidence bands are also given.
+</p>
+
+
+<h3>Details</h3>
+
+
+<table>
+<tr>
+<td style="text-align: left;">
+Package: </td>
+<td style="text-align: left;"> YPmodelPhreg</td>
+</tr>
+<tr>
+<td style="text-align: left;">
+Type: </td>
+<td style="text-align: left;"> Package</td>
+</tr>
+<tr>
+<td style="text-align: left;">
+Version: </td>
+<td style="text-align: left;"> 1.0.0</td>
+</tr>
+<tr>
+<td style="text-align: left;">
+Date: </td>
+<td style="text-align: left;"> 2023-04-21</td>
+</tr>
+<tr>
+<td style="text-align: left;">
+License: </td>
+<td style="text-align: left;"> GPL (&gt;= 3)</td>
+</tr>
+<tr>
+<td style="text-align: left;">
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>No return value, called for side effects
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Daewoo Pak and Song Yang
+Maintainer: Daewoo Pak &lt;dpak@yonsei.ac.kr&gt;
+</p>
+
+
+<h3>References</h3>
+
+<p>Yang, S., &amp; Prentice, R. (2005). Semiparametric analysis of short-term and long-term hazard ratios with two-sample survival data. <em>Biometrika</em>, 92(1), 1-17.
+</p>
+<p>Yang, S., &amp; Prentice, R. L. (2015). Assessing potentially time-dependent treatment effect from clinical trials and observational studies for survival data, with applications to the Women's Health Initiative combined hormone therapy trial. <em>Statistics in medicine</em>, 34(11), 1801-1817.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code>ypreg</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">library(YPmodelPhreg)
+data(colonexample)
+head(colonexample)
+
+res &lt;- ypreg(colonexample, time.hr = c(1, 7))
+res
+plot(res)
+</code></pre>
+
+
+</div>

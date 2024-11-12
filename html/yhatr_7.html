@@ -1,0 +1,56 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>yhat.batchDeploy</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Deploy a batch model to Yhat servers</h2>
+
+<h3>Description</h3>
+
+<p>This function will deploy your batch model to the yhat servers
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">yhat.batchDeploy(job_name, confirm = TRUE)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>job_name</code></td>
+<td>
+<p>name of batch job</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>confirm</code></td>
+<td>
+<p>boolean indicating whether to prompt before deploying</p>
+</td>
+</tr>
+</table>
+<h3>Examples</h3>
+
+<pre><code class="language-R">yhat.config &lt;- c(
+ username = "your username",
+ apikey = "your apikey",
+ env = "http://sandbox.yhathq.com/"
+)
+yhat.batch &lt;- function() {
+  name &lt;- "ross"
+  greeting &lt;- paste("Hello", name)
+  print(greeting)
+}
+## Not run: 
+yhat.batchDeploy("helloworld")
+
+## End(Not run)
+</code></pre>
+
+
+</div>

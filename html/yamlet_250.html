@@ -1,0 +1,69 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>[.unit_string</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Subset Unit String</h2>
+
+<h3>Description</h3>
+
+<p>Subsets unit_string, retaining class.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">## S3 method for class 'unit_string'
+x[...]
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>x</code></td>
+<td>
+<p>unit_string</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+<p>passed to next method</p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>unit_string
+</p>
+
+
+<h3>See Also</h3>
+
+<p>Other unit_string: 
+<code>[[.unit_string()</code>,
+<code>as_unit_string()</code>,
+<code>as_unit_string.character()</code>,
+<code>as_unit_string.factor()</code>,
+<code>as_unit_string.symbolic_units()</code>,
+<code>as_unit_string.units()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">x &lt;- c(
+  'm',
+  's',
+  'ng/mL'
+)
+x &lt;- as_unit_string(x)
+class(x)
+class(x[1])
+</code></pre>
+
+
+</div>

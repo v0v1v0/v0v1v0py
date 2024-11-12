@@ -1,0 +1,75 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>print</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Print Method for rmd_doc</h2>
+
+<h3>Description</h3>
+
+<p>Quick display for <code>rmd_doc</code> objects. This method also defines the way how
+objects are displayed in the console.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">## S3 method for class 'rmd_doc'
+print(x, maxlines = 10, ...)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>x</code></td>
+<td>
+<p>An object of class <code>rmd_doc</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>maxlines</code></td>
+<td>
+<p>An integer value indicating the number of lines used for the
+display. Longer documents will be truncated.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+<p>Further arguments passed among methods (not yet in use).</p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>A display of the resulting R-Markdown document in the console.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">## Document without header
+my_document &lt;- read_rmd(
+  file = file.path(path.package("yamlme"), "taxlistjourney.Rmd"),
+  skip_head = TRUE
+)
+my_document
+
+## Add header using update
+my_document &lt;- update(my_document,
+  title = "A journey in rOpenSci",
+  author = "Miguel Alvarez",
+  output = "html_document"
+)
+my_document
+
+## Header only
+my_document$body &lt;- NULL
+my_document
+</code></pre>
+
+
+</div>

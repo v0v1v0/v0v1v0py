@@ -1,0 +1,83 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>YPmodel-package</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>
+The short-term and long-term hazard ratio model for survival data
+</h2>
+
+<h3>Description</h3>
+
+<p>This package has four major functions related to the short-term and long-term hazard ratio model (Yang and Prentice, 2005): 1) <code>YPmodel.estimate</code> es
+timates short-term and long-term hazard ratio parameters and their confidence intervals, and the odds function of the control group; 2) <code>YPmodel.IntervalBands</code> provides 95% pointwise confidence intervals and 95% and 90%  simultaneous confidence bands for the hazard ratio function; 3) <code>YPmodel.adlgrk</code> estimates p-value of the adaptive weighted log-rank test, to test for treatment effects with time to event data; 4) <code>YPmodel.lackfittest</code> estimates p-values of two lack-of-fit tests for the model, to test for checking this semi-parametric model. See the included "read_me_first.pdf" for brief instructions.
+</p>
+
+
+<h3>Details</h3>
+
+
+<table>
+<tr>
+<td style="text-align: left;">
+Package: </td>
+<td style="text-align: left;"> YPmodel</td>
+</tr>
+<tr>
+<td style="text-align: left;">
+Type: </td>
+<td style="text-align: left;"> Package</td>
+</tr>
+<tr>
+<td style="text-align: left;">
+Version: </td>
+<td style="text-align: left;"> 1.2</td>
+</tr>
+<tr>
+<td style="text-align: left;">
+Date: </td>
+<td style="text-align: left;"> 2015-09-20</td>
+</tr>
+<tr>
+<td style="text-align: left;">
+License: </td>
+<td style="text-align: left;"> GPL (&gt;= 3)</td>
+</tr>
+<tr>
+<td style="text-align: left;">
+</td>
+</tr>
+</table>
+<h3>Author(s)</h3>
+
+<p>Junlong Sun and Song Yang
+</p>
+
+
+<h3>References</h3>
+
+<p>1) YANG, S. AND PRENTICE, R. L. (2011). Estimation of the 2-sample hazard ratio function using a semiparametric model. Biostatistics 12, 354-368.
+2) YANG, S. AND PRENTICE, R. L. (2010). Improved Logrank-Type Tests for Survival Data Using Adaptive Weights. Biometrics 66, 30-38.
+3) YANG, S. AND PRENTICE, R. L. (2005). Semiparametric analysis of short-term and long-term hazard ratios with two-sample survival data. Biometrika 92, 1-17.
+4) YANG, S. AND ZHAO, Y. (2012). Checking the Short-Term and Long-Term Hazard Ratio Model for Survival Data. Scandinavian Journal of Statistics.
+5) GASTROINTESTINAL TUMOR STUDY GROUP (1982). A comparison of combination chemotherapy and combined modality therapy for locally advanced gastric carcinoma. Cancer.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code>YPmodel</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">	library(YPmodel)
+	data(gastric)
+	YPmodel(gastric, repNum=100)
+	browseVignettes(package="YPmodel")
+</code></pre>
+
+
+</div>

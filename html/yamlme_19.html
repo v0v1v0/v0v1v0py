@@ -1,0 +1,80 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>write_rmd</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Writing R-Markdown Documents</h2>
+
+<h3>Description</h3>
+
+<p>This function generates R-Markdown documents by including
+the settings as arguments of the function.
+Comments and pieces of header can be also added through the argument
+<code>append</code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">write_rmd(object, ...)
+
+## S3 method for class 'rmd_doc'
+write_rmd(object, filename, ...)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>object</code></td>
+<td>
+<p>rmd_doc object used to write an Rmarkdown file. If
+header is missing, <code>write_rmd()</code> will fail with an error message.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+<p>Further arguments passed among methods (not yet used).</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>filename</code></td>
+<td>
+<p>A character value with the name of the file to be written.
+If not included, the extension *.Rmd will be appended to this name.
+If missing, no file will be written by this function.</p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>A character vector of class <code>rmd_doc</code> and, if argument set for parameter
+<code>filename</code>, an Rmd file.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">## Not run: 
+my_document &lt;- list(
+  title = "Sample Document",
+  author = "Miguel Alavarez",
+  output = "html_document",
+  body = txt_body(
+    "# Intro",
+    "",
+    "This is just an example."
+  )
+)
+my_document &lt;- as(my_document, "rmd_doc")
+write_rmd(my_document, filename = file.path(tempdir(), "example"))
+
+## End(Not run)
+
+</code></pre>
+
+
+</div>

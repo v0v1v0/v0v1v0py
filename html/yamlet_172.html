@@ -1,0 +1,98 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>resolve.classified</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Resolve Classified</h2>
+
+<h3>Description</h3>
+
+<p>Resolves classified.
+A non-operation since classified already has an explicit guide.
+Useful to make resolve() idempotent for 'dvec'.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">## S3 method for class 'classified'
+resolve(x, ...)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>x</code></td>
+<td>
+<p>classified</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+<p>ignored</p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>classified
+</p>
+
+
+<h3>See Also</h3>
+
+<p>Other resolve: 
+<code>desolve()</code>,
+<code>desolve.classified()</code>,
+<code>desolve.data.frame()</code>,
+<code>desolve.decorated()</code>,
+<code>desolve.dvec()</code>,
+<code>resolve()</code>,
+<code>resolve.data.frame()</code>,
+<code>resolve.decorated()</code>,
+<code>resolve.dvec()</code>
+</p>
+<p>Other dvec: 
+<code>[.dvec()</code>,
+<code>[&lt;-.dvec()</code>,
+<code>[[.dvec()</code>,
+<code>[[&lt;-.dvec()</code>,
+<code>as.data.frame.dvec()</code>,
+<code>as_dvec()</code>,
+<code>as_dvec.character()</code>,
+<code>as_dvec.complex()</code>,
+<code>as_dvec.dvec()</code>,
+<code>as_dvec.integer()</code>,
+<code>as_dvec.logical()</code>,
+<code>as_dvec.numeric()</code>,
+<code>c.dvec()</code>,
+<code>classified.dvec()</code>,
+<code>desolve.dvec()</code>,
+<code>explicit_guide.data.frame()</code>,
+<code>format.dvec()</code>,
+<code>implicit_guide.dvec()</code>,
+<code>length.dvec()</code>,
+<code>print.dvec()</code>,
+<code>resolve.dvec()</code>,
+<code>unclassified.dvec()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">library(magrittr)
+x &lt;- as_dvec(1:3, guide = list(a = 1, b = 2, c = 3))
+x %&gt;% str
+x %&gt;% classified %&gt;% str
+x %&gt;% explicit_guide %&gt;% classified %&gt;% str
+x %&gt;% resolve %&gt;% str
+# idempotent:
+x %&gt;% resolve %&gt;% resolve %&gt;% str
+</code></pre>
+
+
+</div>

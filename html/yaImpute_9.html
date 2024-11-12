@@ -1,0 +1,236 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>correctBias</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Correct bias by selecting different near neighbors</h2>
+
+<h3>Description</h3>
+
+<p>Change the neighbor selections in a <code>yai</code> object such that 
+bias (if any) in the average value of an <em>expression</em> 
+of one or more variables is reduced to be within a defined 
+confidence interval. 
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">correctBias(object,trgVal,trgValCI=NULL,nStdev=1.5,excludeRefIds=NULL,trace=FALSE)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>object</code></td>
+<td>
+<p>an object of class <code>yai</code> with <code>k &gt; 1</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>trgVal</code></td>
+<td>
+<p>an <code>expression</code> defining a variable or combination of
+variables that is applied to each member of the population (see details). If 
+passed as a character string it is coerced into an expression. The expression can 
+refer to one or more X- and Y-variables defined for the reference observations.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>trgValCI</code></td>
+<td>
+<p>The confidence interval that should contain the <code>mean(trgVal)</code>.
+If the mean falls within this interval, the problem is solved. If <code>NULL</code>, the
+interval is based on <code>nStdev</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>nStdev</code></td>
+<td>
+<p>the number of standard deviations in the vector of values used to 
+compute the confidence interval when one is computed, ignored if <code>trgValCI</code> 
+is not <code>NULL</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>excludeRefIds</code></td>
+<td>
+<p>identities of reference observations to exclude from the 
+population, if coded as "all" then all references are excluded (see details).</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>trace</code></td>
+<td>
+<p>if <code>TRUE</code>, detailed output is produced.</p>
+</td>
+</tr>
+</table>
+<h3>Details</h3>
+
+<p>Imputation as it is defined in <code>yaImpute</code> can yield biased
+results. Lets say that you have a collection of reference
+observations that happen to be selected in a non-biased way among a
+population. In this discussion, <em>population</em> is a finite set of all
+individual sample units of interest; the reference plus target observations
+often represent this population (but this need not be true, see below). 
+If the average of a measured attribute is computed from
+this random sample, it is an unbiased estimate of the true mean. 
+<br><br>  
+Using <code>yai</code>, while setting <em>k=1</em>, values for each of several
+attributes are imputed from a single reference observation to a target
+observation. Once the imputation is done over all the target observations, an
+average of any one measured attribute can be computed over all the observations 
+in the population. There is no guarantee that this average will be within a 
+pre-specified confidence interval.
+<br><br>
+Experience shows that despite any lack of guarantee, the results are accurate 
+(not biased). This tends to hold true when the reference data contains
+samples that cover the variation of the targets, even when they are not a
+random sample, and even if some of the reference observations are from sample
+units that are outside the target population. 
+<br><br>
+Because there is no guarantee, and because the reference observations might
+profitably come from sample units beyond those in the population 
+(so as to insure all kinds of targets have a matching reference), it is necessary 
+to test the imputation results for bias. If bias is found, it would be helpful to 
+do something to correct it.
+<br><br>
+The <code>correctBias()</code> function is designed to check for, and correct
+discovered bias by selecting alternative nearby reference observations 
+to be imputed to targets that contribute to the bias. The idea is that even if
+one reference is closest to a target, its attribute(s) of interest might 
+be greater (or less) than the mean. An alternative neighbor, one that may be
+almost as close, might reduce the overall bias if it were used instead. If this is
+the case, <code>correctBias()</code> switches the neighbor selections. 
+It makes as many switches as it can until the mean among the population 
+targets falls within the specified confidence interval. 
+There is no guarantee that the goal will be met.
+<br><br>
+The details of the method are: 
+<br><br>
+1. An attribute of interest is established by naming one in the call with
+argument <code>tarVal</code>. Note that this can be a simple variable name enclosed
+in quotations marks or it can be an <code>expression</code> of one or more variables. 
+If the former, it is converted into an expression that is executed in the 
+environment of the <code>reference</code> observations (both the X- and Y-variables). 
+A confidence interval is computed for this value under the assumption that the 
+reference observations are an unbiased sample of the target population. This may 
+not be the case. Regardless, a confidence interval is <em>necessary</em> and it can
+alternatively be supplied using <code>trgValCI</code>. 
+<br><br>
+2. One of several possible passes through the data are taken to find neighbor switches
+that will result in the bias being corrected. A pass includes computing the
+attribute of interest by applying the <code>expression</code> to values imputed to all 
+the targets, under the assumption that the next neighbor is used 
+in place of the currently used neighbor. This computation results in a 
+vector with one element for each target observation that 
+measures the contribution toward reducing the bias that would be made if 
+a switch were made. The target observations are then ordered 
+into increasing order of how much the distance from the currently selected 
+reference would increase if the switch were to take place. Enough switches are 
+made in this order to correct the bias. 
+If the bias is not corrected by the first pass, another pass is done 
+using the next neighbor(s).
+The number of possible passes is equal to <em>k-1</em> where <em>k</em> is
+set in the original call to <code>yai</code>. Note that switches are made
+among targets only, and never among reference observations that may make up the
+population. That is, reference observations are always left 
+to represent themselves with <code>k=1</code>.   
+<br><br>
+3. Here are details of the argument <code>excludeRefIds</code>. When computing the mean
+of the attribute of interest (using the <code>expression</code>), 
+<code>correctBias()</code> must know which observations represent the
+population. Normally, all the target observations would be in this set, but perhaps
+not all of the reference observations. When <code>excludeRefIds</code> 
+is left NULL, the population is made of all reference and all
+target observations. Reference observations that should be left out
+of the calculations because they are not part of the population can be specified
+using the <code>excludeRefIds</code> argument as a vector of character strings identifying 
+the rownames to leave out, or a vector of row numbers that identify the row numbers to 
+leave out. If <code>excludeRefIds="all"</code>, all reference observations are excluded.
+</p>
+
+
+<h3>Value</h3>
+
+<p>An object of class <code>yai</code> where <code>k = 1</code> and the neighbor selections
+have been changed as described above. In addition, the <code>call</code> element is changed
+to show both the original call to <code>yai</code> and the call to this function. 
+A new list called <code>biasParameters</code> is added to the <code>yai</code> object  
+with these tags:
+</p>
+<table>
+<tr style="vertical-align: top;">
+<td><code>trgValCI</code></td>
+<td>
+<p>the target CI.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>curVal</code></td>
+<td>
+<p>the value of the bias that was achieved.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>npasses</code></td>
+<td>
+<p>the number of passes through the data taken to achieve the result.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>oldk</code></td>
+<td>
+<p>the old value of <code>k</code>.</p>
+</td>
+</tr>
+</table>
+<h3>Author(s)</h3>
+
+<p>Nicholas L. Crookston <a href="mailto:ncrookston.fs@gmail.com">ncrookston.fs@gmail.com</a> <br></p>
+
+
+<h3>See Also</h3>
+
+<p><code>yai</code></p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">data(iris)
+
+set.seed(12345)
+
+# form some test data
+refs=sample(rownames(iris),50)
+x &lt;- iris[,1:3]      # Sepal.Length Sepal.Width Petal.Length
+y &lt;- iris[refs,4:5]  # Petal.Width Species
+
+# build an msn run, first build dummy variables for species.
+
+sp1 &lt;- as.integer(iris$Species=="setosa")
+sp2 &lt;- as.integer(iris$Species=="versicolor")
+y2 &lt;- data.frame(cbind(iris[,4],sp1,sp2),row.names=rownames(iris))
+y2 &lt;- y2[refs,]
+
+names(y2) &lt;- c("Petal.Width","Sp1","Sp2")
+
+# find 5 refernece neighbors for each target
+msn &lt;- yai(x=x,y=y2,method="msn",k=5)
+
+# check for and correct for bias in mean "Petal.Width". Neighbor  
+# selections will be changed as needed to bring the imputed values 
+# into line with the CI. In this case, no changes are made (npasses 
+# returns as zero).
+
+msnCorr = correctBias(msn,trgVal="Petal.Width")
+msnCorr$biasParameters
+
+</code></pre>
+
+
+</div>

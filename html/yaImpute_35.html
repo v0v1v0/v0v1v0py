@@ -1,0 +1,77 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>whatsMax</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Find maximum column for each row</h2>
+
+<h3>Description</h3>
+
+<p>For each row, the function identifies the column that has the maximum
+value. The function returns a data frame with two columns: the first is
+the column name corresponding to the column of maximum value and the
+second is the correspond maximum. The first column is converted to a
+factor.
+</p>
+<p>If the maximum is zero, the maximum column is identified as "zero".
+</p>
+<p>If there are over <code>nbig</code> factors in column 1, the maximum values
+that are less than the largest are combined and identified as "other".
+</p>
+<p>Intended use is to transform community ecology data for use in <code>yai</code>
+where method is <em>randomForest</em>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">whatsMax(x,nbig=30)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>x</code></td>
+<td>
+<p>a data frame or matrix of numeric values.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>nbig</code></td>
+<td>
+<p>see description–the maximum number of factors, the remainder called 'other'.</p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>A data frame.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Nicholas L. Crookston <a href="mailto:ncrookston.fs@gmail.com">ncrookston.fs@gmail.com</a> <br>
+Andrew O. Finley <a href="mailto:finleya@msu.edu">finleya@msu.edu</a>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">data(MoscowMtStJoe)
+
+# get the basal area by species columns
+yba  &lt;- MoscowMtStJoe[,1:17]
+
+# for each row, pick the species that has the max basal area
+# create "other" for those not in the top 7.
+
+ybaB &lt;- whatsMax(yba,nbig=7)
+levels(ybaB[,1])
+</code></pre>
+
+
+</div>

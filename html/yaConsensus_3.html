@@ -1,0 +1,240 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>yaConsensus</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>yaConsensus computes a number of hierarchical clusterings by sampling either samples or features.
+</h2>
+
+<h3>Description</h3>
+
+<p>This function mainly generates a list of "hclust" objects for downstream analysis.
+
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">yaConsensus(ddata, runs = 1000, epsilon = 0.65, is_by_sample = TRUE, 
+            distMethod = "euclidean", hcMethod = "ward.D2", prefix = NULL)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>ddata</code></td>
+<td>
+<p>either a data matrix (samples in rows, and features in columns), or a "dist" object.
+
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>runs</code></td>
+<td>
+<p>an integer value for the number of samplings.
+
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>epsilon</code></td>
+<td>
+<p>a real value indicating the sampling rate.
+
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>is_by_sample</code></td>
+<td>
+<p>a logical value indicating if the sampling is by samples (TRUE) or features (FALSE).
+
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>distMethod</code></td>
+<td>
+<p>a character indicating the kind of distance for the inner clustering. It can be any of the methods from the <code>dist</code> function.  
+
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>hcMethod</code></td>
+<td>
+<p>a character indicating the linkage mathod of the inner clustering. It can be any of the methods from the <code>hclust</code> function.
+
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>prefix</code></td>
+<td>
+<p>string specifying a prefix to store the results in a .RData file.  
+
+</p>
+</td>
+</tr>
+</table>
+<h3>Details</h3>
+
+<p>This function can run sequentially or in parallel. In this case, it is necessary to register a cluster of CPUs according to doParallel protocol.  
+</p>
+<p>To get the consensus clustering, the output of the function has to be processed with the plot() function. The consensus dissimilarity follows from the algorithm of Monti et al. (2003). The consensus clustering is from a hierarchical procedure (hclust) with "complete" linkage (outer hc method). 
+</p>
+
+
+
+<h3>Value</h3>
+
+
+
+<p>A named list with the following slots: 
+</p>
+<table>
+<tr style="vertical-align: top;">
+<td><code>distMethod</code></td>
+<td>
+<p>matches the input</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>hcMethod</code></td>
+<td>
+<p>matches the input</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>lables</code></td>
+<td>
+<p>a string list with the names of the samples</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>bySample</code></td>
+<td>
+<p>matches 'is_by_sample' input parameter</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>epsilon </code></td>
+<td>
+<p>matches the input</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>subsetDimension</code></td>
+<td>
+<p>actual dimension of the subsets</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>runs</code></td>
+<td>
+<p>matches the input</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>hclust</code></td>
+<td>
+<p>a list of 'hclust' objects</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>elapsed_time</code></td>
+<td>
+<p>time (in seconds) required</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>ncores</code></td>
+<td>
+<p>the number of cores used</p>
+</td>
+</tr>
+</table>
+<h3>Note</h3>
+
+
+<p>The plot function in the example provides an invisible result with detail ans statistics of the experiment.  
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Stefano M. Pagnotta
+</p>
+
+
+<h3>References</h3>
+
+<p>Monti et al. (2003) - Consensus Clustering: A Resampling-Based Method for Class Discovery and Visualization of Gene Expression Microarray Data - Machine Learning 52(1-2):91-118 &lt;DOI: 10.1023/A:1023949509487&gt;
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code>dist</code>, <code>hclust</code>, <code>doParallel</code>
+
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">## Generate data and annotation
+n &lt;- 50; m &lt;- 3000
+ddata &lt;- matrix(rnorm(n * m), ncol = m)  
+ddata[1:20, ] &lt;- ddata[1:20, ] + 0.2
+row.names(ddata) &lt;- c(paste0("A", 1:20), paste0("B", 1:30))
+ddist &lt;- dist(ddata)
+
+annotation &lt;- data.frame(row.names = rownames(ddata), clust = substr(rownames(ddata), 1, 1))
+annotation.colorCode &lt;- c("red", "blue")
+names(annotation.colorCode) &lt;- c("A", "B")
+
+####### run in sequential mode
+####### sampling the samples ....
+(aConsensus &lt;- yaConsensus(ddist))
+plot(aConsensus, G = 2)
+
+ans &lt;- plot(aConsensus, G = 2, 
+            annotation = annotation, 
+            annotation.colorCode = annotation.colorCode)
+summary(ans)
+summary(ans, given = "clust")
+
+####### sampling the features ....
+(aConsensus &lt;- yaConsensus(ddata, runs= 20, epsilon = 0.2, is_by_sample = FALSE))
+ans &lt;- plot(aConsensus, G = 2, 
+            annotation = annotation, 
+            annotation.colorCode = annotation.colorCode,
+            matching_clustering = "clust")
+
+summary(ans, given = "clust")
+
+
+####### run in parallel mode
+## uncomment to run
+
+# require(doParallel)
+# cpu_cluster &lt;- makeCluster(3)
+# registerDoParallel(cpu_cluster)
+
+# (aConsensus &lt;- yaConsensus(ddist))
+# plot(aConsensus, G = 2)
+
+#stopCluster(cpu_cluster)
+
+
+
+
+
+</code></pre>
+
+
+</div>

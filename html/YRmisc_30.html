@@ -1,0 +1,57 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>pl.hs</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Plot histograms and scatter plots for a data frame</h2>
+
+<h3>Description</h3>
+
+<p>Plotting histograms or scatter plots of your choice for a data frame. Also the function will name the graphs and number them.
+The purpose of the function is to save time when plotting graphs for a regression analysis or other usage.
+The function can plot, name and number the graphs at one step.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">pl.hs(x,a,dependent,l)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>x</code></td>
+<td>
+<p>:a data frame</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>a</code></td>
+<td>
+<p>:the type of graph you want; a = 1 for histograms; a = 2 for scatter plots; a = 0 for both</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>dependent</code></td>
+<td>
+<p>:the dependent variable for scatterplots</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>l</code></td>
+<td>
+<p>: the beginning label number in the title (default set to 1)</p>
+</td>
+</tr>
+</table>
+<h3>Examples</h3>
+
+<pre><code class="language-R">pl.hs(mtcars,0,"mpg",1)
+</code></pre>
+
+
+</div>

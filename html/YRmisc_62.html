@@ -1,0 +1,57 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>pt.sortino</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Sortino ratio</h2>
+
+<h3>Description</h3>
+
+<p>The Sortino ratio is an analog to the sharp ratio, with standard deviation replaced
+by the downside deviation.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">pt.sortino(r,p,n,rf)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>r</code></td>
+<td>
+<p>:a vector of a risk asset return</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>p</code></td>
+<td>
+<p>:target return, aka minimum acceptable return(MAR)</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>n</code></td>
+<td>
+<p>:number of years of asset return, used to calculate annualized return</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>rf</code></td>
+<td>
+<p>:risk free rate</p>
+</td>
+</tr>
+</table>
+<h3>Examples</h3>
+
+<pre><code class="language-R">rtn &lt;- runif(12, -1, 1)
+pt.sortino(rtn,0.3,1,0.024)
+</code></pre>
+
+
+</div>

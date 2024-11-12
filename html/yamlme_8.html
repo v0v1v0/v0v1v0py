@@ -1,0 +1,73 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>read_rmd</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Read R-markdown Documents</h2>
+
+<h3>Description</h3>
+
+<p>Import Rmd files into objects of class rmd_doc.
+</p>
+<p>The function <code>txt_body()</code> add a line break at the end of each element of a
+character vector considering them as single lines.
+</p>
+<p>Note that comments will be deleted in the input file.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">read_rmd(file, ..., skip_head = FALSE)
+
+txt_body(...)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>file</code></td>
+<td>
+<p>Character value indicating the path and the name to the Rmd file.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+<p>Arguments passed by <code>read_rmd()</code> to <code>readLines()</code>.
+In <code>txt_body()</code> they are character values passed to <code>c()</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>skip_head</code></td>
+<td>
+<p>Logical value indicating whether the yaml head should be
+skip or not (this argument is not used at the moment).</p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>The function <code>read_rmd()</code> returns a rmd_doc object.
+The function <code>txt_body()</code>, a character vector suitable for the parameter
+<code>body</code> in the function <code>write_rmd()</code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">## Not run: 
+## Read pre-installed example
+ex_document &lt;- read_rmd(file.path(
+  path.package("yamlme"),
+  "taxlistjourney.Rmd"
+))
+
+## End(Not run)
+</code></pre>
+
+
+</div>

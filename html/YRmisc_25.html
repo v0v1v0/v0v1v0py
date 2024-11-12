@@ -1,0 +1,56 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>pl.3txt</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Scatter plot with text overlay</h2>
+
+<h3>Description</h3>
+
+<p>Generate a scatter plot with text overlay. This plot is to better show the effect of
+the text variable in the domain of x and y variable.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">pl.3txt(x,y,txt,title)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>x</code></td>
+<td>
+<p>:a numeric vector</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>y</code></td>
+<td>
+<p>:a numeric vector</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>txt</code></td>
+<td>
+<p>:a vector used as labels</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>title</code></td>
+<td>
+<p>:title of the graph</p>
+</td>
+</tr>
+</table>
+<h3>Examples</h3>
+
+<pre><code class="language-R">pl.3txt(mtcars[,1], mtcars[,3], row.names(mtcars),"mpg v. cyl")
+</code></pre>
+
+
+</div>

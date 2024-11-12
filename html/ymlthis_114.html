@@ -1,0 +1,47 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>yml_verbatim</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Write YAML field or content verbatim</h2>
+
+<h3>Description</h3>
+
+<p><code>yml_verbatim()</code> is a helper function to write YAML precisely as given to the
+<code style="white-space: pre;">⁠yml_*()⁠</code> function rather than the defaults in ymlthis and yaml. ymlthis uses
+the yaml package to check for valid syntax; yaml and ymlthis together make
+decisions about how to write syntax, which can often be done in numerous
+valid ways. See <code>yaml::as.yaml()</code> for more details.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">yml_verbatim(x)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table><tr style="vertical-align: top;">
+<td><code>x</code></td>
+<td>
+<p>a character vector</p>
+</td>
+</tr></table>
+<h3>Value</h3>
+
+<p>an object of class <code>verbatim</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R"># "yes" and "no" serve as alternatives to `true` and `false`. This writes
+# "yes" literally.
+yml_verbatim("yes")
+</code></pre>
+
+
+</div>

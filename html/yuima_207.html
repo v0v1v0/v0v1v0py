@@ -1,0 +1,97 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>qgv</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>qgv</h2>
+
+<h3>Description</h3>
+
+<p>Estimate the local Holder exponent with quadratic generalized variations method</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">qgv(yuima, filter.type = "Daubechies", order = 2, a = NULL)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>yuima</code></td>
+<td>
+<p>A <code>yuima</code> object.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>filter.type</code></td>
+<td>
+<p> The <code>filter.type</code> can be set to <code>"Daubechies"</code> or 
+<code>"Classical"</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>order</code></td>
+<td>
+<p>The order of the filter <code>a</code> to be chosen</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>a</code></td>
+<td>
+<p>Any other filter</p>
+</td>
+</tr>
+</table>
+<h3>Details</h3>
+
+<p>Estimation of the Hurst index and the constant of the fractional Ornstein-Uhlenbeck process.
+</p>
+
+
+<h3>Value</h3>
+
+<p>an object of class qgv
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>The YUIMA Project Team</p>
+
+
+<h3>References</h3>
+
+<p>Brouste, A., Iacus, S.M. (2013) Parameter estimation for the discretely observed fractional Ornstein-Uhlenbeck process and the Yuima R package, Computational Statistics, pp. 1129–1147.
+</p>
+
+
+<h3>See Also</h3>
+
+<p>See also <code>mmfrac</code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R"># Estimating both Hurst parameter and diffusion coefficient in fractional Ornstein-Uhlenbeck
+
+model&lt;-setModel(drift="-x*lambda",hurst=NA,diffusion="theta")
+sampling&lt;-setSampling(T=100,n=10000)
+yui1&lt;-simulate(model,true.param=list(theta=1,lambda=4),hurst=0.7,sampling=sampling)
+qgv(yui1)
+
+
+# Estimating Hurst parameter only in diffusion processes
+
+model2&lt;-setModel(drift="-x*lambda",hurst=NA,diffusion="theta*sqrt(x)")
+sampling&lt;-setSampling(T=1,n=10000)
+yui2&lt;-simulate(model2,true.param=list(theta=1,lambda=4),hurst=0.7,sampling=sampling,xinit=10)
+qgv(yui2)
+</code></pre>
+
+
+</div>

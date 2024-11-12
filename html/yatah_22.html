@@ -1,0 +1,60 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>trim_common</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Trim lineages until the shallowest common rank.</h2>
+
+<h3>Description</h3>
+
+<p>Trim lineages until the shallowest common rank.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">trim_common(lineage, remove_void = TRUE, only_tail = TRUE)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>lineage</code></td>
+<td>
+<p>string. Vector of lineages.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>remove_void</code></td>
+<td>
+<p>Should void ranks be removed? Default to <code>TRUE</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>only_tail</code></td>
+<td>
+<p>Logical to be passed to <code>trim_void()</code>. Used only if
+<code>remove_void</code> is set to <code>TRUE</code>.</p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>The trimmed lineages, with same depth.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">lineage1 &lt;- "k__Bacteria|p__Verrucomicrobia|c__Verrucomicrobiae"
+lineage2 &lt;- "k__Bacteria|p__Firmicutes"
+lineage3 &lt;- "k__Bacteria|p__|c__Clostridia"
+trim_common(c(lineage1, lineage2, lineage3), remove_void = FALSE)
+trim_common(c(lineage1, lineage2, lineage3), only_tail = FALSE)
+</code></pre>
+
+
+</div>

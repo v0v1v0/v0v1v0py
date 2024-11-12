@@ -1,0 +1,130 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>YaleEnergy</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Monthly energy consumption of Yale residential colleges.</h2>
+
+<h3>Description</h3>
+
+<p>The data set contains monthly energy time series for Yale residential
+college, from July 1999 through July 2006
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">data(YaleEnergy)</code></pre>
+
+
+<h3>Format</h3>
+
+<p>A data frame with 1020 observations on the following 18 variables.
+</p>
+
+<dl>
+<dt><code>name</code></dt>
+<dd>
+<p>a factor with levels <code>BERKELEY</code> <code>BRANFORD</code> <code>CALHOUN</code> <code>DAVENPORT</code> <code>EZRA STILES</code> <code>JONATHAN EDWARDS</code> <code>MORSE</code> <code>PIERSON</code> <code>SAYBROOK</code> <code>SILLIMAN</code> <code>TIMOTHY DWIGHT</code> <code>TRUMBULL</code></p>
+</dd>
+<dt><code>address</code></dt>
+<dd>
+<p>a factor with levels <code>189 ELM ST.</code> <code>205 ELM ST.</code> <code>241 ELM ST.</code> <code>242 ELM ST.</code> <code>248 YORK ST.</code> <code>261 PARK ST.</code> <code>302 YORK ST.</code> <code>345 TEMPLE ST.</code> <code>505 COLLEGE ST.</code> <code>70 HIGH ST.</code> <code>74 HIGH ST.</code></p>
+</dd>
+<dt><code>gsf</code></dt>
+<dd>
+<p>gross square footage of the college</p>
+</dd>
+<dt><code>EL</code></dt>
+<dd>
+<p>electrical consumption in kilowatt hours</p>
+</dd>
+<dt><code>ELSQFT</code></dt>
+<dd>
+<p>electrical consumption per square foot</p>
+</dd>
+<dt><code>CHW</code></dt>
+<dd>
+<p>chilled water consumption in tons</p>
+</dd>
+<dt><code>SQFTCHW</code></dt>
+<dd>
+<p>square feet per ton of chilled water</p>
+</dd>
+<dt><code>STEAM</code></dt>
+<dd>
+<p>steam consumption in pounds</p>
+</dd>
+<dt><code>STEAMSQFT</code></dt>
+<dd>
+<p>steam per square foot</p>
+</dd>
+<dt><code>MBTU</code></dt>
+<dd>
+<p>million British Thermal Units (BTU) from chilled water and steam</p>
+</dd>
+<dt><code>MBTUSQFT</code></dt>
+<dd>
+<p>million BTUs per square foot</p>
+</dd>
+<dt><code>year</code></dt>
+<dd>
+<p>year of the record</p>
+</dd>
+<dt><code>month</code></dt>
+<dd>
+<p>month of the record</p>
+</dd>
+<dt><code>lon</code></dt>
+<dd>
+<p>degrees longitude of the college</p>
+</dd>
+<dt><code>lat</code></dt>
+<dd>
+<p>degrees latitude</p>
+</dd>
+</dl>
+<h3>Source</h3>
+
+<p>John W. Emerson, Yale University
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">data(YaleEnergy)
+whatis(YaleEnergy)
+
+y &lt;- YaleEnergy             # This is just for convenience.
+esqft &lt;- list(data.frame(y[y$name==y$name[1],"ELSQFT"]),
+              data.frame(y[y$name==y$name[2],"ELSQFT"]),
+              data.frame(y[y$name==y$name[3],"ELSQFT"]),
+              data.frame(y[y$name==y$name[4],"ELSQFT"]),
+              data.frame(y[y$name==y$name[5],"ELSQFT"]),
+              data.frame(y[y$name==y$name[6],"ELSQFT"]),
+              data.frame(y[y$name==y$name[7],"ELSQFT"]),
+              data.frame(y[y$name==y$name[8],"ELSQFT"]),
+              data.frame(y[y$name==y$name[9],"ELSQFT"]),
+              data.frame(y[y$name==y$name[10],"ELSQFT"]),
+              data.frame(y[y$name==y$name[11],"ELSQFT"]),
+              data.frame(y[y$name==y$name[12],"ELSQFT"]))
+
+# The sparkmat() command does most of the work:
+sparkmat(esqft, locs=data.frame(y$lon, y$lat), new=TRUE,
+         w=0.002, h=0.0002, just=c("left", "top"))
+
+# We'll add some text for a nice finished product:
+grid.text(y[1:12,1], unit(y$lon[1:12]+0.001, "native"),
+          unit(y$lat[1:12]+0.00003, "native"),
+          just=c("center", "bottom"), gp=gpar(cex=0.7))
+grid.text("Degrees Longitude", 0.5, unit(-2.5, "lines"))
+grid.text("Degrees Latitude", unit(-4.5, "lines"), 0.5, rot=90)
+grid.text("Monthly Electrical Consumption (KwH/SqFt) of Yale Colleges",
+          0.5, 0.8, gp=gpar(cex=1, font=2))
+grid.text("July 1999 - July 2006",
+          0.5, 0.74, gp=gpar(cex=1, font=2))
+</code></pre>
+
+
+</div>

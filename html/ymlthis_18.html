@@ -1,0 +1,58 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>yml_blank</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Return a blank object to be discarded from YAML</h2>
+
+<h3>Description</h3>
+
+<p>ymlthis treats <code>NULL</code>, <code>NA</code>, and other common argument defaults as literal
+(e.g. <code>author = NULL</code> will produce "author: null"). <code>yml_blank()</code> is a helper
+function to indicate that the field should not be included. <code>yml_blank()</code> is
+primarily used as a default argument for fields that should not be included
+by default.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">yml_blank()
+
+is_yml_blank(x)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table><tr style="vertical-align: top;">
+<td><code>x</code></td>
+<td>
+<p>a field from a <code>yml</code> object</p>
+</td>
+</tr></table>
+<h3>Value</h3>
+
+<p>a <code>yml_blank</code> object
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code>yml_discard()</code>, <code>yml_replace()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">
+yml() %&gt;%
+  yml_replace(author = yml_blank()) %&gt;%
+  yml_discard(~is_yml_blank(.x))
+
+
+</code></pre>
+
+
+</div>

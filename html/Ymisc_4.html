@@ -1,0 +1,83 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>long2wide</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Reshapes the data</h2>
+
+<h3>Description</h3>
+
+<p>long2wide() is data-reshaping function for long format data.
+This function mainly targets the brain structure data that contains the data from the left and right hemispheres
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">long2wide(data, ID = "ID", separator = "_", hemisphere = "prefix", start, end)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>data</code></td>
+<td>
+<p>The long format data.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>ID</code></td>
+<td>
+<p>The column of identifiers.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>separator</code></td>
+<td>
+<p>A character vector that separates characters in the variable names.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>hemisphere</code></td>
+<td>
+<p>The character vector that indicates whether a hemisphere indicator in the variable names is the prefix or suffix. At this point, only a "prefix" option is available.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>start</code></td>
+<td>
+<p>The column that specifies the starting point of a set of variables to be reshaped.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>end</code></td>
+<td>
+<p>The column that specifies the endpoint of a set of variables to be reshaped.</p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>The wide format data
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">
+data(long)
+
+long2wide(
+data=long,
+ID="ID",
+separator="_",
+hemisphere="prefix",
+start="region",
+end="rh")
+</code></pre>
+
+
+</div>

@@ -1,0 +1,208 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>roc_aunu</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Area under the ROC curve of each class against the rest, using the uniform
+class distribution</h2>
+
+<h3>Description</h3>
+
+<p><code>roc_aunu()</code> is a multiclass metric that computes the area under the ROC
+curve of each class against the rest, using the uniform class distribution.
+This is equivalent to <code>roc_auc(estimator = "macro")</code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">roc_aunu(data, ...)
+
+## S3 method for class 'data.frame'
+roc_aunu(data, truth, ..., na_rm = TRUE, case_weights = NULL, options = list())
+
+roc_aunu_vec(
+  truth,
+  estimate,
+  na_rm = TRUE,
+  case_weights = NULL,
+  options = list(),
+  ...
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>data</code></td>
+<td>
+<p>A <code>data.frame</code> containing the columns specified by <code>truth</code> and
+<code>...</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+<p>A set of unquoted column names or one or more <code>dplyr</code> selector
+functions to choose which variables contain the class probabilities. There
+should be as many columns as factor levels of <code>truth</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>truth</code></td>
+<td>
+<p>The column identifier for the true class results
+(that is a <code>factor</code>). This should be an unquoted column name although
+this argument is passed by expression and supports
+quasiquotation (you can unquote column
+names). For <code style="white-space: pre;">⁠_vec()⁠</code> functions, a <code>factor</code> vector.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>na_rm</code></td>
+<td>
+<p>A <code>logical</code> value indicating whether <code>NA</code>
+values should be stripped before the computation proceeds.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>case_weights</code></td>
+<td>
+<p>The optional column identifier for case weights.
+This should be an unquoted column name that evaluates to a numeric column
+in <code>data</code>. For <code style="white-space: pre;">⁠_vec()⁠</code> functions, a numeric vector,
+<code>hardhat::importance_weights()</code>, or <code>hardhat::frequency_weights()</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>options</code></td>
+<td>
+<p><code style="white-space: pre;">⁠[deprecated]⁠</code>
+</p>
+<p>No longer supported as of yardstick 1.0.0. If you pass something here it
+will be ignored with a warning.
+</p>
+<p>Previously, these were options passed on to <code>pROC::roc()</code>. If you need
+support for this, use the pROC package directly.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>estimate</code></td>
+<td>
+<p>A matrix with as many
+columns as factor levels of <code>truth</code>. <em>It is assumed that these are in the
+same order as the levels of <code>truth</code>.</em></p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>A <code>tibble</code> with columns <code>.metric</code>, <code>.estimator</code>,
+and <code>.estimate</code> and 1 row of values.
+</p>
+<p>For grouped data frames, the number of rows returned will be the same as
+the number of groups.
+</p>
+<p>For <code>roc_aunu_vec()</code>, a single <code>numeric</code> value (or <code>NA</code>).
+</p>
+
+
+<h3>Relevant Level</h3>
+
+<p>There is no common convention on which factor level should
+automatically be considered the "event" or "positive" result
+when computing binary classification metrics. In <code>yardstick</code>, the default
+is to use the <em>first</em> level. To alter this, change the argument
+<code>event_level</code> to <code>"second"</code> to consider the <em>last</em> level of the factor the
+level of interest. For multiclass extensions involving one-vs-all
+comparisons (such as macro averaging), this option is ignored and
+the "one" level is always the relevant result.
+</p>
+
+
+<h3>Multiclass</h3>
+
+<p>This multiclass method for computing the area under the ROC curve uses the
+uniform class distribution and is equivalent to
+<code>roc_auc(estimator = "macro")</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Julia Silge
+</p>
+
+
+<h3>References</h3>
+
+<p>Ferri, C., Hernández-Orallo, J., &amp; Modroiu, R. (2009). "An experimental
+comparison of performance measures for classification". <em>Pattern Recognition
+Letters</em>. 30 (1), pp 27-38.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code>roc_aunp()</code> for computing the area under the ROC curve of each class against
+the rest, using the a priori class distribution.
+</p>
+<p>Other class probability metrics: 
+<code>average_precision()</code>,
+<code>brier_class()</code>,
+<code>classification_cost()</code>,
+<code>gain_capture()</code>,
+<code>mn_log_loss()</code>,
+<code>pr_auc()</code>,
+<code>roc_auc()</code>,
+<code>roc_aunp()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R"># Multiclass example
+
+# `obs` is a 4 level factor. The first level is `"VF"`, which is the
+# "event of interest" by default in yardstick. See the Relevant Level
+# section above.
+data(hpc_cv)
+
+# You can use the col1:colN tidyselect syntax
+library(dplyr)
+hpc_cv %&gt;%
+  filter(Resample == "Fold01") %&gt;%
+  roc_aunu(obs, VF:L)
+
+# Change the first level of `obs` from `"VF"` to `"M"` to alter the
+# event of interest. The class probability columns should be supplied
+# in the same order as the levels.
+hpc_cv %&gt;%
+  filter(Resample == "Fold01") %&gt;%
+  mutate(obs = relevel(obs, "M")) %&gt;%
+  roc_aunu(obs, M, VF:L)
+
+# Groups are respected
+hpc_cv %&gt;%
+  group_by(Resample) %&gt;%
+  roc_aunu(obs, VF:L)
+
+# Vector version
+# Supply a matrix of class probabilities
+fold1 &lt;- hpc_cv %&gt;%
+  filter(Resample == "Fold01")
+
+roc_aunu_vec(
+  truth = fold1$obs,
+  matrix(
+    c(fold1$VF, fold1$F, fold1$M, fold1$L),
+    ncol = 4
+  )
+)
+</code></pre>
+
+
+</div>

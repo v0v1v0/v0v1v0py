@@ -1,0 +1,73 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>aeSd</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Asymptotic Expansion - Standard Deviation</h2>
+
+<h3>Description</h3>
+
+<p>Asymptotic Expansion - Standard Deviation
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">aeSd(ae, eps = 1, order = NULL)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>ae</code></td>
+<td>
+<p>an object of class <code>yuima.ae-class</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>eps</code></td>
+<td>
+<p>numeric. The intensity of the perturbation.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>order</code></td>
+<td>
+<p>integer. The expansion order. If <code>NULL</code> (default), it uses the maximum order used in <code>ae</code>.</p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>numeric.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">## Not run: 
+# model
+gbm &lt;- setModel(drift = 'mu*x', diffusion = 'sigma*x', solve.variable = 'x')
+
+# settings
+xinit &lt;- 100
+par &lt;- list(mu = 0.01, sigma = 0.2)
+sampling &lt;- setSampling(Initial = 0, Terminal = 1, n = 1000)
+
+# asymptotic expansion
+approx &lt;- ae(model = gbm, sampling = sampling, order = 4, true.parameter = par, xinit = xinit)
+
+# expansion order max
+aeSd(ae = approx)
+
+# expansion order 1
+aeSd(ae = approx, order = 1)
+
+## End(Not run)
+</code></pre>
+
+
+</div>

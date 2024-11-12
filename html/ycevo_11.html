@@ -1,0 +1,111 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>vis_kernel</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Visualise kernel weights</h2>
+
+<h3>Description</h3>
+
+<p><code>vis_kernel()</code> visualises kernel weights assigned to the intervals
+surrounding specific grid points using the Epanechnikov
+kernel function and given bandwidths.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">vis_kernel(data, x = NULL, hx = NULL, tau = NULL, ht = NULL, ...)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>data</code></td>
+<td>
+<p>Bond data. If <code>x</code> and <code>hx</code> are not NULL, <code>data</code>
+needs to include one time index column <code>qdate</code>. If <code>tau</code> and
+<code>ht</code> are not NULL, <code>data</code> needs to include one column of time to
+maturity in days <code>tupq</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>x</code></td>
+<td>
+<p>Time grids at which the discount curve is evaluated. Should be
+specified using the same class of object as the quotation date (<code>qdate</code>)
+column in <code>data</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>hx</code></td>
+<td>
+<p>Numeric vector. Bandwidth parameters corresponding to each time
+point <code>x</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>tau</code></td>
+<td>
+<p>Numeric vector. Time-to-maturities in years where
+discount function and yield curve will be estimated for each of time points <code>x</code>.
+See <code>Details</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>ht</code></td>
+<td>
+<p>Numeric vector. Bandwidth parameters corresponding to each value of
+time-to-maturities <code>tau</code>. See <code>Details</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+<p>Specification of an additional covariate, taking the form of <code>var = list(grid, bandwidth)</code>, where <code>var</code> is the name of the covariate in
+<code>data</code>, <code>grid</code> is the values at which the yield curve is estimated,
+similar to <code>x</code>, and <code>bandwidth</code> is the bandwidth parameter corresponding to
+each of the <code>grid</code> values, similar to <code>hx</code>.</p>
+</td>
+</tr>
+</table>
+<h3>Details</h3>
+
+<p>If <code>x</code> and <code>hx</code> are provided, the kernel weights assigned to the intervals
+surrounding each of time points <code>x</code> will be plotted.
+</p>
+<p>If <code>tau</code> and <code>ht</code> are provided, the kernel weights assigned to the intervals
+surrounding each of time-to-maturities <code>tau</code> will be plotted.
+</p>
+<p>If the grid and bandwidth of a covariate are provided in <code>...</code>, the
+kernel weights of that covariate will be plotted.
+</p>
+<p>The kernel weights can only be plotted in one dimension (time,
+time-to-maturity, or covariate) at a time.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A <code>ggplot2::ggplot()</code> object.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code>ycevo_data()</code>, <code>ycevo()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">bonds &lt;- ycevo_data()
+vis_kernel(bonds, x = lubridate::ymd("2023-06-01"), hx = 0.2)
+
+</code></pre>
+
+
+</div>

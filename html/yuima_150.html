@@ -1,0 +1,107 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>limiting.gamma</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>calculate the value of limiting covariance matrices : Gamma</h2>
+
+<h3>Description</h3>
+
+<p>To confirm assysmptotic normality of theta estimators.</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">limiting.gamma(obj,theta,verbose=FALSE)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>obj</code></td>
+<td>
+<p>an yuima or yuima.model object.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>theta</code></td>
+<td>
+<p>true theta</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>verbose</code></td>
+<td>
+<p>an option for display a verbose process.</p>
+</td>
+</tr>
+</table>
+<h3>Details</h3>
+
+<p>Calculate the value of limiting covariance matrices Gamma.
+The returned values gamma1 and gamma2 are used to confirm assysmptotic normality of theta estimators.
+this program is limitted to 1-dimention-sde model for now.
+</p>
+
+
+<h3>Value</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>gamma1</code></td>
+<td>
+<p>a theoretical figure for variance of theta1 estimator</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>gamma2</code></td>
+<td>
+<p>a theoretical figure for variance of theta2 estimator</p>
+</td>
+</tr>
+</table>
+<h3>Note</h3>
+
+<p>we need to fix this routine.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>The YUIMA Project Team</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">
+set.seed(123)
+
+## Yuima
+diff.matrix &lt;- matrix(c("theta1"), 1, 1)
+myModel &lt;- setModel(drift=c("(-1)*theta2*x"), diffusion=diff.matrix, 
+time.variable="t", state.variable="x")
+n &lt;- 100
+mySampling &lt;- setSampling(Terminal=(n)^(1/3), n=n)
+myYuima &lt;- setYuima(model=myModel, sampling=mySampling)
+myYuima &lt;- simulate(myYuima, xinit=1, true.parameter=list(theta1=0.6, theta2=0.3))
+
+## theorical figure of theta
+theta1 &lt;- 3.5
+theta2 &lt;- 1.3
+
+theta &lt;- list(theta1, theta2)
+lim.gamma &lt;- limiting.gamma(obj=myYuima, theta=theta, verbose=TRUE)
+
+## return theta1 and theta2 with list
+lim.gamma$list
+
+## return theta1 and theta2 with vector
+lim.gamma$vec
+
+</code></pre>
+
+
+</div>

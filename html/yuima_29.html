@@ -1,0 +1,150 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>setData</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>
+Set and access data of an object of type "yuima.data" or "yuima".
+</h2>
+
+<h3>Description</h3>
+
+<p><code>setData</code> constructs an object of <code>yuima.data-class</code>.
+</p>
+<p><code>get.zoo.data</code> returns the content of the <code>zoo.data</code> slot of a
+<code>yuima.data-class</code> object. (Note: value is a <code>list</code> of 
+<code>zoo</code> objects).
+</p>
+<p><code>plot</code> plot method for object of <code>yuima.data-class</code> or 
+<code>yuima-class</code>.
+</p>
+<p><code>dim</code> returns the <code>dim</code> of the <code>zoo.data</code> slot of a
+<code>yuima.data-class</code> object.
+</p>
+<p><code>length</code> returns the <code>length</code> of the time series in 
+<code>zoo.data</code> slot of a <code>yuima.data-class</code> object.
+<code>cbind.yuima</code> bind yuima.data object.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">  setData(original.data, delta=NULL, t0=0)
+  get.zoo.data(x)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+  
+<table>
+<tr style="vertical-align: top;">
+<td><code>original.data</code></td>
+<td>
+<p>some type of data, usually some sort of time series. 
+The function always tries to convert to the input data into an object of
+<code>zoo</code>-type. See Details.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>x</code></td>
+<td>
+<p>an object of type <code>yuima.data-class</code> or 
+<code>yuima-class</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>delta</code></td>
+<td>
+<p>If there is the need to redefine on the fly the <code>delta</code> increment of the data to make it consistent to statistical theory. See Details.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>t0</code></td>
+<td>
+<p>the time origin for the internal <code>zoo.data</code> slot, defaults to 0.</p>
+</td>
+</tr>
+</table>
+<h3>Details</h3>
+
+<p>Objects in the  <code>yuima.data-class</code> contain two slots:
+</p>
+
+<dl>
+<dt>
+<code>original.data</code>:</dt>
+<dd>
+<p>The slot <code>original.data</code> contains, as the 
+name suggests, a copy of the original data passed to the function 
+<code>setData</code>. It is intended for backup purposes.</p>
+</dd>
+<dt>
+<code>zoo.data</code>:</dt>
+<dd>
+<p>the function <code>setData</code> tries to convert 
+<code>original.data</code> into an object of class <code>zoo</code>. The 
+coerced <code>zoo</code> data are stored in the slot <code>zoo.data</code>.
+If the conversion fails the function exits with an error.
+Internally, the <span class="pkg">yuima</span> package stores and operates on  
+<code>zoo</code>-type objects.</p>
+</dd>
+</dl>
+<p>The function <code>get.zoo.data</code>
+returns the content of the slot <code>zoo.data</code> of <code>x</code> if <code>x</code>
+is of <code>yuima.data-class</code> or the content of 
+<code>x@data@zoo.data</code> if <code>x</code> is of <code>yuima-class</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<table><tr style="vertical-align: top;">
+<td><code>value</code></td>
+<td>
+<p>a list of object(s) of <code>yuima.data-class</code> for 
+<code>setData</code>. 
+The content of the <code>zoo.data</code>  slot for <code>get.zoo.data</code></p>
+</td>
+</tr></table>
+<h3>Author(s)</h3>
+
+<p>The YUIMA Project Team</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">X &lt;- ts(matrix(rnorm(200),100,2))
+mydata &lt;- setData(X)
+str(get.zoo.data(mydata))
+dim(mydata)
+length(mydata)
+plot(mydata)
+
+# exactly the same output
+mysde &lt;- setYuima(data=setData(X))
+str(get.zoo.data(mysde))
+plot(mysde)
+dim(mysde)
+length(mysde)
+
+# changing delta on the fly to 1/252
+mysde2 &lt;- setYuima(data=setData(X, delta=1/252))
+str(get.zoo.data(mysde2))
+plot(mysde2)
+dim(mysde2)
+length(mysde2)
+
+# changing delta on the fly to 1/252 and shifting time to t0=1
+mysde2 &lt;- setYuima(data=setData(X, delta=1/252, t0=1))
+str(get.zoo.data(mysde2))
+plot(mysde2)
+dim(mysde2)
+length(mysde2)
+
+
+</code></pre>
+
+
+</div>

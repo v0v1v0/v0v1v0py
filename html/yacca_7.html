@@ -1,0 +1,120 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>F.test.cca</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2> F Test for Canonical Correlations Using Rao's Approximation</h2>
+
+<h3>Description</h3>
+
+<p>Tests a series of canonical correlations (sequentially) against the null hypothesis that the tested coefficient and all succeeding coefficients are zero.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">F.test.cca(x, ...)
+
+## S3 method for class 'F.test.cca'
+print(x, ...)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>x</code></td>
+<td>
+<p> a <code>cca</code> object.  </p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+<p> additional arguments.</p>
+</td>
+</tr>
+</table>
+<h3>Details</h3>
+
+<p>Several related tests have been proposed for the evaluation of canonical correlations (including Bartlett's Chi-squared test, which is computed by default within <code>cca</code>).  This function employs Rao's statistic (related to Wilks' Lambda) as the basis for an F test of each coefficient (and all others in ascending sequence) against the hypothesis that the associated population correlations are zero.
+</p>
+
+
+<h3>Value</h3>
+
+<p>An object of class <code>F.test.cca</code>, whose elements are as follows:
+</p>
+<table>
+<tr style="vertical-align: top;">
+<td><code>corr </code></td>
+<td>
+<p>Canonical correlations.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>statistic </code></td>
+<td>
+<p>Squared canonical correlations (shared variance across canonical variates).</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>parameter </code></td>
+<td>
+<p>Coefficients for the <code>x</code> variables on each canonical variate.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>p.value </code></td>
+<td>
+<p>Coefficients for the <code>y</code> variables on each canonical variate.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>method </code></td>
+<td>
+<p>Canonical variate scores for the <code>x</code> variables.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>data.name </code></td>
+<td>
+<p>Canonical variate scores for the <code>y</code> variables.</p>
+</td>
+</tr>
+</table>
+<h3>Author(s)</h3>
+
+ 
+<p>Nicholas L. Crookston &lt;ncrookston@fs.fed.us&gt;
+</p>
+<p>Carter T. Butts &lt;buttsc@uci.edu&gt; </p>
+
+
+<h3>References</h3>
+
+<p> Mardia, K. V.; Kent, J. T.; and Bibby, J. M.  1979.  <em>Multivariate Analysis</em>.  London: Academic Press. </p>
+
+
+<h3>See Also</h3>
+
+ <p><code>cca</code> </p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">#Example: perceived personal attributes versus professional performance
+#for US Judges
+data(USJudgeRatings)
+personal &lt;- USJudgeRatings[,c("INTG","DMNR","DILG","FAMI","PHYS")]
+performance &lt;- USJudgeRatings[,c("CFMG","DECI","PREP","ORAL","WRIT")]
+cca.fit &lt;- cca(personal, performance)
+
+#Test the canonical correlations (see also summary(cca.fit))
+F.test.cca(cca.fit)
+</code></pre>
+
+
+</div>

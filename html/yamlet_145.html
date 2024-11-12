@@ -1,0 +1,122 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>mimic.default</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Try To Look Like Another Equal-length Variable</h2>
+
+<h3>Description</h3>
+
+<p>Tries to mimic another vector or factor.
+If meaningful and possible, x acquires
+a guide attribute with labels from
+corresponding values in y. Any codelist
+attribute is removed. No guide is created
+for zero-length x. If x is a factor,
+unused levels are removed.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">## Default S3 method:
+mimic(x, y = x, ...)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>x</code></td>
+<td>
+<p>vector-like</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>y</code></td>
+<td>
+<p>vector-like, same length as x</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+<p>passed to <code>link{factor}</code></p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>same class as x
+</p>
+
+
+<h3>See Also</h3>
+
+<p>Other mimic: 
+<code>mimic()</code>,
+<code>mimic.classified()</code>
+</p>
+<p>Other interface: 
+<code>canonical.decorated()</code>,
+<code>classified.data.frame()</code>,
+<code>decorate.character()</code>,
+<code>decorate.data.frame()</code>,
+<code>desolve.decorated()</code>,
+<code>ggplot.decorated()</code>,
+<code>io_csv.character()</code>,
+<code>io_csv.data.frame()</code>,
+<code>io_res.character()</code>,
+<code>io_res.decorated()</code>,
+<code>io_table.character()</code>,
+<code>io_table.data.frame()</code>,
+<code>io_yamlet.character()</code>,
+<code>io_yamlet.data.frame()</code>,
+<code>is_parseable.default()</code>,
+<code>modify.default()</code>,
+<code>promote.list()</code>,
+<code>read_yamlet()</code>,
+<code>resolve.decorated()</code>,
+<code>scripted.default()</code>,
+<code>selected.default()</code>,
+<code>write_yamlet()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">library(magrittr)
+library(dplyr)
+let &lt;- letters[1:5]
+LET &lt;- LETTERS[1:5]
+int &lt;- 0L:4L
+num &lt;- as.numeric(int)
+fac &lt;- factor(let)
+css &lt;- classified(let)
+
+# any of these can mimic any other
+str(mimic(LET, let))
+str(mimic(num, let))
+str(mimic(let, num))
+
+# factors get a guide and classifieds get a named codelist
+str(mimic(fac, int))
+str(mimic(css, int))
+
+# int can 'pick up' the factor levels as guide names
+str(mimic(int, css))
+
+# if two variables mean essentially the same thing,
+# mimic lets you save space
+x &lt;- data.frame(id = 1:2, ID = c('A','B'))
+x
+x %&lt;&gt;% mutate(id = mimic(id, ID)) %&gt;% select(-ID)
+x
+# ID still available, in principle:
+x %&gt;% as_decorated %&gt;% resolve
+</code></pre>
+
+
+</div>

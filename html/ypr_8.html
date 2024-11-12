@@ -1,0 +1,88 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>as_ypr_ecotypes</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Coerce to an Ecotypes Object</h2>
+
+<h3>Description</h3>
+
+<p>Coerce to an Ecotypes Object
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">as_ypr_ecotypes(x, ...)
+
+## S3 method for class 'data.frame'
+as_ypr_ecotypes(x, ...)
+
+## S3 method for class 'ypr_population'
+as_ypr_ecotypes(x, ...)
+
+## S3 method for class 'ypr_populations'
+as_ypr_ecotypes(x, ...)
+
+## S3 method for class 'ypr_ecotypes'
+as_ypr_ecotypes(x, ...)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>x</code></td>
+<td>
+<p>The object to coerce.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+<p>Additional arguments.</p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>An object of class ypr_ecotypes.
+</p>
+
+
+<h3>Methods (by class)</h3>
+
+
+<ul>
+<li> <p><code>as_ypr_ecotypes(data.frame)</code>: Coerce a data.frame to an Ecotypes Object
+</p>
+</li>
+<li> <p><code>as_ypr_ecotypes(ypr_population)</code>: Coerce a Population Object to an Ecotypes Object
+</p>
+</li>
+<li> <p><code>as_ypr_ecotypes(ypr_populations)</code>: Coerce a Populations Object to an Ecotypes Object
+</p>
+</li>
+<li> <p><code>as_ypr_ecotypes(ypr_ecotypes)</code>: Coerce an Ecotypes Object to an Ecotypes Object
+</p>
+</li>
+</ul>
+<h3>See Also</h3>
+
+<p>Other ecotypes: 
+<code>ypr_ecotypes()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">as_ypr_ecotypes(as.data.frame(ypr_ecotypes(Ls = c(10, 15, 20))))
+as_ypr_ecotypes(ypr_population())
+as_ypr_ecotypes(ypr_populations(Ls = c(10, 15, 20)))
+as_ypr_ecotypes(ypr_ecotypes(Ls = c(10, 15, 20)))
+</code></pre>
+
+
+</div>

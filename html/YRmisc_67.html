@@ -1,0 +1,57 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>reg.adj.r.squared</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Adjusted R-squared for lm.fit</h2>
+
+<h3>Description</h3>
+
+<p>Calculate Adjusted R-squared for the outcome of lm.fit. This function is built for reg.linreg() for higher efficiency only.
+It can't be used for calculating Adjusted R-squared in general operation.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">reg.adj.r.squared(r,n,p)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>r</code></td>
+<td>
+<p>:R-squared for regression</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>n</code></td>
+<td>
+<p>:number of observations aka. sample size</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>p</code></td>
+<td>
+<p>:number of explanatory variables in the model</p>
+</td>
+</tr>
+</table>
+<h3>Examples</h3>
+
+<pre><code class="language-R">X &lt;- as.matrix(cbind(1,EuStockMarkets[,1:2])) # create the design matrix
+Y &lt;- as.data.frame(EuStockMarkets)$FTSE
+fit &lt;- lm.fit(x = X, y = Y)
+SSR &lt;- sum((fit$fitted.values - mean(Y))^2)
+SSTO &lt;- sum((Y - mean(Y))^2)
+r &lt;- reg.r.squared(SSR,SSTO)
+n &lt;- dim(X)[1]; p &lt;- dim(X)[2]
+reg.adj.r.squared(r,n,p)
+</code></pre>
+
+
+</div>

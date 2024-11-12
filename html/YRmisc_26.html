@@ -1,0 +1,74 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>pl.3txtgg</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Scatter plot with text overlay with ggplot2</h2>
+
+<h3>Description</h3>
+
+<p>Generate a scatter plot with text overlay with ggplot2. This plot is to better show the effect of
+the text variable in the domain of x and y variable.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">pl.3txtgg(x,y,txt,size,title,xlab,ylab)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>x</code></td>
+<td>
+<p>:a numeric vector</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>y</code></td>
+<td>
+<p>:a numeric vector</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>txt</code></td>
+<td>
+<p>:a vector used as labels</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>size</code></td>
+<td>
+<p>:text size, which default is set as 3</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>title</code></td>
+<td>
+<p>:title of the graph</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>xlab</code></td>
+<td>
+<p>:x-axis label</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>ylab</code></td>
+<td>
+<p>:y-axis label</p>
+</td>
+</tr>
+</table>
+<h3>Examples</h3>
+
+<pre><code class="language-R">pl.3txtgg(mtcars[,1], mtcars[,3], row.names(mtcars), 3,"mpg v. cyl", "mpg", "cyl")
+</code></pre>
+
+
+</div>

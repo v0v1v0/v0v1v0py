@@ -1,0 +1,90 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>is_parseable.default</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Check Something is Parseable as Units by Default</h2>
+
+<h3>Description</h3>
+
+<p>Checks if something is parseable as units.
+Tests against the udunits library in <span class="pkg">units</span>.
+See <code>as_units</code>.
+See also <code>install_unit</code>
+for finer control.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">## Default S3 method:
+is_parseable(x, ...)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>x</code></td>
+<td>
+<p>character</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+<p>passed arguments</p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>logical
+</p>
+
+
+<h3>See Also</h3>
+
+<p>Other parseable: 
+<code>is_parseable()</code>
+</p>
+<p>Other interface: 
+<code>canonical.decorated()</code>,
+<code>classified.data.frame()</code>,
+<code>decorate.character()</code>,
+<code>decorate.data.frame()</code>,
+<code>desolve.decorated()</code>,
+<code>ggplot.decorated()</code>,
+<code>io_csv.character()</code>,
+<code>io_csv.data.frame()</code>,
+<code>io_res.character()</code>,
+<code>io_res.decorated()</code>,
+<code>io_table.character()</code>,
+<code>io_table.data.frame()</code>,
+<code>io_yamlet.character()</code>,
+<code>io_yamlet.data.frame()</code>,
+<code>mimic.default()</code>,
+<code>modify.default()</code>,
+<code>promote.list()</code>,
+<code>read_yamlet()</code>,
+<code>resolve.decorated()</code>,
+<code>scripted.default()</code>,
+<code>selected.default()</code>,
+<code>write_yamlet()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">is_parseable(c('kg/m2','kg/m^2','kg.m/s2','µg/L'))
+is_parseable('foo')
+library(units)
+install_unit('foo')
+is_parseable('foo')
+
+</code></pre>
+
+
+</div>

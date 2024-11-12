@@ -1,0 +1,224 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>adaBayes</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Adaptive Bayes estimator for the parameters in sde model</h2>
+
+<h3>Description</h3>
+
+<p>The <code>adabayes.mcmc</code> class is a class of the  <span class="pkg">yuima</span> package that extends the <code>mle-class</code>.</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">adaBayes(yuima, start, prior, lower, upper, method = "mcmc", iteration = NULL,mcmc,
+rate =1, rcpp = TRUE, algorithm = "randomwalk",center=NULL,sd=NULL,rho=NULL,
+path = FALSE)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>yuima</code></td>
+<td>
+<p>a 'yuima' object.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>start</code></td>
+<td>
+<p>initial suggestion for parameter values </p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>prior</code></td>
+<td>
+<p>a list of prior distributions for the parameters specified by 'code'. Currently, dunif(z, min, max), dnorm(z, mean, sd), dbeta(z, shape1, shape2), dgamma(z, shape, rate) are available. </p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>lower</code></td>
+<td>
+<p>a named list for specifying lower bounds of parameters</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>upper</code></td>
+<td>
+<p>a named list for specifying upper bounds of parameters</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>method</code></td>
+<td>
+<p><code>"nomcmc"</code> requires package <code>cubature</code> </p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>iteration</code></td>
+<td>
+<p>number of iteration of Markov chain Monte Carlo method</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>mcmc</code></td>
+<td>
+<p>number of iteration of Markov chain Monte Carlo method</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>rate</code></td>
+<td>
+<p>a thinning parameter. Only the first n^rate observation will be used for inference. </p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>rcpp</code></td>
+<td>
+<p>Logical value. If <code>rcpp = TRUE</code> (default), Rcpp code will be performed. Otherwise, usual R code will be performed. </p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>algorithm</code></td>
+<td>
+<p>If <code>algorithm = "randomwalk"</code> (default), the random-walk Metropolis algorithm will be performed. If <code>algorithm = "MpCN"</code>, the Mixed preconditioned Crank-Nicolson algorithm will be performed.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>center</code></td>
+<td>
+<p>A list of parameters used to center MpCN algorithm.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>sd</code></td>
+<td>
+<p>A list for specifying the standard deviation of proposal distributions.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>path</code></td>
+<td>
+<p>Logical value when <code>method = "mcmc"</code>. If <code>path=TRUE</code>, then the sample path for each variable will be included in the MCMC object in the output.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>rho</code></td>
+<td>
+<p>A parameter used for MpCN algorithm.</p>
+</td>
+</tr>
+</table>
+<h3>Details</h3>
+
+<p>Calculate the Bayes estimator for stochastic processes by using  the quasi-likelihood function. The calculation is performed by the Markov chain Monte Carlo method. Currently, the Random-walk Metropolis algorithm  and the Mixed preconditioned Crank-Nicolson algorithm is implemented.</p>
+
+
+<h3>Slots</h3>
+
+
+<dl>
+<dt>
+<code>mcmc</code>:</dt>
+<dd>
+<p>is a list of MCMC objects for all estimated parameters.</p>
+</dd>
+<dt>
+<code>accept_rate</code>:</dt>
+<dd>
+<p>is a list acceptance rates for diffusion and drift parts.</p>
+</dd>
+<dt>
+<code>call</code>:</dt>
+<dd>
+<p>is an object of class <code>language</code>.</p>
+</dd>
+<dt>
+<code>fullcoef</code>:</dt>
+<dd>
+<p>is an object of class <code>list</code> that contains estimated parameters.</p>
+</dd>
+<dt>
+<code>vcov</code>:</dt>
+<dd>
+<p>is an object of class <code>matrix</code>.</p>
+</dd>
+<dt>
+<code>coefficients</code>:</dt>
+<dd>
+<p>is an object of class <code>vector</code> that contains estimated parameters.</p>
+</dd>
+</dl>
+<h3>Note</h3>
+
+<p><code>algorithm = nomcmc</code> is unstable.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Kengo Kamatani with YUIMA project Team</p>
+
+
+<h3>References</h3>
+
+<p>Yoshida, N. (2011). Polynomial type large deviation inequalities and quasi-likelihood analysis for stochastic differential equations. Annals of the Institute of Statistical Mathematics, 63(3), 431-479.
+Uchida, M., &amp; Yoshida, N. (2014). Adaptive Bayes type estimators of ergodic diffusion processes from discrete observations. Statistical Inference for Stochastic Processes, 17(2), 181-219.
+Kamatani, K. (2017). Ergodicity of Markov chain Monte Carlo with reversible proposal. Journal of Applied Probability, 54(2).
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">## Not run: 
+set.seed(123)
+b &lt;- c("-theta1*x1+theta2*sin(x2)+50","-theta3*x2+theta4*cos(x1)+25")
+a &lt;- matrix(c("4+theta5","1","1","2+theta6"),2,2)
+true = list(theta1 = 0.5, theta2 = 5,theta3 = 0.3,
+            theta4 = 5, theta5 = 1, theta6 = 1)
+lower = list(theta1=0.1,theta2=0.1,theta3=0,
+             theta4=0.1,theta5=0.1,theta6=0.1)
+upper = list(theta1=1,theta2=10,theta3=0.9,
+             theta4=10,theta5=10,theta6=10)
+start = list(theta1=runif(1),
+             theta2=rnorm(1),
+             theta3=rbeta(1,1,1),
+             theta4=rnorm(1),
+             theta5=rgamma(1,1,1),
+             theta6=rexp(1))
+yuimamodel &lt;- setModel(drift=b,diffusion=a,state.variable=c("x1", "x2"),solve.variable=c("x1","x2"))
+yuimasamp &lt;- setSampling(Terminal=50,n=50*10)
+yuima &lt;- setYuima(model = yuimamodel, sampling = yuimasamp)
+yuima &lt;- simulate(yuima, xinit = c(100,80),
+                  true.parameter = true,sampling = yuimasamp)
+prior &lt;-
+  list(
+    theta1=list(measure.type="code",df="dunif(z,0,1)"),
+    theta2=list(measure.type="code",df="dnorm(z,0,1)"),
+    theta3=list(measure.type="code",df="dbeta(z,1,1)"),
+    theta4=list(measure.type="code",df="dgamma(z,1,1)"),
+    theta5=list(measure.type="code",df="dnorm(z,0,1)"),
+    theta6=list(measure.type="code",df="dnorm(z,0,1)")
+  )
+set.seed(123)
+mle &lt;- qmle(yuima, start = start, lower = lower, upper = upper, method = "L-BFGS-B",rcpp=TRUE)
+print(mle@coef)
+center&lt;-list(theta1=0.5,theta2=5,theta3=0.3,theta4=4,theta5=3,theta6=3)
+sd&lt;-list(theta1=0.001,theta2=0.001,theta3=0.001,theta4=0.01,theta5=0.5,theta6=0.5)
+bayes &lt;- adaBayes(yuima, start=start, prior=prior,lower=lower,upper=upper,
+                  method="mcmc",mcmc=1000,rate = 1, rcpp = TRUE,
+                   algorithm = "randomwalk",center = center,sd=sd,
+                   path=TRUE)
+print(bayes@fullcoef)
+print(bayes@accept_rate)
+print(bayes@mcmc$theta1[1:10])
+
+## End(Not run)
+</code></pre>
+
+
+</div>

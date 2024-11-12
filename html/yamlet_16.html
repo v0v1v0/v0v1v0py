@@ -1,0 +1,101 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>as.data.frame.yamlet</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Coerce Yamlet to Data Frame</h2>
+
+<h3>Description</h3>
+
+<p>Coerces yamlet to data.frame. Columns are constructed in the order that
+attributes are encountered, beginning with top-level 'item' (default).
+Cell contents are calculated using
+<code>getOption('yamlet_cell_value', yamlet::cell_value)</code> to which
+is passed the cell-specific metadata as well as <code>sep</code> and <code>def</code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">## S3 method for class 'yamlet'
+as.data.frame(
+  x,
+  row.names = "item",
+  optional = FALSE,
+  sep = "\n",
+  def = ": ",
+  ...
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>x</code></td>
+<td>
+<p>yamlet; see <code>decorations</code> and <code>read_yamlet</code></p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>row.names</code></td>
+<td>
+<p>a name for a column to hold top-level names, or NULL to represent these as row.names</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>optional</code></td>
+<td>
+<p>if TRUE and row.names is NULL, row.names will not be set</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>sep</code></td>
+<td>
+<p>separator for multiple items within an attribute</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>def</code></td>
+<td>
+<p>definition string: separator between items and their (preceding) names, if any</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+<p>ignored</p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>data.frame
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">
+library(magrittr)
+
+file &lt;- system.file(package = 'yamlet', 'extdata','quinidine.yaml')
+file %&gt;% read_yamlet %&gt;% explicit_guide %&gt;% as.data.frame
+file &lt;- system.file(package = 'yamlet', 'extdata','phenobarb.csv')
+
+# phenobarb.yaml has conditional metadata that benefits
+# from interpretation in the context of the data itself.
+# thus, we
+# * read the whole 'decorated' object (not just yaml),
+# * resolve the 'guide' ambiguity,
+# extract the best-guess decorations, and
+# convert to data.frame.
+
+file %&gt;% io_csv %&gt;% resolve %&gt;% decorations %&gt;% as.data.frame
+
+</code></pre>
+
+
+</div>

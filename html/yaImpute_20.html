@@ -1,0 +1,120 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>notablyDistant</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Find notably distant targets</h2>
+
+<h3>Description</h3>
+
+<p>Notably distant <em>targets</em> are those with relatively large distances from the
+closest <em>reference</em> observation. A suitable <em>threshold</em> is used to
+detect large distances.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">notablyDistant(object,kth=1,threshold=NULL,p=0.01,method="distribution")
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>object</code></td>
+<td>
+<p>an object of class <code>yai</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>kth</code></td>
+<td>
+<p>the kth neighbor is used.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>threshold</code></td>
+<td>
+<p>the thereshold distance that identifies
+<em>notably</em> large distances between observations.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>p</code></td>
+<td>
+<p><code>(1-p)*100</code> is the percentile point in the distribution 
+of distances used to compute the threshold (only used when 
+<em>threshold</em> is NULL).</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>method</code></td>
+<td>
+<p>the method used to compute the <em>threshold</em>, see details.</p>
+</td>
+</tr>
+</table>
+<h3>Details</h3>
+
+<p>When <code>threshold</code> is NULL, the function computes one using one of
+two methods. When <code>method</code> is "distribution", assumption is made that 
+distances follow the lognormal distribution, unless the method used
+to find neighbors is <code>randomForest</code>, in which case the distances
+are assumed to follow the beta distribution. A specified <code>p</code> value
+is used to compute the <code>threshold</code>, which is the point in the distribution
+where a fraction, <code>p</code>, of the neighbors are larger than the <code>threshold</code>.
+</p>
+<p>When <code>method</code> is "quantile", the function uses the <code>quantile</code> 
+function with <code>probs=1-p</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>List of two data frames that contain 1) the <em>references</em> that are notably
+distant from other <em>references</em>, 2) the <em>targets</em> that are notably distant
+from the <em>references</em>, 3) the <em>threshold</em> used, and 4) the <em>method</em> used.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Nicholas L. Crookston <a href="mailto:ncrookston.fs@gmail.com">ncrookston.fs@gmail.com</a> <br></p>
+
+
+<h3>See Also</h3>
+
+<p><code>notablyDifferent</code> <code>yai</code></p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">data(iris)
+
+set.seed(12345)
+
+# form some test data
+refs=sample(rownames(iris),50)
+x &lt;- iris[,1:3]      # Sepal.Length Sepal.Width Petal.Length
+y &lt;- iris[refs,4:5]  # Petal.Width Species
+
+# build an msn run, first build dummy variables for species.
+
+sp1 &lt;- as.integer(iris$Species=="setosa")
+sp2 &lt;- as.integer(iris$Species=="versicolor")
+y2 &lt;- data.frame(cbind(iris[,4],sp1,sp2),row.names=rownames(iris))
+y2 &lt;- y2[refs,]
+
+names(y2) &lt;- c("Petal.Width","Sp1","Sp2")
+
+msn &lt;- yai(x=x,y=y2,method="msn")
+
+notablyDistant(msn)
+
+</code></pre>
+
+
+</div>

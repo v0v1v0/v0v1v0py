@@ -1,0 +1,81 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>ypr_names</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Population(s) or Ecotype Names</h2>
+
+<h3>Description</h3>
+
+<p>Generates set of unique names based on differences in parameter values.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">ypr_names(x, ...)
+
+## S3 method for class 'ypr_population'
+ypr_names(x, ...)
+
+## S3 method for class 'ypr_populations'
+ypr_names(x, ...)
+
+## S3 method for class 'ypr_ecotypes'
+ypr_names(x, ...)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>x</code></td>
+<td>
+<p>An object of class ypr_population, ypr_populations or ypr_ecotypes.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+<p>Unused.</p>
+</td>
+</tr>
+</table>
+<h3>Details</h3>
+
+<p>Parameter RPR is ignored because it is irrelevant to population(s) and does not
+distinguish between ecotypes.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A character vector of the unique parameter based names.
+</p>
+
+
+<h3>Methods (by class)</h3>
+
+
+<ul>
+<li> <p><code>ypr_names(ypr_population)</code>: Population Names
+</p>
+</li>
+<li> <p><code>ypr_names(ypr_populations)</code>: Populations Names
+</p>
+</li>
+<li> <p><code>ypr_names(ypr_ecotypes)</code>: Ecotypes Names
+</p>
+</li>
+</ul>
+<h3>Examples</h3>
+
+<pre><code class="language-R">ypr_names(ypr_population())
+ypr_names(ypr_populations())
+ypr_names(ypr_populations())
+</code></pre>
+
+
+</div>

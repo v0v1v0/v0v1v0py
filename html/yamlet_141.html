@@ -1,0 +1,81 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>make_title.dvec</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Make Title for Decorated Vector</h2>
+
+<h3>Description</h3>
+
+<p>Makes title for decorated vectors.
+If option <code>with_title</code> is TRUE
+and x has a 'units' attribute,
+it adds the title attribute. See also 
+<code>drop_title</code> for coordinated use.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">## S3 method for class 'dvec'
+make_title(x, ..., with_title = getOption("yamlet_with_title", TRUE))
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>x</code></td>
+<td>
+<p>dvec</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+<p>ignored arguments</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>with_title</code></td>
+<td>
+<p>whether to drop title</p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>dvec
+</p>
+
+
+<h3>See Also</h3>
+
+<p>Other labels: 
+<code>alias.data.frame()</code>,
+<code>append_units()</code>,
+<code>append_units.data.frame()</code>,
+<code>append_units.default()</code>,
+<code>drop_title()</code>,
+<code>drop_title.decorated()</code>,
+<code>drop_title.default()</code>,
+<code>drop_title.dvec()</code>,
+<code>make_title()</code>,
+<code>make_title.decorated()</code>,
+<code>make_title.default()</code>,
+<code>sub_units()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">library(magrittr)
+1 %&gt;% 
+as_dvec(label = 'length', guide = 'mm') %&gt;%
+resolve
+</code></pre>
+
+
+</div>

@@ -1,0 +1,57 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>cor.lag</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Lag/Lead Correlation</h2>
+
+<h3>Description</h3>
+
+<p>Calculating correlation of two vectors with lag and lead periods. The correlations are
+used to determine the lag or lead effect between two variables. The correlation function uses "na.or.complete"
+method and calculate the Pearson's correlation.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">cor.lag(x,y,lag,lead)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>x</code></td>
+<td>
+<p>:the moving  vector</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>y</code></td>
+<td>
+<p>:the fixed vector</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>lag</code></td>
+<td>
+<p>:number of lag periods</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>lead</code></td>
+<td>
+<p>:number of lead periods</p>
+</td>
+</tr>
+</table>
+<h3>Examples</h3>
+
+<pre><code class="language-R">cor.lag(mtcars[,1],mtcars[,2],3,3)
+</code></pre>
+
+
+</div>

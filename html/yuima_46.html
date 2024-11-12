@@ -1,0 +1,97 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>cogarch.est.incr-class</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Class for Estimation of COGARCH(p,q) model with underlying increments</h2>
+
+<h3>Description</h3>
+
+<p>The <code>cogarch.est.incr</code> class is a class of the  <span class="pkg">yuima</span> package that extends the <code>cogarch.est-class</code> and is filled by the function <code>gmm</code> or <code>qmle</code>.
+</p>
+
+
+<h3>Slots</h3>
+
+
+<dl>
+<dt>
+<code>Incr.Lev</code>:</dt>
+<dd>
+<p>is an object of class <code>zoo</code> that contains the estimated increments of the noise obtained using <code>cogarchNoise</code>.</p>
+</dd>
+<dt>
+<code>yuima</code>:</dt>
+<dd>
+<p>is an object of of <code>yuima-class</code>.</p>
+</dd>
+<dt>
+<code>logL.Incr</code>:</dt>
+<dd>
+<p>is an object of class <code>numeric</code> that contains the value of the log-likelihood for estimated Levy increments.</p>
+</dd>
+<dt>
+<code>objFun</code>:</dt>
+<dd>
+<p>is an object of class <code>character</code> that indicates the objective function used in the minimization problem. See the documentation of the function <code>gmm</code> or <code>qmle</code>  for more details.</p>
+</dd>
+<dt>
+<code>call</code>:</dt>
+<dd>
+<p>is an object of class <code>language</code>. </p>
+</dd>
+<dt>
+<code>coef</code>:</dt>
+<dd>
+<p>is an object of class <code>numeric</code> that contains estimated parameters.</p>
+</dd>
+<dt>
+<code>fullcoef</code>:</dt>
+<dd>
+<p>is an object of class <code>numeric</code> that contains estimated and fixed parameters.</p>
+</dd>
+<dt>
+<code>vcov</code>:</dt>
+<dd>
+<p>is an object of class <code>matrix</code>.</p>
+</dd>
+<dt>
+<code>min</code>:</dt>
+<dd>
+<p>is an object of class <code>numeric</code>.</p>
+</dd>
+<dt>
+<code>minuslogl</code>:</dt>
+<dd>
+<p>is an object of class <code>function</code>.</p>
+</dd>
+<dt>
+<code>method</code>:</dt>
+<dd>
+<p>is an object of class <code>character</code>.</p>
+</dd>
+</dl>
+<h3>Methods</h3>
+
+
+<dl>
+<dt>simulate</dt>
+<dd>
+<p>simulation method. For more information see <code>simulate</code>.</p>
+</dd>
+<dt>plot</dt>
+<dd>
+<p>Plot method for estimated increment of the noise.</p>
+</dd>
+<dt>Methods mle</dt>
+<dd>
+<p>All methods for <code>mle-class</code> are available.</p>
+</dd>
+</dl>
+<h3>Author(s)</h3>
+
+<p>The YUIMA Project Team</p>
+
+
+</div>

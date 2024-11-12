@@ -1,0 +1,120 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>yuima.Integral-class</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Class for the mathematical description of integral of a stochastic process</h2>
+
+<h3>Description</h3>
+
+<p>The <code>yuima.Integral</code> class is a class of the  <span class="pkg">yuima</span> package that extends the <code>yuima-class</code> it represents a integral of a stochastic process
+</p>
+<p><code> zt = int^{t}_0 h(theta, Xs, s) dXs</code>
+</p>
+
+
+<h3>Slots</h3>
+
+<p>In the following we report the the additional slots of an object of class <code>yuima.Integral</code> with respect to the <code>yuima-class</code>:
+</p>
+
+<dl>
+<dt>
+<code>Integral</code>:</dt>
+<dd>
+<p>It is an object of class <code>Integral.sde</code> and it is composed by the following slots:
+</p>
+
+<dl>
+<dt>
+<code>param.Integral</code>:</dt>
+<dd>
+<p>it is an object of class <code>param.Integral</code> and it is composed by the following slots:
+</p>
+
+<dl>
+<dt>
+<code>allparam</code>:</dt>
+<dd>
+<p>labels of all parameters (model and  integral).</p>
+</dd>
+<dt>
+<code>common</code>:</dt>
+<dd>
+<p>common parameters.</p>
+</dd>
+<dt>
+<code>Integrandparam</code>:</dt>
+<dd>
+<p>labels of all parameters only in the integral.</p>
+</dd>
+</dl>
+</dd>
+<dt>
+<code>variable.Integral</code>:</dt>
+<dd>
+<p>it is an object of class <code>variable.Integral</code> and it is composed by the following slots:
+</p>
+
+<dl>
+<dt>
+<code>var.dx</code>:</dt>
+<dd>
+<p>integral variable.</p>
+</dd>
+<dt>
+<code>lower.var</code>:</dt>
+<dd>
+<p>lower bound of support.</p>
+</dd>
+<dt>
+<code>upper.var</code>:</dt>
+<dd>
+<p>upper bound of support.</p>
+</dd>
+<dt>
+<code>out.var</code>:</dt>
+<dd>
+<p>labels of output.</p>
+</dd>
+<dt>
+<code>var.time</code>:</dt>
+<dd>
+<p>label of time.</p>
+</dd>
+</dl>
+</dd>
+<dt>
+<code>Integrand</code>:</dt>
+<dd>
+<p>it is an object of class <code>variable.Integral</code> and it is composed by the following slots:
+</p>
+
+<dl>
+<dt>
+<code>IntegrandList</code>:</dt>
+<dd>
+<p>It is a <code>list</code> that contains the components of integrand <code>h(theta, Xs, s)</code>.</p>
+</dd>
+<dt>
+<code>dimIntegrand</code>:</dt>
+<dd>
+<p>a <code>numeric</code> object that is the dimensions of the output.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+<h3>Methods</h3>
+
+
+<dl>
+<dt>simulate</dt>
+<dd>
+<p>simulation method. For more information see
+<code>simulate</code>.</p>
+</dd>
+</dl>
+</div>

@@ -1,0 +1,75 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>validate_json_file</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Validate JSON in file or string</h2>
+
+<h3>Description</h3>
+
+<p>Validate JSON in file or string
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">validate_json_file(filename, verbose = FALSE, opts = list(), ...)
+
+validate_json_str(str, verbose = FALSE, opts = list(), ...)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>filename</code></td>
+<td>
+<p>path to file containing JSON</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>verbose</code></td>
+<td>
+<p>logical. If the JSON is not valid, should a warning be
+shown giving details?</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>opts</code></td>
+<td>
+<p>Named list of options for parsing. Usually created by <code>opts_read_json()</code></p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+<p>Other named options can be used to override any options in <code>opts</code>.
+The valid named options are identical to arguments to <code>opts_read_json()</code></p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>str</code></td>
+<td>
+<p>character string containing JSON</p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>Logical value. TRUE if JSON validates as OK, otherwise FALSE
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">tmp &lt;- tempfile()
+write_json_file(head(iris, 3), tmp)
+validate_json_file(tmp)
+str &lt;- write_json_str(iris)
+validate_json_str(str)
+</code></pre>
+
+
+</div>

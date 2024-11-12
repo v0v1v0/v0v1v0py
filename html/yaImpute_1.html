@@ -1,0 +1,317 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>ann</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Approximate nearest neighbor search routines</h2>
+
+<h3>Description</h3>
+
+<p>Given a set of reference data points <code class="reqn">S</code>, <code>ann</code> constructs a
+kd-tree or box-decomposition tree (bd-tree) for efficient <code class="reqn">k</code>-nearest
+neighbor searches.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">ann(ref, target, k=1, eps=0.0, tree.type="kd",
+    search.type="standard", bucket.size=1, split.rule="sl_midpt",
+    shrink.rule="simple", verbose=TRUE, ...)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>ref</code></td>
+<td>
+<p>an <code class="reqn">n \times d</code> matrix containing the reference point set
+<code class="reqn">S</code>. Each row in <code>ref</code> corresponds to a point in <code class="reqn">d</code>-dimensional space. </p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>target</code></td>
+<td>
+<p>an <code class="reqn">m \times d</code> matrix containing the points
+for which <code class="reqn">k</code> nearest neighbor reference points are sought. </p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>k</code></td>
+<td>
+<p>defines the number of nearest neighbors to find. The default
+is <code class="reqn">k</code>=1. </p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>eps</code></td>
+<td>
+<p>the <code class="reqn">i^{th}</code> nearest neighbor is at most
+(1+<code>eps</code>) from true <code class="reqn">i^{th}</code> nearest neighbor, where <code>eps</code><code class="reqn">\ge 0</code> . Specifically, the true (not
+squared) difference between the true <code class="reqn">i^{th}</code> and the
+approximation of the <code class="reqn">i^{th}</code> point is a factor of
+(1+<code>eps</code>). The default value of <code>eps</code>=0 is an exact
+search. </p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>tree.type</code></td>
+<td>
+<p>the data structures kd-tree or bd-tree as
+quoted key words <em>kd</em> and <em>bd</em>, respectively.  A brute force
+search can be specified with the quoted key word <em>brute</em>. If
+<em>brute</em> is specified, then all subsequent arguments are
+ignored.  The default is the kd-tree. </p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>search.type</code></td>
+<td>
+<p>either standard or priority search in the kd-tree
+or bd-tree, specified by quoted key words <em>standard</em> and <em>priority</em>,
+respectively. The default is the standard search. </p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>bucket.size</code></td>
+<td>
+<p>the maximum number of reference points in the leaf
+nodes. The default is 1. </p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>split.rule</code></td>
+<td>
+<p>is the strategy for the recursive splitting of those
+nodes with more points than the bucket size.  The splitting
+rule applies to both the kd-tree and bd-tree.  Splitting rule
+options are the quoted key words:
+</p>
+
+<ol>
+<li>
+<p> standard - standard kd-tree
+</p>
+</li>
+<li>
+<p> midpt - midpoint
+</p>
+</li>
+<li>
+<p> fair - fair-split
+</p>
+</li>
+<li>
+<p> midpt - sliding-midpoint (default)
+</p>
+</li>
+<li>
+<p> fair - fair-split rule
+</p>
+</li>
+</ol>
+<p>See supporting documentation, reference below, for a thorough
+description and discussion of these splitting rules. </p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>shrink.rule</code></td>
+<td>
+<p>applies only to the bd-tree and is an additional
+strategy (beyond the splitting rule) for the recursive partitioning
+of nodes.  This argument is ignored if <code>tree.type</code> is specified
+as <em>kd</em>. Shrinking rule options are quoted key words:
+</p>
+
+<ol>
+<li>
+<p> none - equivalent to the kd-tree
+</p>
+</li>
+<li>
+<p> simple - simple shrink (default)
+</p>
+</li>
+<li>
+<p> centroid - centroid shrink
+</p>
+</li>
+</ol>
+<p>See supporting documentation, reference below, for a thorough description and
+discussion of these shrinking rules. </p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>verbose</code></td>
+<td>
+<p>if true, search progress is printed to the screen. </p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+<p>currently no additional arguments. </p>
+</td>
+</tr>
+</table>
+<h3>Details</h3>
+
+<p>The <code>ann</code> function calls portions of the Approximate Nearest
+Neighbor Library, written by David M. Mount.  All of the <code>ann</code>
+function arguments are detailed in the ANN Programming Manual
+found at <a href="https://www.cs.umd.edu/~mount/ANN/">https://www.cs.umd.edu/~mount/ANN/</a>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>An object of class <code>ann</code>, which is a list with some or all of
+the following tags:
+</p>
+<table>
+<tr style="vertical-align: top;">
+<td><code>knnIndexDist</code></td>
+<td>
+<p>an <code class="reqn">m \times 2k</code> matrix.
+Each row corresponds to a target point in <code>target</code> and columns
+1:<code class="reqn">k</code> hold the <code>ref</code> matrix row indices of the nearest
+neighbors, such that column 1 index holds the <code>ref</code> matrix row
+index for the first nearest
+neighbor and column <code class="reqn">k</code> is the <code class="reqn">k^{th}</code> nearest
+neighbor index.  Columns <code class="reqn">k+1</code>:2k hold the Euclidean distance from the
+target to each of the <code class="reqn">k</code> nearest neighbors indexed in columns 1:<code class="reqn">k</code>. </p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>searchTime</code></td>
+<td>
+<p>total search time, not including data structure
+construction, etc. </p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>k</code></td>
+<td>
+<p>as defined in the <code>ann</code> function call. </p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>eps</code></td>
+<td>
+<p>as defined in the <code>ann</code> function call. </p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>tree.type</code></td>
+<td>
+<p>as defined in the <code>ann</code> function call. </p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>search.type</code></td>
+<td>
+<p>as defined in the <code>ann</code> function call. </p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>bucket.size</code></td>
+<td>
+<p>as defined in the <code>ann</code> function call. </p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>split.rule</code></td>
+<td>
+<p>as defined in the <code>ann</code> function call. </p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>shrink.rule</code></td>
+<td>
+<p>as defined in the <code>ann</code> function call. </p>
+</td>
+</tr>
+</table>
+<h3>Author(s)</h3>
+
+<p>Andrew O. Finley <a href="mailto:finleya@msu.edu">finleya@msu.edu</a> <br></p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">
+## Make a couple of bivariate normal classes
+rmvn &lt;- function(n, mu=0, V = matrix(1))
+{
+  p &lt;- length(mu)
+  if(any(is.na(match(dim(V),p))))
+    stop("Dimension problem!")
+  D &lt;- chol(V)
+  matrix(rnorm(n*p), ncol=p) %*% D + rep(mu,rep(n,p))
+}
+
+m &lt;- 10000
+
+## Class 1.
+mu.1 &lt;- c(20, 40)
+V.1 &lt;- matrix(c(-5,1,0,5),2,2); V.1 &lt;- V.1%*%t(V.1)
+c.1 &lt;- cbind(rmvn(m, mu.1, V.1), rep(1, m))
+
+## Class 2.
+mu.2 &lt;- c(30, 60)
+V.2 &lt;- matrix(c(4,2,0,2),2,2); V.2 &lt;- V.2%*%t(V.2)
+c.2 &lt;- cbind(rmvn(m, mu.2, V.2), rep(2, m))
+
+## Class 3.
+mu.3 &lt;- c(15, 60)
+V.3 &lt;- matrix(c(5,5,0,5),2,2); V.3 &lt;- V.3%*%t(V.3)
+c.3 &lt;- cbind(rmvn(m, mu.3, V.3), rep(3, m))
+
+c.all &lt;- rbind(c.1, c.2, c.3)
+max.x &lt;- max(c.all[,1]); min.x &lt;- min(c.all[,1])
+max.y &lt;- max(c.all[,2]); min.y &lt;- min(c.all[,2])
+
+## Check them out.
+plot(c.1[,1], c.1[,2], xlim=c(min.x, max.x), ylim=c(min.y, max.y),
+     pch=19, cex=0.5,
+     col="blue", xlab="Variable 1", ylab="Variable 2")
+points(c.2[,1], c.2[,2], pch=19, cex=0.5, col="green")
+points(c.3[,1], c.3[,2], pch=19, cex=0.5, col="red")
+
+
+## Take a reference sample.
+n &lt;- 2000
+ref &lt;- c.all[sample(1:nrow(c.all), n),]
+
+## Compare search times
+k &lt;- 10
+## Do a simple brute force search.
+brute &lt;- ann(ref=ref[,1:2], target=c.all[,1:2],
+             tree.type="brute", k=k, verbose=FALSE)
+print(brute$searchTime)
+
+## Do an exact kd-tree search.
+kd.exact &lt;- ann(ref=ref[,1:2], target=c.all[,1:2],
+                tree.type="kd", k=k, verbose=FALSE)
+print(kd.exact$searchTime)
+
+## Do an approximate kd-tree search.
+kd.approx &lt;- ann(ref=ref[,1:2], target=c.all[,1:2],
+                 tree.type="kd", k=k, eps=100, verbose=FALSE)
+print(kd.approx$searchTime)
+
+## Takes too long to calculate for this many targets.
+## Compare overall accuracy of the exact vs. approximate search
+##knn.mode &lt;- function(knn.indx, ref){
+##  x &lt;- ref[knn.indx,]
+##  as.numeric(names(sort(as.matrix(table(x))[,1],
+##                        decreasing=TRUE))[1])
+##}
+
+</code></pre>
+
+
+</div>

@@ -1,0 +1,241 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>sparklines</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Draws a panel of vertically stacked sparklines</h2>
+
+<h3>Description</h3>
+
+<p>Draws a panel of vertically stacked, aligned sparklines, or time series.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">sparklines(ss, times = NULL, overlap = FALSE, yscale = NULL,
+           buffer = unit(0, "lines"), buffer.pars = NULL, IQR = NULL,
+           ptopts = NULL, yaxis = TRUE, xaxis = "exterior",
+           labeled.points = NULL, point.labels = NULL,
+           label.just = c(1.2, 0.5), frame.pars = NULL,
+           line.pars = gpar(lwd = 1), 
+           outer.margin = unit(c(5, 4, 4, 2), "lines"), 
+           outer.margin.pars = NULL, main = NULL, sub = NULL, 
+           xlab = NULL, ylab = NULL, lcol = NULL, new = TRUE)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>ss</code></td>
+<td>
+<p>a data frame whose columns give the time series to be plotted</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>overlap</code></td>
+<td>
+<p><code>FALSE</code> for stacked sparklines; <code>TRUE</code> for all plotted on the same y-axis.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>times</code></td>
+<td>
+<p>the times at which to plot the data; if <code>NULL</code> (the default), equal spacing is assumed. All the sparklines must share the same <code>times</code> argument. If unaligned time series must be plotted, multiple calls to <code>sparklines()</code> are required.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>yscale</code></td>
+<td>
+<p>either a vector of length 2 giving the y-limits for all sparklines, or a list having the same length as the number of columns in <code>ss</code> (each component of which is a 2-vector giving the associated sparkline scales). Defaults to <code>NULL</code>, in which case the scales for each sparkline are set to the sparkline's minimum and maximum values.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>buffer</code></td>
+<td>
+<p>a buffer above the maximum and below the minimum values attained by the sparkline. Defaults to <code>unit(0, 'lines')</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>buffer.pars</code></td>
+<td>
+<p>a list of graphics parameters describing the buffer area.  See <code>Details</code> for more information.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>IQR</code></td>
+<td>
+<p>a list of graphics parameters to shade or otherwise delineate the interquartile range of the sparkline. Defaults to <code>NULL</code>, in which case the IQR is not shown. See <code>Details</code> for more information.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>ptopts</code></td>
+<td>
+<p>a list of graphics parameters describing the points on the sparkline that are plotted and labelled. In particular the first and last or minimum and maximum points are labeled if <code>ptopts\$labels</code> is <code>'first.last'</code> or <code>'min.max'</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>yaxis</code></td>
+<td>
+<p>draws a vertical axis if <code>TRUE</code>; defaults to <code>FALSE</code>, in which case no axis is drawn.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>xaxis</code></td>
+<td>
+<p><code>'interior'</code> draws horizontal axes inside the plotting frame (for each sparkline); <code>'exterior'</code> draws the common axis for all the sparklines outside the plotting frame; defaults to <code>FALSE</code> (no axis).</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>labeled.points</code></td>
+<td>
+<p>not implemented. See <code>ptopts</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>point.labels</code></td>
+<td>
+<p>not implemented. See <code>ptopts</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>label.just</code></td>
+<td>
+<p>not implemented. See <code>ptopts</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>frame.pars</code></td>
+<td>
+<p>a list of graphics parameters describing the exact area taken up by the plotted sparkline.  See <code>Details</code> for more information.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>line.pars</code></td>
+<td>
+<p>a list of graphics parameters describing the sparkline.  See <code>Details</code> for more information.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>outer.margin</code></td>
+<td>
+<p>a vector of 4 units (bottom, left, top, right) giving the outer margin sizes in order (around the entire panel of sparklines). Defaults to <code>unit(c(0,0,0,0), 'lines')</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>outer.margin.pars</code></td>
+<td>
+<p>a list of graphics parameters describing the outer margin.  See <code>Details</code> for more information.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>main</code></td>
+<td>
+<p>a main title, above the stack of sparklines.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>sub</code></td>
+<td>
+<p>a character vector the length of <code>length(ss)</code> providing titles for the individual sparklines, printed to the right of the sparklines.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>xlab</code></td>
+<td>
+<p>a string providing the label for the common x-axis or (probably a useless feature) a character vector the length of <code>length(ss)</code> providing x-axis labels for the individual sparklines.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>ylab</code></td>
+<td>
+<p>a character vector the length of <code>length(ss)</code> providing y-axis labels for the individual sparklines.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>lcol</code></td>
+<td>
+<p>a vector of colors the same length as the number of columns in ss to color the line. As in base graphics, can be either a vector of strings giving the color names, a numeric vector referring to the current pallette, or the output of functions like <code>hsv</code> or <code>rgb</code></p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>new</code></td>
+<td>
+<p>defaults to <code>TRUE</code>, which creates a new, empty page; otherwise adds the sparkline to the existing plot.</p>
+</td>
+</tr>
+</table>
+<h3>Details</h3>
+
+<p>In all the cases where a list of graphics parameters is needed, the valid parameter names are the same as would be valid when passed to <code>gpar</code> in the appropriate call. That is, passing <code>list(fill = 'blue', col = 'red')</code> to <code>margin</code> gives a margin that is blue with a red border; but adding <code>fontface = 'bold'</code> will have no effect, just as it would have no effect in a call to <code>grid.rect</code>.
+</p>
+
+
+<h3>Note</h3>
+
+<p>We do not support non-aligned time series plots such as <code>ts.plot(airmiles, Nile, nhtemp)</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>John W. Emerson, Walton Green</p>
+
+
+<h3>References</h3>
+
+<p>Tufte, E. R. (2006) <em>Beautiful Evidence</em> Cheshire, Connecticut: Graphics Press.</p>
+
+
+<h3>See Also</h3>
+
+<p><code>ts.plot</code>, <code>sparkline</code>, <code>sparkmat</code></p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">
+### sparkline examples
+data(beaver1)
+
+## The default behaviour of sparklines
+sparklines(beaver1)
+
+sparklines(beaver1,
+           outer.margin = unit(c(2,4,4,5), 'lines'),
+           outer.margin.pars = gpar(fill = 'lightblue'),
+           buffer = unit(1, "lines"),
+           frame.pars = gpar(fill = 'lightyellow'),
+           buffer.pars = gpar(fill = 'lightgreen'),
+           yaxis = TRUE, xaxis=FALSE,
+           IQR = gpar(fill = 'grey', col = 'grey'),
+           main = 'Beaver 1')
+
+data(YaleEnergy)
+y &lt;- YaleEnergy[YaleEnergy$name==YaleEnergy$name[2],]
+sparklines(y[,c("ELSQFT", "STEAM")], times=y$year+y$month/12,
+           main="Branford Electric and Steam Consumption")
+
+## Adding a pair of sparklines to an existing plot
+
+grid.newpage()
+pushViewport(viewport(w = 0.8, h = 0.8))
+sparklines(data.frame(x = rnorm(10), y = rnorm(10, mean=5)), new = FALSE)
+popViewport()
+
+grid.newpage()
+pushViewport(viewport(w = 0.8, h = 0.8))
+sparklines(data.frame(x = rnorm(10), y = rnorm(10, mean=2)),
+                buffer = unit(1, "lines"),
+                frame.pars = gpar(fill = 'lightyellow'),
+                yaxis = TRUE, xaxis=FALSE,
+                IQR = gpar(fill = 'grey', col = 'grey'), new = FALSE)
+popViewport()
+
+</code></pre>
+
+
+</div>

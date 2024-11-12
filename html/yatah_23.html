@@ -1,0 +1,65 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>trim_rank</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Trim lineages until a specified rank</h2>
+
+<h3>Description</h3>
+
+<p>Trim lineages until a specified rank
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">trim_rank(lineage, rank = yatah::all_ranks, same = TRUE)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>lineage</code></td>
+<td>
+<p>string. Vector of lineages.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>rank</code></td>
+<td>
+<p>string. One of <code>c("kingdom", "phylum", "class",
+"order", "family", "genus", "species", "strain")</code> with partial matching.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>same</code></td>
+<td>
+<p>logical. Does the lineage have the same depth? Default to <code>TRUE</code>.</p>
+</td>
+</tr>
+</table>
+<h3>Details</h3>
+
+<p>Returns <code>NA</code> if a lineage is not as deep as the specified rank.
+</p>
+
+
+<h3>Value</h3>
+
+<p>The trimmed lineages. Depth could be different among them.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">lineage1 &lt;- "k__Bacteria|p__Verrucomicrobia|c__Verrucomicrobiae"
+lineage2 &lt;- "k__Bacteria|p__Firmicutes|c__Clostridia"
+trim_rank(c(lineage1, lineage2), rank = "phylum")
+trim_rank(c(lineage1, lineage2), rank = "genus")
+</code></pre>
+
+
+</div>

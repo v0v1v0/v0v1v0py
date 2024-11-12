@@ -1,0 +1,110 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>setMap</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>
+Map of a Stochastic Differential Equation
+</h2>
+
+<h3>Description</h3>
+
+<p>'<code>setMap</code>' is the constructor of an object of class <code>yuima.Map</code> that describes a map of a SDE
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">setMap(func, yuima, out.var = "", nrow = 1, ncol = 1)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>func</code></td>
+<td>
+<p>a matrix or a vector of strings that describe each component of the map.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>yuima</code></td>
+<td>
+<p> an object of class <code>yuima.model</code> that is the SDE.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>out.var</code></td>
+<td>
+<p> label for the output</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>nrow</code></td>
+<td>
+<p> dimension of Map if <code>func</code> is a vector of string. </p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>ncol</code></td>
+<td>
+<p> dimension of output if <code>func</code> is a vector of string.</p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>The constructor returns an object of class <code>yuima.Map</code>.</p>
+
+
+<h3>Author(s)</h3>
+
+<p>The YUIMA Project Team</p>
+
+
+<h3>References</h3>
+
+<p>Yuima Documentation</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">
+## Not run: 
+# Definition of a yuima model
+mod &lt;- setModel(drift=c("a1", "a2"),
+  diffusion = matrix(c("s1","0","0","s2"),2,2),
+  solve.variable = c("X","Y"))
+
+# Definition of a map
+my.Map &lt;- matrix(c("(X+Y)","-X-Y",
+  "a*exp(X-a1*t)","b*exp(Y-a2*t)"),
+  nrow=2,ncol=2)
+
+# Construction of yuima.Map
+
+yuimaMap &lt;- setMap(func = my.Map, yuima = mod,
+  out.var = c("f11","f21","f12","f22"))
+
+# Simulation of a Map
+
+set.seed(123)
+samp &lt;- setSampling(0, 100,n = 1000)
+mypar &lt;- list(a=1, b=1, s1=0.1, s2=0.2, a1=0.1, a2=0.1)
+sim1 &lt;- simulate(object = yuimaMap, true.parameter = mypar,
+  sampling = samp)
+
+# plot
+
+plot(sim1, ylab = yuimaMap@Output@param@out.var,
+  main = "simulation Map", cex.main = 0.8)
+
+
+## End(Not run)
+
+</code></pre>
+
+
+</div>

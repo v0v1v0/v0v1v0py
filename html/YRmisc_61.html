@@ -1,0 +1,60 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>pt.sharp</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Sharp ratio</h2>
+
+<h3>Description</h3>
+
+<p>The Sharpe Ratio of an asset return is the quotient of the annualized excess
+return of the asset minus the annualized risk-free rate over the annualized standard deviation of the
+asset return.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">pt.sharp(r,n,m,rf)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>r</code></td>
+<td>
+<p>:a vector of asset returns</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>n</code></td>
+<td>
+<p>:number of years</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>m</code></td>
+<td>
+<p>:number of periods in a year; m = 12 if r is monthly returns</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>rf</code></td>
+<td>
+<p>:annulized risk-free rate</p>
+</td>
+</tr>
+</table>
+<h3>Examples</h3>
+
+<pre><code class="language-R">set.seed(20)
+rtn &lt;- runif(12,-0.5,1) # generate random number to simulate monthly returns
+rfr &lt;- 0.024 # set risk free rate at 2.4% annual
+pt.sharp(rtn,1,12,rfr) # the return is for one year
+</code></pre>
+
+
+</div>

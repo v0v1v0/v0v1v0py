@@ -1,0 +1,68 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>ggready.data.frame</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Prepare Data Frame for GGplot</h2>
+
+<h3>Description</h3>
+
+<p>Prepares data.frame for ggplot. Appends
+units to label using <code>append_units</code>
+(passing <code>style = 'plotmath'</code> if <code>parse</code>
+is true, else <code>style = 'plain'</code>).
+Enforces classes 'decorated' and 'ggready'.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">## S3 method for class 'data.frame'
+ggready(x, ..., parse = getOption("yamlet_ggready_parse", TRUE))
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>x</code></td>
+<td>
+<p>object</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+<p>passed to <code>append_units</code>; may include unquoted column names</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>parse</code></td>
+<td>
+<p>passed to <code>append_units</code></p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>ggready decorated
+</p>
+
+
+<h3>See Also</h3>
+
+<p>Other ggready: 
+<code>ggready()</code>,
+<code>ggready.decorated()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">example(ggready)
+</code></pre>
+
+
+</div>

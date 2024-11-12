@@ -1,0 +1,73 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>yhat.library</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Import one or more libraries and add them to the Yhat model's
+dependency list</h2>
+
+<h3>Description</h3>
+
+<p>Import one or more libraries and add them to the Yhat model's
+dependency list
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">yhat.library(name, src = "CRAN", version = NULL, user = NULL,
+  install = TRUE)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>name</code></td>
+<td>
+<p>name of the package to be added</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>src</code></td>
+<td>
+<p>source from which the package will be installed on ScienceOps (github or CRAN)</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>version</code></td>
+<td>
+<p>version of the package to be added</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>user</code></td>
+<td>
+<p>Github username associated with the package</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>install</code></td>
+<td>
+<p>Whether the package should also be installed into the model on the
+ScienceOps server; this is typically set to False when the package has already been
+added to the ScienceOps base image.</p>
+</td>
+</tr>
+</table>
+<h3>Examples</h3>
+
+<pre><code class="language-R">## Not run: 
+yhat.library("MASS")
+yhat.library(c("wesanderson", "stringr"))
+yhat.library("cats", src="github", user="hilaryparker")
+yhat.library("hilaryparker/cats")
+yhat.library("my_proprietary_package", install=FALSE)
+
+## End(Not run)
+</code></pre>
+
+
+</div>

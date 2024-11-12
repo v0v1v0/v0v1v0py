@@ -1,0 +1,126 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>as.integer.classified</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Coerce Classified to Integer</h2>
+
+<h3>Description</h3>
+
+<p>Coerces classified to integer.
+Result is like <code>as.integer(as.numeric(x)) + offset</code>
+but has a guide attribute: a list of integers 
+whose names are the original levels of x.
+If you need a simple integer, consider coercing first to numeric.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">## S3 method for class 'classified'
+as.integer(
+  x,
+  offset = 0L,
+  ...,
+  persistence = getOption("yamlet_persistence", TRUE)
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>x</code></td>
+<td>
+<p>classified, see <code>classified</code></p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>offset</code></td>
+<td>
+<p>an integer value to add to intermediate result</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+<p>passed to <code>desolve</code></p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>persistence</code></td>
+<td>
+<p>whether to return 'dvec' (is.integer(): TRUE) or just integer.</p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>integer (possibly of class dvec)
+</p>
+
+
+<h3>See Also</h3>
+
+<p>Other classified: 
+<code>[.classified()</code>,
+<code>[&lt;-.classified()</code>,
+<code>[[.classified()</code>,
+<code>[[&lt;-.classified()</code>,
+<code>c.classified()</code>,
+<code>classified()</code>,
+<code>classified.classified()</code>,
+<code>classified.data.frame()</code>,
+<code>classified.default()</code>,
+<code>classified.dvec()</code>,
+<code>classified.factor()</code>,
+<code>desolve.classified()</code>,
+<code>unclassified()</code>,
+<code>unclassified.classified()</code>,
+<code>unclassified.data.frame()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">library(magrittr)
+
+# create factor with codelist attribute
+classified(c('knife','fork','spoon'))
+
+# give back a simple numeric
+classified(c('knife','fork','spoon')) %&gt;% as.numeric
+
+# intentionally preserve levels as 'guide' attribute
+classified(c('knife','fork','spoon')) %&gt;% as.integer
+
+# implement offset
+classified(c('knife','fork','spoon')) %&gt;% as.integer(-1)
+
+# globally defeat the 'persistence' paradigm
+options(yamlet_persistence = FALSE)
+c('knife','fork','spoon') %&gt;% 
+  classified %&gt;%
+  as.integer %&gt;% 
+  class # integer
+  
+# remove option to restore default persistence paradigm
+options(yamlet_persistence = NULL)
+c('knife','fork','spoon') %&gt;% 
+  classified %&gt;%
+  as.integer %&gt;% 
+  class # dvec
+  
+# locally defeat persistence paradigm
+c('knife','fork','spoon') %&gt;% 
+  classified %&gt;%
+  as.integer(persistence = FALSE) %&gt;% 
+  class # integer
+  
+
+</code></pre>
+
+
+</div>

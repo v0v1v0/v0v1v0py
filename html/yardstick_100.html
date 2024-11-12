@@ -1,0 +1,213 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>mn_log_loss</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Mean log loss for multinomial data</h2>
+
+<h3>Description</h3>
+
+<p>Compute the logarithmic loss of a classification model.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">mn_log_loss(data, ...)
+
+## S3 method for class 'data.frame'
+mn_log_loss(
+  data,
+  truth,
+  ...,
+  na_rm = TRUE,
+  sum = FALSE,
+  event_level = yardstick_event_level(),
+  case_weights = NULL
+)
+
+mn_log_loss_vec(
+  truth,
+  estimate,
+  na_rm = TRUE,
+  sum = FALSE,
+  event_level = yardstick_event_level(),
+  case_weights = NULL,
+  ...
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>data</code></td>
+<td>
+<p>A <code>data.frame</code> containing the columns specified by <code>truth</code> and
+<code>...</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+<p>A set of unquoted column names or one or more
+<code>dplyr</code> selector functions to choose which variables contain the
+class probabilities. If <code>truth</code> is binary, only 1 column should be selected,
+and it should correspond to the value of <code>event_level</code>. Otherwise, there
+should be as many columns as factor levels of <code>truth</code> and the ordering of
+the columns should be the same as the factor levels of <code>truth</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>truth</code></td>
+<td>
+<p>The column identifier for the true class results
+(that is a <code>factor</code>). This should be an unquoted column name although
+this argument is passed by expression and supports
+quasiquotation (you can unquote column
+names). For <code style="white-space: pre;">⁠_vec()⁠</code> functions, a <code>factor</code> vector.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>na_rm</code></td>
+<td>
+<p>A <code>logical</code> value indicating whether <code>NA</code>
+values should be stripped before the computation proceeds.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>sum</code></td>
+<td>
+<p>A <code>logical</code>. Should the sum of the likelihood contributions be
+returned (instead of the mean value)?</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>event_level</code></td>
+<td>
+<p>A single string. Either <code>"first"</code> or <code>"second"</code> to specify
+which level of <code>truth</code> to consider as the "event". This argument is only
+applicable when <code>estimator = "binary"</code>. The default uses an internal helper
+that defaults to <code>"first"</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>case_weights</code></td>
+<td>
+<p>The optional column identifier for case weights.
+This should be an unquoted column name that evaluates to a numeric column
+in <code>data</code>. For <code style="white-space: pre;">⁠_vec()⁠</code> functions, a numeric vector,
+<code>hardhat::importance_weights()</code>, or <code>hardhat::frequency_weights()</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>estimate</code></td>
+<td>
+<p>If <code>truth</code> is binary, a numeric vector of class probabilities
+corresponding to the "relevant" class. Otherwise, a matrix with as many
+columns as factor levels of <code>truth</code>. <em>It is assumed that these are in the
+same order as the levels of <code>truth</code>.</em></p>
+</td>
+</tr>
+</table>
+<h3>Details</h3>
+
+<p>Log loss is a measure of the performance of a classification model. A
+perfect model has a log loss of <code>0</code>.
+</p>
+<p>Compared with <code>accuracy()</code>, log loss
+takes into account the uncertainty in the prediction and gives a more
+detailed view into the actual performance. For example, given two input
+probabilities of <code>.6</code> and <code>.9</code> where both are classified as predicting
+a positive value, say, <code>"Yes"</code>, the accuracy metric would interpret them
+as having the same value. If the true output is <code>"Yes"</code>, log loss penalizes
+<code>.6</code> because it is "less sure" of it's result compared to the probability
+of <code>.9</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A <code>tibble</code> with columns <code>.metric</code>, <code>.estimator</code>,
+and <code>.estimate</code> and 1 row of values.
+</p>
+<p>For grouped data frames, the number of rows returned will be the same as
+the number of groups.
+</p>
+<p>For <code>mn_log_loss_vec()</code>, a single <code>numeric</code> value (or <code>NA</code>).
+</p>
+
+
+<h3>Multiclass</h3>
+
+<p>Log loss has a known multiclass extension, and is simply the sum of the
+log loss values for each class prediction. Because of this, no averaging
+types are supported.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Max Kuhn
+</p>
+
+
+<h3>See Also</h3>
+
+<p>Other class probability metrics: 
+<code>average_precision()</code>,
+<code>brier_class()</code>,
+<code>classification_cost()</code>,
+<code>gain_capture()</code>,
+<code>pr_auc()</code>,
+<code>roc_auc()</code>,
+<code>roc_aunp()</code>,
+<code>roc_aunu()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R"># Two class
+data("two_class_example")
+mn_log_loss(two_class_example, truth, Class1)
+
+# Multiclass
+library(dplyr)
+data(hpc_cv)
+
+# You can use the col1:colN tidyselect syntax
+hpc_cv %&gt;%
+  filter(Resample == "Fold01") %&gt;%
+  mn_log_loss(obs, VF:L)
+
+# Groups are respected
+hpc_cv %&gt;%
+  group_by(Resample) %&gt;%
+  mn_log_loss(obs, VF:L)
+
+
+# Vector version
+# Supply a matrix of class probabilities
+fold1 &lt;- hpc_cv %&gt;%
+  filter(Resample == "Fold01")
+
+mn_log_loss_vec(
+  truth = fold1$obs,
+  matrix(
+    c(fold1$VF, fold1$F, fold1$M, fold1$L),
+    ncol = 4
+  )
+)
+
+# Supply `...` with quasiquotation
+prob_cols &lt;- levels(two_class_example$truth)
+mn_log_loss(two_class_example, truth, Class1)
+mn_log_loss(two_class_example, truth, !!prob_cols[1])
+
+</code></pre>
+
+
+</div>

@@ -1,0 +1,78 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>yesno2</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Yes No with Two Custom Responses</h2>
+
+<h3>Description</h3>
+
+<p>Asks a custom yes-no question with two responses (by default 'Yes' or 'No').
+Returns a flag indicating which response the user choose.
+It is designed to be used in situations where a user needs to choose
+one of two affirmative options.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">yesno2(..., yes = "Yes", no = "No")
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+<p>Objects to paste and then output to produce the question.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>yes</code></td>
+<td>
+<p>A string of the first response.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>no</code></td>
+<td>
+<p>A string of the second response.</p>
+</td>
+</tr>
+</table>
+<h3>Details</h3>
+
+<p>The objects are first pasted without separators
+and collapsed using <code style="white-space: pre;">⁠[paste0](..., collapse = "")⁠</code>
+before being output using <code>cat()</code>.
+</p>
+<p>Selection of a 0 (to exit) causes the code to throw an error.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A flag indicating whether the user selected the first (TRUE) or
+second (FALSE) response.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code>yesno()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">## Not run: 
+yesno2("Do you like this question?", yes = "I really do")
+
+## End(Not run)
+</code></pre>
+
+
+</div>

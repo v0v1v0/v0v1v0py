@@ -1,0 +1,325 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>ycevo</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Estimate yield function</h2>
+
+<h3>Description</h3>
+
+<p><a href="https://lifecycle.r-lib.org/articles/stages.html#experimental"><img src="../help/figures/lifecycle-experimental.svg" alt="[Experimental]"></a>
+</p>
+<p>Nonparametric estimation of discount functions and yield curves at given
+dates, time-to-maturities, and one additional covariate, usually interest
+rate.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">ycevo(
+  data,
+  x,
+  span_x = 60,
+  hx = NULL,
+  tau = NULL,
+  ht = NULL,
+  tau_p = tau,
+  htp = NULL,
+  cols = NULL,
+  ...
+)
+
+estimate_yield(
+  data,
+  xgrid,
+  hx,
+  tau,
+  ht,
+  tau_p = tau,
+  htp = ht,
+  rgrid = NULL,
+  hr = NULL,
+  interest = NULL,
+  cfp_slist = NULL
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>data</code></td>
+<td>
+<p>Data frame; bond data to estimate discount curve from. See
+<code>ycevo_data()</code> for an example bond data structure. Minimum required columns
+are <code>qdate</code>, <code>id</code>, <code>price</code>, <code>tupq</code>, and <code>pdint</code>. The columns can be named
+differently: see <code>cols</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>x</code></td>
+<td>
+<p>Time grids at which the discount curve is evaluated. Should be
+specified using the same class of object as the quotation date (<code>qdate</code>)
+column in <code>data</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>span_x</code></td>
+<td>
+<p>Half of the window size, or the distance from the centre <code>x</code> to
+the maximum (or the minimum) <code>qdate</code> with non-zero weight using the kernel
+function, measured by the number of regular interval between two
+consecutive <code>qdate</code>. Ignored if <code>hx</code> is specified. See <code>Details</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>hx</code></td>
+<td>
+<p>Numeric vector. Bandwidth parameters corresponding to each time
+point <code>x</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>tau</code></td>
+<td>
+<p>Numeric vector. Time-to-maturities in years where
+discount function and yield curve will be estimated for each of time points <code>x</code>.
+See <code>Details</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>ht</code></td>
+<td>
+<p>Numeric vector. Bandwidth parameters corresponding to each value of
+time-to-maturities <code>tau</code>. See <code>Details</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>tau_p</code></td>
+<td>
+<p>Numeric vector. Auxiliary time-to-maturities in
+years. See <code>Details</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>htp</code></td>
+<td>
+<p>Numeric vector. Bandwidth parameters corresponding to each of
+auxiliary time-to-maturities <code>tau_p</code>. See <code>Details</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>cols</code></td>
+<td>
+<p>&lt;<code>tidy-select</code>&gt; A named list or vector of
+alternative names of required variables, following the <code>new_name = old_name</code> syntax of the <code>dplyr::rename()</code>, where the <code>new_nam</code> takes one of
+the five column names required in <code>data</code>. This enables the user to provide
+<code>data</code> with columns named differently from required.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+<p>Specification of an additional covariate, taking the form of <code>var = list(grid, bandwidth)</code>, where <code>var</code> is the name of the covariate in
+<code>data</code>, <code>grid</code> is the values at which the yield curve is estimated,
+similar to <code>x</code>, and <code>bandwidth</code> is the bandwidth parameter corresponding to
+each of the <code>grid</code> values, similar to <code>hx</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>xgrid</code></td>
+<td>
+<p>Numeric vector. Values between 0 and 1. Time grids over the
+entire time horizon (percentile) of the data at which the discount function is
+evaluated.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>rgrid</code></td>
+<td>
+<p>(Optional) Numeric vector. Interest rate grids in percentage
+at which the discount function is evaluated, e.g. 4.03 means at interest rate
+of 4.03%.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>hr</code></td>
+<td>
+<p>(Optional) Numeric vector. Bandwidth parameter in percentage
+determining the size of the window in the kernel function that corresponds
+to each interest rate grid ('rgrid').</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>interest</code></td>
+<td>
+<p>(Optional) Numeric vector. Daily short term interest rates.
+The length is the same as the number of quotation dates included in the
+data, i.e. one interest rate per day.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>cfp_slist</code></td>
+<td>
+<p>(Internal) Experienced users only. A list of matrices,
+generated by the internal function 'get_cfp_slist'.</p>
+</td>
+</tr>
+</table>
+<h3>Details</h3>
+
+<p>Suppose that a bond <code class="reqn">i</code> has a price <code class="reqn">p_i</code> at time <code class="reqn">t</code> with a
+set of cash payments, say <code class="reqn">c_1, c_2, \ldots, c_m</code> with a set of
+corresponding discount values <code class="reqn">d_1, d_2, \ldots, d_m</code>. In the bond
+pricing literature, the market price of a bond should reflect the
+discounted value of cash payments. Thus, we want to minimise
+</p>
+<p style="text-align: center;"><code class="reqn">(p_i-\sum^m_{j=1}c_j\times d_j)^2.</code>
+</p>
+<p> For the estimation of <code class="reqn">d_k(k=1,
+\ldots, m)</code>, solving the first order condition yields
+</p>
+<p style="text-align: center;"><code class="reqn">(p_i-\sum^m_{j=1}c_j \times d_j)c_k = 0, </code>
+</p>
+<p> and </p>
+<p style="text-align: center;"><code class="reqn">\hat{d}_k =
+\frac{p_i c_k}{c_k^2} - \frac{\sum^m_{j=1,k\neq k}c_k c_j d_j}{c_k^2}.</code>
+</p>
+
+<p>There are challenges: <code class="reqn">\hat{d}_k</code> depends on all the relevant discount
+values for the cash payments of the bond. Our model contains random errors
+and our interest lies in expected value of <code class="reqn">d(.)</code> where the expected
+value of errors is zero. <code class="reqn">d(.)</code> is an infinite-dimensional function not
+a discrete finite-dimensional vector. Generally, cash payments are made
+biannually, not dense at all. Moreover, cash payment schedules vary over
+different bonds.
+</p>
+<p>Let <code class="reqn">d(\tau, X_t)</code> be the discount function at given covariates
+<code class="reqn">X_t</code> (dates <code>x</code> and interest rates <code>rgrid</code>), and given
+time-to-maturities <code class="reqn">\tau</code> (<code>tau</code>). <code class="reqn">y(\tau, X_t)</code> is the yield
+curve at given covariates <code class="reqn">X_t</code> (dates <code>x</code> and interest rates
+<code>rgrid</code>), and given time-to-maturities <code class="reqn">\tau</code> (<code>tau</code>).
+</p>
+<p>We pursue the minimum of the following smoothed sample least squares
+objective function for any smooth function <code class="reqn">d(.)</code>: </p>
+<p style="text-align: center;"><code class="reqn">Q(d) =
+\sum^T_{t=1}\sum^n_{i=1}\int\{p_{it}-\sum^{m_{it}}_{j=1}c_{it}(\tau_{ij})d(s_{ij},
+x)\}^2 \sum^{m_{it}}_{k=1}\{K_h(s_{ik}-\tau_{ik})ds_{ik}\}K_h(x-X_t)dx,</code>
+</p>
+
+<p>where a bond <code class="reqn">i</code> has a price <code class="reqn">p_i</code> at time <code class="reqn">t</code> with a set of cash
+payments <code class="reqn">c_1, c_2, \ldots, c_m</code> with a set of corresponding discount
+values <code class="reqn">d_1, d_2, \ldots, d_m</code>, <code class="reqn">K_h(.) = K(./h)</code> is the kernel
+function with a bandwidth parameter <code class="reqn">h</code>, the first kernel function is
+the kernel in space with bonds whose maturities <code class="reqn">s_{ik}</code> are close to
+the sequence <code class="reqn">\tau_{ik}</code>, the second kernel function is the kernel in
+time and in interest rates with <code class="reqn">x</code>, which are close to the sequence
+<code class="reqn">X_t</code>. This means that bonds with similar cash flows, and traded in
+contiguous days, where the short term interest rates in the market are
+similar, are combined for the estimation of the discount function at a
+point in space, in time, and in "interest rates".
+</p>
+<p>The estimator for the discount function over time to maturity and time is
+</p>
+<p style="text-align: center;"><code class="reqn">\hat{d}=\arg\min_d Q(d).</code>
+</p>
+<p> This function provides a data frame of the
+estimated yield and discount rate at each combination of the provided
+grids. The estimated yield is transformed from the estimated discount rate.
+</p>
+<p>An alternative specification of bandwidth <code>hx</code> is <code>span_x</code>, which provides
+kernel coverage invariant to the length of <code>data</code>. <code>span_x</code> takes an
+absolute measure of time depending on the unit of <code>x</code>. The default value is
+60. If the data is daily on trading days, i.e., the interval between every
+two consecutive <code>qdate</code> is one trading day, then the window of the kernel
+function allows the estimation at each point <code>x</code> to contain information
+from 60 trading days prior to and after the time point <code>x</code>.
+</p>
+<p>For more information on the estimation method, please refer to
+<code>References</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A <code>tibble::tibble()</code> object of class <code>ycevo</code> with the following
+columns.
+</p>
+
+<dl>
+<dt>qdate</dt>
+<dd>
+<p>The time points that user-specified as <code>x</code>. The name of this
+column will be consistent with the name of the time index column in the
+<code>data</code> input, if the user choose to provide a data frame with the time
+index column named differently from <code>qdate</code> with the <code>cols</code> argument.</p>
+</dd>
+<dt>.est</dt>
+<dd>
+<p>A nested columns of estimation results containing a
+<code>tibble::tibble()</code> for each <code>qdate</code>. Each <code>tibble</code> contains three columns:
+<code>tau</code> for the time-to-maturity specified by the user in the <code>tau</code> argument,
+<code>.disount</code> for the estimated discount function at this time and this
+time-to-maturity, and <code>.yield</code> for the estimated yield curve.</p>
+</dd>
+</dl>
+<h3>Functions</h3>
+
+
+<ul><li> <p><code>estimate_yield()</code>: Experienced users only. Yield estimation with interest rate
+and manually selected bandwidth parameters.
+Only length one x and length one hx are supported at a time.
+Returns a data frame of the yield and discount rate at each combination of
+the provided grids.
+</p>
+
+<dl>
+<dt>discount</dt>
+<dd>
+<p>Estimated discount rate</p>
+</dd>
+<dt>xgrid</dt>
+<dd>
+<p>Same as input 'xgrid'</p>
+</dd>
+<dt>tau</dt>
+<dd>
+<p>Same as input 'tau'</p>
+</dd>
+<dt>yield</dt>
+<dd>
+<p>Estimated yield</p>
+</dd>
+</dl>
+</li></ul>
+<h3>References</h3>
+
+<p>Koo, B., La Vecchia, D., &amp; Linton, O. (2021). Estimation of a
+nonparametric model for bond prices from cross-section and time series
+information. Journal of Econometrics, 220(2), 562-588.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code>augment.ycevo()</code>, <code>autoplot.ycevo()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R"># Simulating bond data
+bonds &lt;- ycevo_data(n = 10)
+
+# Estimation can take up to 30 seconds
+ycevo(bonds, x = lubridate::ymd("2023-03-01"))
+
+
+</code></pre>
+
+
+</div>

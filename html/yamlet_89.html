@@ -1,0 +1,91 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>filter.decorated</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Filter Decorated</h2>
+
+<h3>Description</h3>
+
+<p>Filters a decorated data.frame.
+After a filter operation, promote()
+is called to see if ambiguous conditional
+attributes can be improved.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">## S3 method for class 'decorated'
+filter(
+  .data,
+  ...,
+  .preserve = FALSE,
+  .promote = getOption("yamlet_promote", TRUE)
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>.data</code></td>
+<td>
+<p>passed to <code>filter</code></p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+<p>passed to <code>filter</code></p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>.preserve</code></td>
+<td>
+<p>passed to <code>filter</code></p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>.promote</code></td>
+<td>
+<p>whether to auto-promote plural attributes</p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>decorated
+</p>
+
+
+<h3>See Also</h3>
+
+<p>Other promote: 
+<code>[.decorated()</code>,
+<code>promote()</code>,
+<code>promote.data.frame()</code>,
+<code>promote.list()</code>,
+<code>singularity()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">library(magrittr)
+file &lt;- system.file(package = 'yamlet', 'extdata','phenobarb.csv')
+x &lt;- file %&gt;% decorate
+
+# Note that there are two elements each for value label and value guide.
+x %&gt;% decorations(event, value)
+
+# Filtering promotes the relevant conditional attributes automatically.
+x %&gt;% filter(event == 'dose') %&gt;% decorations(value)
+x %&gt;% filter(event == 'conc') %&gt;% decorations(value)
+
+</code></pre>
+
+
+</div>

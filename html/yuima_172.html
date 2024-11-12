@@ -1,0 +1,154 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>EstimCarmaHawkes</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>
+Estimation Methods for a CARMA(p,q)-Hawkes Counting Process
+</h2>
+
+<h3>Description</h3>
+
+<p>The function provides two estimation procedures: Maximum Likelihood Estimation and Matching Empirical Correlation</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">EstimCarmaHawkes(yuima, start, est.method = "qmle", method = "BFGS", 
+lower = NULL, upper = NULL, lags = NULL, display = FALSE)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>yuima</code></td>
+<td>
+<p>a yuima object.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>start</code></td>
+<td>
+<p>initial values to be passed to the optimizer.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>est.method</code></td>
+<td>
+<p> The method used to estimate the parameters. The default <code>est.method = "qmle"</code> indicates the MLE while the alternative approach is based on the minimization of the empirical and theoretical autocorrelation.
+
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>method</code></td>
+<td>
+<p>The optimization method to be used. See <code>optim</code>.
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>lower</code></td>
+<td>
+<p>Lower Bounds.
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>upper</code></td>
+<td>
+
+<p>Upper Bounds.
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>lags</code></td>
+<td>
+
+<p>Number of lags used in the autocorrelation.
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>display</code></td>
+<td>
+
+<p>you can see a progress of the estimation when <code>display=TRUE</code>.
+</p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>The output contains the estimated parameters.</p>
+
+
+<h3>Author(s)</h3>
+
+<p>The YUIMA Project Team
+</p>
+<p>Contacts: Lorenzo Mercuri <a href="mailto:lorenzo.mercuri@unimi.it">lorenzo.mercuri@unimi.it</a>
+</p>
+
+
+<h3>References</h3>
+
+<p>Mercuri, L., Perchiazzo, A., &amp; Rroji, E. (2022). A Hawkes model with CARMA (p, q) intensity. <a href="https://doi.org/10.48550/arXiv.2208.02659">doi:10.48550/arXiv.2208.02659</a>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">## Not run: 
+## MLE For A CARMA(2,1)-Hawkes ##
+
+# Inputs:
+a &lt;- c(3,2)
+b &lt;- c(1,0.3)
+mu&lt;-0.30
+
+true.par&lt;-c(mu,a,b)
+
+# step 1) Model Definition =&gt; Constructor 'setCarmaHawkes'
+p &lt;- 2
+q &lt;- 1
+mod1 &lt;- setCarmaHawkes(p = p,q = q)
+
+# step 2) Grid Construction =&gt; Constructor 'setSampling'
+FinalTime &lt;- 5000
+t0 &lt;- 0
+samp &lt;- setSampling(t0, FinalTime, n = FinalTime)
+
+# step 3) Simulation =&gt; method 'simulate'
+# We use method 'simulate' to generate our dataset. 
+# For the estimation from real data, 
+# we use the constructors 'setData' and 
+#'setYuima' (input 'model' is an object of 
+#           'yuima.CarmaHawkes-class'). 
+
+names(true.par) &lt;- c(mod1@info@base.Int, mod1@info@ar.par, mod1@info@ma.par) 
+
+set.seed(1)
+system.time(
+sim1 &lt;- simulate(object = mod1, true.parameter = true.par, 
+    sampling = samp)
+)
+
+plot(sim1)
+
+# step 4) Estimation using the likelihood function.
+system.time(
+  res &lt;- EstimCarmaHawkes(yuima = sim1, 
+    start = true.par)
+)
+
+
+## End(Not run)
+</code></pre>
+
+
+</div>

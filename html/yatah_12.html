@@ -1,0 +1,51 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>get_last_clade</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Extract the last clade of a lineage</h2>
+
+<h3>Description</h3>
+
+<p>Extract the last clade of a lineage
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">get_last_clade(lineage, same = TRUE)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>lineage</code></td>
+<td>
+<p>string. Vector of lineages.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>same</code></td>
+<td>
+<p>logical. Does the lineage have the same depth? Default to <code>TRUE</code>.</p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>A string. The last clades of the given lineages.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">lineage1 &lt;- "k__Bacteria|p__Verrucomicrobia|c__Verrucomicrobiae"
+lineage2 &lt;- "k__Bacteria|p__Firmicutes|c__Clostridia"
+get_last_clade(c(lineage1, lineage2))
+</code></pre>
+
+
+</div>

@@ -1,0 +1,186 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>bns.test</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>
+
+Barndorff-Nielsen and Shephard's Test for the Presence of Jumps Using Bipower Variation
+</h2>
+
+<h3>Description</h3>
+
+
+<p>Tests the presence of jumps using the statistic proposed in Barndorff-Nielsen and Shephard (2004,2006) for each component.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">bns.test(yuima, r = rep(1, 4), type = "standard", adj = TRUE)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>yuima</code></td>
+<td>
+
+
+<p>an object of  <code>yuima-class</code> or <code>yuima.data-class</code>.
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>r</code></td>
+<td>
+
+
+<p>a vector of non-negative numbers or a list of vectors of non-negative numbers. Theoretically, it is necessary that <code>sum(r)=4</code> and <code>max(r)&lt;2</code>.
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>type</code></td>
+<td>
+
+
+<p>type of the test statistic to use. <code>standard</code> is default.
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>adj</code></td>
+<td>
+
+
+<p>logical; if <code>TRUE</code>, the maximum adjustment suggested in Barndorff-Nielsen and Shephard (2004) is applied to the test statistic when <code>type</code> is equal to either “<code>log</code>” or “<code>ratio</code>”.
+</p>
+</td>
+</tr>
+</table>
+<h3>Details</h3>
+
+
+<p>For the <code>i</code>-th component, the test statistic is equal to the <code>i</code>-th component of <code>sqrt(n)*(mpv(yuima,2)-mpv(yuima,c(1,1)))/sqrt(vartheta*mpv(yuima,r))</code> when <code>type="standard"</code>, <code>sqrt(n)*log(mpv(yuima,2)/mpv(yuima,c(1,1)))/sqrt(vartheta*mpv(yuima,r)/mpv(yuima,c(1,1))^2)</code> when <code>type="log"</code> and <code>sqrt(n)*(1-mpv(yuima,c(1,1))/mpv(yuima,2))/sqrt(vartheta*mpv(yuima,r)/mpv(yuima,c(1,1))^2)</code> when <code>type="ratio"</code>. Here, <code>n</code> is equal to the length of the <code>i</code>-th component of the <code>zoo.data</code> of <code>yuima</code> minus 1 and <code>vartheta</code> is <code>pi^2/4+pi-5</code>. When <code>adj=TRUE</code>, <code>mpv(yuima,r)[i]/mpv(yuima,c(1,1))^2)[i]</code> is replaced with 1 if it is less than 1.
+</p>
+
+
+<h3>Value</h3>
+
+
+
+
+
+
+<p>A list with the same length as the <code>zoo.data</code> of <code>yuima</code>. Each component of the list has class “<code>htest</code>” and contains the following components:
+</p>
+<table>
+<tr style="vertical-align: top;">
+<td><code>statistic</code></td>
+<td>
+<p>the value of the test statistic of the corresponding component of the <code>zoo.data</code> of <code>yuima</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>p.value</code></td>
+<td>
+<p>an approximate p-value for the test of the corresponding component.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>method</code></td>
+<td>
+<p>the character string “<code>Barndorff-Nielsen and Shephard jump test</code>”.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>data.name</code></td>
+<td>
+<p>the character string “<code>xi</code>”, where <code>i</code> is the number of the component.</p>
+</td>
+</tr>
+</table>
+<h3>Note</h3>
+
+
+<p>Theoretically, this test may be invalid if sampling is irregular.
+</p>
+
+
+<h3>Author(s)</h3>
+
+
+<p>Yuta Koike with YUIMA Project Team
+</p>
+
+
+<h3>References</h3>
+
+
+<p>Barndorff-Nielsen, O. E. and Shephard, N. (2004)
+Power and bipower variation with stochastic volatility and jumps,
+<em>Journal of Financial Econometrics</em>, <b>2</b>, no. 1, 1–37.
+</p>
+<p>Barndorff-Nielsen, O. E. and Shephard, N. (2006)
+Econometrics of testing for jumps in financial economics using bipower variation,
+<em>Journal of Financial Econometrics</em>, <b>4</b>, no. 1, 1–30.
+</p>
+<p>Huang, X. and Tauchen, G. (2005)
+The relative contribution of jumps to total price variance,
+<em>Journal of Financial Econometrics</em>, <b>3</b>, no. 4, 456–499.
+</p>
+
+
+<h3>See Also</h3>
+
+
+<p><code>lm.jumptest</code>, <code>mpv</code>, <code>minrv.test</code>, <code>medrv.test</code>, <code>pz.test</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">set.seed(123)
+
+# One-dimensional case
+## Model: dXt=t*dWt+t*dzt, 
+## where zt is a compound Poisson process with intensity 5 and jump sizes distribution N(0,0.1).
+
+model &lt;- setModel(drift=0,diffusion="t",jump.coeff="t",measure.type="CP",
+                  measure=list(intensity=5,df=list("dnorm(z,0,sqrt(0.1))")),
+                  time.variable="t")
+
+yuima.samp &lt;- setSampling(Terminal = 1, n = 390) 
+yuima &lt;- setYuima(model = model, sampling = yuima.samp) 
+yuima &lt;- simulate(yuima)
+plot(yuima) # The path seems to involve some jumps
+
+bns.test(yuima) # standard type
+
+bns.test(yuima,type="log") # log type
+
+bns.test(yuima,type="ratio") # ratio type
+
+# Multi-dimensional case
+## Model: dXkt=t*dWk_t (k=1,2,3) (no jump case).
+
+diff.matrix &lt;- diag(3)
+diag(diff.matrix) &lt;- c("t","t","t")
+model &lt;- setModel(drift=c(0,0,0),diffusion=diff.matrix,time.variable="t",
+                  solve.variable=c("x1","x2","x3"))
+
+yuima.samp &lt;- setSampling(Terminal = 1, n = 390) 
+yuima &lt;- setYuima(model = model, sampling = yuima.samp) 
+yuima &lt;- simulate(yuima)
+plot(yuima)
+
+bns.test(yuima)
+
+</code></pre>
+
+
+</div>

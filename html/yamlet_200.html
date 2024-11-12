@@ -1,0 +1,79 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>unclassified.classified</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Unclassify Classified</h2>
+
+<h3>Description</h3>
+
+<p>Unclassifies classified.  Uses codelist attribute
+to restore original values, preserving other attributes
+(and rebuilding codelist).
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">## S3 method for class 'classified'
+unclassified(x, ..., persistence = getOption("yamlet_persistence", TRUE))
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>x</code></td>
+<td>
+<p>classified</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+<p>ignored</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>persistence</code></td>
+<td>
+<p>whether to reclass as dvec</p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>vector
+</p>
+
+
+<h3>See Also</h3>
+
+<p>Other classified: 
+<code>[.classified()</code>,
+<code>[&lt;-.classified()</code>,
+<code>[[.classified()</code>,
+<code>[[&lt;-.classified()</code>,
+<code>as.integer.classified()</code>,
+<code>c.classified()</code>,
+<code>classified()</code>,
+<code>classified.classified()</code>,
+<code>classified.data.frame()</code>,
+<code>classified.default()</code>,
+<code>classified.dvec()</code>,
+<code>classified.factor()</code>,
+<code>desolve.classified()</code>,
+<code>unclassified()</code>,
+<code>unclassified.data.frame()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">example(unclassified.data.frame)
+</code></pre>
+
+
+</div>

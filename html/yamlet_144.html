@@ -1,0 +1,103 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>mimic.classified</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Try To Make Classified Look Like Another Equal-length Variable</h2>
+
+<h3>Description</h3>
+
+<p>Tries to mimic another vector or factor for 'classified'.
+See <code>classified.default</code>.
+If meaningful and possible, x updates its
+codelist attribute with labels from
+corresponding values in y. Codes that don't occur
+(i.e. unused levels) are removed from the codelist.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">## S3 method for class 'classified'
+mimic(x, y = x, ...)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>x</code></td>
+<td>
+<p>classified</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>y</code></td>
+<td>
+<p>vector-like, same length as x</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+<p>ignored arguments</p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>classified
+</p>
+
+
+<h3>See Also</h3>
+
+<p>Other mimic: 
+<code>mimic()</code>,
+<code>mimic.default()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">let &lt;- letters[1:5]
+LET &lt;- LETTERS[1:5]
+int &lt;- 0L:4L
+num &lt;- as.numeric(int)
+fac &lt;- factor(let)
+css &lt;- classified(let)
+
+mimic(LET, let)
+mimic(let, let)
+mimic(num, let)
+mimic(int, let)
+mimic(fac, let)
+mimic(css, let)
+mimic(character(0))
+mimic(numeric(0))
+mimic(let, num)
+mimic(fac, num)
+mimic(css, num)
+mimic(num, css)
+mimic(let, css)
+
+util &lt;- c('knife','fork','spoon')
+util
+factor(util)
+classified(util)
+mimic(util)
+mimic(factor(util))
+mimic(classified(util))
+
+x &lt;- data.frame(let, LET)
+library(dplyr)
+library(magrittr)
+x %&lt;&gt;% mutate(let = mimic(let, LET), LET = mimic(LET))
+str(x)
+
+</code></pre>
+
+
+</div>

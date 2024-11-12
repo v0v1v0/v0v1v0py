@@ -1,0 +1,64 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>[&lt;-.decorated</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Assign Subset of Decorated</h2>
+
+<h3>Description</h3>
+
+<p>Assigns subset of decorated, retaining attributes.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">## S3 replacement method for class 'decorated'
+x[...] &lt;- value
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>x</code></td>
+<td>
+<p>decorated</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+<p>passed to next method</p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>decorated
+</p>
+
+
+<h3>See Also</h3>
+
+<p>Other decorated: 
+<code>[.decorated()</code>,
+<code>[[.decorated()</code>,
+<code>[[&lt;-.decorated()</code>,
+<code>merge.decorated()</code>,
+<code>names&lt;-.decorated()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">a &lt;- as_decorated(as.list(setNames(letters[1:3], LETTERS[1:3])))
+a[2:3] &lt;- 'a'
+str(a)
+class(a)
+</code></pre>
+
+
+</div>

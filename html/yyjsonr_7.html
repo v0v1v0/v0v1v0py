@@ -1,0 +1,79 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>read_json_conn</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Parse JSON from an R connection object.</h2>
+
+<h3>Description</h3>
+
+<p>Currently, this is not very efficient as the entire contents of the connection are
+read into R as a string and then the JSON parsed from there.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">read_json_conn(conn, opts = list(), ...)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>conn</code></td>
+<td>
+<p>connection object.  e.g. <code>url('https://jsonplaceholder.typicode.com/todos/1')</code></p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>opts</code></td>
+<td>
+<p>Named list of options for parsing. Usually created by <code>opts_read_json()</code></p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+<p>Other named options can be used to override any options in <code>opts</code>.
+The valid named options are identical to arguments to <code>opts_read_json()</code></p>
+</td>
+</tr>
+</table>
+<h3>Details</h3>
+
+<p>For plain text files it is faster to use
+<code>read_json_file()</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>R object
+</p>
+
+
+<h3>See Also</h3>
+
+<p>Other JSON Parsers: 
+<code>read_json_file()</code>,
+<code>read_json_raw()</code>,
+<code>read_json_str()</code>,
+<code>read_ndjson_file()</code>,
+<code>read_ndjson_str()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">if (interactive()) {
+  read_json_conn(url("https://api.github.com/users/hadley/repos"))
+}
+
+
+</code></pre>
+
+
+</div>

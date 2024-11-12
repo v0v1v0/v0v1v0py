@@ -1,0 +1,333 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>MoscowMtStJoe</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Moscow Mountain and St. Joe Woodlands (Idaho, USA) Tree and LiDAR Data</h2>
+
+<h3>Description</h3>
+
+<p>Data used to compare the utility of discrete-return light detection
+and ranging (LiDAR) data and multispectral satellite imagery, and their
+integration, for modeling and mapping basal area and tree density across
+two diverse coniferous forest landscapes in north-central Idaho, USA.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">data(MoscowMtStJoe)
+</code></pre>
+
+
+<h3>Format</h3>
+
+<p>A data frame with 165 rows and 64 columns: <br><br>
+Ground based measurements of trees:
+</p>
+
+<ul>
+<li>
+<p> ABGR_BA - Basal area <code class="reqn">(m^2/ha)</code> of ABGR
+</p>
+</li>
+<li>
+<p> ABLA_BA - Basal area <code class="reqn">(m^2/ha)</code> of ABLA
+</p>
+</li>
+<li>
+<p> ACGL_BA - Basal area <code class="reqn">(m^2/ha)</code> of ACGL
+</p>
+</li>
+<li>
+<p> BEOC_BA - Basal area <code class="reqn">(m^2/ha)</code> of BEOC
+</p>
+</li>
+<li>
+<p> LAOC_BA - Basal area <code class="reqn">(m^2/ha)</code> of LAOC
+</p>
+</li>
+<li>
+<p> PICO_BA - Basal area <code class="reqn">(m^2/ha)</code> of PICO
+</p>
+</li>
+<li>
+<p> PIEN_BA - Basal area <code class="reqn">(m^2/ha)</code> of PIEN
+</p>
+</li>
+<li>
+<p> PIMO_BA - Basal area <code class="reqn">(m^2/ha)</code> of PIMO
+</p>
+</li>
+<li>
+<p> PIPO_BA - Basal area <code class="reqn">(m^2/ha)</code> of PIPO
+</p>
+</li>
+<li>
+<p> POBA_BA - Basal area <code class="reqn">(m^2/ha)</code> of POBA
+</p>
+</li>
+<li>
+<p> POTR_BA - Basal area <code class="reqn">(m^2/ha)</code> of POTR
+</p>
+</li>
+<li>
+<p> PSME_BA - Basal area <code class="reqn">(m^2/ha)</code> of PSME
+</p>
+</li>
+<li>
+<p> SAEX_BA - Basal area <code class="reqn">(m^2/ha)</code> of SAEX
+</p>
+</li>
+<li>
+<p> THPL_BA - Basal area <code class="reqn">(m^2/ha)</code> of THPL
+</p>
+</li>
+<li>
+<p> TSHE_BA - Basal area <code class="reqn">(m^2/ha)</code> of TSHE
+</p>
+</li>
+<li>
+<p> TSME_BA - Basal area <code class="reqn">(m^2/ha)</code> of TSME
+</p>
+</li>
+<li>
+<p> UNKN_BA - Basal area <code class="reqn">(m^2/ha)</code> of unknown species
+</p>
+</li>
+<li>
+<p> Total_B - Basal area <code class="reqn">(m^2/ha)</code> total over all species
+</p>
+</li>
+<li>
+<p> ABGR_TD - Trees per ha of ABGR
+</p>
+</li>
+<li>
+<p> ABLA_TD - Trees per ha of ABLA
+</p>
+</li>
+<li>
+<p> ACGL_TD - Trees per ha of ACGL
+</p>
+</li>
+<li>
+<p> BEOC_TD - Trees per ha of BEOC
+</p>
+</li>
+<li>
+<p> LAOC_TD - Trees per ha of LAOC
+</p>
+</li>
+<li>
+<p> PICO_TD - Trees per ha of PICO
+</p>
+</li>
+<li>
+<p> PIEN_TD - Trees per ha of PIEN
+</p>
+</li>
+<li>
+<p> PIMO_TD - Trees per ha of PIMO
+</p>
+</li>
+<li>
+<p> PIPO_TD - Trees per ha of PIPO
+</p>
+</li>
+<li>
+<p> POBA_TD - Trees per ha of POBA
+</p>
+</li>
+<li>
+<p> POTR_TD - Trees per ha of POTR
+</p>
+</li>
+<li>
+<p> PSME_TD - Trees per ha of PSME
+</p>
+</li>
+<li>
+<p> SAEX_TD - Trees per ha of SAEX
+</p>
+</li>
+<li>
+<p> THPL_TD - Trees per ha of THPL
+</p>
+</li>
+<li>
+<p> TSHE_TD - Trees per ha of TSHE
+</p>
+</li>
+<li>
+<p> TSME_TD - Trees per ha of TSME
+</p>
+</li>
+<li>
+<p> UNKN_TD - Trees per ha of unknown species
+</p>
+</li>
+<li>
+<p> Total_T - Trees per ha total over all species
+</p>
+</li>
+</ul>
+<p>Geographic Location, Slope and Aspect:
+</p>
+
+<ol>
+<li>
+<p> EASTING   - UTM (Zone 11) easting at plot center
+</p>
+</li>
+<li>
+<p> NORTHING  - UTM (Zone 11) northing at plot center
+</p>
+</li>
+<li>
+<p> ELEVATION - Mean elevation (m) above sea level over plot
+</p>
+</li>
+<li>
+<p> SLPMEAN   - Mean slope (percent) over plot
+</p>
+</li>
+<li>
+<p> ASPMEAN   - Mean aspect (degrees) over plot
+</p>
+</li>
+</ol>
+<p>Advanced Land Imager (ALI):
+</p>
+
+<ol>
+<li>
+<p> B1MEAN - Mean of 30 m ALI band 1 pixels intersecting plot
+</p>
+</li>
+<li>
+<p> B2MEAN - Mean of 30 m ALI band 2 pixels intersecting plot
+</p>
+</li>
+<li>
+<p> B3MEAN - Mean of 30 m ALI band 3 pixels intersecting plot
+</p>
+</li>
+<li>
+<p> B4MEAN - Mean of 30 m ALI band 4 pixels intersecting plot
+</p>
+</li>
+<li>
+<p> B5MEAN - Mean of 30 m ALI band 5 pixels intersecting plot
+</p>
+</li>
+<li>
+<p> B6MEAN - Mean of 30 m ALI band 6 pixels intersecting plot
+</p>
+</li>
+<li>
+<p> B7MEAN - Mean of 30 m ALI band 7 pixels intersecting plot
+</p>
+</li>
+<li>
+<p> B8MEAN - Mean of 30 m ALI band 8 pixels intersecting plot
+</p>
+</li>
+<li>
+<p> B9MEAN - Mean of 30 m ALI band 9 pixels intersecting plot
+</p>
+</li>
+<li>
+<p> PANMEA - Mean of 10 m PAN band pixels intersecting plot
+</p>
+</li>
+<li>
+<p> PANSTD - Standard deviation of 10 m PAN band pixels intersecting plot
+</p>
+</li>
+</ol>
+<p>LiDAR Intensity:
+</p>
+
+<ol>
+<li>
+<p> INTMEAN - Mean of 2 m intensity pixels intersecting plot
+</p>
+</li>
+<li>
+<p> INTSTD  - Standard deviation of 2 m intensity pixels intersecting plot
+</p>
+</li>
+<li>
+<p> INTMIN  - Minimum of 2 m intensity pixels intersecting plot
+</p>
+</li>
+<li>
+<p> INTMAX  - Maximum of 2 m intensity pixels intersecting plot
+</p>
+</li>
+</ol>
+<p>LiDAR Height:
+</p>
+
+<ol>
+<li>
+<p> HTMEAN - Mean of 6 m height pixels intersecting plot
+</p>
+</li>
+<li>
+<p> HTSTD  - Standard deviation of 6 m height pixels intersecting plot
+</p>
+</li>
+<li>
+<p> HTMIN  - Minimum of 6 m height pixels intersecting plot
+</p>
+</li>
+<li>
+<p> HTMAX  - Maximum of 6 m height pixels intersecting plot
+</p>
+</li>
+</ol>
+<p>LiDAR Canopy Cover:
+</p>
+
+<ol>
+<li>
+<p> CCMEAN - Mean of 6 m canopy cover pixels intersecting plot
+</p>
+</li>
+<li>
+<p> CCSTD  - Standard deviation of 6 m canopy cover pixels intersecting plot
+</p>
+</li>
+<li>
+<p> CCMIN  - Minimum of 6 m canopy cover pixels intersecting plot
+</p>
+</li>
+<li>
+<p> CCMAX  - Maximum of 6 m canopy cover pixels intersecting plot
+</p>
+</li>
+</ol>
+<h3>Source</h3>
+
+<p>Dr. Andrew T. Hudak  <br>
+USDA Forest Service <br>
+Rocky Mountain Research Station <br>
+1221 South Main <br>
+Moscow, Idaho, USA 83843
+</p>
+
+
+<h3>References</h3>
+
+<p>Hudak, A.T.; Crookston, N.L.; Evans, J.S.; Falkowski, M.J.; Smith,
+A.M.S.; Gessler, P.E.; Morgan, P. (2006). Regression modeling and mapping
+of coniferous forest basal area and tree density from discrete-return
+lidar and multispectral satellite data. Can. J. Remote Sensing.
+32(2):126-138. <a href="https://www.tandfonline.com/doi/abs/10.5589/m06-007">https://www.tandfonline.com/doi/abs/10.5589/m06-007</a>
+</p>
+
+
+</div>

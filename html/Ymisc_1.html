@@ -1,0 +1,105 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>compute_AI</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>The brain asymmetry index (AI)</h2>
+
+<h3>Description</h3>
+
+<p>AI formula = [(left-right)/(left+right)].
+compute_AI() creates new columns that are AIs of the brain measures using the most widely-used formula.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">compute_AI(
+  data = sample_data,
+  left_hemisphere = "lh",
+  right_hemisphere = "rh",
+  separator = "_",
+  ID = "ID",
+  hemisphere = "prefix",
+  start,
+  end
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>data</code></td>
+<td>
+<p>The wide format data</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>left_hemisphere</code></td>
+<td>
+<p>The prefix or suffix that indicates the left hemisphere in the variable names</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>right_hemisphere</code></td>
+<td>
+<p>The prefix or suffix string that indicates the right hemisphere in the variable names</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>separator</code></td>
+<td>
+<p>A character vector that separates characters in the variable names.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>ID</code></td>
+<td>
+<p>The column of identifiers.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>hemisphere</code></td>
+<td>
+<p>The character vector that indicates whether a hemisphere indicator in the variable names is a prefix or suffix.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>start</code></td>
+<td>
+<p>The column that specifies the starting point of a set of variables to calculate the AIs.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>end</code></td>
+<td>
+<p>The column that specifies the endpoint of a set of variables to calculate the AIs.</p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>The data with AIs.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">
+data(sample_data)
+
+compute_AI(sample_data,
+left_hemisphere = "lh",
+right_hemisphere = "rh",
+separator="_",
+ID="ID",
+hemisphere="prefix",
+start="lh_Thalamus",
+end="rh_AccumbensArea")
+</code></pre>
+
+
+</div>

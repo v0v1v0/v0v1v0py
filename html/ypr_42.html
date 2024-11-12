@@ -1,0 +1,72 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>ypr_exploitation</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Exploitation Probability</h2>
+
+<h3>Description</h3>
+
+<p>Converts capture probabilities into exploitation probabilities based on the
+release and handling mortality probabilities where the probability of
+exploitation includes handling mortalities. The calculation assumes that a
+released fish cannot be recaught in the same year.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">ypr_exploitation(object, pi = ypr_get_par(object))
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>object</code></td>
+<td>
+<p>The population or populations.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>pi</code></td>
+<td>
+<p>A vector of capture probabilities to calculate the exploitation
+probabilities for.</p>
+</td>
+</tr>
+</table>
+<h3>Details</h3>
+
+<p>In the case of no release (or 100% handling mortalities) the exploitation
+probability is identical to the capture probability. Otherwise it is less.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A vector of exploitation probabilities.
+</p>
+
+
+<h3>See Also</h3>
+
+<p>Other calculate: 
+<code>ypr_age_at_length()</code>,
+<code>ypr_length_at_age()</code>,
+<code>ypr_optimize()</code>,
+<code>ypr_yields()</code>,
+<code>ypr_yield()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">ypr_exploitation(ypr_population(pi = 0.4))
+ypr_exploitation(ypr_population(pi = 0.4, rho = 0.6, Hm = 0.2))
+</code></pre>
+
+
+</div>

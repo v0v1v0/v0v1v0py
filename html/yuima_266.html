@@ -1,0 +1,461 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>simulate</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Simulator function for multi-dimensional stochastic processes</h2>
+
+<h3>Description</h3>
+
+<p>Simulate multi-dimensional stochastic processes.</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">simulate(object, nsim=1, seed=NULL, xinit, true.parameter, space.discretized = FALSE, 
+ increment.W = NULL, increment.L = NULL, method = "euler", hurst, methodfGn = "WoodChan",
+ 	sampling=sampling, subsampling=subsampling, ...)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>object</code></td>
+<td>
+<p>an <code>yuima-class</code>, 
+<code>yuima.model-class</code> or <code>yuima.carma-class</code>  object.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>xinit</code></td>
+<td>
+<p>initial value vector of state variables.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>true.parameter</code></td>
+<td>
+<p>named list of parameters.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>space.discretized</code></td>
+<td>
+<p>flag to switch to space-discretized Euler
+Maruyama method.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>increment.W</code></td>
+<td>
+<p>to specify Wiener increment for each time tics in advance.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>increment.L</code></td>
+<td>
+<p>to specify Levy increment for each time tics in advance.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>method</code></td>
+<td>
+<p>string Variable for simulation scheme. The default value <code>method=euler</code> uses the euler discretization  for the simulation of a sample path.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>nsim</code></td>
+<td>
+<p>Not used yet. Included only to match the standard genenirc in 
+package <code>stats</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>seed</code></td>
+<td>
+<p>Not used yet. Included only to match the standard genenirc in 
+package <code>stats</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>hurst</code></td>
+<td>
+<p>value of Hurst parameter for simulation of the fGn. Overrides the specified hurst slot.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>methodfGn</code></td>
+<td>
+<p>simulation methods for fractional Gaussian noise.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+<p>passed to <code>setSampling</code> to create a sampling</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>sampling</code></td>
+<td>
+<p>a <code>yuima.sampling-class</code> object.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>subsampling</code></td>
+<td>
+<p>a <code>yuima.sampling-class</code> object.</p>
+</td>
+</tr>
+</table>
+<h3>Details</h3>
+
+<p><code>simulate</code> is a function to solve SDE using the Euler-Maruyama
+method. This function supports usual Euler-Maruyama method for
+multidimensional SDE, and space
+discretized Euler-Maruyama method for one dimensional SDE.
+</p>
+<p>It simulates solutions of stochastic differential equations with Gaussian noise,
+fractional Gaussian noise awith/without jumps.
+</p>
+<p>If a <code>yuima-class</code> object is passed as input, then the sampling
+information is taken from the slot <code>sampling</code> of the object.
+If a <code>yuima.carma-class</code> object, a <code>yuima.model-class</code> object or a 
+<code>yuima-class</code> object with missing <code>sampling</code> slot is passed
+as input the <code>sampling</code> argument is used. If this argument is missing
+then the sampling structure is constructed from <code>Initial</code>, <code>Terminal</code>,
+etc. arguments (see <code>setSampling</code> for details on how to use these 
+arguments).
+</p>
+<p>For a COGARCH(p,q) process setting <code>method=mixed</code> implies that the simulation scheme is based on the solution of the state space process. For the case in which the underlying noise is a compound poisson Levy process, the trajectory is build firstly by simulation of the jump time, then the quadratic variation and the increments noise are simulated exactly at jump time. For the others Levy process, the simulation scheme is based on the discretization of the state space process solution.       
+</p>
+
+
+<h3>Value</h3>
+
+<table><tr style="vertical-align: top;">
+<td><code>yuima</code></td>
+<td>
+<p>a <code>yuima-class</code> object.</p>
+</td>
+</tr></table>
+<h3>Note</h3>
+
+<p>In the simulation of multi-variate Levy processes, the values of parameters have to be defined outside of <code>simulate</code> function in advance (see examples below).
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>The YUIMA Project Team</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">set.seed(123)
+
+# Path-simulation for 1-dim diffusion process. 
+# dXt = -0.3*Xt*dt + dWt
+mod &lt;- setModel(drift="-0.3*y", diffusion=1, solve.variable=c("y"))
+str(mod)
+
+# Set the model in an `yuima' object with a sampling scheme. 
+T &lt;- 1
+n &lt;- 1000
+samp &lt;- setSampling(Terminal=T, n=n)
+ou &lt;- setYuima(model=mod, sampling=samp)
+
+# Solve SDEs using Euler-Maruyama method. 
+par(mfrow=c(3,1))
+ou &lt;- simulate(ou, xinit=1)
+plot(ou)
+
+
+set.seed(123)
+ouB &lt;- simulate(mod, xinit=1,sampling=samp)
+plot(ouB)
+
+
+set.seed(123)
+ouC &lt;- simulate(mod, xinit=1, Terminal=1, n=1000)
+plot(ouC)
+
+par(mfrow=c(1,1))
+
+
+# Path-simulation for 1-dim diffusion process. 
+# dXt = theta*Xt*dt + dWt
+mod1 &lt;- setModel(drift="theta*y", diffusion=1, solve.variable=c("y"))
+str(mod1)
+ou1 &lt;- setYuima(model=mod1, sampling=samp)
+
+# Solve SDEs using Euler-Maruyama method. 
+ou1 &lt;- simulate(ou1, xinit=1, true.p = list(theta=-0.3))
+plot(ou1)
+
+## Not run: 
+
+# A multi-dimensional (correlated) diffusion process. 
+# To describe the following model: 
+# X=(X1,X2,X3); dXt = U(t,Xt)dt + V(t)dWt
+# For drift coeffcient
+U &lt;- c("-x1","-2*x2","-t*x3")
+# For diffusion coefficient of X1 
+v1 &lt;- function(t) 0.5*sqrt(t)
+# For diffusion coefficient of X2
+v2 &lt;- function(t) sqrt(t)
+# For diffusion coefficient of X3
+v3 &lt;- function(t) 2*sqrt(t)
+# correlation
+rho &lt;- function(t) sqrt(1/2)
+# coefficient matrix for diffusion term
+V &lt;- matrix( c( "v1(t)",
+                "v2(t) * rho(t)",
+                "v3(t) * rho(t)",
+                "",
+                "v2(t) * sqrt(1-rho(t)^2)",
+                "",
+                "",
+                "",
+                "v3(t) * sqrt(1-rho(t)^2)" 
+               ), 3, 3)
+# Model sde using "setModel" function
+cor.mod &lt;- setModel(drift = U, diffusion = V,
+state.variable=c("x1","x2","x3"), 
+solve.variable=c("x1","x2","x3") )
+str(cor.mod)
+
+# Set the `yuima' object. 
+cor.samp &lt;- setSampling(Terminal=T, n=n)
+cor &lt;- setYuima(model=cor.mod, sampling=cor.samp)
+
+# Solve SDEs using Euler-Maruyama method. 
+set.seed(123)
+cor &lt;- simulate(cor)
+plot(cor)
+
+# A non-negative process (CIR process)
+# dXt= a*(c-y)*dt + b*sqrt(Xt)*dWt
+ sq &lt;- function(x){y = 0;if(x&gt;0){y = sqrt(x);};return(y);}
+ model&lt;- setModel(drift="0.8*(0.2-x)",
+  diffusion="0.5*sq(x)",solve.variable=c("x"))
+ T&lt;-10
+ n&lt;-1000
+ sampling &lt;- setSampling(Terminal=T,n=n)
+ yuima&lt;-setYuima(model=model, sampling=sampling)
+ cir&lt;-simulate(yuima,xinit=0.1)
+ plot(cir)
+
+# solve SDEs using Space-discretized Euler-Maruyama method
+v4 &lt;- function(t,x){
+  return(0.5*(1-x)*sqrt(t))
+}
+mod_sd &lt;- setModel(drift = c("0.1*x1", "0.2*x2"),
+                     diffusion = c("v1(t)","v4(t,x2)"),
+                     solve.var=c("x1","x2")
+                     )
+samp_sd &lt;- setSampling(Terminal=T, n=n)
+sd &lt;- setYuima(model=mod_sd, sampling=samp_sd)
+sd &lt;- simulate(sd, xinit=c(1,1), space.discretized=TRUE)
+plot(sd)
+
+
+## example of simulation by specifying increments
+## Path-simulation for 1-dim diffusion process
+## dXt = -0.3*Xt*dt + dWt
+
+mod &lt;- setModel(drift="-0.3*y", diffusion=1,solve.variable=c("y"))
+str(mod)
+
+## Set the model in an `yuima' object with a sampling scheme. 
+Terminal &lt;- 1
+n &lt;- 500
+mod.sampling &lt;- setSampling(Terminal=Terminal, n=n)
+yuima.mod &lt;- setYuima(model=mod, sampling=mod.sampling)
+
+##use original increment
+delta &lt;- Terminal/n
+my.dW &lt;- rnorm(n * yuima.mod@model@noise.number, 0, sqrt(delta))
+my.dW &lt;- t(matrix(my.dW, nrow=n, ncol=yuima.mod@model@noise.number))
+
+## Solve SDEs using Euler-Maruyama method.
+yuima.mod &lt;- simulate(yuima.mod,
+                      xinit=1,
+                      space.discretized=FALSE,
+                      increment.W=my.dW)
+if( !is.null(yuima.mod) ){
+ dev.new()
+ # x11()
+  plot(yuima.mod)
+}
+
+## A multi-dimensional (correlated) diffusion process. 
+## To describe the following model: 
+## X=(X1,X2,X3); dXt = U(t,Xt)dt + V(t)dWt
+## For drift coeffcient
+U &lt;- c("-x1","-2*x2","-t*x3")
+## For process 1
+diff.coef.1 &lt;- function(t) 0.5*sqrt(t)
+## For process 2
+diff.coef.2 &lt;- function(t) sqrt(t)
+## For process 3
+diff.coef.3 &lt;- function(t) 2*sqrt(t)
+## correlation
+cor.rho &lt;- function(t) sqrt(1/2)
+## coefficient matrix for diffusion term
+V &lt;- matrix( c( "diff.coef.1(t)",
+               "diff.coef.2(t) * cor.rho(t)",
+               "diff.coef.3(t) * cor.rho(t)",
+               "",
+               "diff.coef.2(t)",
+               "diff.coef.3(t) * sqrt(1-cor.rho(t)^2)",
+               "diff.coef.1(t) * cor.rho(t)",
+               "",
+               "diff.coef.3(t)" 
+               ), 3, 3)
+## Model sde using "setModel" function
+cor.mod &lt;- setModel(drift = U, diffusion = V,
+                    solve.variable=c("x1","x2","x3") )
+str(cor.mod)
+## Set the `yuima' object.
+set.seed(123)
+obj.sampling &lt;- setSampling(Terminal=Terminal, n=n)
+yuima.obj &lt;- setYuima(model=cor.mod, sampling=obj.sampling)
+
+##use original dW
+my.dW &lt;- rnorm(n * yuima.obj@model@noise.number, 0, sqrt(delta))
+my.dW &lt;- t(matrix(my.dW, nrow=n, ncol=yuima.obj@model@noise.number))
+
+## Solve SDEs using Euler-Maruyama method.
+yuima.obj.path &lt;- simulate(yuima.obj, space.discretized=FALSE, 
+ increment.W=my.dW)
+if( !is.null(yuima.obj.path) ){
+  dev.new()
+#  x11()
+  plot(yuima.obj.path)
+}
+
+
+##:: sample for Levy process ("CP" type)
+## specify the jump term as c(x,t)dz
+obj.model &lt;- setModel(drift=c("-theta*x"), diffusion="sigma",
+jump.coeff="1", measure=list(intensity="1", df=list("dnorm(z, 0, 1)")),
+measure.type="CP", solve.variable="x")
+
+##:: Parameters
+lambda &lt;- 3
+theta &lt;- 6
+sigma &lt;- 1
+xinit &lt;- runif(1)
+N &lt;- 500
+h &lt;- N^(-0.7)
+eps &lt;- h/50
+n &lt;- 50*N
+T &lt;- N*h
+
+set.seed(123)
+obj.sampling &lt;- setSampling(Terminal=T, n=n)
+obj.yuima &lt;- setYuima(model=obj.model, sampling=obj.sampling)
+X &lt;- simulate(obj.yuima, xinit=xinit, true.parameter=list(theta=theta, sigma=sigma))
+dev.new()
+plot(X)
+
+
+##:: sample for Levy process ("CP" type)
+## specify the jump term as c(x,t,z)
+## same plot as above example
+obj.model &lt;- setModel(drift=c("-theta*x"), diffusion="sigma",
+jump.coeff="z", measure=list(intensity="1", df=list("dnorm(z, 0, 1)")),
+measure.type="CP", solve.variable="x")
+
+set.seed(123)
+obj.sampling &lt;- setSampling(Terminal=T, n=n)
+obj.yuima &lt;- setYuima(model=obj.model, sampling=obj.sampling)
+X &lt;- simulate(obj.yuima, xinit=xinit, true.parameter=list(theta=theta, sigma=sigma))
+dev.new()
+plot(X)
+
+
+
+
+##:: sample for Levy process ("code" type)
+## dX_{t} = -x dt + dZ_t
+obj.model &lt;- setModel(drift="-x", xinit=1, jump.coeff="1", measure.type="code", 
+measure=list(df="rIG(z, 1, 0.1)"))
+obj.sampling &lt;- setSampling(Terminal=10, n=10000)
+obj.yuima &lt;- setYuima(model=obj.model, sampling=obj.sampling)
+result &lt;- simulate(obj.yuima)
+dev.new()
+plot(result)
+
+##:: sample for multidimensional Levy process ("code" type)
+## dX = (theta - A X)dt + dZ,
+##    theta=(theta_1, theta_2) = c(1,.5)
+##    A=[a_ij], a_11 = 2, a_12 = 1, a_21 = 1, a_22=2
+require(yuima)
+x0 &lt;- c(1,1)
+beta &lt;- c(.1,.1)
+mu &lt;- c(0,0)
+delta0 &lt;- 1
+alpha &lt;- 1
+Lambda &lt;- matrix(c(1,0,0,1),2,2)
+cc &lt;- matrix(c(1,0,0,1),2,2)
+obj.model &lt;- setModel(drift=c("1 - 2*x1-x2",".5-x1-2*x2"), xinit=x0,
+solve.variable=c("x1","x2"), jump.coeff=cc, measure.type="code",
+ measure=list(df="rNIG(z, alpha, beta, delta0, mu, Lambda)"))
+obj.sampling &lt;- setSampling(Terminal=10, n=10000)
+obj.yuima &lt;- setYuima(model=obj.model, sampling=obj.sampling)
+result &lt;- simulate(obj.yuima,true.par=list( alpha=alpha, 
+ beta=beta, delta0=delta0, mu=mu, Lambda=Lambda))
+plot(result)
+
+
+# Path-simulation for a Carma(p=2,q=1) model driven by a Brownian motion:
+carma1&lt;-setCarma(p=2,q=1)
+str(carma1)
+
+# Set the sampling scheme
+samp&lt;-setSampling(Terminal=100,n=10000)
+
+# Set the values of the model parameters
+par.carma1&lt;-list(b0=1,b1=2.8,a1=2.66,a2=0.3)
+
+set.seed(123)
+sim.carma1&lt;-simulate(carma1,
+                     true.parameter=par.carma1,
+                     sampling=samp)
+
+plot(sim.carma1)
+
+
+
+# Path-simulation for a Carma(p=2,q=1) model driven by a Compound Poisson process.
+carma1&lt;-setCarma(p=2,
+                 q=1,
+                 measure=list(intensity="1",df=list("dnorm(z, 0, 1)")),
+                 measure.type="CP")
+
+# Set Sampling scheme
+samp&lt;-setSampling(Terminal=100,n=10000)
+
+# Fix carma parameters
+par.carma1&lt;-list(b0=1,
+                 b1=2.8,
+                 a1=2.66,
+                 a2=0.3)
+
+set.seed(123)
+sim.carma1&lt;-simulate(carma1,
+                     true.parameter=par.carma1,
+                     sampling=samp)
+
+plot(sim.carma1)
+
+## End(Not run)
+</code></pre>
+
+
+</div>

@@ -1,0 +1,243 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>setCarma</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>
+Continuous Autoregressive Moving Average (p, q) model 
+</h2>
+
+<h3>Description</h3>
+
+<p>'setCarma' describes the following model: 
+</p>
+<p><code>Vt = c0 + sigma (b0 Xt(0) + ... + b(q) Xt(q))</code> 
+</p>
+<p><code>dXt(0) = Xt(1) dt</code>  
+</p>
+<p><code>...</code>
+</p>
+<p><code>dXt(p-2) = Xt(p-1) dt</code>
+</p>
+<p><code>dXt(p-1) = (-a(p) Xt(0) - ... - a(1) Xt(p-1))dt + (gamma(0) + gamma(1) Xt(0) + ... + gamma(p) Xt(p-1))dZt</code>
+
+</p>
+<p>The continuous ARMA process using the state-space representation as in Brockwell (2000) is obtained by choosing: 
+</p>
+<p><code> gamma(0) = 1, gamma(1) = gamma(2) = ... = gamma(p) = 0.</code> 
+</p>
+<p>Please refer to the vignettes and the examples or the <b>yuima</b> documentation for details.  
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">setCarma(p,q,loc.par=NULL,scale.par=NULL,ar.par="a",ma.par="b",
+lin.par=NULL,Carma.var="v",Latent.var="x",XinExpr=FALSE, Cogarch=FALSE, ...)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>p</code></td>
+<td>
+<p>a non-negative integer that indicates the number of the autoregressive coefficients.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>q</code></td>
+<td>
+<p>a non-negative integer that indicates the number of the moving average coefficients.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>loc.par</code></td>
+<td>
+<p>location coefficient. The default value <code>loc.par=NULL</code> implies that <code>c0=0</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>scale.par</code></td>
+<td>
+<p>scale coefficient. The default value <code>scale.par=NULL</code> implies that <code>sigma=1</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>ar.par</code></td>
+<td>
+<p>a character-string that is the label of the autoregressive coefficients. The default Value is <code>ar.par="a"</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>ma.par</code></td>
+<td>
+<p>a character-string that is the label of the moving average coefficients. The default Value is <code>ma.par="b"</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>Carma.var</code></td>
+<td>
+<p>a character-string that is the label of the observed process. Defaults to <code>"v"</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>Latent.var</code></td>
+<td>
+<p>a character-string that is the label of the unobserved process. Defaults to <code>"x"</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>lin.par</code></td>
+<td>
+<p>a character-string that is the label of the linear coefficients. If <code>lin.par=NULL</code>, the default, the 'setCarma' builds the CARMA(p, q) model defined as in Brockwell (2000). </p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>XinExpr</code></td>
+<td>
+<p>a logical variable. The default value <code>XinExpr=FALSE</code> implies that the starting condition for <code>Latent.var</code> is zero. If <code>XinExpr=TRUE</code>, each component of <code>Latent.var</code> has a parameter as a initial value.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>Cogarch</code></td>
+<td>
+<p>a logical variable. The default value <code>Cogarch=FALSE</code> implies that the parameters are specified according to Brockwell (2000).  </p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+<p>Arguments to be passed to 'setCarma', such as the slots of <code>yuima.model-class</code>
+</p>
+
+<dl>
+<dt><code>measure</code></dt>
+<dd>
+<p>Levy measure of jump variables.</p>
+</dd>
+<dt><code>measure.type</code></dt>
+<dd>
+<p>type specification for Levy measure.</p>
+</dd>
+<dt><code>xinit</code></dt>
+<dd>
+<p>a vector of <code>expression</code>s identyfying the starting conditions for CARMA model.</p>
+</dd>
+</dl>
+</td>
+</tr>
+</table>
+<h3>Details</h3>
+
+<p>Please refer to the vignettes and the examples or to the <span class="pkg">yuimadocs</span> package.
+</p>
+<p>An object of <code>yuima.carma-class</code> contains:
+</p>
+  	
+<dl>
+<dt>
+<code>info</code>:</dt>
+<dd>
+<p>It  is an object 
+of  <code>carma.info-class</code> which is a list of arguments that identifies the carma(p,q) model</p>
+</dd>
+</dl>
+<p>and the same slots in an object of <code>yuima.model-class</code> .
+</p>
+
+
+<h3>Value</h3>
+
+<table><tr style="vertical-align: top;">
+<td><code>model</code></td>
+<td>
+<p>an object of  <code>yuima.carma-class</code>.</p>
+</td>
+</tr></table>
+<h3>Note</h3>
+
+<p>There may be missing information in the model description. 
+Please contribute with suggestions and fixings.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>The YUIMA Project Team</p>
+
+
+<h3>References</h3>
+
+<p>Brockwell, P. (2000)
+Continuous-time ARMA processes, <em>Stochastic Processes: Theory and Methods. Handbook of Statistics</em>, <b>19</b>, (C. R. Rao and D. N. Shandhag, eds.) 249-276. North-Holland, Amsterdam.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R"># Ex 1. (Continuous ARMA process driven by a Brownian Motion)
+# To describe the state-space representation of a CARMA(p=3,q=1) model:
+# Vt=c0+alpha0*X0t+alpha1*X1t
+# dX0t = X1t*dt 
+# dX1t = X2t*dt
+# dX2t = (-beta3*X0t-beta2*X1t-beta1*X2t)dt+dWt
+# we set
+mod1&lt;-setCarma(p=3, 
+               q=1, 
+               loc.par="c0")
+# Look at the model structure by
+str(mod1)
+
+# Ex 2. (General setCarma model driven by a Brownian Motion)
+# To describe the model defined as:
+# Vt=c0+alpha0*X0t+alpha1*X1t
+# dX0t = X1t*dt 
+# dX1t = X2t*dt
+# dX2t = (-beta3*X0t-beta2*X1t-beta1*X2t)dt+(c0+alpha0*X0t)dWt
+# we set 
+mod2 &lt;- setCarma(p=3,
+                 q=1,
+                 loc.par="c0",
+                 ma.par="alpha",
+                 ar.par="beta",
+                 lin.par="alpha")
+# Look at the model structure by
+str(mod2)
+
+# Ex 3. (Continuous Arma model driven by a Levy process)
+# To specify the CARMA(p=3,q=1) model driven by a Compound Poisson process defined as:
+# Vt=c0+alpha0*X0t+alpha1*X1t
+# dX0t = X1t*dt 
+# dX1t = X2t*dt
+# dX2t = (-beta3*X0t-beta2*X1t-beta1*X2t)dt+dzt
+# we set the Levy measure as in setModel
+mod3 &lt;- setCarma(p=3,
+                 q=1,
+                 loc.par="c0",
+                 measure=list(intensity="1",df=list("dnorm(z, 0, 1)")),
+                 measure.type="CP")
+# Look at the model structure by
+str(mod3)
+
+# Ex 4. (General setCarma  model driven by a Levy process)
+# Vt=c0+alpha0*X0t+alpha1*X1t
+# dX0t = X1t*dt 
+# dX1t = X2t*dt
+# dX2t = (-beta3*X1t-beta2*X2t-beta1*X3t)dt+(c0+alpha0*X0t)dzt
+mod4 &lt;- setCarma(p=3,
+                 q=1,
+                 loc.par="c0",
+                 ma.par="alpha",
+                 ar.par="beta",
+                 lin.par="alpha",
+                 measure=list(intensity="1",df=list("dnorm(z, 0, 1)")),
+                 measure.type="CP")
+# Look at the model structure by
+str(mod4)
+</code></pre>
+
+
+</div>

@@ -1,0 +1,60 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>cc</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Quote names</h2>
+
+<h3>Description</h3>
+
+<p><code>cc()</code> quotes comma separated names whilst trimming outer whitespace. It is
+intended for interactive use only.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">cc(..., .clip = FALSE)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+<p>Either unquoted names (separated by commas) that you wish to quote or a
+length one character vector you wish to split by whitespace.
+</p>
+<p>Empty arguments (e.g. third item in <code style="white-space: pre;">⁠one,two,,four⁠</code>) will be returned as <code>""</code>.
+</p>
+<p>Character vectors not of length one are returned as is.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>.clip</code></td>
+<td>
+<p><code style="white-space: pre;">⁠[bool]⁠</code>
+</p>
+<p>Not currently used.</p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>A character vector of the quoted input.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">
+cc(dale, audrey, laura, hawk)
+cc("dale audrey laura hawk")
+
+</code></pre>
+
+
+</div>

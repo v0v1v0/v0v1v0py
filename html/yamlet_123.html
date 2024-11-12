@@ -1,0 +1,114 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>io_yamlet.yamlet</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Export Yamlet</h2>
+
+<h3>Description</h3>
+
+<p>Exports yamlet.
+The archetype method for <code>io_yamlet</code>.
+Similar to <code>write_yamlet</code> but returns (description of) <code>con</code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">## S3 method for class 'yamlet'
+io_yamlet(
+  x,
+  con = stdout(),
+  eol = "\n",
+  useBytes = FALSE,
+  default_keys = getOption("yamlet_default_keys", list("label", "guide")),
+  fileEncoding = getOption("encoding"),
+  ...
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>x</code></td>
+<td>
+<p>yamlet</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>con</code></td>
+<td>
+<p>passed to <code>writeLines</code></p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>eol</code></td>
+<td>
+<p>end-of-line; passed to <code>writeLines</code> as <code>sep</code></p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>useBytes</code></td>
+<td>
+<p>passed to <code>writeLines</code></p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>default_keys</code></td>
+<td>
+<p>character: default keys for the first n anonymous members of each element</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>fileEncoding</code></td>
+<td>
+<p>if <code>con</code> is character, passed to <code>file</code> as <code>encoding</code></p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+<p>passed to <code>as.character.yamlet</code></p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>invisible description of con: i.e., a file path
+</p>
+
+
+<h3>See Also</h3>
+
+<p>Other io: 
+<code>io_csv()</code>,
+<code>io_csv.character()</code>,
+<code>io_csv.data.frame()</code>,
+<code>io_res()</code>,
+<code>io_res.character()</code>,
+<code>io_res.decorated()</code>,
+<code>io_table()</code>,
+<code>io_table.character()</code>,
+<code>io_table.data.frame()</code>,
+<code>io_yamlet()</code>,
+<code>io_yamlet.character()</code>,
+<code>io_yamlet.data.frame()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">library(csv)
+file &lt;- system.file(package = 'yamlet', 'extdata','quinidine.csv')
+x &lt;- decorate(file)
+out &lt;- file.path(tempdir(), 'out.yamlet')
+io_yamlet(as_yamlet(x), out)
+io_yamlet(out)
+
+</code></pre>
+
+
+</div>

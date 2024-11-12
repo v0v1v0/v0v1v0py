@@ -1,0 +1,138 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>whatis</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Data frame summary</h2>
+
+<h3>Description</h3>
+
+<p>Summarize the characteristics of variables (columns)
+in a data frame.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">whatis(x, var.name.truncate = 20, type.truncate = 14)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>x</code></td>
+<td>
+<p>a data frame</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>var.name.truncate</code></td>
+<td>
+<p>maximum length (in characters) for truncation
+of variable names.  The default is 20; anything less than 12 is
+less than the column label in the resulting data frame and is a
+waste of information.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>type.truncate</code></td>
+<td>
+<p>maximum length (in characters) for truncation of
+variable type; <code>14</code> is the full width, but <code>4</code> works well
+if space is at a premium.</p>
+</td>
+</tr>
+</table>
+<h3>Details</h3>
+
+<p>The function <code>whatis()</code> provides a basic examination of some
+characteristics of each variable (column) in a data frame.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A list of characteristics describing the variables in the data
+frame, <code>x</code>. Each component of the list has <code>length(x)</code>
+values, one for each variable in the data frame <code>x</code>. 
+</p>
+
+<dl>
+<dt>variable.name</dt>
+<dd>
+<p>from the <code>names(x)</code> attribute, possibly
+truncated to <code>var.name.truncate</code> characters in length.</p>
+</dd>
+<dt>type</dt>
+<dd>
+<p>the possibilities include <code>"pure factor"</code>,
+<code>"mixed factor"</code>, <code>"ordered factor"</code>, <code>"character"</code>, 
+and <code>"numeric"</code>; <code>whatis()</code> considers the possibility that a 
+factor or a vector could contain character and/or numeric values.  
+If both character and numeric values are present, and if the variable 
+is a factor, then it is called a mixed factor.  If the levels of a 
+factor are purely character or numeric (but not both), it is a pure 
+factor.  Non-factors must then be either character or numeric.</p>
+</dd>
+<dt>missing</dt>
+<dd>
+<p>the number of <code>NA</code>s in the variable.</p>
+</dd>
+<dt>distinct.values</dt>
+<dd>
+<p>the number of distinct values in the variable,
+equal to <code>length(table(variable))</code>.</p>
+</dd>
+<dt>precision</dt>
+<dd>
+<p>the number of decimal places of precision.</p>
+</dd>
+<dt>min</dt>
+<dd>
+<p>the minumum value (if numeric) or first value (alphabetically)
+as appropriate.</p>
+</dd>
+<dt>max</dt>
+<dd>
+<p>the maximum value (if numeric) or the last value
+(alphabetically) as appropriate.</p>
+</dd>
+</dl>
+<h3>Author(s)</h3>
+
+<p>John W. Emerson, Walton Green
+</p>
+
+
+<h3>References</h3>
+
+<p>Special thanks to John Hartigan and the students of
+'Statistical Case Studies' of 2004 for their help troubleshooting
+and developing the function <code>whatis()</code>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p>See also <code>str</code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">mydf &lt;- data.frame(a=rnorm(100),
+                   b=sample(c("Cat", "Dog"), 100, replace=TRUE), 
+                   c=sample(c("Apple", "Orange", "8"), 100, replace=TRUE),
+                   d=sample(c("Blue", "Red"), 100, replace=TRUE))
+mydf$d &lt;- as.character(mydf$d)
+whatis(mydf)
+
+data(iris)
+whatis(iris)
+</code></pre>
+
+
+</div>

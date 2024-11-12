@@ -1,0 +1,59 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>as_yml</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Convert to yml object</h2>
+
+<h3>Description</h3>
+
+<p><code>as_yml</code> is a wrapper for <code>yaml::yaml.load()</code> that stores YAML as a <code>yml</code>
+object, which prints cleanly to the console and is easy to work with using
+ymlthis functions.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">as_yml(x)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table><tr style="vertical-align: top;">
+<td><code>x</code></td>
+<td>
+<p>An object, either a character vector of length 1 or list, to convert
+to <code>yml</code>.</p>
+</td>
+</tr></table>
+<h3>Value</h3>
+
+<p>a <code>yml</code> object
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">
+x &lt;- as_yml("
+  author: Hadley Wickham
+  date: '2014-09-12'
+  title: Tidy Data
+  keywords:
+  - data cleaning
+  - data tidying
+  - relational databases
+  - R")
+
+  x
+
+  x %&gt;%
+    yml_subtitle("Hadley's Tidy Data Paper")
+
+</code></pre>
+
+
+</div>

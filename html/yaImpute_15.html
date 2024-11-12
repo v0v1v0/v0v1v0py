@@ -1,0 +1,141 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>impute.yai</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Impute variables from references to targets</h2>
+
+<h3>Description</h3>
+
+<p>Imputes the observation for variables from a <em>reference</em> observation to a
+<em>target</em> observation. Also, imputes a value for a <em>reference</em> from other
+<em>references</em>. This practice is useful for validation (see <code>yai</code>). Variables
+not available in the original data may be imputed using argument <code>ancillaryData</code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">## S3 method for class 'yai'
+impute(object,ancillaryData=NULL,method="closest",
+       method.factor=method,k=NULL,vars=NULL,
+       observed=TRUE,...)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>object</code></td>
+<td>
+<p>an object of class <code>yai</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>ancillaryData</code></td>
+<td>
+<p>a data frame of variables that may not have been used in
+the original call to <code>yai</code>. There must be one row for
+each reference observation, no missing data, and row names must match those used
+in the reference observations.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>method</code></td>
+<td>
+<p>the method used to compute the imputed values for continuous variables,
+as follows: <br><code>closest</code>: use the single neighbor that is closest (this is the default and is
+always used when <em>k</em>=1); <br><code>mean</code>: the mean of the <em>k</em> neighbors is taken;<br><code>median</code>: the median of the <em>k</em> neighbors is taken;<br><code>dstWeighted</code>: a weighted mean is taken over the <em>k</em> neighbors where the
+weights are 1/(1+d).</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>method.factor</code></td>
+<td>
+<p>the method used to compute the imputed values for factors, as follows: <br><code>closest</code>: use the single neighbor that is closest (this is the default and is
+always used when <em>k</em>=1); <br><code>mean or median</code>: actually is the <em>mode</em>\-\-it is the factor level that occurs
+the most often among the <em>k</em> neighbors;<br><code>dstWeighted</code>: a <em>mode</em> where the count is the sum of the weights (1/(1+d)) rather than
+each having a weight of 1.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>k</code></td>
+<td>
+<p>the number neighbors to use in averages, when NULL all present are used.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>vars</code></td>
+<td>
+<p>a character vector of variables to impute, when NULL, the behavior depends
+on the value of <code>ancillaryData</code>: when it is NULL, the Y-variables are imputed and 
+otherwise all present in <code>ancillaryData</code> are imputed.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>observed</code></td>
+<td>
+<p>when TRUE, columns are created for <em>observed</em> values (those from the
+<em>target</em> observations) as well as imputed values (those from the
+<em>reference</em> observations.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+<p>passed to other methods, currently not used.</p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>An object of class <code>c("impute.yai","data.frame")</code>, with rownames
+identifying observations and column names identifying variables. When
+<em>observed=TRUE</em> additional columns are created with a suffix of
+<em>.o</em>. <br><br> NA's fill columns of observed values when no
+corresponding value is known, as in the case for <em>Y</em>-variables from
+<em>target</em> observations.<br><br> Scale factors for each variable are
+returned as an attribute (see <code>attributes</code>).
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Nicholas L. Crookston <a href="mailto:ncrookston.fs@gmail.com">ncrookston.fs@gmail.com</a> <br>
+Andrew O. Finley <a href="mailto:finleya@msu.edu">finleya@msu.edu</a> <br>
+Emilie Henderson <a href="mailto:emilie.henderson@oregonstate.edu">emilie.henderson@oregonstate.edu</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code>yai</code></p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">require(yaImpute)
+
+data(iris)
+
+# form some test data
+refs=sample(rownames(iris),50)
+x &lt;- iris[,1:3]      # Sepal.Length Sepal.Width Petal.Length
+y &lt;- iris[refs,4:5]  # Petal.Width Species
+
+# build a yai object using mahalanobis
+mal &lt;- yai(x=x,y=y,method="mahalanobis")
+
+# output a data frame of observed and imputed values
+# of all variables and observations.
+
+impute(mal)
+malImp=impute(mal,ancillaryData=iris)
+plot(malImp)
+
+</code></pre>
+
+
+</div>

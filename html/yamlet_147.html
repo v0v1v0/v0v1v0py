@@ -1,0 +1,159 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>modify.default</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Modify Attributes of Indicated Components by Default</h2>
+
+<h3>Description</h3>
+
+<p>Modifies the attributes of each indicated element
+(all elements by default).  Tries to assign the value of an expression
+to the supplied label, with existing attributes
+and the object itself (.) available as arguments.
+Gives a warning if the supplied label is considered reserved.
+Intends to support anything with one or more non-empty names.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">## Default S3 method:
+modify(
+  x,
+  ...,
+  .reserved = getOption("yamlet_modify_reserved", c("class", "levels", "labels",
+    "names"))
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>x</code></td>
+<td>
+<p>object</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+<p>indicated columns, or name-value pairs</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>.reserved</code></td>
+<td>
+<p>reserved labels that warn on assignment</p>
+</td>
+</tr>
+</table>
+<h3>Details</h3>
+
+<p>The name of the component itself is available during assignments as
+attribute 'name' (any pre-existing attribute 'name' is temporarily masked).
+After all assignments are complete, the value of 'name' is enforced at the object level.
+Thus, <code>modify</code> expressions can modify component names.
+</p>
+<p>As currently implemented, the expression is evaluated by
+<code>eval_tidy</code>, with attributes supplied as
+the <code>data</code> argument.  Thus, names in the expression
+may be disambiguated, e.g. with <code>.data</code>.  See examples.
+</p>
+
+
+<h3>Value</h3>
+
+<p>same class as x
+</p>
+
+
+<h3>See Also</h3>
+
+<p>Other modify: 
+<code>modify()</code>,
+<code>named()</code>,
+<code>selected()</code>,
+<code>selected.default()</code>
+</p>
+<p>Other interface: 
+<code>canonical.decorated()</code>,
+<code>classified.data.frame()</code>,
+<code>decorate.character()</code>,
+<code>decorate.data.frame()</code>,
+<code>desolve.decorated()</code>,
+<code>ggplot.decorated()</code>,
+<code>io_csv.character()</code>,
+<code>io_csv.data.frame()</code>,
+<code>io_res.character()</code>,
+<code>io_res.decorated()</code>,
+<code>io_table.character()</code>,
+<code>io_table.data.frame()</code>,
+<code>io_yamlet.character()</code>,
+<code>io_yamlet.data.frame()</code>,
+<code>is_parseable.default()</code>,
+<code>mimic.default()</code>,
+<code>promote.list()</code>,
+<code>read_yamlet()</code>,
+<code>resolve.decorated()</code>,
+<code>scripted.default()</code>,
+<code>selected.default()</code>,
+<code>write_yamlet()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">library(magrittr)
+library(dplyr)
+file &lt;- system.file(package = 'yamlet', 'extdata','quinidine.csv')
+x &lt;- decorate(file)
+
+# modify selected columns
+x %&lt;&gt;% modify(title = paste(label, '(', guide, ')'), time)
+x %&gt;% select(time, conc) %&gt;% decorations
+
+# modify (almost) all columns
+x %&lt;&gt;% modify(title = paste(label, '(', guide, ')'), -Subject)
+x %&gt;% select(time, conc) %&gt;% decorations
+
+# use column itself
+x %&lt;&gt;% modify(`defined values` = sum(!is.na(.)))
+x %&gt;% select(time) %&gt;% decorations
+
+# rename column
+x %&lt;&gt;% modify(time, name = label)
+names(x)
+
+# warn if assignment fails
+## Not run: 
+\donttest{
+x %&lt;&gt;% modify(title = foo, time)
+}
+## End(Not run)
+
+# support lists
+list(a = 1, b = 1:10, c = letters) %&gt;%
+modify(length = length(.), b:c)
+
+x %&lt;&gt;% select(Subject) %&gt;% modify(label = NULL, `defined values` = NULL)
+
+# distinguish data and environment
+location &lt;- 'environment'
+x %&gt;% modify(where = location) %&gt;% decorations
+x %&gt;% modify(where = .env$location) %&gt;% decorations
+## Not run: 
+\donttest{
+x%&gt;% modify(where = .data$location) %&gt;% decorations
+}
+## End(Not run)
+x %&gt;% modify(location = 'attributes', where = location) %&gt;% decorations
+x %&gt;% modify(location = 'attributes', where = .data$location) %&gt;% decorations
+
+</code></pre>
+
+
+</div>

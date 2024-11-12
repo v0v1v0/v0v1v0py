@@ -1,0 +1,74 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>append_units.data.frame</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Append Units for Data Frame</h2>
+
+<h3>Description</h3>
+
+<p>Appends units for data.frame.
+For finer control, consider applying
+<code>append_units.default</code>
+to individual columns.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">## S3 method for class 'data.frame'
+append_units(x, ...)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>x</code></td>
+<td>
+<p>data.frame</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+<p>named arguments passed to default method, un-named are columns to alter scope</p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>data.frame
+</p>
+
+
+<h3>See Also</h3>
+
+<p>Other labels: 
+<code>alias.data.frame()</code>,
+<code>append_units()</code>,
+<code>append_units.default()</code>,
+<code>drop_title()</code>,
+<code>drop_title.decorated()</code>,
+<code>drop_title.default()</code>,
+<code>drop_title.dvec()</code>,
+<code>make_title()</code>,
+<code>make_title.decorated()</code>,
+<code>make_title.default()</code>,
+<code>make_title.dvec()</code>,
+<code>sub_units()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">library(magrittr)
+file &lt;- system.file(package = 'yamlet', 'extdata','quinidine.csv')
+file %&gt;% decorate %&gt;% explicit_guide %&gt;% append_units %&gt;% decorations(Age, glyco)
+file %&gt;% decorate %&gt;% explicit_guide %&gt;% append_units(glyco) %&gt;% decorations(Age, glyco)
+</code></pre>
+
+
+</div>

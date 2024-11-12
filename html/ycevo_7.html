@@ -1,0 +1,241 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>generate_yield</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Generate a yield curve with cubic time evolution</h2>
+
+<h3>Description</h3>
+
+<p>Generate a yield curve using the extended version of Nelson &amp; Siegel model
+(Nelson, C. R., &amp; Siegel, A. F., 1987). This has been used in the simulation
+setting (Equation (30)) of Koo, B., La Vecchia, D., &amp; Linton, O. (2021). See
+<code>Details</code> and <code>References</code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">generate_yield(
+  n_qdate = 12,
+  periods = 36,
+  b0 = 0,
+  b1 = 0.05,
+  b2 = 2,
+  t1 = 0.75,
+  t2 = 125,
+  linear = -0.55,
+  quadratic = 0.55,
+  cubic = -0.55
+)
+
+get_yield_at(
+  time,
+  maturity,
+  b0 = 0,
+  b1 = 0.05,
+  b2 = 2,
+  t1 = 0.75,
+  t2 = 125,
+  linear = -0.55,
+  quadratic = 0.55,
+  cubic = -0.55
+)
+
+get_yield_at_vec(
+  time,
+  maturity,
+  b0 = 0,
+  b1 = 0.05,
+  b2 = 2,
+  t1 = 0.75,
+  t2 = 125,
+  linear = -0.55,
+  quadratic = 0.55,
+  cubic = -0.55
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>n_qdate</code></td>
+<td>
+<p>Integer. Number of quotation dates to use in the
+data. Defaults to 12.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>periods</code></td>
+<td>
+<p>Integer. Maximum number of time-to-maturity periods
+in 10 years that the yield curve is estimated for each quotation date.
+Defaults to 36</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>b0</code></td>
+<td>
+<p>Level term in yield curve equation, Defaults is 0. See
+<code>Details</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>b1</code></td>
+<td>
+<p>Slope term in yield curve equation, Defaults is 0.05. See
+<code>Details</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>b2</code></td>
+<td>
+<p>Curvature term in yield curve equation, Defaults is 2. See
+<code>Details</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>t1</code></td>
+<td>
+<p>Scaling parameter in yield curve equation, Defaults is 0.75. See
+<code>Details</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>t2</code></td>
+<td>
+<p>Scaling parameter in yield curve equation, Defaults is 125. See
+<code>Details</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>linear</code></td>
+<td>
+<p>Linear term in yield curve evolution, Defaults is -0.55. See
+<code>Details</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>quadratic</code></td>
+<td>
+<p>Quadratic term in yield curve evolution. Defaults is 0.55.
+See <code>Details</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>cubic</code></td>
+<td>
+<p>Cubic term in yield curve evolution. Defaults is -0.55. See
+<code>Details</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>time</code></td>
+<td>
+<p>Numeric value.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>maturity</code></td>
+<td>
+<p>Numeric value. Maturity in years.</p>
+</td>
+</tr>
+</table>
+<h3>Details</h3>
+
+<p>The initial curve at time zero is generated from the following equation
+</p>
+<p style="text-align: center;"><code class="reqn">Yield_{i, 0} = b_0 + b_1 * ((1 - \exp(-\tau_i / t_1)) / (\tau_i / t_1)) +
+b_2 * ((1 - \exp(-\tau_i / t_2)) / (\tau_i / t_2) - \exp(-\tau_i / t_2))</code>
+</p>
+
+<p>where <code class="reqn">\tau_i</code> is the time to maturity, usually measured in years. This
+defines the yield curve for the quotation date = 0. The yield curve for
+quotation dates <code>time</code> is obtained by multiplying this curve
+by the cubic equation,
+</p>
+<p style="text-align: center;"><code class="reqn">Yield_{i, time} = Yield_{i, 0} * (1 + linear * time + quadratic *
+time^2 + cubic * time^3)</code>
+</p>
+
+<p>so the yield curve slowly changes over different quotation dates.
+</p>
+
+
+<h3>Value</h3>
+
+
+<dl>
+<dt><code>generate_yield()</code></dt>
+<dd>
+<p>Numeric matrix. Each column contains the yield curve values at a point in time (a quotation date).
+Each row contains the yield curve values for a time-to-maturity.
+For example, the number in the second column third row is the yield at the second quotation date,
+for the third time-to-maturity ranking from shortest to longest.
+See <code>Details</code> for the equation to generate a yield curve.
+See <code>Examples</code> for a example with the code to visually inspect the yield curves.</p>
+</dd>
+</dl>
+<dl>
+<dt><code>get_yield_at()</code></dt>
+<dd>
+<p>Numeric vector.</p>
+</dd>
+</dl>
+<dl>
+<dt><code>get_yield_at_vec()</code></dt>
+<dd>
+<p>Numeric vector.</p>
+</dd>
+</dl>
+<h3>Functions</h3>
+
+
+<ul>
+<li> <p><code>get_yield_at()</code>: Return the yield at specific points in time of
+specific maturities.
+</p>
+</li>
+<li> <p><code>get_yield_at_vec()</code>: Deprecated. Vectorised version of
+<code>get_yield_at()</code>. Use <code>get_yield_at()</code> instead.
+</p>
+</li>
+</ul>
+<h3>References</h3>
+
+<p>Nelson, C. R., &amp; Siegel, A. F. (1987). Parsimonious Modeling of
+Yield Curves. The Journal of Business, 60(4), 473-489.
+</p>
+<p>Koo, B., La Vecchia, D., &amp; Linton, O. (2021). Estimation of a
+nonparametric model for bond prices from cross-section and time series
+information. Journal of Econometrics, 220(2), 562-588.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code>ycevo_data()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">out &lt;- generate_yield()
+
+# plots
+library(ggplot2)
+out &lt;- data.frame(out)
+colnames(out) &lt;- 1:12
+out &lt;- dplyr::mutate(out, time = 1:36)
+out &lt;- tidyr::pivot_longer(out, -time, names_to = "qdate", values_to = "yield")
+ggplot(out) +
+  geom_line(aes(x=time, y=yield, color = qdate))
+
+</code></pre>
+
+
+</div>

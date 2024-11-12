@@ -1,0 +1,206 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>setCogarch</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2> Continuous-time GARCH (p,q) process
+</h2>
+
+<h3>Description</h3>
+
+<p><code>setCogarch</code> describes the Cogarch(p,q) model introduced in Brockwell et al. (2006):
+</p>
+<p><code>dGt = sqrt(Vt)dZt</code>
+</p>
+<p><code>Vt = a0 + (a1 Yt(1) + ... + a(p) Yt(p))</code>
+</p>
+<p><code>dYt(1) = Yt(2) dt</code>  
+</p>
+<p><code>...</code>
+</p>
+<p><code>dYt(q-1) = Yt(q) dt</code>
+</p>
+<p><code>dYt(q) = (-b(q) Yt(1) - ... - b(1) Yt(q))dt + (a0 + (a1 Yt(1) + ... + a(p) Yt(p))d[ZtZt]^{q}</code>
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">setCogarch(p, q, ar.par = "b", ma.par = "a", loc.par = "a0", Cogarch.var = "g",
+   V.var = "v", Latent.var = "y", jump.variable = "z",  time.variable = "t",
+   measure = NULL, measure.type = NULL, XinExpr = FALSE, startCogarch = 0,
+   work = FALSE, ...)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>p</code></td>
+<td>
+<p>a non negative integer that is the number of the moving average coefficients of the Variance process.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>q</code></td>
+<td>
+<p>a non-negative integer that indicates the number of the autoregressive  coefficients of the Variance process.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>ar.par</code></td>
+<td>
+<p>a character-string that is the label of the autoregressive coefficients.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>ma.par</code></td>
+<td>
+<p>a character-string that is the label of the autoregressive coefficients.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>loc.par</code></td>
+<td>
+<p>the location coefficient.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>Cogarch.var</code></td>
+<td>
+<p>a character-string that is the label of the observed cogarch process.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>V.var</code></td>
+<td>
+<p>a character-string that is the label of the latent variance process.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>Latent.var</code></td>
+<td>
+<p>a character-string that is the label of the latent process in the state space representation for the variance process.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>jump.variable</code></td>
+<td>
+<p>the jump variable.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>time.variable</code></td>
+<td>
+<p>the time variable.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>measure</code></td>
+<td>
+<p>Levy measure of jump variables.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>measure.type</code></td>
+<td>
+<p>type specification for Levy measure.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>XinExpr</code></td>
+<td>
+<p>a vector of <code>expressions</code> identyfying the starting conditions for Cogarch model.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>startCogarch</code></td>
+<td>
+<p>Start condition for the Cogarch process </p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>work</code></td>
+<td>
+<p> Internal Variable. In the final release this input will be removed.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+<p>Arguments to be passed to <code>setCogarch</code> such as the slots of the <code>yuima.model-class</code></p>
+</td>
+</tr>
+</table>
+<h3>Details</h3>
+
+<p>We remark that <code>yuima</code> describes a Cogarch(p,q) model using the formulation proposed in Brockwell et al. (2006). This representation has the Cogarch(1,1) model introduced in Kluppelberg et al. (2004) as a special case. Indeed, by choosing <code>beta = a0 b1, eta = b1</code> and <code>phi = a1</code>, we obtain the Cogarch(1,1) model proposed in Kluppelberg et al. (2004) defined as the solution of the SDEs:
+</p>
+<p><code>dGt = sqrt(Vt)dZt</code>
+</p>
+<p><code>dVt = (beta - eta Vt) dt + phi Vt d[ZtZt]^{q}</code>
+</p>
+<p>Please refer to the vignettes and the examples.
+</p>
+<p>An object of <code>yuima.cogarch-class</code> contains:
+</p>
+    
+<dl>
+<dt>
+<code>info</code>:</dt>
+<dd>
+<p>It  is an object 
+of  <code>cogarch.info-class</code> which is a list of arguments that identifies the Cogarch(p,q) model</p>
+</dd>
+</dl>
+<p>and the same slots in an object of <code>yuima.model-class</code> .
+</p>
+
+
+<h3>Value</h3>
+
+<table><tr style="vertical-align: top;">
+<td><code>model</code></td>
+<td>
+<p>an object of  <code>yuima.cogarch-class</code>.</p>
+</td>
+</tr></table>
+<h3>Note</h3>
+
+<p>There may be missing information in the model description. 
+Please contribute with suggestions and fixings.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>The YUIMA Project Team</p>
+
+
+<h3>References</h3>
+
+<p>Brockwell, P., Chadraa, E. and Lindner, A. (2006)
+Continuous-time GARCH processes, <em>The Annals of Applied Probability</em>, <b>16</b>, 790-826.
+</p>
+<p>Kluppelberg, C., Lindner, A., and Maller, R. (2004) A continuous-time GARCH process driven by a Levy process: Stationarity and second-order behaviour, <em>Journal of Applied Probability</em>, <b>41</b>, 601-622.
+</p>
+<p>Stefano M. Iacus, Lorenzo Mercuri, Edit Rroji (2017) COGARCH(p,q): Simulation and Inference with the yuima Package, <em>Journal of Statistical Software</em>, <b>80</b>(4), 1-49.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R"># Ex 1. (Continuous time GARCH process driven by a compound poisson process)
+prova&lt;-setCogarch(p=1,q=3,work=FALSE,
+                  measure=list(intensity="1", df=list("dnorm(z, 0, 1)")),
+                  measure.type="CP",
+                  Cogarch.var="y",
+                  V.var="v",
+                  Latent.var="x")
+
+</code></pre>
+
+
+</div>

@@ -1,0 +1,94 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>as_yam.character</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Coerce Character to Yam</h2>
+
+<h3>Description</h3>
+
+<p>Coerces character to yam.  Length-one character can be
+a filepath, otherwise treated as data.  Proceeds by
+importing the data and determining the default keys.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">## S3 method for class 'character'
+as_yam(
+  x,
+  as.named.list,
+  handlers = list(seq = parsimonious, map = function(x) lapply(x, unclass), str =
+    function(x) {
+     if (identical(x, "yamlet_NA_literal_")) {
+         return("NA")
+  
+      }
+     if (identical(x, "NA")) {
+         return(NA_character_)
+     }
+    
+    return(x)
+ }),
+  ...
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>x</code></td>
+<td>
+<p>length-one filepath or actual data</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>as.named.list</code></td>
+<td>
+<p>enforced as TRUE</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+<p>passed to <code>read_yaml</code> and <code>yaml.load</code> if supported</p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>a named list
+</p>
+
+
+<h3>See Also</h3>
+
+<p>Other yam: 
+<code>as.character.yam()</code>,
+<code>as_yam()</code>,
+<code>as_yam.yamlet()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">
+# Read sample data from file.
+file &lt;- system.file(package = 'yamlet', 'extdata','quinidine.yaml')
+file
+as_yam(file)
+
+# Read yamlet directly from character vector.
+as_yam(c('ID:','TIME:'))
+
+# Read from length-one character (same result).
+as_yam('ID:\nTIME:')
+
+</code></pre>
+
+
+</div>

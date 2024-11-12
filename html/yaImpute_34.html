@@ -1,0 +1,204 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>varSelection</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Select variables for imputation models</h2>
+
+<h3>Description</h3>
+
+<p>Computes <code>grmsd</code> (generalized root mean square distance)   
+as variables are added to (<code>method="addVars"</code>) or removed from 
+(<code>method="delVars"</code>) an k-NN imputation model. When adding variables
+the function keeps variables that strengthen imputation and
+deletes that weaken the imputation the least.
+The measure of model strength is grmsd between
+imputed and observed <em>Y</em>-variables among the reference observations.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">varSelection(x,y,method="addVars",yaiMethod="msn",imputeMethod="closest",
+  wts=NULL,nboot=20,trace=FALSE,
+  useParallel=if (.Platform$OS.type == "windows") FALSE else TRUE,...)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>x</code></td>
+<td>
+<p>a set of <em>X</em>-Variables as used in <code>yai</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>y</code></td>
+<td>
+<p>a set of <em>Y</em>-Variables as used in <code>yai</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>method</code></td>
+<td>
+<p>if <code>addVars</code>, the X-Variables are added and  
+if <code>delVars</code> they are deleted (see details).</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>yaiMethod</code></td>
+<td>
+<p>passed as <code>method</code> to <code>yai</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>imputeMethod</code></td>
+<td>
+<p>passed as <code>method</code> to <code>impute.yai</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>wts</code></td>
+<td>
+<p>passed as argument <code>wts</code> to <code>grmsd</code> 
+which is used to score the alternative varialbe sets.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>nboot</code></td>
+<td>
+<p>the number of bootstrap samples used at each variable selection 
+step (see Details). When nboot is zero, NO bootstraping is done.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>trace</code></td>
+<td>
+<p>if <code>TRUE</code> information at each step is output.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>useParallel</code></td>
+<td>
+<p>function <code>link{parallel:mclapply}</code> from <span class="pkg">parallel</span> 
+will be used if it is available for running the bootstraps. It it is
+not available, <code>link{lapply}</code> is used (which is the only option
+on windows).</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+<p>passed to <code>link{yai}</code></p>
+</td>
+</tr>
+</table>
+<h3>Details</h3>
+
+<p>This function tracks the effect on generalized root mean square distance 
+(see <code>grmsd</code>) when variables are added or deleted one at a time. 
+When adding variables, the function starts with none, and keeps the single 
+variable that provides the smallest <code>grmsd</code>. When deleting variables, 
+the functions starts with all <em>X</em>-Variables and deletes them one at a 
+time such that those that remain provide the smallest
+<code>grmsd</code>. The function uses the following steps:
+</p>
+
+<ol>
+<li>
+<p> Function <code>yai</code> is run for all the Y-variables and candidate
+X-variable(s). The result is passed to <code>impute.yai</code> to get imputed
+values of Y-variables. That result is passed to <code>grmsd</code> to compute a
+mean Mahalanobis distance for the case where the candidate variable is included
+(or deleted depending on <code>method</code>). However, these steps are done once
+for each bootstrap replication and the resulting values are averaged to provide
+an average mean Mahalanobis distance over the bootstraps. 
+</p>
+</li>
+<li>
+<p> Step one is done for each candidate X-variable forming a vector of 
+<code>grmsd</code> values, one corresponding to the case where each candidate
+is added or deleted. 
+</p>
+</li>
+<li>
+<p> When variables are being added (<code>method="addVars"</code>), the variable that
+is related to the smallest <code>grmsd</code> is kept. When variables are being 
+deleted (<code>method="delVars"</code>), the variable that
+is related to the largest <code>grmsd</code> is deleted.
+</p>
+</li>
+<li>
+<p> Once a variable has been added or deleted, the function proceeds to select
+another variable for selection or deletion by considering all remaining variables.
+</p>
+</li>
+</ol>
+<h3>Value</h3>
+
+<p>An list of class <code>varSel</code> with these tags:
+</p>
+<table>
+<tr style="vertical-align: top;">
+<td><code>call</code></td>
+<td>
+<p>the call</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>grmsd</code></td>
+<td>
+<p>a 2-column matrix of the mean and std dev of the mean Mahalanobis 
+distances associated with adding or removing the variables stored as 
+the rownames. When nboot&lt;2, the std dev are NA</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>allgrmsd</code></td>
+<td>
+<p>a list of the grmsd values that correspond to each bootstrap
+replication. The data in grmsd are based on these vectors of information.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>method</code></td>
+<td>
+<p>the value of argument <code>method</code>.</p>
+</td>
+</tr>
+</table>
+<h3>Author(s)</h3>
+
+<p>Nicholas L. Crookston <a href="mailto:ncrookston.fs@gmail.com">ncrookston.fs@gmail.com</a> <br></p>
+
+
+<h3>See Also</h3>
+
+<p><code>yai</code>, <code>impute.yai</code>, <code>bestVars</code> and 
+<code>grmsd</code> 
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">data(iris)
+
+set.seed(12345)
+
+x &lt;- iris[,1:2]  # Sepal.Length Sepal.Width 
+y &lt;- iris[,3:4]  # Petal.Length Petal.Width 
+
+vsel &lt;- varSelection(x=x,y=y,nboot=5,useParallel=FALSE)
+vsel
+
+bestVars(vsel)
+
+plot(vsel)
+
+</code></pre>
+
+
+</div>

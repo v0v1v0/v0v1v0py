@@ -1,0 +1,70 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>grnn.fit</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Create a general regression neural network</h2>
+
+<h3>Description</h3>
+
+<p>The function <code>grnn.fit</code> creates a general regression neural network (GRNN)
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">grnn.fit(x, y, sigma = 1, w = rep(1, length(y)))
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>x</code></td>
+<td>
+<p>The matrix of predictors</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>y</code></td>
+<td>
+<p>The vector of response variable</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>sigma</code></td>
+<td>
+<p>The scalar of smoothing parameter</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>w</code></td>
+<td>
+<p>The vector of weights with default = 1 for each record</p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>A general regression neural network object
+</p>
+
+
+<h3>References</h3>
+
+<p>Donald Specht. (1991). A General Regression Neural Network.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">data(iris, package = "datasets")
+Y &lt;- ifelse(iris[, 5] == "setosa", 1, 0)
+X &lt;- scale(iris[, 1:4])
+gnet &lt;- grnn.fit(x = X, y = Y)
+</code></pre>
+
+
+</div>

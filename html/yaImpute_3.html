@@ -1,0 +1,385 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>AsciiGridImpute</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Imputes/Predicts data for Ascii Grid maps</h2>
+
+<h3>Description</h3>
+
+<p><code>AsciiGridImpute</code> finds nearest neighbor <em>reference</em>
+observations for each point in the input grid maps and outputs maps
+of selected Y-variables in a corresponding set of output grid maps.
+</p>
+<p><code>AsciiGridPredict</code> applies a predict function to each point in the
+input grid maps and outputs maps of the prediction(s) in corresponding 
+output grid maps (see Details).
+</p>
+<p>One row of each grid map is read and processed at a time thereby
+avoiding the need to build huge objects in R that would be necessary if all
+the rows of all the maps were processed together.</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">AsciiGridImpute(object,xfiles,outfiles,xtypes=NULL,ancillaryData=NULL,
+                ann=NULL,lon=NULL,lat=NULL,rows=NULL,cols=NULL,
+                nodata=NULL,myPredFunc=NULL,...)
+
+AsciiGridPredict(object,xfiles,outfiles,xtypes=NULL,lon=NULL,lat=NULL,
+                 rows=NULL,cols=NULL,nodata=NULL,myPredFunc=NULL,...)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>object</code></td>
+<td>
+<p>An object of class <code>yai</code>, any object for which
+a <code>predict</code> function is defined, or an object that is passed
+to a predict function you define using argument <code>myPredFunc</code>. See Details.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>xfiles</code></td>
+<td>
+<p>A <code>list</code> of input file names where there is one
+grid file for each X-variable. List elements must be given the same names
+as the X-variables they correspond with and there must be one file for
+each X-variable used when <code>object</code> was built.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>outfiles</code></td>
+<td>
+<p>One of these two forms:
+</p>
+
+<ol>
+<li>
+<p> A file name that is understood to correspond to the single prediction
+returned by the generic <code>predict</code> function
+related to <code>object</code> or returned by <code>myPredFunc</code>. This form only
+applies to <code>AsciiGridPredict</code>, when the object is not class <code>yai</code>.
+</p>
+</li>
+<li>
+<p> A <code>list</code> of output file names where there is
+one grid file for each <em>desired</em> output variable. While there may be
+many variables predicted for <code>object</code>, only those for which an
+output grid is desire need to be specified. Note that some predict functions return
+data frames, some return a single vector, and often what is returned depends on the
+value of arguments passed to predict. In addition to names of the
+predicted variables, the following two special names can be coded when
+the object class is <code>yai</code>: For <code>distance=</code><em>“filename”</em>
+a map of the distances is output and if
+<code>useid=</code><em>“filename”</em> a map of integer indices to row numbers of the
+reference observations is output.
+When the predict function returns a vector,
+an additional special name of <code>predict=</code><em>“filename”</em> can be
+used.</p>
+</li>
+</ol>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>xtypes</code></td>
+<td>
+<p>A list of data type names that corresponds exactly to data type of the
+maps listed in <code>xfiles</code>. Each value can be one of:
+<code>"logical", "integer", "numeric", "character"</code>. If NULL,
+or if a type is missing for a member of <code>xfiles</code>, type <code>"numeric"</code> is used.
+See Details if you used factors as predictors.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>ancillaryData</code></td>
+<td>
+<p>A data frame of Y-variables that may not have been used in
+the original call to <code>yai</code>. There must be one row for
+each reference observation, no missing data, and row names must match those used
+in the original reference observations.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>ann</code></td>
+<td>
+<p>if NULL, the value is taken from <code>object</code>. When TRUE, <code>ann</code> is
+used to find neighbors, and when FALSE a slow exact search is used (ignored for when
+method randomForest is used when the original <code>yai</code> object was created).</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>lon</code></td>
+<td>
+<p>if NULL, the value of <code>cols</code> is used. Otherwise, a 2-element
+vector given the range of longitudes (horizontal distance) desired for the output.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>lat</code></td>
+<td>
+<p>if NULL, the value of <code>rows</code> is used. Otherwise, a 2-element
+vector given the range of latitudes (vertical distance) desired for the output.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>rows</code></td>
+<td>
+<p>if NULL, all rows from the input grids are used. Otherwise, rows is a 2-element
+vector given the rows desired for the output. If the second element is greater than
+the number of rows, the header value <code>YLLCORNER</code> in the output is adjusted accordingly. 
+Ignored if <code>lon</code> is specified.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>cols</code></td>
+<td>
+<p>if NULL, all columns from the input grids are used. Otherwise, cols is a 2-element
+vector given the columns desired for the output. If the first element is greater than
+one, the header value <code>XLLCORNER</code> in the output is adjusted accordingly. Ignored
+if <code>lat</code> is specified.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>nodata</code></td>
+<td>
+<p>the <code>NODATA_VALUE</code> for the output. If NULL, the value is taken from the
+input grids.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>myPredFunc</code></td>
+<td>
+<p>called by <code>AsciiGridPredict</code> to predict output using the <code>object</code> 
+and newdata from the <code>xfiles</code>. Two arguments are passed by <code>AsciiGridPredict</code> to this 
+function, the first is the value of <code>object</code> and the
+second is a data frame of the new predictor variables created for each row
+of data from your input maps. If NULL, the generic
+<code>predict</code> function is called for <code>object</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+<p>passed to <code>myPredFunc</code>, <code>predict</code>, or <code>impute</code>.</p>
+</td>
+</tr>
+</table>
+<h3>Details</h3>
+
+<p>The input maps are assumed to be Asciigrid maps with 6-line headers
+containing the following tags: <code>NCOLS, NROWS, XLLCORNER, YLLCORNER,
+  CELLSIZE</code> and <code>NODATA_VALUE</code> (case insensitive). The headers should be
+identical for all input maps, a warning is issued if they are not. 
+It is critical that <code>NODATA_VALUE</code> is the same on all input maps.
+</p>
+<p>The function builds data frames from the input maps one row at a time and
+builds predictions using those data frames as <em>newdata</em>. Each row of the
+input maps is processed in sequence so that the entire maps are not stored in
+memory. The function works by opening all the input and reads one line (row)
+at a time from each. The output file(s) are created one line at time as the
+input maps are processed.
+</p>
+<p>Use <code>AsciiGridImpute</code> for objects builds with <code>yai</code>,
+otherwise use <code>AsciiGridPredict</code>. When <code>AsciiGridPredict</code> is
+used, the following rules apply. First, when <code>myPredFunc</code> is not
+null it is called with the arguments <code>object, newdata, ...</code> where the
+new data is the data frame built from the input maps, otherwise the
+generic <code>predict</code> function is called with these same arguments.
+When <code>object</code> and <code>myPredFunc</code> are both NULL a copy
+<code>newdata</code> used as the prediction. This is useful when <code>lat, lon, rows,</code>
+or <code>cols</code> are used in to subset the maps.
+</p>
+<p>The <code>NODATA_VALUE</code> is output for every <code>NODATA_VALUE</code> found on any
+grid cell on any one of the input maps (the predict function is not called for
+these grid cells). <code>NODATA_VALUE</code> is also output for any grid cell where
+the predict function returns an <code>NA</code>. 
+</p>
+<p>If factors are used as X-variables in
+<code>object</code>, the levels found the map data are checked against those used in
+building the <code>object</code>. If new levels are found, the corresponding output
+map grid point is set to <code>NODATA_VALUE</code>; the predict function is not called
+for these cells as most predict functions will fail in these circumstances.
+Checking on factors depends on <code>object</code> containing a meaningful member
+named <code>xlevels</code>, as done for objects produced by <code>lm</code>.
+</p>
+<p>Asciigrid maps do not contain character data, only numbers. The numbers in the
+maps are matched the <code>xlevels</code> by subscript (the first entry in a level corresponds
+to the numeric value 1 in the Asciigrid maps, the second to the number 2 and so
+on). Care must be taken by the user to insure that the coding scheme used in
+building the maps is identical to that used in building the <code>object</code>. See Value for
+information on how you can check the matching of these codes.
+</p>
+
+
+<h3>Value</h3>
+
+<p>An <code>invisible</code> list containing the following named elements:
+</p>
+<table>
+<tr style="vertical-align: top;">
+<td><code>unexpectedNAs</code></td>
+<td>
+<p>A data frame listing the map row numbers and the number
+of <code>NA</code> values generated by the predict function for each row. If none
+are generated for a row the row is not reported, if none are generated for any rows,
+the data frame is NULL.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>illegalLevels</code></td>
+<td>
+<p>A data frame listing levels found in the maps that
+were not found in the <code>xlevels</code> for the <code>object</code>. The row names
+are the illegal levels, the column names are the variable names, and the
+values are the number of grid cells where the illegal levels were found.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>outputLegend</code></td>
+<td>
+<p>A data frame showing the relationship between levels in
+the output maps and those found in <code>object</code>. The row names are
+level index values, the column names are variable names, and the values
+are the levels. NULL if no factors are output.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>inputLegend</code></td>
+<td>
+<p>A data frame showing the relationship between levels found in
+the input maps and those found in <code>object</code>. The row names are
+level index values (this function assumes they correspond to numeric values
+on the maps), the column names are variable names, and the values
+are the levels. NULL if no factors are input. This information is consistent with
+that in <code>xlevels</code>.</p>
+</td>
+</tr>
+</table>
+<h3>Author(s)</h3>
+
+<p>Nicholas L. Crookston <a href="mailto:ncrookston.fs@gmail.com">ncrookston.fs@gmail.com</a> 
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code>yai</code>, <code>impute</code>, and <code>newtargets</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">
+## These commands write new files to your working directory
+
+# Use the iris data
+data(iris)
+
+# Section 1: Imagine that the iris are planted in a planting bed.
+# The following set of commands create Asciigrid map
+# files for four attributes to illustrate the planting layout.
+
+# Change species from a character factor to numeric (the sp classes
+# can not handle character data).
+
+sLen &lt;- matrix(iris[,1],10,15)
+sWid &lt;- matrix(iris[,2],10,15)
+pLen &lt;- matrix(iris[,3],10,15)
+pWid &lt;- matrix(iris[,4],10,15)
+spcd &lt;- matrix(as.numeric(iris[,5]),10,15)
+
+# Create and change to a temp directory. You can delete these steps
+# if you wish to keep the files in your working directory.
+curdir &lt;- getwd()
+setwd(tempdir())
+cat ("Using working dir",getwd(),"\n")
+
+# Make maps of each variable.
+header = c("NCOLS 15","NROWS 10","XLLCORNER 1","YLLCORNER 1",
+           "CELLSIZE 1","NODATA_VALUE -9999")
+cat(file="slen.txt",header,sep="\n")
+cat(file="swid.txt",header,sep="\n")
+cat(file="plen.txt",header,sep="\n")
+cat(file="pwid.txt",header,sep="\n")
+cat(file="spcd.txt",header,sep="\n")
+
+
+write.table(sLen,file="slen.txt",append=TRUE,col.names=FALSE,
+            row.names=FALSE)
+write.table(sWid,file="swid.txt",append=TRUE,col.names=FALSE,
+            row.names=FALSE)
+write.table(pLen,file="plen.txt",append=TRUE,col.names=FALSE,
+            row.names=FALSE)
+write.table(pWid,file="pwid.txt",append=TRUE,col.names=FALSE,
+            row.names=FALSE)
+write.table(spcd,file="spcd.txt",append=TRUE,col.names=FALSE,
+            row.names=FALSE)
+
+# Section 2: Create functions to predict species
+
+# set the random number seed so that example results are consistant
+# normally, leave out this command
+set.seed(12345)
+
+# sample the data
+refs &lt;- sample(rownames(iris),50)
+y &lt;- data.frame(Species=iris[refs,5],row.names=rownames(iris[refs,]))
+
+# build a yai imputation for the reference data.
+rfNN &lt;- yai(x=iris[refs,1:4],y=y,method="randomForest")
+
+# make lists of input and output map files.
+
+xfiles &lt;- list(Sepal.Length="slen.txt",Sepal.Width="swid.txt",
+               Petal.Length="plen.txt",Petal.Width="pwid.txt")
+outfiles1 &lt;- list(distance="dist.txt",Species="spOutrfNN.txt",
+                  useid="useindx.txt")
+
+# map the imputation-based predictions for the input maps
+AsciiGridImpute(rfNN,xfiles,outfiles1,ancillaryData=iris)
+# read the asciigrids and get them ready to plot
+spOrig &lt;- t(as.matrix(read.table("spcd.txt",skip=6)))
+sprfNN &lt;- t(as.matrix(read.table("spOutrfNN.txt",skip=6)))
+dist &lt;- t(as.matrix(read.table("dist.txt",skip=6)))
+
+# demonstrate the use of useid:
+spViaUse &lt;- read.table("useindx.txt",skip=6)
+for (col in colnames(spViaUse)) spViaUse[,col]=as.character(y$Species[spViaUse[,col]])
+
+# demonstrate how to use factors:
+spViaLevels  &lt;- read.table("spOutrfNN.txt",skip=6)
+for (col in colnames(spViaLevels)) spViaLevels[,col]=levels(y$Species)[spViaLevels[,col]]
+
+identical(spViaLevels,spViaUse)
+
+if (require(randomForest))
+{
+  # build a randomForest predictor
+  rf &lt;- randomForest(x=iris[refs,1:4],y=iris[refs,5])
+  AsciiGridPredict(rf,xfiles,list(predict="spOutrf.txt"))
+  sprf &lt;- t(as.matrix(read.table("spOutrf.txt",skip=6)))
+} else sprf &lt;- NULL
+
+# reset the directory to that where the example was started.
+setwd(curdir)
+
+par(mfcol=c(2,2),mar=c(1,1,2,1))
+image(spOrig,main="Original",col=c("red","green","blue"),
+      axes=FALSE,useRaster=TRUE)
+image(sprfNN,main="Using Impute",col=c("red","green","blue"),
+      axes=FALSE,useRaster=TRUE)
+if (!is.null(sprf))
+  image(sprf,main="Using Predict",col=c("red","green","blue"),
+      axes=FALSE,useRaster=TRUE)
+image(dist,main="Neighbor Distances",col=terrain.colors(15),
+      axes=FALSE,useRaster=TRUE)
+
+</code></pre>
+
+
+</div>

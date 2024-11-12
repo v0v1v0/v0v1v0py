@@ -1,0 +1,133 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>find_yaml_fragment_indices</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Find the indices ('line numbers') of all YAML fragments from a file</h2>
+
+<h3>Description</h3>
+
+<p>These function finds all YAML fragments from a file, returning
+their start and end indices or all indices of all lines in the (non-)YAML
+fragments.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">find_yaml_fragment_indices(
+  file,
+  text,
+  invert = FALSE,
+  returnFragmentIndices = TRUE,
+  returnPairedIndices = TRUE,
+  delimiterRegEx = "^---$",
+  ignoreOddDelimiters = FALSE,
+  silent = TRUE
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>file</code></td>
+<td>
+<p>The path to a file to scan; if provided, takes precedence
+over <code>text</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>text</code></td>
+<td>
+<p>A character vector to scan, where every element should
+represent one line in the file; can be specified instead of <code>file</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>invert</code></td>
+<td>
+<p>Set to <code>TRUE</code> to return the indices of the character
+vector that are <em>not</em> YAML fragments.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>returnFragmentIndices</code></td>
+<td>
+<p>Set to <code>TRUE</code> to return all indices of the
+relevant fragments (i.e. including intermediate indices).</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>returnPairedIndices</code></td>
+<td>
+<p>Whether to return two vectors with the
+start and end indices, or pair them up in vectors of 2.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>delimiterRegEx</code></td>
+<td>
+<p>The regular expression used to locate YAML
+fragments.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>ignoreOddDelimiters</code></td>
+<td>
+<p>Whether to throw an error (FALSE) or
+delete the last delimiter (TRUE) if an odd number of delimiters is
+encountered.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>silent</code></td>
+<td>
+<p>Whether to be silent (TRUE) or informative (FALSE).</p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>A list of numeric vectors with start and end indices
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">### Create simple text vector with the right delimiters
+simpleExampleText &lt;-
+  c(
+    "---",
+    "First YAML fragment",
+    "---",
+    "Outside of YAML",
+    "This, too.",
+    "---",
+    "Second fragment",
+    "---",
+    "Also outside of YAML",
+    "Another one outside",
+    "Last one"
+  );
+
+yum::find_yaml_fragment_indices(
+  text=simpleExampleText
+);
+
+yum::find_yaml_fragment_indices(
+  text=simpleExampleText,
+  returnFragmentIndices = FALSE
+);
+
+yum::find_yaml_fragment_indices(
+  text=simpleExampleText,
+  invert = TRUE
+);
+
+</code></pre>
+
+
+</div>

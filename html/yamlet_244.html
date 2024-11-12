@@ -1,0 +1,78 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>xtable.decorated</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Create Export Table for Decorated</h2>
+
+<h3>Description</h3>
+
+<p>Creates an export table for decorated data.frame
+by adding a footnote attribute.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">## S3 method for class 'decorated'
+xtable(x, ..., label = NULL, style = "latex")
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>x</code></td>
+<td>
+<p>decorated</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+<p>passed to <code>footnote</code> and (if named) <code>xtable</code></p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>label</code></td>
+<td>
+<p>passed to <code>xtable</code></p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>style</code></td>
+<td>
+<p>passed to <code>footnote</code></p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>class 'decorated_xtable','xtable', 'data.frame'
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">library(magrittr)
+library(xtable)
+set.seed(0)
+x &lt;- data.frame(
+ auc = rnorm(100, mean = 2400, sd = 200),
+ bmi = rnorm(100, mean = 20, sd = 5),
+ gen = 0:1
+)
+x %&lt;&gt;% decorate('auc: [AUC_0-24, ng*h/mL]')
+x %&lt;&gt;% decorate('bmi: [Body Mass Index, kg/m^2]')
+x %&lt;&gt;% decorate('gen: [Gender, [Male: 1, Female: 0]]')
+y &lt;- xtable(x)
+attr(y, 'footnote')
+y &lt;- xtable(x, auc:bmi)
+attr(y, 'footnote')
+
+</code></pre>
+
+
+</div>

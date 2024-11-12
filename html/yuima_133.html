@@ -1,0 +1,91 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>yuima.sampling-class</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Classes for stochastic differential equations sampling scheme</h2>
+
+<h3>Description</h3>
+
+<p>The <code>yuima.sampling</code> class is a class of the <span class="pkg">yuima</span> package.  
+</p>
+
+
+<h3>Details</h3>
+
+<p>This object is created by <code>setSampling</code> or as a result of a 
+simulation scheme by the <code>simulate</code> function or after
+subsampling via the function <code>subsampling</code>.
+</p>
+
+
+<h3>Slots</h3>
+
+
+<dl>
+<dt>
+<code>Initial</code>:</dt>
+<dd>
+<p>initial time of the grid.</p>
+</dd>
+<dt>
+<code>Terminal</code>:</dt>
+<dd>
+<p>terminal time fo the grid.</p>
+</dd>
+<dt>
+<code>n</code>:</dt>
+<dd>
+<p>the number of observations - 1.</p>
+</dd>
+<dt>
+<code>delta</code>:</dt>
+<dd>
+<p>in case of a regular grid is the mesh.</p>
+</dd>
+<dt>
+<code>grid</code>:</dt>
+<dd>
+<p>the grid of times.</p>
+</dd>
+<dt>
+<code>random</code>:</dt>
+<dd>
+<p>either <code>FALSE</code> or the distribution 
+of the random times.</p>
+</dd>
+<dt>
+<code>regular</code>:</dt>
+<dd>
+<p>indicator of whether the grid is regular or not.
+For internal use only.</p>
+</dd>
+<dt>
+<code>sdelta</code>:</dt>
+<dd>
+<p>in case of a regular space grid it is the mesh.</p>
+</dd>
+<dt>
+<code>sgrid</code>:</dt>
+<dd>
+<p>the grid in space.</p>
+</dd>
+<dt>
+<code>oindex</code>:</dt>
+<dd>
+<p>in case of interpolation, a vector of indexes 
+corresponding to the original observations used for the approximation.</p>
+</dd>
+<dt>
+<code>interpolation</code>:</dt>
+<dd>
+<p>the name of the interpolation method used.</p>
+</dd>
+</dl>
+<h3>Author(s)</h3>
+
+<p>The YUIMA Project Team</p>
+
+
+</div>

@@ -1,0 +1,94 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>c.classified</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Combine Classified</h2>
+
+<h3>Description</h3>
+
+<p>Combines classified factor, retaining attributes.
+Attributes other than levels and codelist are taken
+from the first argument.  Attribute 'levels' is
+supplied by next method.  Attribute 'codelist'
+is the combined codelists in sequence of
+all (dots) arguments, after silently removing
+exact duplicates. If any names are duplicated,
+the entire codelist is replaced by the effective levels,
+with optional warning.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">## S3 method for class 'classified'
+c(
+  ...,
+  recursive = TRUE,
+  warn_conflicted = getOption("yamlet_warn_conflicted", FALSE)
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+<p>passed to next method</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>recursive</code></td>
+<td>
+<p>passed to unlist() internally</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>warn_conflicted</code></td>
+<td>
+<p>logical: warn if any duplicated codelist names?</p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>class 'classified' 'factor'
+</p>
+
+
+<h3>See Also</h3>
+
+<p>Other classified: 
+<code>[.classified()</code>,
+<code>[&lt;-.classified()</code>,
+<code>[[.classified()</code>,
+<code>[[&lt;-.classified()</code>,
+<code>as.integer.classified()</code>,
+<code>classified()</code>,
+<code>classified.classified()</code>,
+<code>classified.data.frame()</code>,
+<code>classified.default()</code>,
+<code>classified.dvec()</code>,
+<code>classified.factor()</code>,
+<code>desolve.classified()</code>,
+<code>unclassified()</code>,
+<code>unclassified.classified()</code>,
+<code>unclassified.data.frame()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">a &lt;- classified(letters[1:3])
+b &lt;- classified(letters[3:5])
+c &lt;- c(a,b)
+c
+class(c)
+
+</code></pre>
+
+
+</div>

@@ -1,0 +1,238 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>classification_cost</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Costs function for poor classification</h2>
+
+<h3>Description</h3>
+
+<p><code>classification_cost()</code> calculates the cost of a poor prediction based on
+user-defined costs. The costs are multiplied by the estimated class
+probabilities and the mean cost is returned.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">classification_cost(data, ...)
+
+## S3 method for class 'data.frame'
+classification_cost(
+  data,
+  truth,
+  ...,
+  costs = NULL,
+  na_rm = TRUE,
+  event_level = yardstick_event_level(),
+  case_weights = NULL
+)
+
+classification_cost_vec(
+  truth,
+  estimate,
+  costs = NULL,
+  na_rm = TRUE,
+  event_level = yardstick_event_level(),
+  case_weights = NULL,
+  ...
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>data</code></td>
+<td>
+<p>A <code>data.frame</code> containing the columns specified by <code>truth</code> and
+<code>...</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+<p>A set of unquoted column names or one or more
+<code>dplyr</code> selector functions to choose which variables contain the
+class probabilities. If <code>truth</code> is binary, only 1 column should be selected,
+and it should correspond to the value of <code>event_level</code>. Otherwise, there
+should be as many columns as factor levels of <code>truth</code> and the ordering of
+the columns should be the same as the factor levels of <code>truth</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>truth</code></td>
+<td>
+<p>The column identifier for the true class results
+(that is a <code>factor</code>). This should be an unquoted column name although
+this argument is passed by expression and supports
+quasiquotation (you can unquote column
+names). For <code style="white-space: pre;">⁠_vec()⁠</code> functions, a <code>factor</code> vector.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>costs</code></td>
+<td>
+<p>A data frame with columns <code>"truth"</code>, <code>"estimate"</code>, and <code>"cost"</code>.
+</p>
+<p><code>"truth"</code> and <code>"estimate"</code> should be character columns containing unique
+combinations of the levels of the <code>truth</code> factor.
+</p>
+<p><code>"costs"</code> should be a numeric column representing the cost that should
+be applied when the <code>"estimate"</code> is predicted, but the true result is
+<code>"truth"</code>.
+</p>
+<p>It is often the case that when <code>"truth" == "estimate"</code>, the cost is zero
+(no penalty for correct predictions).
+</p>
+<p>If any combinations of the levels of <code>truth</code> are missing, their costs are
+assumed to be zero.
+</p>
+<p>If <code>NULL</code>, equal costs are used, applying a cost of <code>0</code> to correct
+predictions, and a cost of <code>1</code> to incorrect predictions.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>na_rm</code></td>
+<td>
+<p>A <code>logical</code> value indicating whether <code>NA</code>
+values should be stripped before the computation proceeds.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>event_level</code></td>
+<td>
+<p>A single string. Either <code>"first"</code> or <code>"second"</code> to specify
+which level of <code>truth</code> to consider as the "event". This argument is only
+applicable when <code>estimator = "binary"</code>. The default uses an internal helper
+that defaults to <code>"first"</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>case_weights</code></td>
+<td>
+<p>The optional column identifier for case weights.
+This should be an unquoted column name that evaluates to a numeric column
+in <code>data</code>. For <code style="white-space: pre;">⁠_vec()⁠</code> functions, a numeric vector,
+<code>hardhat::importance_weights()</code>, or <code>hardhat::frequency_weights()</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>estimate</code></td>
+<td>
+<p>If <code>truth</code> is binary, a numeric vector of class probabilities
+corresponding to the "relevant" class. Otherwise, a matrix with as many
+columns as factor levels of <code>truth</code>. <em>It is assumed that these are in the
+same order as the levels of <code>truth</code>.</em></p>
+</td>
+</tr>
+</table>
+<h3>Details</h3>
+
+<p>As an example, suppose that there are three classes: <code>"A"</code>, <code>"B"</code>, and <code>"C"</code>.
+Suppose there is a truly <code>"A"</code> observation with class probabilities <code>A = 0.3 / B = 0.3 / C = 0.4</code>. Suppose that, when the true result is class <code>"A"</code>, the
+costs for each class were <code>A = 0 / B = 5 / C = 10</code>, penalizing the
+probability of incorrectly predicting <code>"C"</code> more than predicting <code>"B"</code>. The
+cost for this prediction would be <code>0.3 * 0 + 0.3 * 5 + 0.4 * 10</code>. This
+calculation is done for each sample and the individual costs are averaged.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A <code>tibble</code> with columns <code>.metric</code>, <code>.estimator</code>,
+and <code>.estimate</code> and 1 row of values.
+</p>
+<p>For grouped data frames, the number of rows returned will be the same as
+the number of groups.
+</p>
+<p>For <code>class_cost_vec()</code>, a single <code>numeric</code> value (or <code>NA</code>).
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Max Kuhn
+</p>
+
+
+<h3>See Also</h3>
+
+<p>Other class probability metrics: 
+<code>average_precision()</code>,
+<code>brier_class()</code>,
+<code>gain_capture()</code>,
+<code>mn_log_loss()</code>,
+<code>pr_auc()</code>,
+<code>roc_auc()</code>,
+<code>roc_aunp()</code>,
+<code>roc_aunu()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">library(dplyr)
+
+# ---------------------------------------------------------------------------
+# Two class example
+data(two_class_example)
+
+# Assuming `Class1` is our "event", this penalizes false positives heavily
+costs1 &lt;- tribble(
+  ~truth,   ~estimate, ~cost,
+  "Class1", "Class2",  1,
+  "Class2", "Class1",  2
+)
+
+# Assuming `Class1` is our "event", this penalizes false negatives heavily
+costs2 &lt;- tribble(
+  ~truth,   ~estimate, ~cost,
+  "Class1", "Class2",  2,
+  "Class2", "Class1",  1
+)
+
+classification_cost(two_class_example, truth, Class1, costs = costs1)
+
+classification_cost(two_class_example, truth, Class1, costs = costs2)
+
+# ---------------------------------------------------------------------------
+# Multiclass
+data(hpc_cv)
+
+# Define cost matrix from Kuhn and Johnson (2013)
+hpc_costs &lt;- tribble(
+  ~estimate, ~truth, ~cost,
+  "VF",      "VF",    0,
+  "VF",      "F",     1,
+  "VF",      "M",     5,
+  "VF",      "L",    10,
+  "F",       "VF",    1,
+  "F",       "F",     0,
+  "F",       "M",     5,
+  "F",       "L",     5,
+  "M",       "VF",    1,
+  "M",       "F",     1,
+  "M",       "M",     0,
+  "M",       "L",     1,
+  "L",       "VF",    1,
+  "L",       "F",     1,
+  "L",       "M",     1,
+  "L",       "L",     0
+)
+
+# You can use the col1:colN tidyselect syntax
+hpc_cv %&gt;%
+  filter(Resample == "Fold01") %&gt;%
+  classification_cost(obs, VF:L, costs = hpc_costs)
+
+# Groups are respected
+hpc_cv %&gt;%
+  group_by(Resample) %&gt;%
+  classification_cost(obs, VF:L, costs = hpc_costs)
+</code></pre>
+
+
+</div>

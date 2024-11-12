@@ -1,0 +1,107 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>yaiVarImp</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Reports or plots importance scores for yai method randomForest</h2>
+
+<h3>Description</h3>
+
+<p>When method <code>randomforest</code> is used to build a <code>yai</code>
+object, the <code>randomForest</code> package computes
+variable importance scores. This function computes a composite of the
+scores and scales them using <code>scale</code>. By default the 
+scores are plotted and scores themselves are invisibly returned. For 
+classification, the scores are derived from "MeanDecreaseAccuracy" 
+and for regression they are based in "
+using <code>importance</code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">yaiVarImp(object, nTop=20, plot=TRUE, ...)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>object</code></td>
+<td>
+<p>an object of class <code>yai</code></p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>nTop</code></td>
+<td>
+<p>the <code>nTop</code> most important variables are plotted (returned); 
+if NA or zero, all are returned</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>plot</code></td>
+<td>
+<p>if FALSE, no plotting is done, but the scores are returned.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+<p>passed to the <code>boxplot</code> function.</p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>A data frame with the rows corresponding to the randomForest
+built for each <em>Y</em>-variable and the columns corresponding to the
+<code>nTop</code> most important Y-variables in sorted order.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Nicholas L. Crookston <a href="mailto:ncrookston.fs@gmail.com">ncrookston.fs@gmail.com</a> <br></p>
+
+
+<h3>See Also</h3>
+
+<p><code>yai</code>, <code>yaiRFsummary</code>, <code>compare.yai</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">
+if (require(randomForest))
+{
+  data(MoscowMtStJoe)
+
+  # get the basal area by species columns
+  yba  &lt;- MoscowMtStJoe[,1:17]
+  ybaB &lt;- whatsMax(yba,nbig=7)  # see help on whatsMax
+  
+  ba &lt;- cbind(ybaB,TotalBA=MoscowMtStJoe[,18])
+  x &lt;- MoscowMtStJoe[,37:64]
+  x &lt;- x[,-(4:5)]
+  rf &lt;- yai(x=x,y=ba,method="randomForest")
+  
+  yaiVarImp(rf)
+  
+  keep=colnames(yaiVarImp(rf,plot=FALSE,nTop=9))
+  
+  newx &lt;- x[,keep]
+  rf2 &lt;- yai(x=newx,y=ba,method="randomForest")
+  
+  yaiVarImp(rf2,col="gray")
+  
+  compare.yai(rf,rf2)
+}
+
+</code></pre>
+
+
+</div>

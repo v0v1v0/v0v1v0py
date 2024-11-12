@@ -1,0 +1,58 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>as_units.dvec</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Coerce Decorated Vector to Units</h2>
+
+<h3>Description</h3>
+
+<p>Coerces dvec to units. If x has a units attribute,
+it is used to create class 'units'. It is an error if 
+x has no units attribute.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">## S3 method for class 'dvec'
+as_units(x, ..., preserve = getOption("yamlet_as_units_preserve", "label"))
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>x</code></td>
+<td>
+<p>dvec</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+<p>ignored</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>preserve</code></td>
+<td>
+<p>attributes to preserve; just label by default (class and units are handled implicitly)</p>
+</td>
+</tr>
+</table>
+<h3>Examples</h3>
+
+<pre><code class="language-R">library(magrittr)
+a &lt;- data.frame(id = 1:4, wt = c(70, 80, 70, 80), sex = c(0,1,0,1))
+a %&lt;&gt;% decorate('wt: [ body weight, kg ]')
+a %&lt;&gt;% decorate('sex: [ sex, [ female: 0, male: 1]]')
+a %&lt;&gt;% decorate('id: identifier')
+a %&lt;&gt;% resolve
+a$wt %&gt;% as_units
+</code></pre>
+
+
+</div>

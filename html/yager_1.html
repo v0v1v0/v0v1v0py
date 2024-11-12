@@ -1,0 +1,55 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>folds</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Generate a list of index for the n-fold cross-validation</h2>
+
+<h3>Description</h3>
+
+<p>The function <code>folds</code> generates a list of index for the n-fold cross-validation
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">folds(idx, n, seed = 1)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>idx</code></td>
+<td>
+<p>A vector of index list</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>n</code></td>
+<td>
+<p>The number of n folds</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>seed</code></td>
+<td>
+<p>The seed value to generate random n-fold index</p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>A list of n-fold index
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">folds(seq(10), n = 3, seed = 2020)
+</code></pre>
+
+
+</div>

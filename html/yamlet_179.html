@@ -1,0 +1,158 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>scripted.default</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Render Scripted Attributes of Indicated Components by Default</h2>
+
+<h3>Description</h3>
+
+<p>Modifies specific attributes of each indicated element
+(all elements by default).
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">## Default S3 method:
+scripted(
+  x,
+  ...,
+  open = getOption("yamlet_append_units_open", " ("),
+  close = getOption("yamlet_append_units_close", ")"),
+  format = getOption("yamlet_format", ifelse(knitr::is_latex_output(), "latex", "html"))
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>x</code></td>
+<td>
+<p>object</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+<p>indicated columns, or name-value pairs; passed to <code>resolve</code> and <code>selected</code></p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>open</code></td>
+<td>
+<p>character to precede units</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>close</code></td>
+<td>
+<p>character to follow units</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>format</code></td>
+<td>
+<p>one of 'latex' or 'html'</p>
+</td>
+</tr>
+</table>
+<h3>Details</h3>
+
+<p>The goal here is to render labels and units (where present)
+in a way that supports subscripts and superscripts 
+for both plots and tables in either html or latex contexts.
+</p>
+<p>The current implementation writes an 'expression' attribute
+to support figure labels and a 'title' attribute to support
+tables. <code>print.decorated_ggplot</code> will attempt
+to honor the expression attribute if it exists.
+<code>tablet.data.frame</code> will attempt to honor
+the title attribute if it exists (see Details there).
+An attempt is made to guess the output format (html or latex).
+</p>
+<p>In addition to the 'title' and 'expression' attributes, scripted() writes
+a 'plotmath' attribute to store plotmath versions of factor levels, 
+where present. <code>print.decorated_ggplot</code> should prefer
+these over their latex and html counterparts. Furthermore,
+factor levels (and codelists, where present) are converted
+to their latex or html equivalents. None of this happens
+if a 'plotmath' attribute already exists, thus preventing 
+the same variable from being accidentally transformed twice.
+</p>
+<p>To flexibly support latex, html, and plotmath, this function
+expects column labels and units to be encoded in "spork" syntax.
+See <code>as_spork</code> for details and examples.
+Briefly, "_" precedes a subscript, "^" precedes a superscript,
+and "." is used to force the termination of either a 
+superscript or a subscript where necessary. For best results,
+units should be written using *, /, and ^; e.g. "kg*m^2/s^2"
+not "kg m2 s-2" (although both are valid:  
+see <code>is_parseable</code>). A literal backslash followed by "n"
+represents a newline. Greek letters are represented by their names,
+except where names are enclosed in backticks.
+</p>
+<p><code>scripted()</code> always calls <code>resolve()</code> for the indicated
+columns, to make units present where appropriate.
+</p>
+
+
+<h3>Value</h3>
+
+<p>'scripted', a superclass of x
+</p>
+
+
+<h3>See Also</h3>
+
+<p>Other scripted: 
+<code>scripted()</code>
+</p>
+<p>Other interface: 
+<code>canonical.decorated()</code>,
+<code>classified.data.frame()</code>,
+<code>decorate.character()</code>,
+<code>decorate.data.frame()</code>,
+<code>desolve.decorated()</code>,
+<code>ggplot.decorated()</code>,
+<code>io_csv.character()</code>,
+<code>io_csv.data.frame()</code>,
+<code>io_res.character()</code>,
+<code>io_res.decorated()</code>,
+<code>io_table.character()</code>,
+<code>io_table.data.frame()</code>,
+<code>io_yamlet.character()</code>,
+<code>io_yamlet.data.frame()</code>,
+<code>is_parseable.default()</code>,
+<code>mimic.default()</code>,
+<code>modify.default()</code>,
+<code>promote.list()</code>,
+<code>read_yamlet()</code>,
+<code>resolve.decorated()</code>,
+<code>selected.default()</code>,
+<code>write_yamlet()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">library(magrittr)
+library(ggplot2)
+x &lt;- data.frame(time = 1:10, work = (1:10)^1.5)
+x %&lt;&gt;% decorate('
+  time: [ Time_elapsed, h ]
+  work: [ Work_total_observed, kg*m^2/s^2 ]
+')
+
+x %&gt;% decorations
+x %&gt;% ggplot(aes(time, work)) + geom_point()
+x %&gt;% scripted %&gt;% ggplot(aes(time, work)) + geom_point()
+x %&gt;% scripted(format = 'html') %$% work %&gt;% attr('title')
+testthat::expect_equal(scripted(x), scripted(scripted(x)))
+</code></pre>
+
+
+</div>

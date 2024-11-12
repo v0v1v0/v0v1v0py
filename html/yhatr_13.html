@@ -1,0 +1,72 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>yhat.predict</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Make a prediction using Yhat.</h2>
+
+<h3>Description</h3>
+
+<p>This function calls Yhat's REST API and returns a response formatted as a
+data frame.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">yhat.predict(model_name, data, model_owner, raw_input = FALSE,
+  silent = TRUE)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>model_name</code></td>
+<td>
+<p>the name of the model you want to call</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>data</code></td>
+<td>
+<p>input data for the model</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>model_owner</code></td>
+<td>
+<p>the owner of the model [optional]</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>raw_input</code></td>
+<td>
+<p>when true, incoming data will NOT be coerced into data.frame</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>silent</code></td>
+<td>
+<p>should output of url to console (via <code>yhat.post</code>)
+be silenced? Default is <code>FALSE</code>.</p>
+</td>
+</tr>
+</table>
+<h3>Examples</h3>
+
+<pre><code class="language-R">yhat.config &lt;- c(
+ username = "your username",
+ apikey = "your apikey",
+ env = "http://sandbox.yhathq.com/"
+)
+## Not run: 
+yhat.predict("irisModel", iris)
+
+## End(Not run)
+</code></pre>
+
+
+</div>

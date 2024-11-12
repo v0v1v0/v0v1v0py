@@ -1,0 +1,61 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>unnest.list</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Collapse Uninformative Levels of a List</h2>
+
+<h3>Description</h3>
+
+<p>The list method for unnest() recursively
+ascends a nested list, removing uninformative levels.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">## S3 method for class 'list'
+unnest(x, ...)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table><tr style="vertical-align: top;">
+<td><code>x</code></td>
+<td>
+<p>list</p>
+</td>
+</tr></table>
+<h3>Value</h3>
+
+<p>list
+</p>
+
+
+<h3>See Also</h3>
+
+<p>Other unnest: 
+<code>unnest()</code>,
+<code>unnest.default()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">
+a &lt;- 'ITEM: [ label: sunshine, [foo: 1, bar: 3]]'
+
+#  yaml.load() sees label nested one-deep, and foo nested two-deep:
+yaml::yaml.load(a)
+
+# unnest() sees label nested zero-deep, and foo nested one-deep:
+unnest(yaml::yaml.load(a))
+
+# as_yamlet() provides explicit name (default key) for second element of ITEM:
+as_yamlet(a)
+</code></pre>
+
+
+</div>

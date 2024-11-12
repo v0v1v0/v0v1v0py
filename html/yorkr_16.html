@@ -1,0 +1,85 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>bowlerDeliveryWickets</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Number of deliveries to wickets</h2>
+
+<h3>Description</h3>
+
+<p>This function creates a dataframe of balls bowled versus the wickets taken by
+the bowler
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">bowlerDeliveryWickets(match,theTeam,name)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>match</code></td>
+<td>
+<p>Data frame of the match</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>theTeam</code></td>
+<td>
+<p>The team for which the delivery wickets have to be computed</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>name</code></td>
+<td>
+<p>The name of the bowler</p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>dataframe
+</p>
+
+
+<h3>Note</h3>
+
+<p>Maintainer: Tinniam V Ganesh <a href="mailto:tvganesh.85@gmail.com">tvganesh.85@gmail.com</a>
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Tinniam V Ganesh
+</p>
+
+
+<h3>References</h3>
+
+<p><a href="https://cricsheet.org/">https://cricsheet.org/</a><br><a href="https://gigadom.in/">https://gigadom.in/</a><br><a href="https://github.com/tvganesh/yorkrData/">https://github.com/tvganesh/yorkrData/</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code>batsmanFoursSixes</code><br><code>batsmanRunsVsDeliveries</code><br><code>batsmanRunsVsStrikeRate</code><br><code>bowlerDeliveryWickets</code><br><code>bowlerMeanEconomyRate</code><br><code>bowlerMeanRunsConceded</code><br></p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">## Not run: 
+#Get match data
+match &lt;- getMatchDetails("England","Pakistan","2006-09-05",dir="../data")
+bowlerDeliveryWickets(match,"India","Jadeja")
+
+## End(Not run)
+
+</code></pre>
+
+
+</div>

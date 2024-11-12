@@ -1,0 +1,47 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>pt.annexrtn</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Annualized excess return</h2>
+
+<h3>Description</h3>
+
+<p>Annualized excess return is the difference between the annualized and cumulative
+return of the two series. Usually, one series are portfolio returns and the other is a benchmark
+returns.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">pt.annexrtn(ar,br)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>ar</code></td>
+<td>
+<p>:a vector of a risk asset return</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>br</code></td>
+<td>
+<p>:a vector of benchmark return</p>
+</td>
+</tr>
+</table>
+<h3>Examples</h3>
+
+<pre><code class="language-R">artn &lt;- runif(100, -1, 1)
+brtn &lt;- runif(100, -1, 1)
+pt.annexrtn(artn, brtn)
+</code></pre>
+
+
+</div>

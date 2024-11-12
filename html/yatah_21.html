@@ -1,0 +1,67 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>taxtree</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Taxonomic tree</h2>
+
+<h3>Description</h3>
+
+<p>Compute taxonomic tree from taxonomic table.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">taxtree(table, collapse = TRUE, lineage_length = 1, root = "")
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>table</code></td>
+<td>
+<p>dataframe.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>collapse</code></td>
+<td>
+<p>logical. Should node with one child be vanished? Default
+to TRUE.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>lineage_length</code></td>
+<td>
+<p>double. Lineage length from the root to the leaves.
+Default to 1.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>root</code></td>
+<td>
+<p>character. Name of the root if there is no natural root.</p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>A phylo object.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">lineage1 &lt;- "k__Bacteria|p__Verrucomicrobia|c__Verrucomicrobiae"
+lineage2 &lt;- "k__Bacteria|p__Firmicutes|c__Clostridia"
+lineage3 &lt;- "k__Bacteria|p__Firmicutes|c__Bacilli"
+table &lt;- taxtable(c(lineage1, lineage2, lineage3))
+taxtree(table)
+</code></pre>
+
+
+</div>

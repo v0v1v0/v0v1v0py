@@ -1,0 +1,38 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>cv.drawdown</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Largest draw down of returns</h2>
+
+<h3>Description</h3>
+
+<p>Calculate largest draw down of a series of returns. This function calculates the maximum
+decrease in percentage over time, which can be used to test portfolio returns.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">cv.drawdown(x)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table><tr style="vertical-align: top;">
+<td><code>x</code></td>
+<td>
+<p>: a numeric vector of returns</p>
+</td>
+</tr></table>
+<h3>Examples</h3>
+
+<pre><code class="language-R"># rnorm() is used to simulate portfolio returns
+returns &lt;- rnorm(100)
+cv.drawdown(returns)
+</code></pre>
+
+
+</div>

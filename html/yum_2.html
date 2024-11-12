@@ -1,0 +1,84 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>delete_yaml_fragments</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Delete all YAML fragments from a file</h2>
+
+<h3>Description</h3>
+
+<p>These function deletes all YAML fragments from a file, returning
+a character vector without the lines that specified the YAML
+fragments.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">delete_yaml_fragments(
+  file,
+  text,
+  delimiterRegEx = "^---$",
+  ignoreOddDelimiters = FALSE,
+  silent = TRUE
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>file</code></td>
+<td>
+<p>The path to a file to scan; if provided, takes precedence
+over <code>text</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>text</code></td>
+<td>
+<p>A character vector to scan, where every element should
+represent one line in the file; can be specified instead of <code>file</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>delimiterRegEx</code></td>
+<td>
+<p>The regular expression used to locate YAML
+fragments.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>ignoreOddDelimiters</code></td>
+<td>
+<p>Whether to throw an error (FALSE) or
+delete the last delimiter (TRUE) if an odd number of delimiters is
+encountered.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>silent</code></td>
+<td>
+<p>Whether to be silent (TRUE) or informative (FALSE).</p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>A list of character vectors.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">yum::delete_yaml_fragments(text=c("---", "First YAML fragment", "---",
+                                   "Outside of YAML",
+                                   "---", "Second fragment", "---",
+                                   "Also outside of YAML"));
+
+</code></pre>
+
+
+</div>

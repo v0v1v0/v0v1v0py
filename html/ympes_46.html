@@ -1,0 +1,91 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>fstrcapture</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Capture string tokens into a data frame</h2>
+
+<h3>Description</h3>
+
+<p><code>fstrcapture()</code> is a more efficient alternative for <code>strcapture()</code> when
+using Perl-compatible regular expressions
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">fstrcapture(x, pattern, proto)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>x</code></td>
+<td>
+
+<p>A character vector in which to capture the tokens.
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>pattern</code></td>
+<td>
+
+<p>The regular expression with the capture expressions.
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>proto</code></td>
+<td>
+
+<p>A <code>data.frame</code> or S4 object that behaves like one. See details.
+</p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>A tabular data structure of the same type as proto, so typically a data.frame,
+containing a column for each capture expression. The column types are
+inherited from proto, as are the names unless the captures themselves are
+named (in which case these are prioritised). Cases in x that do not match
+the pattern have NA in every column.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code>strcapture()</code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">
+# from regexpr example -------------------------------------------------
+
+# if named capture then pass names on irrespective of proto
+notables &lt;- c("  Ben Franklin and Jefferson Davis", "\tMillard Fillmore")
+pattern &lt;- "(?&lt;first&gt;[[:upper:]][[:lower:]]+) (?&lt;last&gt;[[:upper:]][[:lower:]]+)"
+proto &lt;- data.frame(a="", b="")
+fstrcapture(notables, pattern, proto)
+
+# from strcapture example ----------------------------------------------
+# if unnamed capture then proto names used
+x &lt;- "chr1:1-1000"
+pattern &lt;- "(.*?):([[:digit:]]+)-([[:digit:]]+)"
+proto &lt;- data.frame(chr=character(), start=integer(), end=integer())
+fstrcapture(x, pattern, proto)
+
+# if no proto supplied then all captures treated as character
+str(fstrcapture(x, pattern))
+str(fstrcapture(x, pattern, proto))
+
+</code></pre>
+
+
+</div>

@@ -1,0 +1,88 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>teamRunSRDeathOversPlotOppnAllMatches</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Team batting plots runs vs SR in death overs for team against opposition in all matches</h2>
+
+<h3>Description</h3>
+
+<p>This function computes and plots runs vs SR  in middle overs of a team in all matches against
+opposition.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">teamRunSRDeathOversPlotOppnAllMatches(matches,t1, t2, plot=1)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>matches</code></td>
+<td>
+<p>All matches of the team in all matches with all oppositions</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>t1</code></td>
+<td>
+<p>The team</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>t2</code></td>
+<td>
+<p>The  opposition team</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>plot</code></td>
+<td>
+<p>Plot=1 (static), Plot=2(interactive)</p>
+</td>
+</tr>
+</table>
+<h3>Note</h3>
+
+<p>Maintainer: Tinniam V Ganesh <a href="mailto:tvganesh.85@gmail.com">tvganesh.85@gmail.com</a>
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Tinniam V Ganesh
+</p>
+
+
+<h3>References</h3>
+
+<p><a href="https://cricsheet.org/">https://cricsheet.org/</a><br><a href="https://gigadom.in/">https://gigadom.in/</a><br><a href="https://github.com/tvganesh/yorkrData/">https://github.com/tvganesh/yorkrData/</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code>teamBatsmenVsBowlersAllOppnAllMatchesPlot</code><br><code>teamBatsmenPartnershipOppnAllMatchesChart</code><br><code>teamBatsmenPartnershipAllOppnAllMatchesPlot</code><br><code>teamBowlingWicketRunsAllOppnAllMatches</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">## Not run: 
+
+
+# Top batsman is displayed in descending order of runs
+teamRunSRDeathOversPlotOppnAllMatches(matches,t1="India",t2="England")
+
+
+## End(Not run)
+
+</code></pre>
+
+
+</div>

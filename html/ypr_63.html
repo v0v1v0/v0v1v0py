@@ -1,0 +1,130 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>ypr_report</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Report</h2>
+
+<h3>Description</h3>
+
+<p>Creates an Rmd file that can be used to generate a report.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">ypr_report(
+  population,
+  Ly = 0,
+  harvest = TRUE,
+  biomass = FALSE,
+  title = "Population Report",
+  description = "",
+  date = Sys.Date(),
+  file = "report",
+  view = FALSE,
+  ask = TRUE
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>population</code></td>
+<td>
+<p>An object of class <code>ypr_population()</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>Ly</code></td>
+<td>
+<p>The minimum length (trophy) fish to consider when calculating the
+yield (cm).</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>harvest</code></td>
+<td>
+<p>A flag specifying whether to calculate the yield for harvested
+fish or captures.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>biomass</code></td>
+<td>
+<p>A flag specifying whether to calculate the yield in terms of
+the biomass versus number of individuals.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>title</code></td>
+<td>
+<p>A string of the report title.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>description</code></td>
+<td>
+<p>A string describing the population.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>date</code></td>
+<td>
+<p>A date of the report date.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>file</code></td>
+<td>
+<p>A string of the path to the file (without the extension).</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>view</code></td>
+<td>
+<p>A flag specifying whether to view the report (after rendering it
+to html).</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>ask</code></td>
+<td>
+<p>A flag specifying whether to ask before overwriting or creating a
+file.</p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>An invisible character vector of the contents of the file.
+</p>
+
+
+<h3>See Also</h3>
+
+<p>Other tabulate: 
+<code>ypr_detabulate_parameters()</code>,
+<code>ypr_tabulate_biomass()</code>,
+<code>ypr_tabulate_fish()</code>,
+<code>ypr_tabulate_parameters()</code>,
+<code>ypr_tabulate_schedule()</code>,
+<code>ypr_tabulate_sr()</code>,
+<code>ypr_tabulate_yields()</code>,
+<code>ypr_tabulate_yield()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">## Not run: 
+ypr_report(ypr_population(), file = tempfile(), ask = FALSE)
+
+## End(Not run)
+</code></pre>
+
+
+</div>

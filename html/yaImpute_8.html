@@ -1,0 +1,79 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>cor.yai</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Correlation between observed and imputed</h2>
+
+<h3>Description</h3>
+
+<p>Computes the correlation between observed and imputed values
+for each observation that has both.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">cor.yai (object,vars=NULL,...)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>object</code></td>
+<td>
+<p>an object created by <code>yai</code> or <code>impute.yai</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>vars</code></td>
+<td>
+<p>a list of variables names you want to include, if NULL all available
+variables are included.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+<p>passed to called methods (not currently used)</p>
+</td>
+</tr>
+</table>
+<h3>Details</h3>
+
+<p>The correlations are computed using <code>cor.yai</code>. For data imputation, such
+correlations are likely not appropriate (Stage and Crookston 2007).
+</p>
+
+
+<h3>Value</h3>
+
+<p>A data frame with the row names as vars and the column as <code>cor</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Nicholas L. Crookston <a href="mailto:ncrookston.fs@gmail.com">ncrookston.fs@gmail.com</a> <br>
+Andrew O. Finley <a href="mailto:finleya@msu.edu">finleya@msu.edu</a>
+</p>
+
+
+<h3>References</h3>
+
+<p>Stage, A.R.; Crookston, N.L. (2007). Partitioning error components
+for accuracy-assessment of near neighbor methods of imputation.
+<em>For. Sci.</em> 53(1):62-72.
+<a href="https://academic.oup.com/forestscience/article/53/1/62/4604364">https://academic.oup.com/forestscience/article/53/1/62/4604364</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code>yai</code>, <code>impute.yai</code>, <code>rmsd.yai</code></p>
+
+
+</div>

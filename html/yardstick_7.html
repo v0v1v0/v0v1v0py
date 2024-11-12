@@ -1,0 +1,264 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>average_precision</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Area under the precision recall curve</h2>
+
+<h3>Description</h3>
+
+<p><code>average_precision()</code> is an alternative to <code>pr_auc()</code> that avoids any
+ambiguity about what the value of <code>precision</code> should be when <code>recall == 0</code>
+and there are not yet any false positive values (some say it should be <code>0</code>,
+others say <code>1</code>, others say undefined).
+</p>
+<p>It computes a weighted average of the precision values returned from
+<code>pr_curve()</code>, where the weights are the increase in recall from the previous
+threshold. See <code>pr_curve()</code> for the full curve.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">average_precision(data, ...)
+
+## S3 method for class 'data.frame'
+average_precision(
+  data,
+  truth,
+  ...,
+  estimator = NULL,
+  na_rm = TRUE,
+  event_level = yardstick_event_level(),
+  case_weights = NULL
+)
+
+average_precision_vec(
+  truth,
+  estimate,
+  estimator = NULL,
+  na_rm = TRUE,
+  event_level = yardstick_event_level(),
+  case_weights = NULL,
+  ...
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>data</code></td>
+<td>
+<p>A <code>data.frame</code> containing the columns specified by <code>truth</code> and
+<code>...</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+<p>A set of unquoted column names or one or more
+<code>dplyr</code> selector functions to choose which variables contain the
+class probabilities. If <code>truth</code> is binary, only 1 column should be selected,
+and it should correspond to the value of <code>event_level</code>. Otherwise, there
+should be as many columns as factor levels of <code>truth</code> and the ordering of
+the columns should be the same as the factor levels of <code>truth</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>truth</code></td>
+<td>
+<p>The column identifier for the true class results
+(that is a <code>factor</code>). This should be an unquoted column name although
+this argument is passed by expression and supports
+quasiquotation (you can unquote column
+names). For <code style="white-space: pre;">⁠_vec()⁠</code> functions, a <code>factor</code> vector.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>estimator</code></td>
+<td>
+<p>One of <code>"binary"</code>, <code>"macro"</code>, or <code>"macro_weighted"</code> to
+specify the type of averaging to be done. <code>"binary"</code> is only relevant for
+the two class case. The other two are general methods for calculating
+multiclass metrics. The default will automatically choose <code>"binary"</code> or
+<code>"macro"</code> based on <code>truth</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>na_rm</code></td>
+<td>
+<p>A <code>logical</code> value indicating whether <code>NA</code>
+values should be stripped before the computation proceeds.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>event_level</code></td>
+<td>
+<p>A single string. Either <code>"first"</code> or <code>"second"</code> to specify
+which level of <code>truth</code> to consider as the "event". This argument is only
+applicable when <code>estimator = "binary"</code>. The default uses an internal helper
+that defaults to <code>"first"</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>case_weights</code></td>
+<td>
+<p>The optional column identifier for case weights.
+This should be an unquoted column name that evaluates to a numeric column
+in <code>data</code>. For <code style="white-space: pre;">⁠_vec()⁠</code> functions, a numeric vector,
+<code>hardhat::importance_weights()</code>, or <code>hardhat::frequency_weights()</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>estimate</code></td>
+<td>
+<p>If <code>truth</code> is binary, a numeric vector of class probabilities
+corresponding to the "relevant" class. Otherwise, a matrix with as many
+columns as factor levels of <code>truth</code>. <em>It is assumed that these are in the
+same order as the levels of <code>truth</code>.</em></p>
+</td>
+</tr>
+</table>
+<h3>Details</h3>
+
+<p>The computation for average precision is a weighted average of the precision
+values. Assuming you have <code>n</code> rows returned from <code>pr_curve()</code>, it is a sum
+from <code>2</code> to <code>n</code>, multiplying the precision value <code>p_i</code> by the increase in
+recall over the previous threshold, <code>r_i - r_(i-1)</code>.
+</p>
+<p style="text-align: center;"><code class="reqn">AP = \sum (r_{i} - r_{i-1}) * p_i</code>
+</p>
+
+<p>By summing from <code>2</code> to <code>n</code>, the precision value <code>p_1</code> is never used. While
+<code>pr_curve()</code> returns a value for <code>p_1</code>, it is technically undefined as
+<code>tp / (tp + fp)</code> with <code>tp = 0</code> and <code>fp = 0</code>. A common convention is to use
+<code>1</code> for <code>p_1</code>, but this metric has the nice property of avoiding the
+ambiguity. On the other hand, <code>r_1</code> is well defined as long as there are
+some events (<code>p</code>), and it is <code>tp / p</code> with <code>tp = 0</code>, so <code>r_1 = 0</code>.
+</p>
+<p>When <code>p_1</code> is defined as <code>1</code>, the <code>average_precision()</code> and <code>roc_auc()</code>
+values are often very close to one another.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A <code>tibble</code> with columns <code>.metric</code>, <code>.estimator</code>,
+and <code>.estimate</code> and 1 row of values.
+</p>
+<p>For grouped data frames, the number of rows returned will be the same as
+the number of groups.
+</p>
+<p>For <code>average_precision_vec()</code>, a single <code>numeric</code> value (or <code>NA</code>).
+</p>
+
+
+<h3>Multiclass</h3>
+
+<p>Macro and macro-weighted averaging is available for this metric.
+The default is to select macro averaging if a <code>truth</code> factor with more
+than 2 levels is provided. Otherwise, a standard binary calculation is done.
+See <code>vignette("multiclass", "yardstick")</code> for more information.
+</p>
+
+
+<h3>Relevant Level</h3>
+
+<p>There is no common convention on which factor level should
+automatically be considered the "event" or "positive" result
+when computing binary classification metrics. In <code>yardstick</code>, the default
+is to use the <em>first</em> level. To alter this, change the argument
+<code>event_level</code> to <code>"second"</code> to consider the <em>last</em> level of the factor the
+level of interest. For multiclass extensions involving one-vs-all
+comparisons (such as macro averaging), this option is ignored and
+the "one" level is always the relevant result.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code>pr_curve()</code> for computing the full precision recall curve.
+</p>
+<p><code>pr_auc()</code> for computing the area under the precision recall curve using
+the trapezoidal rule.
+</p>
+<p>Other class probability metrics: 
+<code>brier_class()</code>,
+<code>classification_cost()</code>,
+<code>gain_capture()</code>,
+<code>mn_log_loss()</code>,
+<code>pr_auc()</code>,
+<code>roc_auc()</code>,
+<code>roc_aunp()</code>,
+<code>roc_aunu()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R"># ---------------------------------------------------------------------------
+# Two class example
+
+# `truth` is a 2 level factor. The first level is `"Class1"`, which is the
+# "event of interest" by default in yardstick. See the Relevant Level
+# section above.
+data(two_class_example)
+
+# Binary metrics using class probabilities take a factor `truth` column,
+# and a single class probability column containing the probabilities of
+# the event of interest. Here, since `"Class1"` is the first level of
+# `"truth"`, it is the event of interest and we pass in probabilities for it.
+average_precision(two_class_example, truth, Class1)
+
+# ---------------------------------------------------------------------------
+# Multiclass example
+
+# `obs` is a 4 level factor. The first level is `"VF"`, which is the
+# "event of interest" by default in yardstick. See the Relevant Level
+# section above.
+data(hpc_cv)
+
+# You can use the col1:colN tidyselect syntax
+library(dplyr)
+hpc_cv %&gt;%
+  filter(Resample == "Fold01") %&gt;%
+  average_precision(obs, VF:L)
+
+# Change the first level of `obs` from `"VF"` to `"M"` to alter the
+# event of interest. The class probability columns should be supplied
+# in the same order as the levels.
+hpc_cv %&gt;%
+  filter(Resample == "Fold01") %&gt;%
+  mutate(obs = relevel(obs, "M")) %&gt;%
+  average_precision(obs, M, VF:L)
+
+# Groups are respected
+hpc_cv %&gt;%
+  group_by(Resample) %&gt;%
+  average_precision(obs, VF:L)
+
+# Weighted macro averaging
+hpc_cv %&gt;%
+  group_by(Resample) %&gt;%
+  average_precision(obs, VF:L, estimator = "macro_weighted")
+
+# Vector version
+# Supply a matrix of class probabilities
+fold1 &lt;- hpc_cv %&gt;%
+  filter(Resample == "Fold01")
+
+average_precision_vec(
+   truth = fold1$obs,
+   matrix(
+     c(fold1$VF, fold1$F, fold1$M, fold1$L),
+     ncol = 4
+   )
+)
+
+</code></pre>
+
+
+</div>

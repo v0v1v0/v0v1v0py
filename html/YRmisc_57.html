@@ -1,0 +1,45 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>pt.probloss</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Probability of loss</h2>
+
+<h3>Description</h3>
+
+<p>This function give the probability of loss of given asset returns.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">pt.probloss(r,p)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>r</code></td>
+<td>
+<p>:a vector of periodic returns</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>p</code></td>
+<td>
+<p>:target return</p>
+</td>
+</tr>
+</table>
+<h3>Examples</h3>
+
+<pre><code class="language-R">rt &lt;- runif(12,-1,1) # generate random number to simulate returns
+pt.probloss(rt,0)
+pt.probloss(rt,0.05)
+</code></pre>
+
+
+</div>

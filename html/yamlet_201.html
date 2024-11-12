@@ -1,0 +1,77 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>unclassified.data.frame</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Unclassify Data Frame</h2>
+
+<h3>Description</h3>
+
+<p>Unclassifies data.frame.
+Coerces 'classified' items to original values,
+rebuilding codelist attribute.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">## S3 method for class 'data.frame'
+unclassified(x, ...)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>x</code></td>
+<td>
+<p>data.frame</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+<p>passed to <code>select</code> to limit scope</p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>data.frame
+</p>
+
+
+<h3>See Also</h3>
+
+<p>Other classified: 
+<code>[.classified()</code>,
+<code>[&lt;-.classified()</code>,
+<code>[[.classified()</code>,
+<code>[[&lt;-.classified()</code>,
+<code>as.integer.classified()</code>,
+<code>c.classified()</code>,
+<code>classified()</code>,
+<code>classified.classified()</code>,
+<code>classified.data.frame()</code>,
+<code>classified.default()</code>,
+<code>classified.dvec()</code>,
+<code>classified.factor()</code>,
+<code>desolve.classified()</code>,
+<code>unclassified()</code>,
+<code>unclassified.classified()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">library(magrittr)
+file &lt;- system.file(package = 'yamlet', 'extdata','quinidine.csv')
+x &lt;- decorate(file)
+x %&gt;% explicit_guide %&gt;% decorations(Age, Race, Heart:glyco)
+x %&gt;% explicit_guide %&gt;% classified %&gt;% unclassified %&gt;% decorations(Age, Race, Heart:glyco)
+</code></pre>
+
+
+</div>

@@ -1,0 +1,94 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>estimation_LRM</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Estimation of the t-Levy Regression Model</h2>
+
+<h3>Description</h3>
+
+<p>The function estimates a t-Levy Regression Model</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">estimation_LRM(start, model, data, upper, lower, PT = 500, n_obs1 = NULL)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>start</code></td>
+<td>
+
+<p>Initial values to be passed to the optimizer.
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>model</code></td>
+<td>
+
+<p>A <code>yuima.LevyRM-class</code> that contains the mathematical representation of the t-Levy Regression Model. Its slot <code>@data</code> can contain either real or simulated data.
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>data</code></td>
+<td>
+	
+<p>An object of class <code>yuima.data-class</code> contains the observations available at uniformly spaced time. If <code>data=NULL</code>, the default, the function uses the data in the object <code>model</code>.
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>upper</code></td>
+<td>
+<p>A named list for specifying upper bounds of parameters.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>lower</code></td>
+<td>
+<p>A named list for specifying lower bounds of parameters.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>PT</code></td>
+<td>
+
+<p>The number of the data for the estimation of the regressor coefficients and the scale parameter. 
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>n_obs1</code></td>
+<td>
+
+<p>The number of data used in the estimation of the degree of freedom. As default the number of the whole data is used in this part
+</p>
+</td>
+</tr>
+</table>
+<h3>Details</h3>
+
+<p>A two-step estimation procedure. Regressor coefficients and scale parameters are obtained by maximizing the quasi-likelihood function based on the Cauchy density. The degree of freedom is estimated used the unitary increment of the t-noise.</p>
+
+
+<h3>Value</h3>
+
+<p>Estimated parameters</p>
+
+
+<h3>Author(s)</h3>
+
+<p>The YUIMA Project Team
+</p>
+<p>Contacts: Lorenzo Mercuri <a href="mailto:lorenzo.mercuri@unimi.it">lorenzo.mercuri@unimi.it</a>
+</p>
+
+
+</div>

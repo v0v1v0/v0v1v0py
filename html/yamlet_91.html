@@ -1,0 +1,83 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>footnote.decorated</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Footnote Decorated</h2>
+
+<h3>Description</h3>
+
+<p>Footnotes a decorated data.frame.
+Generates a text string that defines
+column names using label and unit attributes.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">## S3 method for class 'decorated'
+footnote(x, ..., equal = ":", collapse = "; ")
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>x</code></td>
+<td>
+<p>decorated</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+<p>passed to <code>append_units</code></p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>equal</code></td>
+<td>
+<p>character: a symbol suggesting equality between a name and its note</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>collapse</code></td>
+<td>
+<p>used to <code>paste</code> column-wise footnotes</p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>character
+</p>
+
+
+<h3>See Also</h3>
+
+<p>Other footnote: 
+<code>footnote()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">library(magrittr)
+set.seed(0)
+x &lt;- data.frame(
+ auc = rnorm(100, mean = 2400, sd = 200),
+ bmi = rnorm(100, mean = 20, sd = 5),
+ gen = 0:1
+)
+x %&lt;&gt;% decorate('auc: [AUC_0-24, ng*h/mL]')
+x %&lt;&gt;% decorate('bmi: [Body Mass Index, kg/m^2]')
+x %&lt;&gt;% decorate('gen: [Gender, [Male: 1, Female: 0]]')
+x %&lt;&gt;% resolve
+footnote(x)
+footnote(x, auc)
+</code></pre>
+
+
+</div>

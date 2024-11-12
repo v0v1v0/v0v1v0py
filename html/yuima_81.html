@@ -1,0 +1,88 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>FromCF2yuima_law</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>
+From a Characteristic Function to an  <code>yuima.law-object</code>.
+</h2>
+
+<h3>Description</h3>
+
+<p>This function returns an object of <code>yuima.law-class</code> and requires the characteristic function as the only input. Density, Random Number Generator, Cumulative Distribution Function and quantile function are internally constructed</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">FromCF2yuima_law(myfun, time.names = "t", var_char = "u", up = 45, 
+low = -45, N_grid = 50001, N_Fourier = 2^10)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>myfun</code></td>
+<td>
+<p> A <code>string</code> that is the name of the characteristic function defined by Users.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>time.names</code></td>
+<td>
+<p> Label of time.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>var_char</code></td>
+<td>
+<p> Argument of the characteristic function.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>up</code></td>
+<td>
+<p> Upper bound for the internal integration.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>low</code></td>
+<td>
+<p> Lower bound for the internal integration.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>N_grid</code></td>
+<td>
+<p> Observation grid. </p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>N_Fourier</code></td>
+<td>
+<p> Number of points for the Fourier Inversion.</p>
+</td>
+</tr>
+</table>
+<h3>Details</h3>
+
+<p> The density function is obtained by means of the Fourier Transform.</p>
+
+
+<h3>Value</h3>
+
+<p>An object of <code>yuima.law-class</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>The YUIMA Project Team
+</p>
+<p>Contacts: Lorenzo Mercuri <a href="mailto:lorenzo.mercuri@unimi.it">lorenzo.mercuri@unimi.it</a>
+</p>
+
+
+</div>

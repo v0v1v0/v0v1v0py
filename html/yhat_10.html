@@ -1,0 +1,86 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>commonality</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Commonality Analysis</h2>
+
+<h3>Description</h3>
+
+<p>This function conducts commonality analyses based on an all-possible-subsets regression.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">  commonality(apsOut)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table><tr style="vertical-align: top;">
+<td><code>apsOut</code></td>
+<td>
+
+<p>Output from /codeaps
+</p>
+</td>
+</tr></table>
+<h3>Details</h3>
+
+<p>This function conducts commonality analyses based on an all-possible-subsets regression. 
+</p>
+
+
+<h3>Value</h3>
+
+<p>The function returns a matrix containing commonality coefficients and percentage of regression effect for each each possible set of predictors.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p> Kim Nimon &lt;kim.nimon@gmail.com&gt;</p>
+
+
+<h3>References</h3>
+
+<p>Nimon, K., Lewis, M., Kane, R. &amp; Haynes, R. M. (2008) An R  package to compute commonality coefficients in the multiple regression case: An introduction to the package and a practical example.<em>Behavior Research Methods</em>, <em>40</em>, 457-466.
+</p>
+<p>Nimon, K., &amp; Oswald, F. L. (2013). Understanding the results of multiple linear regression: Beyond standardized regression coefficients. <em>Organizational Research Methods</em>, <em>16</em>, 
+650-674.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code>aps</code>
+<code>calc.yhat</code>
+<code>dominance</code>
+<code>rlw</code>  
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">  ## Predict paragraph comprehension based on three verbal
+  ## tests: general info, sentence comprehension, &amp; word
+  ## classification
+
+  ## Use HS dataset in MBESS 
+     if (require ("MBESS")){
+     data(HS)
+
+  ## All-possible-subsets regression
+     apsOut=aps(HS,"t6_paragraph_comprehension",
+                    list("t5_general_information", "t7_sentence","t8_word_classification"))
+
+  ## Commonality analysis
+     commonality(apsOut)
+     }
+</code></pre>
+
+
+</div>

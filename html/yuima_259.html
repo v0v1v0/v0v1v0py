@@ -1,0 +1,108 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>setYuima</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>
+Creates a "yuima" object by combining "model", "data", "sampling", "characteristic" 
+and "functional"slots.
+</h2>
+
+<h3>Description</h3>
+
+<p><code>setYuima</code> constructs an object of  <code>yuima-class</code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">setYuima(data, model, sampling, characteristic, functional)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>data</code></td>
+<td>
+<p>an object of  <code>yuima.data-class</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>model</code></td>
+<td>
+<p>an object of  <code>yuima.model-class</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>sampling</code></td>
+<td>
+<p>an object of  <code>yuima.sampling-class</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>characteristic</code></td>
+<td>
+<p>an object of  <code>yuima.characteristic-class</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>functional</code></td>
+<td>
+<p>an object of class <code>yuima.functional-class</code>.</p>
+</td>
+</tr>
+</table>
+<h3>Details</h3>
+
+<p>The <code>yuima-class</code> object is the main object of the <span class="pkg">yuima</span> package.
+Some of the slots can be missing. 
+</p>
+<p>The slot <code>data</code>  contains the data, either empirical or simulated. 
+</p>
+<p>The slot <code>model</code>  contains the description of the 
+(statistical) model which is used to generate the <code>data</code> via different 
+simulation schemes, to draw inference from the <code>data</code> or both.
+</p>
+<p>The <code>sampling</code> slot contains information on how the <code>data</code> have been
+collected or how they should be simulated.
+</p>
+<p>The slot <code>characteristic</code> contains information on <code>PLEASE FINISH THIS</code>.
+The slot <code>functional</code> contains information on <code>PLEASE FINISH THIS</code>.
+</p>
+<p>Please refer to the vignettes and the examples in the <span class="pkg">yuimadocs</span>
+package for more informations.
+</p>
+
+
+<h3>Value</h3>
+
+<p>an object of  <code>yuima-class</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>The YUIMA Project Team</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R"># Creation of a yuima object with all slots for a 
+# stochastic differential equation
+# dXt^e = -theta2 * Xt^e * dt + theta1 * dWt 
+diffusion &lt;- matrix(c("theta1"), 1, 1)
+drift &lt;- c("-1*theta2*x")
+ymodel &lt;- setModel(drift=drift, diffusion=diffusion)
+n &lt;- 100
+ysamp &lt;- setSampling(Terminal=1, n=n)
+
+yuima &lt;- setYuima(model=ymodel, sampling=ysamp)
+
+str(yuima)
+</code></pre>
+
+
+</div>

@@ -1,0 +1,188 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>kap</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Kappa</h2>
+
+<h3>Description</h3>
+
+<p>Kappa is a similar measure to <code>accuracy()</code>, but is normalized by
+the accuracy that would be expected by chance alone and is very useful
+when one or more classes have large frequency distributions.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">kap(data, ...)
+
+## S3 method for class 'data.frame'
+kap(
+  data,
+  truth,
+  estimate,
+  weighting = "none",
+  na_rm = TRUE,
+  case_weights = NULL,
+  ...
+)
+
+kap_vec(
+  truth,
+  estimate,
+  weighting = "none",
+  na_rm = TRUE,
+  case_weights = NULL,
+  ...
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>data</code></td>
+<td>
+<p>Either a <code>data.frame</code> containing the columns specified by the
+<code>truth</code> and <code>estimate</code> arguments, or a <code>table</code>/<code>matrix</code> where the true
+class results should be in the columns of the table.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+<p>Not currently used.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>truth</code></td>
+<td>
+<p>The column identifier for the true class results
+(that is a <code>factor</code>). This should be an unquoted column name although
+this argument is passed by expression and supports
+quasiquotation (you can unquote column
+names). For <code style="white-space: pre;">⁠_vec()⁠</code> functions, a <code>factor</code> vector.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>estimate</code></td>
+<td>
+<p>The column identifier for the predicted class
+results (that is also <code>factor</code>). As with <code>truth</code> this can be
+specified different ways but the primary method is to use an
+unquoted variable name. For <code style="white-space: pre;">⁠_vec()⁠</code> functions, a <code>factor</code> vector.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>weighting</code></td>
+<td>
+<p>A weighting to apply when computing the scores. One of:
+<code>"none"</code>, <code>"linear"</code>, or <code>"quadratic"</code>. Linear and quadratic weighting
+penalizes mis-predictions that are "far away" from the true value. Note
+that distance is judged based on the ordering of the levels in <code>truth</code> and
+<code>estimate</code>. It is recommended to provide ordered factors for <code>truth</code> and
+<code>estimate</code> to explicitly code the ordering, but this is not required.
+</p>
+<p>In the binary case, all 3 weightings produce the same value, since it is
+only ever possible to be 1 unit away from the true value.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>na_rm</code></td>
+<td>
+<p>A <code>logical</code> value indicating whether <code>NA</code>
+values should be stripped before the computation proceeds.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>case_weights</code></td>
+<td>
+<p>The optional column identifier for case weights.
+This should be an unquoted column name that evaluates to a numeric column
+in <code>data</code>. For <code style="white-space: pre;">⁠_vec()⁠</code> functions, a numeric vector,
+<code>hardhat::importance_weights()</code>, or <code>hardhat::frequency_weights()</code>.</p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>A <code>tibble</code> with columns <code>.metric</code>, <code>.estimator</code>,
+and <code>.estimate</code> and 1 row of values.
+</p>
+<p>For grouped data frames, the number of rows returned will be the same as
+the number of groups.
+</p>
+<p>For <code>kap_vec()</code>, a single <code>numeric</code> value (or <code>NA</code>).
+</p>
+
+
+<h3>Multiclass</h3>
+
+<p>Kappa extends naturally to multiclass scenarios. Because
+of this, macro and micro averaging are not implemented.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Max Kuhn
+</p>
+<p>Jon Harmon
+</p>
+
+
+<h3>References</h3>
+
+<p>Cohen, J. (1960). "A coefficient of agreement for nominal
+scales". <em>Educational and Psychological Measurement</em>. 20 (1): 37-46.
+</p>
+<p>Cohen, J. (1968). "Weighted kappa: Nominal scale agreement provision for
+scaled disagreement or partial credit". <em>Psychological
+Bulletin</em>. 70 (4): 213-220.
+</p>
+
+
+<h3>See Also</h3>
+
+<p>Other class metrics: 
+<code>accuracy()</code>,
+<code>bal_accuracy()</code>,
+<code>detection_prevalence()</code>,
+<code>f_meas()</code>,
+<code>j_index()</code>,
+<code>mcc()</code>,
+<code>npv()</code>,
+<code>ppv()</code>,
+<code>precision()</code>,
+<code>recall()</code>,
+<code>sens()</code>,
+<code>spec()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">library(dplyr)
+data("two_class_example")
+data("hpc_cv")
+
+# Two class
+kap(two_class_example, truth, predicted)
+
+# Multiclass
+# kap() has a natural multiclass extension
+hpc_cv %&gt;%
+  filter(Resample == "Fold01") %&gt;%
+  kap(obs, pred)
+
+# Groups are respected
+hpc_cv %&gt;%
+  group_by(Resample) %&gt;%
+  kap(obs, pred)
+</code></pre>
+
+
+</div>

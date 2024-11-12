@@ -1,0 +1,175 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>metric_set</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Combine metric functions</h2>
+
+<h3>Description</h3>
+
+<p><code>metric_set()</code> allows you to combine multiple metric functions together
+into a new function that calculates all of them at once.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">metric_set(...)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table><tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+<p>The bare names of the functions to be included in the metric set.</p>
+</td>
+</tr></table>
+<h3>Details</h3>
+
+<p>All functions must be either:
+</p>
+
+<ul>
+<li>
+<p> Only numeric metrics
+</p>
+</li>
+<li>
+<p> A mix of class metrics or class prob metrics
+</p>
+</li>
+<li>
+<p> A mix of dynamic, integrated, and static survival metrics
+</p>
+</li>
+</ul>
+<p>For instance, <code>rmse()</code> can be used with <code>mae()</code> because they
+are numeric metrics, but not with <code>accuracy()</code> because it is a classification
+metric. But <code>accuracy()</code> can be used with <code>roc_auc()</code>.
+</p>
+<p>The returned metric function will have a different argument list
+depending on whether numeric metrics or a mix of class/prob metrics were
+passed in.
+</p>
+<div class="sourceCode"><pre># Numeric metric set signature:
+fn(
+  data,
+  truth,
+  estimate,
+  na_rm = TRUE,
+  case_weights = NULL,
+  ...
+)
+
+# Class / prob metric set signature:
+fn(
+  data,
+  truth,
+  ...,
+  estimate,
+  estimator = NULL,
+  na_rm = TRUE,
+  event_level = yardstick_event_level(),
+  case_weights = NULL
+)
+
+# Dynamic / integrated / static survival metric set signature:
+fn(
+  data,
+  truth,
+  ...,
+  estimate,
+  na_rm = TRUE,
+  case_weights = NULL
+)
+</pre></div>
+<p>When mixing class and class prob metrics, pass in the hard predictions
+(the factor column) as the named argument <code>estimate</code>, and the soft
+predictions (the class probability columns) as bare column names or
+<code>tidyselect</code> selectors to <code>...</code>.
+</p>
+<p>When mixing dynamic, integrated, and static survival metrics, pass in the
+time predictions as the named argument <code>estimate</code>, and the survival
+predictions as bare column names or <code>tidyselect</code> selectors to <code>...</code>.
+</p>
+<p>If <code>metric_tweak()</code> has been used to "tweak" one of these arguments, like
+<code>estimator</code> or <code>event_level</code>, then the tweaked version wins. This allows you
+to set the estimator on a metric by metric basis and still use it in a
+<code>metric_set()</code>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code>metrics()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">library(dplyr)
+
+# Multiple regression metrics
+multi_metric &lt;- metric_set(rmse, rsq, ccc)
+
+# The returned function has arguments:
+# fn(data, truth, estimate, na_rm = TRUE, ...)
+multi_metric(solubility_test, truth = solubility, estimate = prediction)
+
+# Groups are respected on the new metric function
+class_metrics &lt;- metric_set(accuracy, kap)
+
+hpc_cv %&gt;%
+  group_by(Resample) %&gt;%
+  class_metrics(obs, estimate = pred)
+
+# ---------------------------------------------------------------------------
+
+# If you need to set options for certain metrics,
+# do so by wrapping the metric and setting the options inside the wrapper,
+# passing along truth and estimate as quoted arguments.
+# Then add on the function class of the underlying wrapped function,
+# and the direction of optimization.
+ccc_with_bias &lt;- function(data, truth, estimate, na_rm = TRUE, ...) {
+  ccc(
+    data = data,
+    truth = !!rlang::enquo(truth),
+    estimate = !!rlang::enquo(estimate),
+    # set bias = TRUE
+    bias = TRUE,
+    na_rm = na_rm,
+    ...
+  )
+}
+
+# Use `new_numeric_metric()` to formalize this new metric function
+ccc_with_bias &lt;- new_numeric_metric(ccc_with_bias, "maximize")
+
+multi_metric2 &lt;- metric_set(rmse, rsq, ccc_with_bias)
+
+multi_metric2(solubility_test, truth = solubility, estimate = prediction)
+
+# ---------------------------------------------------------------------------
+# A class probability example:
+
+# Note that, when given class or class prob functions,
+# metric_set() returns a function with signature:
+# fn(data, truth, ..., estimate)
+# to be able to mix class and class prob metrics.
+
+# You must provide the `estimate` column by explicitly naming
+# the argument
+
+class_and_probs_metrics &lt;- metric_set(roc_auc, pr_auc, accuracy)
+
+hpc_cv %&gt;%
+  group_by(Resample) %&gt;%
+  class_and_probs_metrics(obs, VF:L, estimate = pred)
+
+</code></pre>
+
+
+</div>

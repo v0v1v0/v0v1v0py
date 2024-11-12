@@ -1,0 +1,69 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>read_json_file</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Convert JSON to R</h2>
+
+<h3>Description</h3>
+
+<p>Convert JSON to R
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">read_json_file(filename, opts = list(), ...)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>filename</code></td>
+<td>
+<p>full path to text file containing JSON.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>opts</code></td>
+<td>
+<p>Named list of options for parsing. Usually created by <code>opts_read_json()</code></p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+<p>Other named options can be used to override any options in <code>opts</code>.
+The valid named options are identical to arguments to <code>opts_read_json()</code></p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>R object
+</p>
+
+
+<h3>See Also</h3>
+
+<p>Other JSON Parsers: 
+<code>read_json_conn()</code>,
+<code>read_json_raw()</code>,
+<code>read_json_str()</code>,
+<code>read_ndjson_file()</code>,
+<code>read_ndjson_str()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">tmp &lt;- tempfile()
+write_json_file(head(iris, 3), tmp)
+read_json_file(tmp)
+</code></pre>
+
+
+</div>

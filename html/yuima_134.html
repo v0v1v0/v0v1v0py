@@ -1,0 +1,56 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>yuima.th-class</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>
+<code>yuima.th-class</code>: A mathematical description for the t-Levy process.</h2>
+
+<h3>Description</h3>
+
+<p>A yuima class that contains all information on the noise for t-Levy process. This class extends <code>yuima.law-class</code> and contains info on the numerical method used for the inversion of the characteristic function. Three inversion methods are available: <code>cos</code>, <code>Laguerre</code> and <code>FFT</code>.
+</p>
+<p>An object of this class can be created by calls of the function <code>setLaw_th</code>.
+</p>
+
+
+<h3>Methods</h3>
+
+
+<dl>
+<dt>rand</dt>
+<dd>
+<p><code>signature(object = "yuima.th", n = "numeric",
+	  param = "list", ...)</code>: This method returns a sample of the noise, <code>n</code> is the sample size.</p>
+</dd>
+<dt>dens</dt>
+<dd>
+<p><code>signature(object = "yuima.th", x = "numeric",
+	  param = "list", log = FALSE, ...)</code>: This method returns the density of the noise, <code>x</code> is the vector of the support.</p>
+</dd>
+<dt>cdf</dt>
+<dd>
+<p><code>signature(object = "yuima.th", q = "numeric",
+	  param = "list", ...)</code>: This method returns the cdf of the noise, <code>q</code> is the vector of the support.</p>
+</dd>
+<dt>quant</dt>
+<dd>
+<p><code>signature(object = "yuima.th", p = "numeric",
+	  param = "list", ...)</code>: This method returns the quantile of the noise, <code>p</code> is the vector of the support.</p>
+</dd>
+<dt>char</dt>
+<dd>
+<p><code>signature(object = "yuima.th", u = "numeric",
+	  param = "list", ...)</code>: This method returns the characteristic function of the noise, <code>u</code> is the vector of the support.</p>
+</dd>
+</dl>
+<h3>Author(s)</h3>
+
+<p>The YUIMA Project Team
+</p>
+<p>Contacts: Lorenzo Mercuri <a href="mailto:lorenzo.mercuri@unimi.it">lorenzo.mercuri@unimi.it</a>
+</p>
+
+
+</div>

@@ -1,0 +1,91 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>aeExpectation</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Asymptotic Expansion - Functionals</h2>
+
+<h3>Description</h3>
+
+<p>Compute the expected value of functionals.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">aeExpectation(f, bounds, ae, eps = 1, order = NULL, ...)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>f</code></td>
+<td>
+<p>character. The functional.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>bounds</code></td>
+<td>
+<p>named list of integration bounds in the form <code>list(x = c(xmin, xmax), y = c(ymin, ymax), ...)</code></p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>ae</code></td>
+<td>
+<p>an object of class <code>yuima.ae-class</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>eps</code></td>
+<td>
+<p>numeric. The intensity of the perturbation.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>order</code></td>
+<td>
+<p>integer. The expansion order. If <code>NULL</code> (default), it uses the maximum order used in <code>ae</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+<p>additional arguments passed to <code>cubintegrate</code>.</p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>return value of <code>cubintegrate</code>. The expectation of the functional provided.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">## Not run: 
+# model
+gbm &lt;- setModel(drift = 'mu*x', diffusion = 'sigma*x', solve.variable = 'x')
+
+# settings
+xinit &lt;- 100
+par &lt;- list(mu = 0.01, sigma = 0.2)
+sampling &lt;- setSampling(Initial = 0, Terminal = 1, n = 1000)
+
+# asymptotic expansion
+approx &lt;- ae(model = gbm, sampling = sampling, order = 4, true.parameter = par, xinit = xinit)
+
+# compute the mean via integration
+aeExpectation(f = 'x', bounds = list(x = c(0,1000)), ae = approx)
+
+# compare with the mean computed by differentiation of the characteristic function
+aeMean(approx)
+
+## End(Not run)
+</code></pre>
+
+
+</div>

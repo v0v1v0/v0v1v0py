@@ -1,0 +1,65 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>to_yamlet.default</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Coerce Default to Yamlet Storage Format</h2>
+
+<h3>Description</h3>
+
+<p>Coerces to yamlet storage format by default conversion to character.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">## Default S3 method:
+to_yamlet(x, ...)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>x</code></td>
+<td>
+<p>object</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+<p>ignored</p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>length-one character
+</p>
+
+
+<h3>See Also</h3>
+
+<p>Other to_yamlet: 
+<code>to_yamlet()</code>,
+<code>to_yamlet.NULL()</code>,
+<code>to_yamlet.character()</code>,
+<code>to_yamlet.list()</code>,
+<code>to_yamlet.numeric()</code>,
+<code>to_yamlet.yamlet()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">to_yamlet(3)
+to_yamlet(c(a = '4',b = '5.8'))
+to_yamlet(c(a = 4,b = 5.8))
+to_yamlet(TRUE)
+</code></pre>
+
+
+</div>

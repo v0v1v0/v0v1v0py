@@ -1,0 +1,209 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>qmleLevy</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>
+Gaussian quasi-likelihood estimation for Levy driven SDE
+</h2>
+
+<h3>Description</h3>
+
+<p>Calculate the Gaussian quasi-likelihood and Gaussian quasi-likelihood estimators of Levy driven SDE.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">qmleLevy(yuima, start, lower, upper, joint = FALSE, 
+third = FALSE, Est.Incr = "NoIncr", 
+aggregation = TRUE)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>yuima</code></td>
+<td>
+<p>a yuima object.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>lower</code></td>
+<td>
+<p>a named list for specifying lower bounds of parameters.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>upper</code></td>
+<td>
+<p>a named list for specifying upper bounds of parameters.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>start</code></td>
+<td>
+<p>initial values to be passed to the optimizer.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>joint</code></td>
+<td>
+<p>perform joint estimation or two stage estimation, by default <code>joint=FALSE</code>. If there exists an overlapping parameter, <code>joint=TRUE</code> does not work for the theoretical reason</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>third</code></td>
+<td>
+<p>perform third estimation by default <code>third=FALSE</code>. If there exists an overlapping parameter, <code>third=TRUE</code> does not work for the         
+theoretical reason.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>Est.Incr</code></td>
+<td>
+<p>the qmleLevy returns an object of <code>mle-clas</code>, by default <code>Est.Incr="NoIncr"</code>, other options as <code>"Inc"</code> or <code>"IncrPar"</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>aggregation</code></td>
+<td>
+<p>If <code>aggregation=TRUE</code>, the function returns the unit-time Levy increments. If <code>Est.Incr="IncrPar"</code>, the function estimates Levy parameters using the unit-time Levy increments.</p>
+</td>
+</tr>
+</table>
+<h3>Details</h3>
+
+<p>This function performs Gaussian quasi-likelihood estimation for Levy driven SDE.
+</p>
+
+
+<h3>Value</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>first</code></td>
+<td>
+<p>estimated values of first estimation (scale parameters)</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>second</code></td>
+<td>
+<p>estimated values of second estimation (drift parameters)</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>third</code></td>
+<td>
+<p>estimated values of third estimation (scale parameters)</p>
+</td>
+</tr>
+</table>
+<h3>Note</h3>
+
+<p>The function <code>qmleLevy</code> uses the function <code>qmle</code> internally.
+It can be applied only for the standardized Levy noise whose moments of any order exist.
+In present <code>yuima</code> package, birateral gamma (bgamma) process, normal inverse Gaussian (NIG) process, variance gamma (VG) process, and normal tempered stable process are such candidates.
+In the current version, the standardization condition on the driving noise is internally checked only for the one-dimensional noise.
+The standardization condition for the multivariate noise is given in
+</p>
+<p><a href="https://docs.google.com/viewer?a=v&amp;pid=sites&amp;srcid=ZGVmYXVsdGRvbWFpbnx5dW1hdWVoYXJhMTkyOHxneDo1OGIxNGQ2YjBlYWIxNzA3">https://docs.google.com/viewer?a=v&amp;pid=sites&amp;srcid=ZGVmYXVsdGRvbWFpbnx5dW1hdWVoYXJhMTkyOHxneDo3ZTdlMTA1OTMyZTBkYjQ2</a>
+</p>
+<p>or
+</p>
+<p><a href="https://docs.google.com/viewer?a=v&amp;pid=sites&amp;srcid=ZGVmYXVsdGRvbWFpbnx5dW1hdWVoYXJhMTkyOHxneDo3ZTdlMTA1OTMyZTBkYjQ2">https://docs.google.com/viewer?a=v&amp;pid=sites&amp;srcid=ZGVmYXVsdGRvbWFpbnx5dW1hdWVoYXJhMTkyOHxneDo3ZTdlMTA1OTMyZTBkYjQ2</a>.
+</p>
+<p>They also contain more presice explanation of this function.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>The YUIMA Project Team
+</p>
+<p>Contacts: Yuma Uehara <a href="mailto:y-uehara@ism.ac.jp">y-uehara@ism.ac.jp</a>
+</p>
+
+
+<h3>References</h3>
+
+<p>Masuda, H. (2013). Convergence of Gaussian quasi-likelihood random fields for ergodic Levy driven SDE observed at high frequency. The Annals of Statistics, 41(3), 1593-1641.
+</p>
+<p>Masuda, H. and Uehara, Y. (2017). On stepwise estimation of Levy driven 
+stochastic differential equation (Japanese) ., Proc. Inst. Statist. Math., accepted.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">## Not run: 
+## One-dimensional case 
+dri&lt;-"-theta0*x" ## set drift
+jum&lt;-"theta1/(1+x^2)^(-1/2)" ## set jump
+yuima&lt;-setModel(drift = dri
+                ,jump.coeff = jum
+                ,solve.variable = "x",state.variable = "x"
+                ,measure.type = "code"
+                ,measure = list(df="rbgamma(z,1,sqrt(2),1,sqrt(2))")) ## set true model
+n&lt;-3000
+T&lt;-30 ## terminal
+hn&lt;-T/n ## stepsize
+
+sam&lt;-setSampling(Terminal = T, n=n) ## set sampling scheme
+yuima&lt;-setYuima(model = yuima, sampling = sam) ## model
+
+true&lt;-list(theta0 = 1,theta1 = 2) ## true values
+upper&lt;-list(theta0 = 4, theta1 = 4) ## set upper bound
+lower&lt;-list(theta0 = 0.5, theta1 = 1) ## set lower bound
+set.seed(123)
+yuima&lt;-simulate(yuima, xinit = 0, true.parameter = true,sampling = sam) ## generate a path
+start&lt;-list(theta0 = runif(1,0.5,4), theta1 = runif(1,1,4)) ## set initial values
+qmleLevy(yuima,start=start,lower=lower,upper=upper, joint = TRUE) 
+
+## Multi-dimensional case
+
+lambda&lt;-1/2
+alpha&lt;-1
+beta&lt;-c(0,0)
+mu&lt;-c(0,0)
+Lambda&lt;-matrix(c(1,0,0,1),2,2) ## set parameters in noise
+
+dri&lt;-c("1-theta0*x1-x2","-theta1*x2")
+jum&lt;-matrix(c("x1*theta2+1","0","0","1"),2,2) ## set coefficients
+
+yuima &lt;- setModel(drift=dri, 
+                 solve.variable=c("x1","x2"),state.variable = c("x1","x2"), 
+                 jump.coeff=jum, measure.type="code",
+                 measure=list(df="rvgamma(z, lambda, alpha, beta, mu, Lambda
+                 )"))
+
+n&lt;-3000 ## the number of total samples
+T&lt;-30 ## terminal
+hn&lt;-T/n ## stepsize
+
+sam&lt;-setSampling(Terminal = T, n=n) ## set sampling scheme
+yuima&lt;-setYuima(model = yuima, sampling = sam) ## model
+
+true&lt;-list(theta0 = 1,theta1 = 2,theta2 = 3,lambda=lambda, alpha=alpha, 
+beta=beta,mu=mu, Lambda=Lambda) ## true values
+upper&lt;-list(theta0 = 4, theta1 = 4, theta2 = 5, lambda=lambda, alpha=alpha, 
+beta=beta,mu=mu, Lambda=Lambda) ## set upper bound
+lower&lt;-list(theta0 = 0.5, theta1 = 1, theta2 = 1, lambda=lambda, alpha=alpha, 
+beta=beta,mu=mu, Lambda=Lambda) ## set lower bound
+set.seed(123)
+yuima&lt;-simulate(yuima, xinit = c(0,0), true.parameter = true,sampling = sam) ## generate a path
+plot(yuima)
+start&lt;-list(theta0 = runif(1,0.5,4), theta1 = runif(1,1,4), 
+theta2 = runif(1,1,5),lambda=lambda, alpha=alpha, 
+beta=beta,mu=mu, Lambda=Lambda) ## set initial values
+qmleLevy(yuima,start=start,lower=lower,upper=upper,joint = FALSE,third=TRUE) 
+
+## End(Not run)
+</code></pre>
+
+
+</div>

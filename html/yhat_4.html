@@ -1,0 +1,232 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>booteval.yhat</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Evaluate bootstrap metrics produced from /codecalc.yhat</h2>
+
+<h3>Description</h3>
+
+<p>This function evaluates the bootstrap metrics produced from /codeboot.yhat.   
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">  booteval.yhat(regrOut, boot.out, bty, level, prec)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>regrOut</code></td>
+<td>
+
+<p>Output from <code>calc.yhat</code>
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>boot.out</code></td>
+<td>
+
+<p>Output from <code>boot</code> in conjunction with <code>boot.yhat</code>
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>bty</code></td>
+<td>
+
+<p>Type of confidence interval. Only types "perc", "norm", "basic", and "bca" supported.
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>level</code></td>
+<td>
+
+<p>Confidence level (e.g., .95)
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>prec</code></td>
+<td>
+
+<p>Integer indicating number of decimal places to be used.
+</p>
+</td>
+</tr>
+</table>
+<h3>Details</h3>
+
+<p>This function evaluates the bootstrap metrics produced from <code>boot.yhat</code>.   
+</p>
+
+
+<h3>Value</h3>
+
+<p>Confidence intervals are reported for predictor and all possible subset metrics as 
+well as differences between appropriate predictors and all possible subset metrics. 
+The function also output the means, standard errors, probabiltites, and 
+reproducibility metrics for the dominance comparisons. Means and standard deviations 
+are reported for Kendall's tau correlation between sample predictor metrics and the
+bootstrap statistics of like metrics.
+</p>
+<table>
+<tr style="vertical-align: top;">
+<td><code>combCIpm</code></td>
+<td>
+<p>Upper and lower CIs for predictor metrics</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>lowerCIpm</code></td>
+<td>
+<p>Lower CIs for predictor metrics</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>upperCIpm</code></td>
+<td>
+<p>Upper CIs for predictor metrics</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>combCIaps</code></td>
+<td>
+<p>Upper and lower CIs for APS metrics</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>lowerCIaps</code></td>
+<td>
+<p>Lower CIs for APS metrics</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>upperCIaps</code></td>
+<td>
+<p>Upper CIs for APS metrics</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>domBoot</code></td>
+<td>
+<p>Dominance analysis bootstrap results</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>tauDS</code></td>
+<td>
+<p>Descriptive statistics for Kendall's tau</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>combCIpmDiff</code></td>
+<td>
+<p>Upper and lower CIs for differences between predictor metrics</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>lowerCIpmDiff</code></td>
+<td>
+<p>Lower CIs for differences between predictor metrics</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>upperCIpmDiff</code></td>
+<td>
+<p>Upper  CIs for differences between predictor metrics</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>combCIapsDiff</code></td>
+<td>
+<p>Upper and lower CIs for differences between APS metrics</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>lowerCIapsDiff</code></td>
+<td>
+<p>Lower CIs for differences between APS metrics</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>upperCIapsDiff</code></td>
+<td>
+<p>Upper  CIs for differences between APS metrics</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>combCIincDiff</code></td>
+<td>
+<p>Upper and lower CIs for differences between incremental validity metrics</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>lowerCIincDiff</code></td>
+<td>
+<p>Lower CIs for differences between incremental validity metrics</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>upperCIincDiff</code></td>
+<td>
+<p>Upper  CIs for differences between incremental validity metrics</p>
+</td>
+</tr>
+</table>
+<h3>Author(s)</h3>
+
+<p> Kim Nimon &lt;kim.nimon@gmail.com&gt;</p>
+
+
+<h3>References</h3>
+
+<p>Nimon, K., &amp; Oswald, F. L. (2013). Understanding the results of multiple linear regression: Beyond standardized regression coefficients. <em>Organizational Research Methods</em>, <em>16</em>, 
+650-674.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code>lm</code>
+<code>calc.yhat</code>
+<code>boot</code>
+<code>plotCI.yhat</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">  ## Bootstrap regression results predicting paragraph     
+  ## comprehension based on four verbal tests: general info, 
+  ## sentence comprehension, &amp; word classification
+ 
+  ## Use HS dataset in MBESS 
+     if (require ("MBESS")){
+     data(HS)
+
+  ## Regression
+     lm.out&lt;-lm(t6_paragraph_comprehension~
+                t5_general_information+t7_sentence+t8_word_classification,data=HS)
+
+  ## Calculate regression metrics
+     regrOut&lt;-calc.yhat(lm.out)
+
+  ## Bootstrap results
+     require ("boot")
+     boot.out&lt;-boot(HS,boot.yhat,100,lmOut=lm.out,regrout0=regrOut)
+
+  ## Evaluate bootstrap results
+     result&lt;-booteval.yhat(regrOut,boot.out,bty="perc")
+     }
+</code></pre>
+
+
+</div>

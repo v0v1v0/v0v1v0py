@@ -1,0 +1,120 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>append_units.default</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Append Units By Default</h2>
+
+<h3>Description</h3>
+
+<p>Units attribute is wrapped in <code>open</code> and
+<code>close</code>, and appended to label.
+Result is assigned to <code>target</code> attribute
+(default: 'label').
+If style is 'latex' or 'plotmath',
+all elements are treated as spork
+(<code>as_spork</code>) and coerced
+to canonical form before concatenation.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">## Default S3 method:
+append_units(
+  x,
+  ...,
+  open = getOption("yamlet_append_units_open", " ("),
+  close = getOption("yamlet_append_units_close", ")"),
+  style = getOption("yamlet_append_units_style", "plain"),
+  target = getOption("yamlet_append_units_target", "label")
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>x</code></td>
+<td>
+<p>object</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+<p>passed to <code>as_latex</code>, <code>as_plotmath</code></p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>open</code></td>
+<td>
+<p>character to precede units</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>close</code></td>
+<td>
+<p>character to follow units</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>style</code></td>
+<td>
+<p>one of 'plain', 'latex', or 'plotmath'</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>target</code></td>
+<td>
+<p>attribute name for appended result</p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>same class as x, with sub-class 'latex' or 'plotmath' depending on <code>style</code>
+</p>
+
+
+<h3>See Also</h3>
+
+<p>Other labels: 
+<code>alias.data.frame()</code>,
+<code>append_units()</code>,
+<code>append_units.data.frame()</code>,
+<code>drop_title()</code>,
+<code>drop_title.decorated()</code>,
+<code>drop_title.default()</code>,
+<code>drop_title.dvec()</code>,
+<code>make_title()</code>,
+<code>make_title.decorated()</code>,
+<code>make_title.default()</code>,
+<code>make_title.dvec()</code>,
+<code>sub_units()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">library(units)
+library(magrittr)
+x &lt;- 1:10
+attr(x, 'label') &lt;- 'acceleration'
+units(x) &lt;- 'm/s^2'
+y &lt;- as_units('kg')
+x %&gt;% attr('label')
+x %&gt;% append_units %&gt;% attr('label')
+y %&gt;% attr('label')
+y %&gt;% append_units %&gt;% attr('label')
+x %&gt;% append_units(style = 'plain')
+x %&gt;% append_units(style = 'plotmath')
+x %&gt;% append_units(style = 'latex')
+
+
+</code></pre>
+
+
+</div>

@@ -1,0 +1,73 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>fitCIR</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Calculate preliminary estimator and one-step improvements of a Cox-Ingersoll-Ross diffusion</h2>
+
+<h3>Description</h3>
+
+<p>This is a function to simulate the preliminary estimator and the corresponding one step estimators based on the Newton-Raphson and the scoring method of the Cox-Ingersoll-Ross process given via the SDE 
+</p>
+<p><code class="reqn">\mathrm{d} X_t = (\alpha-\beta X_t)\mathrm{d} t + \sqrt{\gamma X_t}\mathrm{d} W_t</code>
+</p>
+<p>with parameters <code class="reqn">\beta&gt;0,</code> <code class="reqn">2\alpha&gt;5\gamma&gt;0</code> and a Brownian motion <code class="reqn">(W_t)_{t\geq 0}</code>. This function uses the Gaussian quasi-likelihood, hence requires that data is sampled at high-frequency.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">fitCIR(data)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table><tr style="vertical-align: top;">
+<td><code>data</code></td>
+<td>
+
+<p>a numeric matrix 
+containing the realization of <code class="reqn">(t_0,X_{t_0}), \dots,(t_n,X_{t_n})</code> with <code class="reqn">t_j</code> denoting the <code class="reqn">j</code>-th sampling times. <code>data[1,]</code> contains the sampling times <code class="reqn">t_0,\dots, t_n</code> and <code>data[2,]</code> the corresponding value of the process <code class="reqn">X_{t_0},\dots,X_{t_n}.</code> In other words <code>data[,j]=</code><code class="reqn">(t_j,X_{t_j})</code>. The observations should be equidistant. 
+</p>
+</td>
+</tr></table>
+<h3>Details</h3>
+
+<p>The estimators calculated by this function can be found in the reference below.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A list with three entries each contain a vector in the following order: The result of the preliminary estimator, Newton-Raphson method and the method of scoring.
+
+</p>
+<p>If the sampling points are not equidistant the function will return <code>'Please use equidistant sampling points'.</code>
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Nicole Hufnagel 
+</p>
+<p>Contacts: <a href="mailto:nicole.hufnagel@math.tu-dortmund.de">nicole.hufnagel@math.tu-dortmund.de</a>
+</p>
+
+
+<h3>References</h3>
+
+<p>Y. Cheng, N. Hufnagel, H. Masuda. Estimation of ergodic square-root diffusion under high-frequency sampling. Econometrics and Statistics, Article Number: 346 (2022).
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">#You can make use of the function simCIR to generate the data 
+data &lt;- simCIR(alpha=3,beta=1,gamma=1, n=5000, h=0.05, equi.dist=TRUE)
+results &lt;- fitCIR(data)
+</code></pre>
+
+
+</div>

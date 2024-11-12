@@ -1,0 +1,94 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>c.dvec</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Combine Decorated Vector</h2>
+
+<h3>Description</h3>
+
+<p>Combines decorated vectors.  Tries to preserve
+attributes by resolving pairwise conflicts intelligently.
+The attributes of the first item are reconciled
+with those of the second, then those of the third, etc.
+the <code>class</code> attribute is untouched.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">## S3 method for class 'dvec'
+c(...)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table><tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+<p>items to be combined, presumably all vectors</p>
+</td>
+</tr></table>
+<h3>Details</h3>
+
+<p>By default, the first version of any attribute is
+preserved, with warning if the alternative differs.
+NULLs are largely ignored. If either attribute
+is a list the other is coerced to a list with as.list().
+If either of two lists has names, then names
+are enforced for the other (blank names if necessary).
+Lists are combined in forward order, and
+elements that are duplicates in value and name (if present)
+are removed.  If the result has only blank names,
+these are removed as well.
+</p>
+
+
+<h3>Value</h3>
+
+<p>dvec
+</p>
+
+
+<h3>See Also</h3>
+
+<p>Other dvec: 
+<code>[.dvec()</code>,
+<code>[&lt;-.dvec()</code>,
+<code>[[.dvec()</code>,
+<code>[[&lt;-.dvec()</code>,
+<code>as.data.frame.dvec()</code>,
+<code>as_dvec()</code>,
+<code>as_dvec.character()</code>,
+<code>as_dvec.complex()</code>,
+<code>as_dvec.dvec()</code>,
+<code>as_dvec.integer()</code>,
+<code>as_dvec.logical()</code>,
+<code>as_dvec.numeric()</code>,
+<code>classified.dvec()</code>,
+<code>desolve.dvec()</code>,
+<code>explicit_guide.data.frame()</code>,
+<code>format.dvec()</code>,
+<code>implicit_guide.dvec()</code>,
+<code>length.dvec()</code>,
+<code>print.dvec()</code>,
+<code>resolve.classified()</code>,
+<code>resolve.dvec()</code>,
+<code>unclassified.dvec()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">a &lt;- as_dvec(letters[1:3], label = 'foo')
+b &lt;- as_dvec(letters[3:5], label = 'foo')
+c &lt;- c(a,b)
+c
+class(c)
+
+</code></pre>
+
+
+</div>

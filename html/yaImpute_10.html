@@ -1,0 +1,109 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>ensembleImpute</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Computes the mean, median, or mode among a list of impute.yai objects</h2>
+
+<h3>Description</h3>
+
+<p>Several objects of class <code>impute.yai</code> or <code>yai</code> 
+are combined by computing the mean, median, or mode of separate, individual imputations.
+The intention is that the members of the first argument would be formed by running 
+yai several times with <code>bootstrap=TRUE</code> or by varying other options. 
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">ensembleImpute(imputes, method="mean",...)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>imputes</code></td>
+<td>
+<p>a list of objects class <code>impute.yai</code> or <code>yai</code>. 
+Function <code>impute.yai</code> is called for list members where the class is yai.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>method</code></td>
+<td>
+<p>when "mean", the continuous variables are averaged using <code>mean</code>,
+otherwise the <code>median</code> is used. Mode is always used for character data 
+(generally the case for factors).</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+<p>passed to <code>impute.yai</code>.</p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>An object of class <code>c("impute.yai","data.frame")</code>, see <code>impute.yai</code>.
+The attributes of the data.frame include the following:
+</p>
+
+<ol>
+<li>
+<p> sd - A data.frame of standard deviations for continuous variables
+if there are any. The columns are not reported if the standard deviation is
+zero for all observations which is typically true of "observed" values. 
+</p>
+</li>
+<li>
+<p> N - the number of replications used to compute the corresponding data; 
+reported only if the number differs from the total number of replications. This 
+will be the case when <code>bootstrap</code>, <code>sampleVar</code>, or both are used in 
+<code>yai</code>.
+</p>
+</li>
+<li>
+<p> methods - the method used for each variable.
+</p>
+</li>
+</ol>
+<h3>Author(s)</h3>
+
+<p>Nicholas L. Crookston <a href="mailto:ncrookston.fs@gmail.com">ncrookston.fs@gmail.com</a> <br>
+John Coulston <a href="mailto:jcoulston@fs.fed.us">jcoulston@fs.fed.us</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code>yai</code> <code>buildConsensus</code> <code>impute.yai</code> 
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">
+require (yaImpute)
+data(iris)
+
+set.seed(123) 
+
+# form some test data, y's are defined only for reference
+# observations.
+refs=sample(rownames(iris),50)
+x &lt;- iris[,1:2]      # Sepal.Length Sepal.Width
+y &lt;- iris[refs,3:4]  # Petal.Length Petal.Width
+
+reps &lt;- replicate(10, yai(x=x,y=y,method="msn",bootstrap=TRUE,k=2),
+                  simplify=FALSE)
+
+ensembleImpute(reps,ancillaryData=iris)
+
+</code></pre>
+
+
+</div>

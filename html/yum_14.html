@@ -1,0 +1,85 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>simplify_by_flattening</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Simplify the structure of extracted YAML fragments</h2>
+
+<h3>Description</h3>
+
+<p>This function does some cleaning and simplifying to allow
+efficient specification of elements in the YAML fragments.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">simplify_by_flattening(x, simplify = ".*", .level = 1)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>x</code></td>
+<td>
+<p>Extracted (and loaded) YAML fragments</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>simplify</code></td>
+<td>
+<p>A regular expression specifying which elements to
+simplify (default is everything)</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>.level</code></td>
+<td>
+<p>Internal argument to enable slightly-less-than-elegant 'recursion'.</p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>A simplified list (but still a list)
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">yamlFragmentExample &lt;- '
+---
+source:
+  -
+    id: src_1
+    label: "Label 1"
+  -
+    id: src_2
+    label: "Label 2"
+assertion:
+  -
+    id: assertion_1
+    label: "Assertion 1"
+  -
+    id: assertion_2
+    label: "Assertion 2"
+---
+';
+loadedExampleFragments &lt;-
+  load_yaml_fragments(yamlFragmentExample);
+simplified &lt;-
+  simplify_by_flattening(loadedExampleFragments);
+
+### Pre simmplification:
+str(loadedExampleFragments);
+
+### Post simmplification:
+str(simplified);
+
+</code></pre>
+
+
+</div>

@@ -1,0 +1,46 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>pt.roy</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Roy's safety-first criterion</h2>
+
+<h3>Description</h3>
+
+<p>Roy's safety-first criterion is a risk management technique that allows to choose
+a portfolio based on the criterion that the probability of the portfolio's return falling below
+a minimum desired threshold is minimized.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">pt.roy(r,mar)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>r</code></td>
+<td>
+<p>:a vector of a risk asset return</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>mar</code></td>
+<td>
+<p>:minimum acceptable return</p>
+</td>
+</tr>
+</table>
+<h3>Examples</h3>
+
+<pre><code class="language-R">r &lt;- runif(100,0,1) # generate random number to simulate returns
+pt.roy(r,0.024)
+</code></pre>
+
+
+</div>

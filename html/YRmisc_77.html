@@ -1,0 +1,61 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>tr.logtb</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Logistic function</h2>
+
+<h3>Description</h3>
+
+<p>Generate logistic series, with set top and bottom value and acceleration.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">tr.logtb(x,top,bot,a,b)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>x</code></td>
+<td>
+<p>:a vector</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>top</code></td>
+<td>
+<p>:higher level y asymptote</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>bot</code></td>
+<td>
+<p>:lower level y asymptote</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>a</code></td>
+<td>
+<p>:a number to control top acceleration of the curve</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>b</code></td>
+<td>
+<p>:a number to control bottom acceleration of the curve</p>
+</td>
+</tr>
+</table>
+<h3>Examples</h3>
+
+<pre><code class="language-R">tr.logtb(seq(-3, 3, 0.1), 1, 0.4, -3, 3)
+</code></pre>
+
+
+</div>

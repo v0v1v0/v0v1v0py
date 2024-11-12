@@ -1,0 +1,156 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>mpv</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>
+
+Realized Multipower Variation
+</h2>
+
+<h3>Description</h3>
+
+
+<p>The function returns the realized MultiPower Variation (mpv), defined in Barndorff-Nielsen and Shephard (2004), for each component.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">mpv(yuima, r = 2, normalize = TRUE)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>yuima</code></td>
+<td>
+
+
+<p>an object of  <code>yuima-class</code> or <code>yuima.data-class</code>.
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>r</code></td>
+<td>
+
+
+<p>a vector of non-negative numbers or a list of vectors of non-negative numbers. 
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>normalize</code></td>
+<td>
+<p>logical. See ‘Details’.</p>
+</td>
+</tr>
+</table>
+<h3>Details</h3>
+
+
+<p>Let <code>d</code> be the number of the components of the <code>zoo.data</code> of <code>yuima</code>.
+</p>
+<p>Let <code class="reqn">X^i_{t_0},X^i_{t_1},\dots,X^i_{t_n}</code> be the observation data of the <code class="reqn">i</code>-th component (i.e. the <code class="reqn">i</code>-th component of the <code>zoo.data</code> of <code>yuima</code>).
+</p>
+<p>When <code class="reqn">r</code> is a <code class="reqn">k</code>-dimensional vector of non-negative numbers, <code>mpv(yuima,r,normalize=TRUE)</code> is defined as the <code>d</code>-dimensional vector with <code>i</code>-th element equal to
+</p>
+<p style="text-align: center;"><code class="reqn">\mu_{r[1]}^{-1}\cdots\mu_{r[k]}^{-1}n^{\frac{r[1]+\cdots+r[k]}{2}-1}\sum_{j=1}^{n-k+1}|\Delta X^i_{t_{j}}|^{r[1]}|\Delta X^i_{t_{j+1}}|^{r[2]}\cdots|\Delta X^i_{t_{j+k-1}}|^{r[k]},</code>
+</p>
+
+<p>where <code class="reqn">\mu_p</code> is the p-th absolute moment of the standard normal distribution and <code class="reqn">\Delta X^i_{t_{j}}=X^i_{t_j}-X^i_{t_{j-1}}</code>. If <code>normalize</code> is <code>FALSE</code> the result is not multiplied by <code class="reqn">\mu_{r[1]}^{-1}\cdots\mu_{r[k]}^{-1}</code>.
+</p>
+<p>When <code class="reqn">r</code> is a list of vectors of non-negative numbers, <code>mpv(yuima,r,normalize=TRUE)</code> is defined as the <code>d</code>-dimensional vector with <code>i</code>-th element equal to
+</p>
+<p style="text-align: center;"><code class="reqn">\mu_{r^i_1}^{-1}\cdots\mu_{r^i_{k_i}}^{-1}n^{\frac{r^i_1+\cdots+r^i_{k_i}}{2}-1}\sum_{j=1}^{n-k_i+1}|\Delta X^i_{t_{j}}|^{r^i_1}|\Delta X^i_{t_{j+1}}|^{r^i_2}\cdots|\Delta X^i_{t_{j+k_i-1}}|^{r^i_{k_i}},</code>
+</p>
+
+<p>where <code class="reqn">r^i_1,\dots,r^i_{k_i}</code> is the <code>i</code>-th component of <code>r</code>. If <code>normalize</code> is <code>FALSE</code> the result is not multiplied by <code class="reqn">\mu_{r^i_1}^{-1}\cdots\mu_{r^i_{k_i}}^{-1}</code>.
+</p>
+
+
+<h3>Value</h3>
+
+
+
+
+
+
+<p>A numeric vector with the same length as the <code>zoo.data</code> of <code>yuima</code>
+</p>
+
+
+<h3>Author(s)</h3>
+
+
+<p>Yuta Koike with YUIMA Project Team
+</p>
+
+
+<h3>References</h3>
+
+
+<p>Barndorff-Nielsen, O. E. and Shephard, N. (2004)
+Power and bipower variation with stochastic volatility and jumps,
+<em>Journal of Financial Econometrics</em>, <b>2</b>, no. 1, 1–37.
+</p>
+<p>Barndorff-Nielsen, O. E. , Graversen, S. E. , Jacod, J. , Podolskij M. and Shephard, N. (2006)
+A central limit theorem for realised power and bipower variations of continuous semimartingales,
+in: Kabanov, Y. , Lipster, R. , Stoyanov J. (Eds.), From Stochastic Calculus to Mathematical Finance: The Shiryaev Festschrift, Springer-Verlag, Berlin, pp. 33–68.
+</p>
+
+
+<h3>See Also</h3>
+
+
+<p><code>setData</code>, <code>cce</code>, <code>minrv</code>, <code>medrv</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">## Not run: 
+set.seed(123)
+
+# One-dimensional case
+## Model: dXt=t*dWt+t*dzt, 
+## where zt is a compound Poisson process with intensity 5 and jump sizes distribution N(0,0.1). 
+
+model &lt;- setModel(drift=0,diffusion="t",jump.coeff="t",measure.type="CP",
+                  measure=list(intensity=5,df=list("dnorm(z,0,sqrt(0.1))")),
+                  time.variable="t")
+
+yuima.samp &lt;- setSampling(Terminal = 1, n = 390) 
+yuima &lt;- setYuima(model = model, sampling = yuima.samp) 
+yuima &lt;- simulate(yuima)
+plot(yuima)
+
+mpv(yuima) # true value is 1/3
+mpv(yuima,1) # true value is 1/2
+mpv(yuima,rep(2/3,3)) # true value is 1/3
+
+# Multi-dimensional case
+## Model: dXkt=t*dWk_t (k=1,2,3).
+
+diff.matrix &lt;- diag(3)
+diag(diff.matrix) &lt;- c("t","t","t")
+model &lt;- setModel(drift=c(0,0,0),diffusion=diff.matrix,time.variable="t",
+                  solve.variable=c("x1","x2","x3"))
+
+yuima.samp &lt;- setSampling(Terminal = 1, n = 390) 
+yuima &lt;- setYuima(model = model, sampling = yuima.samp) 
+yuima &lt;- simulate(yuima)
+plot(yuima)
+
+mpv(yuima,list(c(1,1),1,rep(2/3,3))) # true varue is c(1/3,1/2,1/3)
+
+
+## End(Not run)
+</code></pre>
+
+
+</div>

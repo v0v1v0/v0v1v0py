@@ -1,0 +1,504 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>cce.factor</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>
+
+High-Dimensional Cumulative Covariance Estimator by Factor Modeling and Regularization
+</h2>
+
+<h3>Description</h3>
+
+
+<p>This function estimates the covariance and precision matrices of a high-dimesnional Ito process by factor modeling and regularization when it is observed at discrete times possibly nonsynchronously with noise. 
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">cce.factor(yuima, method = "HY", factor = NULL, PCA = FALSE, 
+           nfactor = "interactive", regularize = "glasso", taper, 
+           group = 1:(dim(yuima) - length(factor)), lambda = "bic", 
+           weight = TRUE, nlambda = 10, ratio, N, thr.type = "soft", 
+           thr = NULL, tau = NULL, par.alasso = 1, par.scad = 3.7, 
+           thr.delta = 0.01, frequency = 300, utime, ...)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>yuima</code></td>
+<td>
+
+
+<p>an object of  <code>yuima-class</code> or <code>yuima.data-class</code>.
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>method</code></td>
+<td>
+
+
+<p>the method to be used in <code>cce</code>.
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>factor</code></td>
+<td>
+
+
+<p>an integer or character vector indicating which components of <code>yuima</code> are factors. 
+If <code>NULL</code>, no factor structure is taken account of.
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>PCA</code></td>
+<td>
+
+
+<p>logical. If <code>TRUE</code>, a principal component analysis is performed to construct factors.
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>nfactor</code></td>
+<td>
+
+
+<p>the number of factors constructed when <code>PCA</code> is <code>TRUE</code>. 
+If <code>nfactor = "interactive"</code>, the scree plot of the principal component analysis is depicted and the user can set this argument interactively. 
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>regularize</code></td>
+<td>
+
+
+<p>the regularizaton method to be used. 
+Possible choices are <code>"glasso"</code> (the default), <code>"tapering"</code>, <code>"thresholding"</code> and <code>"eigen.cleaning"</code>. 
+See ‘Details’.
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>taper</code></td>
+<td>
+
+
+<p>the tapering matrix used when <code>regularize = "tapering"</code>. 
+If missing, the tapering matrix is constructed according to <code>group</code>. See ‘Details’.
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>group</code></td>
+<td>
+
+
+<p>an integer vector having the length equal to <code>dim(yuima)-length(factor)</code>. 
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>lambda</code></td>
+<td>
+
+
+<p>the penalty parameter used when <code>regularize = "glasso"</code>. If it is <code>"aic"</code> (resp. <code>"bic"</code>), it is selected by minimizing the formally defined AIC (resp. BIC). 
+See ‘Details’. 
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>weight</code></td>
+<td>
+
+
+<p>logical. If <code>TRUE</code>, a weighted version is used for <code>regularize = "glasso"</code> as in Koike (2020).
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>nlambda</code></td>
+<td>
+
+
+<p>a positive integer indicating the number of candidate penalty parameters for which AIC or BIC is evaluated when <code>lambda</code> is <code>"aic"</code> or <code>"bic"</code>. 
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>ratio</code></td>
+<td>
+
+
+<p>a positive number indicating the ratio of the largest and smallest values in candidate penalty parameters for which AIC or BIC is evaluated when <code>lambda</code> is <code>"aic"</code> or <code>"bic"</code>. See ‘Details’. 
+The default value is <code>sqrt(log(d)/N)</code>, where <code>d</code> is the dimension of <code>yuima</code>. 
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>N</code></td>
+<td>
+
+
+<p>a positive integer indicating the "effective" sampling size, which is necessary to evealuate AIC and BIC when <code>lambda</code> is <code>"aic"</code> or <code>"bic"</code>. 
+In a standard situation, it is equal to the sample size <code class="reqn">-</code> 1, but it might be different when the data are observed nonsynchronously and/or with noise. 
+If missing, it is automatically determined according to <code>method</code>. 
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>thr.type</code></td>
+<td>
+
+
+<p>a character string indicating the type of the thresholding method used when <code>regularize = "thresholding"</code>. 
+Possible choices are <code>"hard"</code>, <code>"soft"</code>, <code>"alasso"</code> and <code>"scad"</code>. See Section 2.3 of Dai et al. (2019) for the definition of each method. 
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>thr</code></td>
+<td>
+
+
+<p>a numeric matrix indicating the threshold levels used when <code>regularize = "thresholding"</code>. Its entries indicate the threshold levels for the corresponding entries of the covariance matrix (values for <code class="reqn">\lambda</code> in the notation of Dai et al. (2019)). 
+A single number is converted to the matrix with common entries equal to that number. 
+If <code>NULL</code>, it is determined according to <code>tau</code>. 
+See ‘Details’.
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>tau</code></td>
+<td>
+
+
+<p>a number between 0 and 1 used to determine the threshold levels used when <code>regularize = "thresholding"</code> and <code>thr=NULL</code> (a value for <code class="reqn">\tau</code> in the notation of Dai et al. (2019)). 
+If <code>NULL</code>, it is determined by a grid search procedure as suggested in Section 4.3 of Dai et al. (2019). 
+See ‘Details’.
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>par.alasso</code></td>
+<td>
+
+
+<p>the tuning parameter for <code>thr.type = "alasso"</code> (a value for <code class="reqn">\eta</code> in the notation of Dai et al. (2019)). 
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>par.scad</code></td>
+<td>
+
+
+<p>the tuning parameter for <code>thr.type = "scad"</code> (a value for <code class="reqn">a</code> in the notation of Dai et al. (2019)). 
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>thr.delta</code></td>
+<td>
+
+
+<p>a positive number indicating the step size used in the grid serach procedure to determine <code>tau</code>. 
+
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>frequency</code></td>
+<td>
+
+
+<p>passed to <code>cce</code>.
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>utime</code></td>
+<td>
+
+
+<p>passed to <code>cce</code>.
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+
+
+<p>passed to <code>cce</code>.
+</p>
+</td>
+</tr>
+</table>
+<h3>Details</h3>
+
+
+<p>One basic approach to estimate the covariance matrix of high-dimensional time series is to take account of the factor structure and perform regularization for the residual covariance matrix. 
+This function implements such an estimation procedure for high-frequency data modeled as a discretely observed semimartingale. 
+Specifically, let <code class="reqn">Y</code> be a <code class="reqn">d</code>-dimensional semimartingale which describes the dynamics of the observation data. We consider the following continuous-time factor model:
+</p>
+<p style="text-align: center;"><code class="reqn">
+Y_t = \beta X_t + Z_t,     0\le t\le T,
+</code>
+</p>
+
+<p>where <code class="reqn">X</code> is an <code class="reqn">r</code>-dimensional semimartingale (the factor process), <code class="reqn">Z</code> is a <code class="reqn">d</code>-dimensional semimartingale (the residual process), and <code class="reqn">\beta</code> is a constant <code class="reqn">d\times r</code> matrix (the factor loading matrix). We assume that <code class="reqn">X</code> and <code class="reqn">Z</code> are orthogonal in the sense that <code class="reqn">[X,Z]_T=0</code>. Then, the quadratic covariation matrix of <code class="reqn">Y</code> is given by
+</p>
+<p style="text-align: center;"><code class="reqn">
+[Y,Y]_T=\beta[X,X]_T\beta^\top+[Z,Z]_T.
+</code>
+</p>
+
+<p>Also, <code class="reqn">\beta</code> can be written as <code class="reqn">\beta=[Y,X]_T[X,X]_T^{-1}</code>. Thus, if we have observation data both for <code class="reqn">Y</code> and <code class="reqn">X</code>, we can construct estimators for <code class="reqn">[Y,Y]_T</code>, <code class="reqn">[X,X]_T</code> and <code class="reqn">\beta</code> by <code>cce</code>. Moreover, plugging these estimators into the above equation, we can also construct an estimator for <code class="reqn">[Z,Z]_T</code>.  Since this estimator is often poor due to the high-dimensionality, we regularize it by some method. Then, by plugging the regularized estimator for <code class="reqn">[Z,Z]_T</code> into the above equation, we obtain the final  estimator for <code class="reqn">[Y,Y]_T</code>. 
+</p>
+<p>Even if we do not have observation data for <code class="reqn">X</code>, we can (at least formally) construct a pseudo factor process by performing principal component analysis for the initial estimator of <code class="reqn">[Y,Y]_T</code>. See Ait-Sahalia and Xiu (2017) and Dai et al. (2019) for details. 
+</p>
+<p>Currently, the following four options are available for the regularization method applied to the residual covariance matrix estimate:
+</p>
+
+<ol>
+<li> <p><code>regularize = "glasso"</code> (the default). 
+</p>
+<p>This performs the glaphical Lasso. When <code>weight=TRUE</code> (the default), a weighted version of the graphical Lasso is performed as in Koike (2020). Otherwise, the standard graphical Lasso is performed as in Brownlees et al. (2018). 
+</p>
+<p>If <code>lambda="aic"</code> (resp.~<code>lambda="bic"</code>), the penalty parameter for the graphical Lasso is selected by minimizing the formally defined AIC (resp.~BIC). 
+The minimization is carried out by grid search, where the grid is determined as in Section 5.1 of Koike (2020).
+</p>
+<p>The optimization problem in the graphical Lasso is solved by the GLASSOFAST algorithm of Sustik and Calderhead (2012), which is available from the package <span class="pkg">glassoFast</span>. 
+</p>
+</li>
+<li> <p><code>regularize = "tapering"</code>. 
+</p>
+<p>This performs tapering, i.e. taking the entry-wise product of the residual covariance matrix estimate and a tapering matrix specified by <code>taper</code>. 
+See Section 3.5.1 of Pourahmadi (2011) for an overview of this method.
+</p>
+<p>If <code>taper</code> is missing, it is constructed according to <code>group</code> as follows: <code>taper</code> is a 0-1 matrix and the <code class="reqn">(i,j)</code>-th entry is equal to 1 if and only if <code>group[i]==group[j]</code>. Thus, by default it makes the residual covariance matrix diagonal.
+</p>
+</li>
+<li> <p><code>regularize = "thresholding"</code>. 
+</p>
+<p>This performs thresholding, i.e. entries of the residual covariance matrix are shrunk toward 0 according to a thresholding rule (specified by <code>thr.type</code>) and a threshold level (spencified by <code>thr</code>). 
+</p>
+<p>If <code>thr=NULL</code>, the <code class="reqn">(i,j)</code>-th entry of <code>thr</code> is given by <code class="reqn">\tau\sqrt{\hat{[Z^i,Z^i]}_T\hat{[Z^j,Z^j]}_T}</code>, where <code class="reqn">\hat{[Z^i,Z^i]}_T</code> (resp. <code class="reqn">\hat{[Z^j,Z^j]}_T</code>) denotes the <code class="reqn">i</code>-th (resp. <code class="reqn">j</code>-th) diagonal entry of the non-regularized estimator for the residual covariance matrix <code class="reqn">[Z,Z]_T</code>, and <code class="reqn">\tau</code> is a tuning parameter specified by <code>tau</code>. 
+</p>
+<p>When <code>tau=NULL</code>, the value of <code class="reqn">\tau</code> is set to the smallest value in the grid with step size <code>thr.delta</code> such that the regularized estimate of the residual covariance matrix becomes positive definite.
+</p>
+</li>
+<li> <p><code>regularize = "eigen.cleaning"</code>. 
+</p>
+<p>This performs the eigenvalue cleaning algorithm described in Hautsch et al. (2012). 
+</p>
+</li>
+</ol>
+<h3>Value</h3>
+
+
+
+
+
+
+<p>A list with components:
+</p>
+<table>
+<tr style="vertical-align: top;">
+<td><code>covmat.y</code></td>
+<td>
+<p>the estimated covariance matrix</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>premat.y</code></td>
+<td>
+<p>the estimated precision matrix</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>beta.hat</code></td>
+<td>
+<p>the estimated factor loading matrix</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>covmat.x</code></td>
+<td>
+<p>the estimated factor covariance matrix</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>covmat.z</code></td>
+<td>
+<p>the estimated residual covariance matrix</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>premat.z</code></td>
+<td>
+<p>the estimated residual precision matrix</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>sigma.z</code></td>
+<td>
+<p>the estimated residual covariance matrix before regularization</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>pc</code></td>
+<td>
+<p>the variances of the principal components (it is <code>NULL</code> if <code>PCA = FALSE</code>)</p>
+</td>
+</tr>
+</table>
+<h3>Author(s)</h3>
+
+
+<p>Yuta Koike with YUIMA project Team
+</p>
+
+
+<h3>References</h3>
+
+
+<p>Ait-Sahalia, Y. and Xiu, D. (2017).
+Using principal component analysis to estimate a high dimensional factor model with high-frequency data,
+<em>Journal of Econometrics</em>, <b>201</b>, 384–399.
+</p>
+<p>Brownlees, C., Nualart, E. and Sun, Y. (2018). 
+Realized networks,
+<em>Journal of Applied Econometrics</em>, <b>33</b>, 986–1006.
+</p>
+<p>Dai, C., Lu, K. and Xiu, D. (2019).
+Knowing factors or factor loadings, or neither? Evaluating estimators of large covariance matrices with noisy and asynchronous data,
+<em>Journal of Econometrics</em>, <b>208</b>, 43–79.
+</p>
+<p>Hautsch, N., Kyj, L. M. and Oomen, R. C. (2012).
+A blocking and regularization approach to high-dimensional realized covariance estimation,
+<em>Journal of Applied Econometrics</em>, <b>27</b>, 625–645.
+</p>
+<p>Koike, Y. (2020). 
+De-biased graphical Lasso for high-frequency data,
+<em>Entropy</em>, <b>22</b>, 456. 
+</p>
+<p>Pourahmadi, M. (2011). 
+Covariance estimation: The GLM and regularization perspectives. 
+<em>Statistical Science</em>, <b>26</b>, 369–387.
+</p>
+<p>Sustik, M. A. and Calderhead, B. (2012).
+GLASSOFAST: An efficient GLASSO implementation,
+UTCSTechnical Report TR-12-29, The University of Texas at Austin.
+</p>
+
+
+<h3>See Also</h3>
+
+
+<p><code>cce</code>, <code>lmm</code>, <code>glassoFast</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">## Not run: 
+set.seed(123)
+
+## Simulating a factor process (Heston model)
+drift &lt;- c("mu*S", "-theta*(V-v)")
+diffusion &lt;- matrix(c("sqrt(max(V,0))*S", "gamma*sqrt(max(V,0))*rho",
+                       0, "gamma*sqrt(max(V,0))*sqrt(1-rho^2)"),
+                    2,2)
+mod &lt;- setModel(drift = drift, diffusion = diffusion,
+                state.variable = c("S", "V")) 
+n &lt;- 2340
+samp &lt;- setSampling(n = n)
+heston &lt;- setYuima(model = mod, sampling = samp)
+param &lt;- list(mu = 0.03, theta = 3, v = 0.09, 
+              gamma = 0.3, rho = -0.6) 
+result &lt;- simulate(heston, xinit = c(1, 0.1), 
+                   true.parameter = param)
+
+zdata &lt;- get.zoo.data(result) # extract the zoo data
+X &lt;- log(zdata[[1]]) # log-price process
+V &lt;- zdata[[2]] # squared volatility process
+
+
+## Simulating a residual process (correlated BM)
+d &lt;- 100 # dimension
+Q &lt;- 0.1 * toeplitz(0.7^(1:d-1)) # residual covariance matrix
+dZ &lt;- matrix(rnorm(n*d),n,d) %*% chol(Q)/sqrt(n)
+Z &lt;- zoo(apply(dZ, 2, "diffinv"), samp@grid[[1]])
+
+
+## Constructing observation data
+b &lt;- runif(d, 0.25, 2.25) # factor loadings
+Y &lt;- X %o% b + Z
+yuima &lt;- setData(cbind(X, Y))
+
+# We subsample yuima to construct observation data
+yuima &lt;- subsampling(yuima, setSampling(n = 78))
+
+
+## Estimating the covariance matrix (factor is known)
+cmat &lt;- tcrossprod(b) * mean(V[-1]) + Q # true covariance matrix
+pmat &lt;- solve(cmat) # true precision matrix
+
+# (1) Regularization method is glasso (the default)
+est &lt;- cce.factor(yuima, factor = 1) 
+norm(est$covmat.y - cmat, type = "2") 
+norm(est$premat.y - pmat, type = "2")
+
+# (2) Regularization method is tapering
+est &lt;- cce.factor(yuima, factor = 1, regularize = "tapering") 
+norm(est$covmat.y - cmat, type = "2") 
+norm(est$premat.y - pmat, type = "2")
+
+# (3) Regularization method is thresholding
+est &lt;- cce.factor(yuima, factor = 1, regularize = "thresholding") 
+norm(est$covmat.y - cmat, type = "2") 
+norm(est$premat.y - pmat, type = "2")
+
+# (4) Regularization method is eigen.cleaning
+est &lt;- cce.factor(yuima, factor = 1, regularize = "eigen.cleaning") 
+norm(est$covmat.y - cmat, type = "2") 
+norm(est$premat.y - pmat, type = "2")
+
+
+## Estimating the covariance matrix (factor is unknown)
+yuima2 &lt;- setData(Y)
+
+# We subsample yuima to construct observation data
+yuima2 &lt;- subsampling(yuima2, setSampling(n = 78))
+
+# (A) Ignoring the factor structure (regularize = "glasso")
+est &lt;- cce.factor(yuima2) 
+norm(est$covmat.y - cmat, type = "2") 
+norm(est$premat.y - pmat, type = "2")
+
+# (B) Estimating the factor by PCA (regularize = "glasso")
+est &lt;- cce.factor(yuima2, PCA = TRUE, nfactor = 1) # use 1 factor 
+norm(est$covmat.y - cmat, type = "2") 
+norm(est$premat.y - pmat, type = "2")
+
+# One can interactively select the number of factors
+# after implementing PCA (the scree plot is depicted)
+# Try: est &lt;- cce.factor(yuima2, PCA = TRUE)
+
+## End(Not run)
+</code></pre>
+
+
+</div>

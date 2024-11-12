@@ -1,0 +1,46 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>pt.sdexrtn</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Standard deviation of excess return</h2>
+
+<h3>Description</h3>
+
+<p>The standard deviation of excess return is simply the standard deviation of the asset
+return over the benchmark return.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">pt.sdexrtn(ar,br)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>ar</code></td>
+<td>
+<p>:a vector of a risk asset return</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>br</code></td>
+<td>
+<p>:a vector of benchmark return</p>
+</td>
+</tr>
+</table>
+<h3>Examples</h3>
+
+<pre><code class="language-R">artn &lt;- runif(12, -1, 1)
+brtn &lt;- runif(12,-1,1)
+pt.sdexrtn(artn,brtn)
+</code></pre>
+
+
+</div>

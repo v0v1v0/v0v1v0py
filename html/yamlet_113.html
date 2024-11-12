@@ -1,0 +1,150 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>io_csv.data.frame</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Export Documented Table as CSV</h2>
+
+<h3>Description</h3>
+
+<p>Exports a data.frame as comma-separated variable,
+as well as a yamlet version of its decorations.
+A wrapper for <code>as.csv.data.frame</code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">## S3 method for class 'data.frame'
+io_csv(
+  x,
+  file = "",
+  ext = getOption("yamlet_extension", ".yaml"),
+  meta = stdout(),
+  gz = NULL,
+  useBytes = FALSE,
+  default_keys = getOption("yamlet_default_keys", list("label", "guide")),
+  ...
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>x</code></td>
+<td>
+<p>data.frame</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>file</code></td>
+<td>
+<p>passed to <code>as.csv.data.frame</code> (by method dispatch)</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>ext</code></td>
+<td>
+<p>= extension for metadata equivalent of x</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>meta</code></td>
+<td>
+<p>passed as <code>con</code> to <code>io_yamlet</code></p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>gz</code></td>
+<td>
+<p>logical; guessed by default from <code>x</code>; if TRUE, '.gz' extension enforced present for (character) <code>file</code> and absent for default <code>meta</code></p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>useBytes</code></td>
+<td>
+<p>passed to <code>io_yamlet</code></p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>default_keys</code></td>
+<td>
+<p>passed to <code>io_yamlet</code></p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+<p>passed to <code>as.csv</code> and to <code>io_yamlet</code></p>
+</td>
+</tr>
+</table>
+<h3>Details</h3>
+
+<p>You should be able to supply exactly the connections you want for 
+<code>file</code> (the data file) and <code>meta</code> (the metadata file)
+if <code>gz</code> is FALSE. If <code>gz</code> is NULL, it will be 
+guessed from file (TRUE for character ending with '.gz' or '.GZ').
+If TRUE, character <code>file</code> will have '.gz' extension enforced,
+but any '.gz' ('.GZ') will be stripped when calculating <code>meta</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>invisible(file)
+</p>
+
+
+<h3>See Also</h3>
+
+<p>Other io: 
+<code>io_csv()</code>,
+<code>io_csv.character()</code>,
+<code>io_res()</code>,
+<code>io_res.character()</code>,
+<code>io_res.decorated()</code>,
+<code>io_table()</code>,
+<code>io_table.character()</code>,
+<code>io_table.data.frame()</code>,
+<code>io_yamlet()</code>,
+<code>io_yamlet.character()</code>,
+<code>io_yamlet.data.frame()</code>,
+<code>io_yamlet.yamlet()</code>
+</p>
+<p>Other interface: 
+<code>canonical.decorated()</code>,
+<code>classified.data.frame()</code>,
+<code>decorate.character()</code>,
+<code>decorate.data.frame()</code>,
+<code>desolve.decorated()</code>,
+<code>ggplot.decorated()</code>,
+<code>io_csv.character()</code>,
+<code>io_res.character()</code>,
+<code>io_res.decorated()</code>,
+<code>io_table.character()</code>,
+<code>io_table.data.frame()</code>,
+<code>io_yamlet.character()</code>,
+<code>io_yamlet.data.frame()</code>,
+<code>is_parseable.default()</code>,
+<code>mimic.default()</code>,
+<code>modify.default()</code>,
+<code>promote.list()</code>,
+<code>read_yamlet()</code>,
+<code>resolve.decorated()</code>,
+<code>scripted.default()</code>,
+<code>selected.default()</code>,
+<code>write_yamlet()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">example(io_csv)
+</code></pre>
+
+
+</div>

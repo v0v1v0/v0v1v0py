@@ -1,0 +1,227 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>sparkmat</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Draws a sparkmat</h2>
+
+<h3>Description</h3>
+
+<p>Draws multiple time series (or sparklines) at given locations.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">sparkmat(x, locs = NULL, w = NULL, h = NULL, lcol = NULL,
+         yscales = NULL, tile.shading = NULL, 
+         tile.margin = unit(c(0, 0, 0, 0), "points"),
+         tile.pars = NULL, just = c("right", "top"),
+         new = TRUE, ...)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>x</code></td>
+<td>
+<p>a list of data frames, all with the same dimensions, one for each panel of
+vertically aligned sparklines.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>locs</code></td>
+<td>
+<p>a data frame with x-coordinates in the first variable and y-coordinates in the second variable, giving locations of each of the <code>length(x)</code> sparkline panels.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>w</code></td>
+<td>
+<p>vector of unit widths (or native widths if not specified as units).</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>h</code></td>
+<td>
+<p>vector of unit heights (or native heights if not specified as units).</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>lcol</code></td>
+<td>
+<p>vector of <code>ncol(x[[1]])</code> line colors, one for each sparkline in each panel.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>yscales</code></td>
+<td>
+<p>either a vector of length 2 giving the y-limits for all sparklines, or a list having the same length as the number of columns in <code>ss</code> (each component of which is a 2-vector giving scales for the individual sparklines). Defaults to <code>NULL</code>, in which case the scales for each sparkline are set to its minimum and maximum value within the panel.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>tile.shading</code></td>
+<td>
+<p>vector of background shadings for the panels.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>tile.margin</code></td>
+<td>
+<p>an outer margin around each tile (panel of sparklines). A 4-vector of units giving the bottom, left, top and right margins; defaults to
+<code>unit(c(0,0,0,0), 'points')</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>tile.pars</code></td>
+<td>
+<p>a list of graphics parameters describing the buffer area.  See <code>Details</code> for more information.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>just</code></td>
+<td>
+<p>default is <code>c("right", "top")</code>; controls the justification
+of the sparklines relative to the provided location coordinates.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>new</code></td>
+<td>
+<p>defaults to <code>TRUE</code>, which creates a new, empty page; otherwise adds the sparkline to the existing plot.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+<p>for arguments to be passed through to <code>sparklines()</code>.</p>
+</td>
+</tr>
+</table>
+<h3>Details</h3>
+
+<p>In all the cases where a list of graphics parameters is needed, the valid parameter names are the same as would be valid when passed to gpar in the appropriate call. That is, passing <code>list(fill = 'blue', col = 'red')</code> to <code>margin</code> gives a margin that is blue with a red border; but adding <code>fontface = 'bold'</code> will have no effect, just as it would have no effect in a call to <code>grid.rect()</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>John W. Emerson, Walton Green</p>
+
+
+<h3>References</h3>
+
+<p>Tufte, E. R. (2006) <em>Beautiful Evidence</em> Cheshire, Connecticut: Graphics Press.</p>
+
+
+<h3>See Also</h3>
+
+<p><code>ts.plot</code>, <code>sparkline</code>, <code>sparklines</code></p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">
+# An example with a time series of energy consumption at Yale colleges.
+data(YaleEnergy)
+y &lt;- YaleEnergy
+
+# Need list of 12 data frames, each with one time series.
+
+z &lt;- list(data.frame(y[y$name==y$name[1],"ELSQFT"]),
+          data.frame(y[y$name==y$name[2],"ELSQFT"]),
+          data.frame(y[y$name==y$name[3],"ELSQFT"]),
+          data.frame(y[y$name==y$name[4],"ELSQFT"]),
+          data.frame(y[y$name==y$name[5],"ELSQFT"]),
+          data.frame(y[y$name==y$name[6],"ELSQFT"]),
+          data.frame(y[y$name==y$name[7],"ELSQFT"]),
+          data.frame(y[y$name==y$name[8],"ELSQFT"]),
+          data.frame(y[y$name==y$name[9],"ELSQFT"]),
+          data.frame(y[y$name==y$name[10],"ELSQFT"]),
+          data.frame(y[y$name==y$name[11],"ELSQFT"]),
+          data.frame(y[y$name==y$name[12],"ELSQFT"]))
+
+sparkmat(z, locs=data.frame(y$lon, y$lat), new=TRUE,
+         w=0.002, h=0.0002, just=c("left", "top"))
+grid.text(y[1:12,1], unit(y$lon[1:12]+0.001, "native"),
+          unit(y$lat[1:12]+0.00003, "native"),
+          just=c("center", "bottom"), gp=gpar(cex=0.7))
+grid.text("Degrees Longitude", 0.5, unit(-2.5, "lines"))
+grid.text("Degrees Latitude", unit(-4.5, "lines"), 0.5, rot=90)
+grid.text("Monthly Electrical Consumption (KwH/SqFt)",
+          0.5, 0.82, gp=gpar(cex=1, font=2))
+grid.text("of Yale Residential Colleges",
+          0.5, 0.77, gp=gpar(cex=1, font=2))
+grid.text("July 1999 - July 2006",
+          0.5, 0.72, gp=gpar(cex=1, font=2))
+
+# An example with pressure and high cloud cover over a regular grid of the
+# Americas, provided by NASA ().
+
+runexample &lt;- FALSE
+if (runexample) {
+
+data(nasa)
+
+grid.newpage()
+pushViewport(viewport(w = unit(1, "npc")-unit(2, "inches"),
+                      h = unit(1, "npc")-unit(2, "inches")))
+v &lt;- viewport(xscale = c(-115, -55),
+              yscale = c(-22.5, 37.5))
+pushViewport(v)
+
+y &lt;- vector(mode="list", length=24*24)
+locs &lt;- as.data.frame(matrix(0, 24*24, 2))
+tile.shading &lt;- rep(0, 24*24)
+for(i in 1:24) {     # Latitudes
+  for(j in 1:24) {   # Longitudes
+    y[[(i-1)*24+j]] &lt;- as.data.frame(t(nasa$data[,,i,j]))
+    locs[(i-1)*24+j,] &lt;- c(as.numeric(dimnames(nasa$data)$lon[j]),
+                           as.numeric(dimnames(nasa$data)$lat[i]))
+    tile.shading[(i-1)*24+j] &lt;- gray( 1-.5*(nasa$elev[i,j]/max(nasa$elev)) )
+  }
+}
+
+yscales &lt;- list(quantile(nasa$data["pressure",,,], c(0.01, 0.99), na.rm=TRUE),
+                quantile(nasa$data["cloudhigh",,,], c(0.01, 0.99), na.rm=TRUE))
+
+sparkmat(y, locs=locs, just='center', w=2.5, h=2.5,
+         tile.shading=tile.shading, lcol=c(6,3), yscales=yscales,
+         tile.margin = unit(c(2,2,2,2), 'points'), new=FALSE)
+
+grid.xaxis(gp=gpar(fontface=2, fontsize=14))
+grid.yaxis(gp=gpar(fontface=2, fontsize=14))
+grid.rect()
+
+grid.text("Degrees Latitude", x=unit(-0.75, "inches"), y=0.5, rot=90,
+          gp=gpar(fontface=2, fontsize=14))
+grid.text("Degrees Longitude", x=0.5, y=unit(-0.75, "inches"), rot=0,
+          gp=gpar(fontface=2, fontsize=14))
+grid.text("Grayscale shading reflects",
+          x=unit(1, "npc")+unit(0.6, "inches"), y=0.5, rot=270,
+          gp=gpar(fontface=2, fontsize=14))
+grid.text("average elevation above sea level",
+          x=unit(1, "npc")+unit(0.3, "inches"), y=0.5, rot=270,
+          gp=gpar(fontface=2, fontsize=14))
+
+grid.lines(nasa$coast[,1], nasa$coast[,2], default.units = 'native',
+           gp = gpar(col = 'black', lwd = 1))
+
+grid.text("Pressure",
+          x=0.25, y=unit(1, "npc")+unit(1.25, "lines"),
+          gp=gpar(fontface=2, fontsize=14))
+grid.rect(x=0.25, y=unit(1, "npc") + unit(0.5, "lines"),
+          width=0.4, height=unit(0.05, "inches"), gp=gpar(col=6, fill=6))
+grid.text("High Cloud",
+          x=0.75, y=unit(1, "npc")+unit(1.25, "lines"),
+          gp=gpar(fontface=2, fontsize=14))
+grid.rect(x=0.75, y=unit(1, "npc") + unit(0.5, "lines"),
+          width=0.4, height=unit(0.05, "inches"), gp=gpar(col=3, fill=3))
+}
+</code></pre>
+
+
+</div>

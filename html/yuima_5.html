@@ -1,0 +1,96 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>aeDensity</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Asymptotic Expansion - Density</h2>
+
+<h3>Description</h3>
+
+<p>Asymptotic Expansion - Density
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">aeDensity(..., ae, eps = 1, order = NULL)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+<p>named argument, data.frame, list, or environment specifying the grid to evaluate the density. See examples.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>ae</code></td>
+<td>
+<p>an object of class <code>yuima.ae-class</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>eps</code></td>
+<td>
+<p>numeric. The intensity of the perturbation.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>order</code></td>
+<td>
+<p>integer. The expansion order. If <code>NULL</code> (default), it uses the maximum order used in <code>ae</code>.</p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>Probability density function evaluated on the given grid.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">## Not run: 
+# model
+gbm &lt;- setModel(drift = 'mu*x', diffusion = 'sigma*x', solve.variable = 'x')
+
+# settings
+xinit &lt;- 100
+par &lt;- list(mu = 0.01, sigma = 0.2)
+sampling &lt;- setSampling(Initial = 0, Terminal = 1, n = 1000)
+
+# asymptotic expansion
+approx &lt;- ae(model = gbm, sampling = sampling, order = 4, true.parameter = par, xinit = xinit)
+
+# The following are all equivalent methods to specify the grid via ....
+# Notice that the character 'x' corresponds to the solve.variable of the yuima model.
+
+# 1) named argument  
+x &lt;- seq(50, 200, by = 0.1)
+density &lt;- aeDensity(x = x, ae = approx, order = 4)
+# 2) data frame
+df &lt;- data.frame(x = seq(50, 200, by = 0.1))
+density &lt;- aeDensity(df, ae = approx, order = 4)
+# 3) environment
+env &lt;- new.env()
+env$x &lt;- seq(50, 200, by = 0.1)
+density &lt;- aeDensity(env, ae = approx, order = 4)
+# 4) list
+lst &lt;- list(x = seq(50, 200, by = 0.1))
+density &lt;- aeDensity(lst, ae = approx, order = 4)
+
+# exact density
+exact &lt;- dlnorm(x = x, meanlog = log(xinit)+(par$mu-0.5*par$sigma^2)*1, sdlog = par$sigma*sqrt(1))
+
+# compare
+plot(x = exact, y = density, xlab = "Exact", ylab = "Approximated")
+
+## End(Not run)
+</code></pre>
+
+
+</div>

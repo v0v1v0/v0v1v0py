@@ -1,0 +1,462 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>yml_params</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Parameterize an R Markdown report using Shiny components</h2>
+
+<h3>Description</h3>
+
+<p>R Markdown lets you add dynamic parameters to your report using the <code>params</code>
+YAML field (see the <a href="https://bookdown.org/yihui/rmarkdown/parameterized-reports.html">R Markdown book</a> for
+examples); parameterized reports are also used in RStudio Connect. The values
+of these variables can be called inside your R Markdown document using
+<code>params$field_name</code>. <a href="https://bookdown.org/yihui/rmarkdown/params-knit.html">There are several ways to change the values of the parameters</a>: manually
+change the YAML, use the <code>params</code> argument in <code>rmarkdown::render()</code>, or knit
+with parameters, which launches a Shiny app to select values for each.
+<code>yml_params()</code> accepts any number of named R objects to set as YAML fields.
+You can also pass arguments to the underlying Shiny functions using YAML. To
+set a shiny component, use the <code style="white-space: pre;">⁠shiny_*()⁠</code> helper functions. <code>shiny_params()</code>
+captures a Shiny output function and transforms it to YAML. However, R
+Markdown supports only a limited number of components; each of these is
+included as a function starting with <code style="white-space: pre;">⁠shiny_*()⁠</code>, e.g. <code>shiny_checkbox()</code>
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">yml_params(.yml, ...)
+
+shiny_params(.shiny)
+
+shiny_checkbox(label, value = FALSE, width = NULL)
+
+shiny_numeric(label, value, min = NA, max = NA, step = NA, width = NULL)
+
+shiny_slider(
+  label,
+  min,
+  max,
+  value,
+  step = NULL,
+  round = FALSE,
+  format = NULL,
+  ticks = TRUE,
+  animate = FALSE,
+  width = NULL,
+  sep = ",",
+  pre = NULL,
+  post = NULL,
+  timeFormat = NULL,
+  timezone = NULL,
+  dragRange = TRUE
+)
+
+shiny_date(
+  label,
+  value = NULL,
+  min = NULL,
+  max = NULL,
+  format = "yyyy-mm-dd",
+  startview = "month",
+  weekstart = 0,
+  language = "en",
+  width = NULL,
+  autoclose = TRUE,
+  datesdisabled = NULL,
+  daysofweekdisabled = NULL
+)
+
+shiny_text(label, value = "", width = NULL, placeholder = NULL)
+
+shiny_file(
+  label,
+  multiple = FALSE,
+  accept = NULL,
+  width = NULL,
+  buttonLabel = "Browse...",
+  placeholder = "No file selected"
+)
+
+shiny_radio(
+  label,
+  choices = NULL,
+  selected = NULL,
+  inline = FALSE,
+  width = NULL,
+  choiceNames = NULL,
+  choiceValues = NULL
+)
+
+shiny_select(
+  label,
+  choices,
+  selected = NULL,
+  multiple = FALSE,
+  selectize = TRUE,
+  width = NULL,
+  size = NULL
+)
+
+shiny_password(label, value = "", width = NULL, placeholder = NULL)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>.yml</code></td>
+<td>
+<p>a <code>yml</code> object created by <code>yml()</code>, <code>as_yml()</code>, or returned by
+a <code style="white-space: pre;">⁠yml_*()⁠</code> function</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+<p>additional named R objects, such as characters or lists, to
+transform into YAML</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>.shiny</code></td>
+<td>
+<p>a Shiny function call to capture and convert to YAML</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>label</code></td>
+<td>
+<p>Display label for the control, or <code>NULL</code> for no label.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>value</code></td>
+<td>
+<p>Initial value (<code>TRUE</code> or <code>FALSE</code>).</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>width</code></td>
+<td>
+<p>The width of the input, e.g. '400px', or '100%'; see
+<code>shiny::validateCssUnit()</code></p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>min</code></td>
+<td>
+<p>Minimum allowed value</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>max</code></td>
+<td>
+<p>Maximum allowed value</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>step</code></td>
+<td>
+<p>Interval to use when stepping between min and max</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>round</code></td>
+<td>
+<p><code>TRUE</code> to round all values to the nearest integer;
+<code>FALSE</code> if no rounding is desired; or an integer to round to that
+number of digits (for example, 1 will round to the nearest 10, and -2 will
+round to the nearest .01). Any rounding will be applied after snapping to
+the nearest step.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>format</code></td>
+<td>
+<p>The format of the date to display in the browser. Defaults to
+<code>"yyyy-mm-dd"</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>ticks</code></td>
+<td>
+<p><code>FALSE</code> to hide tick marks, <code>TRUE</code> to show them
+according to some simple heuristics.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>animate</code></td>
+<td>
+<p><code>TRUE</code> to show simple animation controls with default
+settings; <code>FALSE</code> not to; or a custom settings list, such as those created
+using <code>shiny::animationOptions()</code></p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>sep</code></td>
+<td>
+<p>Separator between thousands places in numbers.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>pre</code></td>
+<td>
+<p>A prefix string to put in front of the value.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>post</code></td>
+<td>
+<p>A suffix string to put after the value.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>timeFormat</code></td>
+<td>
+<p>Only used if the values are Date or POSIXt objects. A time
+format string, to be passed to the Javascript strftime library. See
+<a href="https://github.com/samsonjs/strftime">https://github.com/samsonjs/strftime</a> for more details. The allowed
+format specifications are very similar, but not identical, to those for R's
+<code>base::strftime()</code> function. For Dates, the default is <code>"%F"</code>
+(like <code>"2015-07-01"</code>), and for POSIXt, the default is <code>"%F %T"</code>
+(like <code>"2015-07-01 15:32:10"</code>).</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>timezone</code></td>
+<td>
+<p>Only used if the values are POSIXt objects. A string
+specifying the time zone offset for the displayed times, in the format
+<code>"+HHMM"</code> or <code>"-HHMM"</code>. If <code>NULL</code> (the default), times will
+be displayed in the browser's time zone. The value <code>"+0000"</code> will
+result in UTC time.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>dragRange</code></td>
+<td>
+<p>This option is used only if it is a range slider (with two
+values). If <code>TRUE</code> (the default), the range can be dragged. In other
+words, the min and max can be dragged together. If <code>FALSE</code>, the range
+cannot be dragged.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>startview</code></td>
+<td>
+<p>The date range shown when the input object is first clicked.
+Can be "month" (the default), "year", or "decade".</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>weekstart</code></td>
+<td>
+<p>Which day is the start of the week. Should be an integer
+from 0 (Sunday) to 6 (Saturday).</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>language</code></td>
+<td>
+<p>The language used for month and day names. Default is "en".
+Other valid values include "ar", "az", "bg", "bs", "ca", "cs", "cy", "da",
+"de", "el", "en-AU", "en-GB", "eo", "es", "et", "eu", "fa", "fi", "fo",
+"fr-CH", "fr", "gl", "he", "hr", "hu", "hy", "id", "is", "it-CH", "it",
+"ja", "ka", "kh", "kk", "ko", "kr", "lt", "lv", "me", "mk", "mn", "ms",
+"nb", "nl-BE", "nl", "no", "pl", "pt-BR", "pt", "ro", "rs-latin", "rs",
+"ru", "sk", "sl", "sq", "sr-latin", "sr", "sv", "sw", "th", "tr", "uk",
+"vi", "zh-CN", and "zh-TW".</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>autoclose</code></td>
+<td>
+<p>Whether or not to close the datepicker immediately when a
+date is selected.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>datesdisabled</code></td>
+<td>
+<p>Which dates should be disabled. Either a Date object,
+or a string in <code>yyyy-mm-dd</code> format.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>daysofweekdisabled</code></td>
+<td>
+<p>Days of the week that should be disabled. Should be
+a integer vector with values from 0 (Sunday) to 6 (Saturday).</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>placeholder</code></td>
+<td>
+<p>A character string giving the user a hint as to what can
+be entered into the control. Internet Explorer 8 and 9 do not support this
+option.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>multiple</code></td>
+<td>
+<p>Whether the user should be allowed to select and upload
+multiple files at once. <strong>Does not work on older browsers, including
+Internet Explorer 9 and earlier.</strong></p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>accept</code></td>
+<td>
+<p>A character vector of "unique file type specifiers" which
+gives the browser a hint as to the type of file the server expects.
+Many browsers use this prevent the user from selecting an invalid file.
+</p>
+<p>A unique file type specifier can be:
+</p>
+
+<ul>
+<li>
+<p> A case insensitive extension like <code>.csv</code> or <code>.rds</code>.
+</p>
+</li>
+<li>
+<p> A valid MIME type, like <code>text/plain</code> or <code>application/pdf</code>
+</p>
+</li>
+<li>
+<p> One of <code style="white-space: pre;">⁠audio/*⁠</code>, <code style="white-space: pre;">⁠video/*⁠</code>, or <code style="white-space: pre;">⁠image/*⁠</code> meaning any audio, video,
+or image type, respectively.
+</p>
+</li>
+</ul>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>buttonLabel</code></td>
+<td>
+<p>The label used on the button. Can be text or an HTML tag
+object.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>choices</code></td>
+<td>
+<p>List of values to select from (if elements of the list are
+named then that name rather than the value is displayed to the user). If
+this argument is provided, then <code>choiceNames</code> and <code>choiceValues</code> must not
+be provided, and vice-versa. The values should be strings; other types
+(such as logicals and numbers) will be coerced to strings.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>selected</code></td>
+<td>
+<p>The initially selected value. If not specified, then it
+defaults to the first item in <code>choices</code>. To start with no items selected,
+use <code>character(0)</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>inline</code></td>
+<td>
+<p>If <code>TRUE</code>, render the choices inline (i.e. horizontally)</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>choiceNames, choiceValues</code></td>
+<td>
+<p>List of names and values, respectively, that
+are displayed to the user in the app and correspond to the each choice (for
+this reason, <code>choiceNames</code> and <code>choiceValues</code> must have the same length).
+If either of these arguments is provided, then the other <em>must</em> be provided
+and <code>choices</code> <em>must not</em> be provided. The advantage of using both of these
+over a named list for <code>choices</code> is that <code>choiceNames</code> allows any type of UI
+object to be passed through (tag objects, icons, HTML code, ...), instead
+of just simple text. See Examples.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>selectize</code></td>
+<td>
+<p>Whether to use <span class="pkg">selectize.js</span> or not.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>size</code></td>
+<td>
+<p>Number of items to show in the selection box; a larger number
+will result in a taller box. Not compatible with <code>selectize=TRUE</code>.
+Normally, when <code>multiple=FALSE</code>, a select input will be a drop-down list,
+but when <code>size</code> is set, it will be a box instead.</p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>a <code>yml</code> object
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code>yml_params_code()</code>
+</p>
+<p>Other yml: 
+<code>asis_yaml_output()</code>,
+<code>bib2yml()</code>,
+<code>draw_yml_tree()</code>,
+<code>has_field()</code>,
+<code>read_json()</code>,
+<code>use_yml_defaults()</code>,
+<code>use_yml_file()</code>,
+<code>use_yml()</code>,
+<code>yml_author()</code>,
+<code>yml_blogdown_opts()</code>,
+<code>yml_bookdown_opts()</code>,
+<code>yml_citations()</code>,
+<code>yml_clean()</code>,
+<code>yml_distill_opts()</code>,
+<code>yml_latex_opts()</code>,
+<code>yml_output()</code>,
+<code>yml_pagedown_opts()</code>,
+<code>yml_pkgdown()</code>,
+<code>yml_reference()</code>,
+<code>yml_replace()</code>,
+<code>yml_resource_files()</code>,
+<code>yml_rsconnect_email()</code>,
+<code>yml_rticles_opts()</code>,
+<code>yml_runtime()</code>,
+<code>yml_site_opts()</code>,
+<code>yml_toc()</code>,
+<code>yml_vignette()</code>
+</p>
+<p>Other R Markdown: 
+<code>yml_clean()</code>,
+<code>yml_runtime()</code>,
+<code>yml_site_opts()</code>,
+<code>yml_vignette()</code>
+</p>
+<p>Other shiny: 
+<code>yml_runtime()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">
+yml() %&gt;%
+  yml_params(
+    z = "z",
+    x = shiny_numeric("Starting value", 23),
+    no = shiny_checkbox("No option?"),
+    y = shiny_slider("Data range", 0, 1, .5, round = TRUE)
+  )
+
+</code></pre>
+
+
+</div>

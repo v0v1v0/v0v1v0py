@@ -1,0 +1,139 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>explicit_guide.data.frame</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Coerce Data Frame Guide to Something More Explicit</h2>
+
+<h3>Description</h3>
+
+<p>Coerces data.frame 'guide' attributes to something more explicit.
+The attribute 'guide' generally suggests a guide
+to interpretation of a data item, such as units, formats, codelists,
+and encodings.  The idea here is to replace 'guide' with something
+explicit in case required downstream.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">## S3 method for class 'data.frame'
+explicit_guide(
+  x,
+  ...,
+  overwrite = getOption("yamlet_explicit_guide_overwrite", TRUE),
+  simplify = getOption("yamlet_explicit_guide_simplify", TRUE),
+  expand = getOption("yamlet_expand_codelist", TRUE)
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>x</code></td>
+<td>
+<p>data.frame</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+<p>named arguments passed to <code>as_yamlet</code>, <code>explicit_guide</code>, and <code>decorate</code>; un-named arguments limit scope</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>overwrite</code></td>
+<td>
+<p>passed as TRUE</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>simplify</code></td>
+<td>
+<p>whether to remove guide attribute</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>expand</code></td>
+<td>
+<p>whether to expand empty guide list using sorted unique values. NA likely excluded.</p>
+</td>
+</tr>
+</table>
+<h3>Details</h3>
+
+<p>This method pulls the 'decorations' off of the data.frame,
+converts to yamlet, applies <code>explicit_guide.yamlet</code>,
+purges 'guide' attributes from the data.frame,
+and then re-decorates using <code>overwrite = TRUE</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>data.frame
+</p>
+
+
+<h3>See Also</h3>
+
+<p>Other explicit_guide: 
+<code>explicit_guide()</code>,
+<code>explicit_guide.dvec()</code>,
+<code>explicit_guide.yamlet()</code>,
+<code>implicit_guide()</code>,
+<code>implicit_guide.data.frame()</code>,
+<code>implicit_guide.dvec()</code>,
+<code>infer_guide()</code>
+</p>
+<p>Other dvec: 
+<code>[.dvec()</code>,
+<code>[&lt;-.dvec()</code>,
+<code>[[.dvec()</code>,
+<code>[[&lt;-.dvec()</code>,
+<code>as.data.frame.dvec()</code>,
+<code>as_dvec()</code>,
+<code>as_dvec.character()</code>,
+<code>as_dvec.complex()</code>,
+<code>as_dvec.dvec()</code>,
+<code>as_dvec.integer()</code>,
+<code>as_dvec.logical()</code>,
+<code>as_dvec.numeric()</code>,
+<code>c.dvec()</code>,
+<code>classified.dvec()</code>,
+<code>desolve.dvec()</code>,
+<code>format.dvec()</code>,
+<code>implicit_guide.dvec()</code>,
+<code>length.dvec()</code>,
+<code>print.dvec()</code>,
+<code>resolve.classified()</code>,
+<code>resolve.dvec()</code>,
+<code>unclassified.dvec()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">library(magrittr)
+x &lt;- data.frame(
+ ID = 1,
+ CONC = 1,
+ RACE = 1,
+ SEX = 1,
+ DATE = 1
+)
+x %&lt;&gt;% modify(ID, label = 'subject identifier')
+x %&lt;&gt;% modify(CONC, label = 'concentration', guide = 'ng/mL')
+x %&lt;&gt;% modify(RACE, label = 'race', guide = list(white = 0, black = 1, asian = 2))
+x %&lt;&gt;% modify(SEX, label = 'sex', guide = list(female = 0, male = 1))
+x %&lt;&gt;% modify(DATE, label  = 'date', guide = '%Y-%m-%d')
+x %&gt;% decorations
+x %&gt;% explicit_guide %&gt;% decorations
+x %&gt;% explicit_guide(DATE) %&gt;% decorations # limit scope
+</code></pre>
+
+
+</div>

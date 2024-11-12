@@ -1,0 +1,142 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>yuima.data-class</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Class "yuima.data" for the data slot of a "yuima" class object</h2>
+
+<h3>Description</h3>
+
+<p>The <code>yuima.data-class</code> is a class of the <span class="pkg">yuima</span> package used to store 
+the data which are hold in the slot <code>data</code> of an object of
+the <code>yuima-class</code>.   
+</p>
+<p>Objects from this class contain either true data or simulated data.
+</p>
+
+
+<h3>Details</h3>
+
+<p>Objects in this class are created or initialized using the 
+methods <code>new</code> or <code>initialize</code> or via the function <code>setData</code>. 
+The preferred way to construct an object in this class is to use the function
+<code>setData</code>.
+</p>
+<p>Objects in this class are used to store 
+the data which are hold in the slot <code>data</code> of an object of
+the <code>yuima-class</code>.   
+</p>
+<p>Objects in this class contain two slots described here. 
+</p>
+
+<dl>
+<dt>
+<code>original.data</code>:</dt>
+<dd>
+<p>The slot <code>original.data</code> contains, as the 
+name suggests, a copy of the original data passed by the user to methods 
+<code>new</code> or <code>initialize</code> or to the function <code>setData</code>. 
+It is intended for backup purposes.</p>
+</dd>
+<dt>
+<code>zoo.data</code>:</dt>
+<dd>
+<p>When a new object of this class is created or 
+initialized using the <code>original.data</code>, the package tries to convert 
+<code>original.data</code> into an object of class <code>zoo</code>. Once 
+coerced to <code>zoo</code>, the data are stored in the slot <code>zoo.data</code>.
+</p>
+<p>If the conversion fails, the initialization or creation of the object fails.
+</p>
+<p>Internally, the <span class="pkg">yuima</span> package stores and operates on  
+<code>zoo</code>-type objects.</p>
+</dd>
+</dl>
+<p>If data are obtained by simulation, the <code>original.data</code> slot 
+is usually empty.
+</p>
+
+
+<h3>Slots</h3>
+
+
+<dl>
+<dt>
+<code>original.data</code>:</dt>
+<dd>
+<p>The original data.</p>
+</dd>
+<dt>
+<code>zoo.data</code>:</dt>
+<dd>
+<p>A list of <code>zoo</code> format data.</p>
+</dd>
+</dl>
+<h3>Methods</h3>
+
+
+<dl>
+<dt>new</dt>
+<dd>
+<p><code>signature(x = "yuima.data", original.data)</code>: the function 
+makes a copy of the prototype object from the class definition of
+<code>yuima.data-class</code>, then
+calls the <code>initialize</code> method passing as arguments the newly created 
+object and the <code>original.data</code>.</p>
+</dd> 
+<dt>initialize</dt>
+<dd>
+<p><code>signature(x = "yuima.data", original.data)</code>: makes
+a copy of <code>original.data</code> into the slot <code>original.data</code> of 
+<code>x</code> and tries to coerce <code>original.data</code> into an object of class
+<code>zoo</code>. The result is put in the slot  <code>zoo.data</code> of 
+<code>x</code>. If coercion fails, the <code>intialize</code> method fails as well.</p>
+</dd>
+<dt>get.zoo.data</dt>
+<dd>
+<p><code>signature(x = "yuima.data")</code>: returns the content
+of the slot <code>zoo.data</code> of <code>x</code>.</p>
+</dd>
+<dt>plot</dt>
+<dd>
+<p><code>signature(x = "yuima.data",  ...)</code>: calls  
+<code>plot</code> from the <code>zoo</code> package with argument
+<code>x@zoo.data</code>. Additional arguments <code>...</code> are passed
+as is to the <code>plot</code> function.</p>
+</dd>
+<dt>dim</dt>
+<dd>
+<p><code>signature(x = "yuima.data")</code>: calls  
+<code>dim</code> from the <code>zoo</code> package with argument
+<code>x@zoo.data</code>.</p>
+</dd>
+<dt>length</dt>
+<dd>
+<p><code>signature(x = "yuima.data")</code>: calls  
+<code>length</code> from the <code>zoo</code> package with argument
+<code>x@zoo.data</code>.</p>
+</dd>
+<dt>cce</dt>
+<dd>
+<p><code>signature(x = "yuima.data")</code>: calculates asyncronous
+covariance estimator on the data contained in <code>x@zoo.data</code>. 
+For more details see <code>cce</code>.</p>
+</dd>
+<dt>llag</dt>
+<dd>
+<p><code>signature(x = "yuima.data")</code>: calculates lead lag estimate
+on the data contained in <code>x@zoo.data</code>. 
+For more details see <code>llag</code>.</p>
+</dd>   
+<dt>cbind.yuima</dt>
+<dd>
+<p><code>signature(x = "yuima.data")</code>: bind yuima.data object.</p>
+</dd>
+</dl>
+<h3>Author(s)</h3>
+
+<p>The YUIMA Project Team</p>
+
+
+</div>

@@ -1,0 +1,656 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>cce</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>
+
+Nonsynchronous Cumulative Covariance Estimator
+</h2>
+
+<h3>Description</h3>
+
+
+<p>This function estimates the covariance between two Ito processes when they are observed at discrete times possibly nonsynchronously. It can apply to 
+irregularly sampled one-dimensional data as a special case.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">cce(x, method="HY", theta, kn, g=function(x)min(x,1-x), refreshing = TRUE,
+    cwise = TRUE, delta = 0, adj = TRUE, K, c.two, J = 1, c.multi, kernel, H,
+    c.RK, eta = 3/5, m = 2, ftregion = 0, vol.init = NA,
+    covol.init = NA, nvar.init = NA, ncov.init = NA, mn, alpha = 0.4,
+    frequency = 300, avg = TRUE, threshold, utime, psd = FALSE)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>x</code></td>
+<td>
+
+
+<p>an object of  <code>yuima-class</code> or <code>yuima.data-class</code>.
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>method</code></td>
+<td>
+
+
+<p>the method to be used. See ‘Details’.
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>theta</code></td>
+<td>
+
+
+<p>a numeric vector or matrix. If it is a matrix, each of its components   indicates the tuning parameter which determines the pre-averaging window lengths <code>kn</code> to be used for estimating the corresponding component. If it is a numeric vector, it is converted to a matrix as <code>(C+t(C))/2</code>, where <code>C=matrix(theta,d,d)</code> and <code>d=dim(x)</code>. The default value is <code>0.15</code> for the method <code>"PHY"</code> or <code>"PTHY"</code> following Christensen et al. (2013), while it is <code>1</code> for the method <code>"MRC"</code> following Christensen et al. (2010). 
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>kn</code></td>
+<td>
+
+
+<p>an integer-valued vector or matrix indicating the pre-averaging window length(s). For the methods <code>"PHY"</code> or <code>"PTHY"</code>, see ‘Details’ for the default value. For the method <code>"MRC"</code>, the default value is <code>ceiling(theta*n^(1+delta))</code>, where <code>n</code> is the number of the refresh times associated with the data minus 1.  
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>g</code></td>
+<td>
+
+
+<p>a function indicating the weight function to be used. The default value is the Bartlett window: <code>function(x)min(x,1-x)</code>.
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>refreshing</code></td>
+<td>
+
+
+<p>logical. If <code>TRUE</code>, the data is pre-synchronized by the next-tick interpolation in the refresh times.
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>cwise</code></td>
+<td>
+
+
+<p>logical. If <code>TRUE</code>, the estimator is calculated componentwise.
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>delta</code></td>
+<td>
+
+
+<p>a non-negative number indicating the order of the pre-averaging window length(s) <code>kn</code>.
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>adj</code></td>
+<td>
+
+
+<p>logical. If <code>TRUE</code>, a finite-sample adjustment is performed. For the method <code>"MRC"</code>, see Christensen et al. (2010) for details. For the method <code>"TSCV"</code>, see Zhang (2011) and Zhang et al. (2005) for details.
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>K</code></td>
+<td>
+
+
+<p>a positive integer indicating the large time-scale parameter. The default value is <code>ceiling(c.two*n^(2/3))</code>, where <code>n</code> is the number of the refresh times associated with the data minus 1.
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>c.two</code></td>
+<td>
+
+
+<p>a positive number indicating the tuning parameter which determines the scale of the large time-scale parameter <code>K</code>. The default value is the average of the  numeric vector each of whose components is the roughly estimated optimal value in the sense of the minimizer of the theoretical asymptotic variance of the estimator of the corresponding diagonal component. The theoretical asymptotic variance is considered in the standard case and given by Eq.(63) of Zhang et al. (2005).
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>J</code></td>
+<td>
+
+
+<p>a positive integer indicating the small time-scale parameter.
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>c.multi</code></td>
+<td>
+
+
+<p>a numeric vector or matrix. If it is a matrix, each of its components   indicates the tuning parameter which determines (the scale of) the number of the time scales to be used for estimating the corresponding component. If it is a numeric vector, it is converted to a matrix as <code>(C+t(C))/2</code>, where <code>C=matrix(c.multi,d,d)</code> and <code>d=dim(x)</code>. The default value is the numeric vector each of whose components is the roughly estimated optimal value in the sense of minimizing the theoretical asymptotic variance of the estimator of the corresponding diagonal component. The theoretical asymptotic variance is considered in the standard case and given by Eq.(37) of Zhang (2006).
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>kernel</code></td>
+<td>
+
+
+<p>a function indicating the kernel function to be used. The default value is the Parzan kernel, which is recommended in Barndorff-Nielsen et al. (2009, 2011).
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>H</code></td>
+<td>
+
+
+<p>a positive number indicating the bandwidth parameter. The default value is <code>c.RK*n^eta</code>, where <code>n</code> is the number of the refresh times associated with the data minus 1.
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>c.RK</code></td>
+<td>
+
+
+<p>a positive number indicating the tuning parameter which determines the scale of the bandwidth parameter <code>H</code>. The default value is the average of the numeric vector each of whose components is the roughly estimated optimal value in the sense of minimizing the theoretical asymptotic variance of the estimator of the corresponding diagonal component. The theoretical asymptotic variance is considered in the standard case and given in Barndorff-Nielsen et al. (2009, 2011).
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>eta</code></td>
+<td>
+
+
+<p>a positive number indicating the tuning parameter which determines the order of the bandwidth parameter <code>H</code>.
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>m</code></td>
+<td>
+
+
+<p>a positive integer indicating the number of the end points to be jittered.
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>ftregion</code></td>
+<td>
+
+
+<p>a non-negative number indicating the length of the flat-top region. <code>ftregion=0</code> (the default) means that a non-flat-top realized kernel studied in Barndorff-Nielsen et al. (2011) is used. <code>ftregion=1/H</code> means that a flat-top realized kernel studied in Barndorff-Nielsen et al. (2008) is used. See Varneskov (2015) for other values. 
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>vol.init</code></td>
+<td>
+
+
+<p>a numeric vector each of whose components indicates the initial value to be used to estimate the integrated volatility of the corresponding component, which is passed to the optimizer. 
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>covol.init</code></td>
+<td>
+
+
+<p>a numeric matrix each of whose columns indicates the initial value to be used to estimate the integrated covariance of the corresponding component, which is passed to the optimizer. 
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>nvar.init</code></td>
+<td>
+
+
+<p>a numeric vector each of whose components indicates the initial value to be used to estimate the variance of noise of the corresponding component, which is passed to the optimizer. 
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>ncov.init</code></td>
+<td>
+
+
+<p>a numeric matrix each of whose columns indicates the initial value to be used to estimate the covariance of noise of the corresponding component, which is passed to the optimizer. 
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>mn</code></td>
+<td>
+
+
+<p>a positive integer indicating the number of terms to be used for calculating the SIML estimator. The default value is <code>ceiling(n^alpha)</code>, where <code>n</code> is the number of the refresh times associated with the data minus 1.
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>alpha</code></td>
+<td>
+
+
+<p>a postive number indicating the order of <code>mn</code>.
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>frequency</code></td>
+<td>
+
+
+<p>a positive integer indicating the frequency (seconds) of the calendar time sampling to be used.
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>avg</code></td>
+<td>
+
+
+<p>logical. If <code>TRUE</code>, the averaged subsampling estimator is calculated. Otherwise the simple sparsely subsampled estimator is calculated.
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>threshold</code></td>
+<td>
+
+
+<p>a numeric vector or list indicating the threshold parameter(s). Each of its components indicates the threshold parameter or process to be used for estimating the corresponding component. If it is a numeric vector, the elements in <code>threshold</code> are recycled if there are two few elements in <code>threshold</code>. The default value is determined following Koike (2014) (for the method <code>"THY"</code>) and Koike (2015) (for the method <code>"PTHY"</code>).
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>utime</code></td>
+<td>
+
+
+<p>a positive number indicating what seconds the interval [0,1] corresponds to. 
+
+The default value is the difference between the maximum and the minimum of the sampling times, multiplied by 23,400. Here, 23,400 seconds correspond to 6.5 hours, hence if the data is sampled on the interval [0,1], then the sampling interval is regarded as 6.5 hours. 
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>psd</code></td>
+<td>
+
+<p>logical. If <code>TRUE</code>, the estimated covariance matrix <code>C</code> is converted to <code>(C%*%C)^(1/2)</code> for ensuring the positive semi-definiteness. In this case the absolute values of the estimated correlations are always ensured to be less than or equal to 1. 
+</p>
+</td>
+</tr>
+</table>
+<h3>Details</h3>
+
+
+<p>This function is a method for objects of <code>yuima.data-class</code> and <code>yuima-class</code>.
+It extracts the <code>data</code> slot when applied to a an object of <code>yuima-class</code>.
+</p>
+<p>Typical usages are
+</p>
+<pre>
+cce(x,psd=FALSE)
+cce(x,method="PHY",theta,kn,g,refreshing=TRUE,cwise=TRUE,psd=FALSE)
+cce(x,method="MRC",theta,kn,g,delta=0,avg=TRUE,psd=FALSE)
+cce(x,method="TSCV",K,c.two,J=1,adj=TRUE,utime,psd=FALSE)
+cce(x,method="GME",c.multi,utime,psd=FALSE)
+cce(x,method="RK",kernel,H,c.RK,eta=3/5,m=2,ftregion=0,utime,psd=FALSE)
+cce(x,method="QMLE",vol.init=NULL,covol.init=NULL,
+    nvar.init=NULL,ncov.init=NULL,psd=FALSE)
+cce(x,method="SIML",mn,alpha=0.4,psd=FALSE)
+cce(x,method="THY",threshold,psd=FALSE)
+cce(x,method="PTHY",theta,kn,g,threshold,refreshing=TRUE,cwise=TRUE,psd=FALSE)
+cce(x,method="SRC",frequency=300,avg=TRUE,utime,psd=FALSE)
+cce(x,method="SBPC",frequency=300,avg=TRUE,utime,psd=FALSE)
+</pre>
+<p>The default method is method <code>"HY"</code>, which is an implementation of the Hayashi-Yoshida estimator proposed in Hayashi and Yoshida (2005).
+<br><br>
+Method <code>"PHY"</code> is an implementation of the Pre-averaged Hayashi-Yoshida estimator proposed in Christensen et al. (2010).
+<br><br>
+Method <code>"MRC"</code> is an implementation of the Modulated Realized Covariance based on refresh time sampling proposed in Christensen et al. (2010).
+<br><br>
+Method <code>"TSCV"</code> is an implementation of the previous tick Two Scales realized CoVariance based on refresh time sampling proposed in Zhang (2011).
+<br><br>
+Method <code>"GME"</code> is an implementation of the Generalized Multiscale Estimator proposed in Bibinger (2011).
+<br><br>
+Method <code>"RK"</code> is an implementation of the multivariate Realized Kernel based on refresh time sampling proposed in Barndorff-Nielsen et al. (2011).
+<br><br>
+Method <code>"QMLE"</code> is an implementation of the nonparametric Quasi Maximum Likelihood Estimator proposed in Ait-Sahalia et al. (2010).
+<br><br>
+Method <code>"SIML"</code> is an implementation of the Separating Information Maximum Likelihood estimator proposed in Kunitomo and Sato (2013) with the basis of refresh time sampling.
+<br><br>
+Method <code>"THY"</code> is an implementation of the Truncated Hayashi-Yoshida estimator proposed in Mancini and Gobbi (2012).
+<br><br>
+Method <code>"PTHY"</code> is an implementation of the Pre-averaged Truncated Hayashi-Yoshida estimator, which is a thresholding version of the pre-averaged Hayashi-Yoshida estimator.
+<br><br>
+Method <code>"SRC"</code> is an implementation of the calendar time Subsampled Realized Covariance.
+<br><br>
+Method <code>"SBPC"</code> is an implementation of the calendar time Subsampled realized BiPower Covariation.
+<br><br>
+The rough estimation procedures for selecting the default values of the tuning parameters are based on those in Barndorff-Nielsen et al. (2009).
+<br><br>
+For the methods <code>"PHY"</code> or <code>"PTHY"</code>, the default value of <code>kn</code> changes depending on the values of <code>refreshing</code> and <code>cwise</code>. If both <code>refreshing</code> and <code>cwise</code> are <code>TRUE</code> (the default), the default value of <code>kn</code> is given by the matrix <code>ceiling(theta*N)</code>, where <code>N</code> is a matrix whose diagonal components are identical with the vector <code>length(x)-1</code> and whose <code class="reqn">(i,j)</code>-th component is identical with the number of the refresh times associated with <code class="reqn">i</code>-th and <code class="reqn">j</code>-th components of <code>x</code> minus 1. If <code>refreshing</code> is <code>TRUE</code> while <code>cwise</code> is <code>FALSE</code>, the default value of <code>kn</code> is given by <code>ceiling(mean(theta)*sqrt(n))</code>, where <code>n</code> is the number of the refresh times associated with the data minus 1. If <code>refreshing</code> is <code>FALSE</code> while <code>cwise</code> is <code>TRUE</code>, the default value of <code>kn</code> is given by the matrix <code>ceiling(theta*N0)</code>, where <code>N0</code> is a matrix whose diagonal components are identical with the vector <code>length(x)-1</code> and whose <code class="reqn">(i,j)</code>-th component is identical with <code>(length(x)[i]-1)+(length(x)[j]-1)</code>. If both <code>refreshing</code> and <code>cwise</code> are <code>FALSE</code>, the default value of <code>kn</code> is given by <code>ceiling(mean(theta)*sqrt(sum(length(x)-1)))</code> (following Christensen et al. (2013)).
+<br><br>
+For the method <code>"QMLE"</code>, the optimization of the quasi-likelihood function is implemented via arima0 using the fact that it can be seen as an MA(1) model's one: See Hansen et al. (2008) for details.
+</p>
+
+
+<h3>Value</h3>
+
+
+
+
+
+
+<p>A list with components:
+</p>
+<table>
+<tr style="vertical-align: top;">
+<td><code>covmat</code></td>
+<td>
+<p>the estimated covariance matrix</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>cormat</code></td>
+<td>
+<p>the estimated correlation matrix</p>
+</td>
+</tr>
+</table>
+<h3>Note</h3>
+
+
+<p>The example shows the central limit theorem for the nonsynchronous 
+covariance estimator.  
+
+Estimation of the asymptotic variance can be implemented by <code>hyavar</code>. 
+The second-order correction will be provided in a future version of the package.
+</p>
+
+
+<h3>Author(s)</h3>
+
+
+<p>Yuta Koike with YUIMA Project Team
+</p>
+
+
+<h3>References</h3>
+
+
+<p>Ait-Sahalia, Y., Fan, J. and Xiu, D. (2010)
+High-frequency covariance estimates with noisy and asynchronous financial data,
+<em>Journal of the American Statistical Association</em>, <b>105</b>, no. 492, 1504–1517.
+</p>
+<p>Barndorff-Nielsen, O. E., Hansen, P. R., Lunde, A. and Shephard, N. (2008)
+Designing realised kernels to measure the ex-post variation of equity prices in the presence of noise,
+<em>Econometrica</em>, <b>76</b>, no. 6, 1481–1536.
+</p>
+<p>Barndorff-Nielsen, O. E., Hansen, P. R., Lunde, A. and Shephard, N. (2009)
+Realized kernels in practice: trades and quotes,
+<em>Econometrics Journal</em>, <b>12</b>, C1–C32.
+</p>
+<p>Barndorff-Nielsen, O. E., Hansen, P. R., Lunde, A. and Shephard, N. (2011)
+Multivariate realised kernels: Consistent positive semi-definite estimators of the covariation of equity prices with noise and non-synchronous trading,
+<em>Journal of Econometrics</em>, <b>162</b>, 149–169.
+</p>
+<p>Bibinger, M. (2011)
+Efficient covariance estimation for asynchronous noisy high-frequency data,
+<em>Scandinavian Journal of Statistics</em>, <b>38</b>, 23–45.
+</p>
+<p>Bibinger, M. (2012)
+An estimator for the quadratic covariation of asynchronously observed Ito processes with noise: asymptotic distribution theory,
+<em>Stochastic processes and their applications</em>, <b>122</b>, 2411–2453.
+</p>
+<p>Christensen, K., Kinnebrock, S. and Podolskij, M. (2010)
+Pre-averaging estimators of the ex-post covariance matrix in noisy diffusion models with non-synchronous data,
+<em>Journal of Econometrics</em>, <b>159</b>, 116–133.
+</p>
+<p>Christensen, K., Podolskij, M. and Vetter, M. (2013)
+On covariation estimation for multivariate continuous Ito semimartingales with noise in non-synchronous observation schemes,
+<em>Journal of Multivariate Analysis</em> <b>120</b> 59–84.
+</p>
+<p>Hansen, P. R., Large, J. and Lunde, A. (2008)
+Moving average-based estimators of integrated variance,
+<em>Econometric Reviews</em>, <b>27</b>, 79–111.
+</p>
+<p>Hayashi, T. and Yoshida, N. (2005)
+On covariance estimation of non-synchronously observed diffusion processes,
+<em>Bernoulli</em>, <b>11</b>, no. 2, 359–379.
+</p>
+<p>Hayashi, T. and Yoshida, N. (2008)
+Asymptotic normality of a covariance estimator for nonsynchronously observed diffusion processes, 
+<em>Annals of the Institute of Statistical Mathematics</em>, <b>60</b>, no. 2, 367–406.
+</p>
+<p>Koike, Y. (2016)
+Estimation of integrated covariances in the simultaneous presence of nonsynchronicity, microstructure noise and jumps,
+<em>Econometric Theory</em>, <b>32</b>, 533–611.
+</p>
+<p>Koike, Y. (2014)
+An estimator for the cumulative co-volatility of asynchronously observed semimartingales with jumps,
+<em>Scandinavian Journal of Statistics</em>, <b>41</b>, 460–481.
+</p>
+<p>Kunitomo, N. and Sato, S. (2013)
+Separating information maximum likelihood estimation of realized volatility and covariance with micro-market noise,
+<em>North American Journal of Economics and Finance</em>, <b>26</b>, 282–309.
+</p>
+<p>Mancini, C. and Gobbi, F. (2012)
+Identifying the Brownian covariation from the co-jumps given discrete observations,
+<em>Econometric Theory</em>, <b>28</b>, 249–273.
+</p>
+<p>Varneskov, R. T. (2016)
+Flat-top realized kernel estimation of quadratic covariation with non-synchronous and noisy asset prices,
+<em>Journal of Business &amp; Economic Statistics</em>, <b>34</b>, no.1, 1–22.
+</p>
+<p>Zhang, L. (2006)
+Efficient estimation of stochastic volatility using noisy observations: a multi-scale approach,
+<em>Bernoulli</em>, <b>12</b>, no.6, 1019–1043.
+</p>
+<p>Zhang, L. (2011)
+Estimating covariation: Epps effect, microstructure noise,
+<em>Journal of Econometrics</em>, <b>160</b>, 33–47.
+</p>
+<p>Zhang, L., Mykland, P. A. and Ait-Sahalia, Y. (2005)
+A tale of two time scales: Determining integrated volatility with noisy high-frequency data,
+<em>Journal of the American Statistical Association</em>, <b>100</b>, no. 472, 1394–1411.
+</p>
+
+
+<h3>See Also</h3>
+
+
+<p><code>setModel</code>, <code>setData</code>, <code>hyavar</code>, <code>lmm</code>, <code>cce.factor</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">## Not run: 
+## Set a model
+diff.coef.1 &lt;- function(t, x1 = 0, x2 = 0) sqrt(1+t)
+diff.coef.2 &lt;- function(t, x1 = 0, x2 = 0) sqrt(1+t^2)
+cor.rho &lt;- function(t, x1 = 0, x2 = 0) sqrt(1/2)
+diff.coef.matrix &lt;- matrix(c("diff.coef.1(t,x1,x2)", 
+"diff.coef.2(t,x1,x2) * cor.rho(t,x1,x2)", 
+"", "diff.coef.2(t,x1,x2) * sqrt(1-cor.rho(t,x1,x2)^2)"), 2, 2) 
+cor.mod &lt;- setModel(drift = c("", ""), 
+diffusion = diff.coef.matrix,solve.variable = c("x1", "x2")) 
+
+set.seed(111) 
+
+## We use a function poisson.random.sampling to get observation by Poisson sampling.
+yuima.samp &lt;- setSampling(Terminal = 1, n = 1200) 
+yuima &lt;- setYuima(model = cor.mod, sampling = yuima.samp) 
+yuima &lt;- simulate(yuima) 
+psample&lt;- poisson.random.sampling(yuima, rate = c(0.2,0.3), n = 1000) 
+
+## cce takes the psample and returns an estimate of the quadratic covariation. 
+cce(psample)$covmat[1, 2]
+##cce(psample)[1, 2]
+
+## True value of the quadratic covariation.
+cc.theta &lt;- function(T, sigma1, sigma2, rho) { 
+  tmp &lt;- function(t) return(sigma1(t) * sigma2(t) * rho(t)) 
+	integrate(tmp, 0, T) 
+}
+
+theta &lt;- cc.theta(T = 1, diff.coef.1, diff.coef.2, cor.rho)$value 
+cat(sprintf("theta =%.5f\n", theta))
+
+names(psample@zoo.data)
+
+
+
+
+
+
+# Example. A stochastic differential equation with nonlinear feedback. 
+
+## Set a model
+drift.coef.1 &lt;- function(x1,x2) x2
+drift.coef.2 &lt;- function(x1,x2) -x1
+drift.coef.vector &lt;- c("drift.coef.1","drift.coef.2")
+diff.coef.1 &lt;- function(t,x1,x2) sqrt(abs(x1))*sqrt(1+t)
+diff.coef.2 &lt;- function(t,x1,x2) sqrt(abs(x2))
+cor.rho &lt;- function(t,x1,x2) 1/(1+x1^2)
+diff.coef.matrix &lt;- matrix(c("diff.coef.1(t,x1,x2)", 
+"diff.coef.2(t,x1,x2) * cor.rho(t,x1,x2)","", 
+"diff.coef.2(t,x1,x2) * sqrt(1-cor.rho(t,x1,x2)^2)"), 2, 2) 
+cor.mod &lt;- setModel(drift = drift.coef.vector,
+ diffusion = diff.coef.matrix,solve.variable = c("x1", "x2"))
+
+## Generate a path of the process
+set.seed(111) 
+yuima.samp &lt;- setSampling(Terminal = 1, n = 10000) 
+yuima &lt;- setYuima(model = cor.mod, sampling = yuima.samp) 
+yuima &lt;- simulate(yuima, xinit=c(2,3)) 
+plot(yuima)
+
+
+## The "true" value of the quadratic covariation.
+cce(yuima)
+
+## We use the function poisson.random.sampling to generate nonsynchronous 
+## observations by Poisson sampling.
+psample&lt;- poisson.random.sampling(yuima, rate = c(0.2,0.3), n = 3000) 
+
+## cce takes the psample to return an estimated value  of the quadratic covariation. 
+## The off-diagonal elements are the value of the Hayashi-Yoshida estimator. 
+cce(psample)
+
+
+
+
+# Example. Epps effect for the realized covariance estimator
+
+## Set a model
+drift &lt;- c(0,0)
+
+sigma1 &lt;- 1
+sigma2 &lt;- 1
+rho &lt;- 0.5
+
+diffusion &lt;- matrix(c(sigma1,sigma2*rho,0,sigma2*sqrt(1-rho^2)),2,2)
+
+model &lt;- setModel(drift=drift,diffusion=diffusion,
+                  state.variable=c("x1","x2"),solve.variable=c("x1","x2"))
+                  
+## Generate a path of the latent process
+set.seed(116)
+
+## We regard the unit interval as 6.5 hours and generate the path on it 
+## with the step size equal to 2 seconds
+
+yuima.samp &lt;- setSampling(Terminal = 1, n = 11700) 
+yuima &lt;- setYuima(model = model, sampling = yuima.samp) 
+yuima &lt;- simulate(yuima)
+
+## We extract nonsynchronous observations from the path generated above 
+## by Poisson random sampling with the average duration equal to 10 seconds
+
+psample &lt;- poisson.random.sampling(yuima, rate = c(1/5,1/5), n = 11700)
+
+## Hayashi-Yoshida estimator consistetly estimates the true correlation
+cce(psample)$cormat[1,2]
+
+## If we synchronize the observation data on some regular grid 
+## by previous-tick interpolations and compute the correlation 
+## by therealized covariance based on such synchronized observations, 
+## we underestimate the true correlation (known as the Epps effect). 
+## This is illustrated by the following examples.
+
+## Synchronization on the grid with 5 seconds steps
+suppressWarnings(s1 &lt;- cce(subsampling(psample, sampling = setSampling(n = 4680)))$cormat[1,2])
+s1
+
+## Synchronization on the grid with 10 seconds steps
+suppressWarnings(s2 &lt;- cce(subsampling(psample, sampling = setSampling(n = 2340)))$cormat[1,2])
+s2
+
+## Synchronization on the grid with 20 seconds steps
+suppressWarnings(s3 &lt;- cce(subsampling(psample, sampling = setSampling(n = 1170)))$cormat[1,2])
+s3
+
+## Synchronization on the grid with 30 seconds steps
+suppressWarnings(s4 &lt;- cce(subsampling(psample, sampling = setSampling(n = 780)))$cormat[1,2])
+s4
+
+## Synchronization on the grid with 1 minute steps
+suppressWarnings(s5 &lt;- cce(subsampling(psample, sampling = setSampling(n = 390)))$cormat[1,2])
+s5
+
+plot(zoo(c(s1,s2,s3,s4,s5),c(5,10,20,30,60)),type="b",xlab="seconds",ylab="correlation",
+main = "Epps effect for the realized covariance")
+
+
+
+# Example. Non-synchronous and noisy observations of a correlated bivariate Brownian motion
+
+## Generate noisy observations from the model used in the previous example
+Omega &lt;- 0.005*matrix(c(1,rho,rho,1),2,2) # covariance matrix of noise
+noisy.psample &lt;- noisy.sampling(psample,var.adj=Omega)
+plot(noisy.psample)
+
+## Hayashi-Yoshida estimator: inconsistent
+cce(noisy.psample)$covmat
+
+## Pre-averaged Hayashi-Yoshida estimator: consistent
+cce(noisy.psample,method="PHY")$covmat
+
+## Generalized multiscale estimator: consistent
+cce(noisy.psample,method="GME")$covmat
+
+## Multivariate realized kernel: consistent
+cce(noisy.psample,method="RK")$covmat
+
+## Nonparametric QMLE: consistent
+cce(noisy.psample,method="QMLE")$covmat
+
+## End(Not run)
+</code></pre>
+
+
+</div>

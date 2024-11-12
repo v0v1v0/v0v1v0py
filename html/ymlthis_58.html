@@ -1,0 +1,86 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>use_yml_defaults</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Set up default YAML</h2>
+
+<h3>Description</h3>
+
+<p><code>use_yml_defaults()</code> takes a <code>yml</code> object and places code on the clipboard
+that will save the resulting YAML as the default for <code>yml()</code>. The code that
+is placed on the clipboard is raw YAML passed to <code>ymlthis.default_yml</code> via
+<code>options()</code>. Saving this code to your <code>.Rprofile</code> (see
+<code>usethis::edit_r_profile()</code>)) will allow <code>yml()</code> or
+<code>get_yml_defaults()</code> to return the saved YAML. <code>use_rmd_defaults()</code> does
+the same for <code>ymlthis.rmd_body</code>, which is used in <code>use_rmarkdown()</code> as the
+body text of the created R Markdown file.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">use_yml_defaults(.yml)
+
+use_rmd_defaults(x)
+
+get_yml_defaults()
+
+get_rmd_defaults()
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>.yml</code></td>
+<td>
+<p>a <code>yml</code> object created by <code>yml()</code>, <code>as_yml()</code>, or returned by
+a <code style="white-space: pre;">⁠yml_*()⁠</code> function</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>x</code></td>
+<td>
+<p>a character vector to use as the body text in <code>use_rmarkdown()</code>.</p>
+</td>
+</tr>
+</table>
+<h3>See Also</h3>
+
+<p><code>yml()</code> <code>get_yml_defaults()</code>
+</p>
+<p>Other yml: 
+<code>asis_yaml_output()</code>,
+<code>bib2yml()</code>,
+<code>draw_yml_tree()</code>,
+<code>has_field()</code>,
+<code>read_json()</code>,
+<code>use_yml_file()</code>,
+<code>use_yml()</code>,
+<code>yml_author()</code>,
+<code>yml_blogdown_opts()</code>,
+<code>yml_bookdown_opts()</code>,
+<code>yml_citations()</code>,
+<code>yml_clean()</code>,
+<code>yml_distill_opts()</code>,
+<code>yml_latex_opts()</code>,
+<code>yml_output()</code>,
+<code>yml_pagedown_opts()</code>,
+<code>yml_params()</code>,
+<code>yml_pkgdown()</code>,
+<code>yml_reference()</code>,
+<code>yml_replace()</code>,
+<code>yml_resource_files()</code>,
+<code>yml_rsconnect_email()</code>,
+<code>yml_rticles_opts()</code>,
+<code>yml_runtime()</code>,
+<code>yml_site_opts()</code>,
+<code>yml_toc()</code>,
+<code>yml_vignette()</code>
+</p>
+
+
+</div>

@@ -1,0 +1,49 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>isometric</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Enforce Isometry</h2>
+
+<h3>Description</h3>
+
+<p>Enforces isometric plot design:  aspect ratio of 1, identical 
+ranges for x and y axes. Can be used meaningfully with
+<code>+ facet_wrap(scales = 'free' ...)</code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">isometric()
+</code></pre>
+
+
+<h3>Value</h3>
+
+<p>ggplot_isometric
+</p>
+
+
+<h3>See Also</h3>
+
+<p>ggplot_add.ggplot_isometric
+</p>
+<p>Other isometric: 
+<code>ggplot_add.ggplot_isometric()</code>,
+<code>ggplot_add.ggplot_symmetric()</code>,
+<code>symmetric()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">library(magrittr)
+library(ggplot2)
+data.frame(x = 1:5, y = 3:7) %&gt;%
+ggplot(aes(x, y)) + geom_point() + isometric()
+</code></pre>
+
+
+</div>

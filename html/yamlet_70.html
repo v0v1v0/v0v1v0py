@@ -1,0 +1,88 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>decorations.data.frame</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Retrieve Decorations for Data Frame</h2>
+
+<h3>Description</h3>
+
+<p>Retrieve the decorations of a data.frame; i.e., the metadata
+used to decorate it. Returns a list with same names as the data.frame.
+By default, 'class' and 'level' attributes are excluded from the result,
+as you likely don't want to manipulate these independently.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">## S3 method for class 'data.frame'
+decorations(
+  x,
+  ...,
+  exclude_attr = getOption("yamlet_exclude_attr", c("class", "levels"))
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>x</code></td>
+<td>
+<p>data.frame</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+<p>optional unquoted column names to limit output (passed to <code>select</code>)</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>exclude_attr</code></td>
+<td>
+<p>attributes to remove from the result</p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>named list of class 'yamlet'
+</p>
+
+
+<h3>See Also</h3>
+
+<p>Other decorate: 
+<code>as_decorated()</code>,
+<code>as_decorated.default()</code>,
+<code>decorate()</code>,
+<code>decorate.character()</code>,
+<code>decorate.data.frame()</code>,
+<code>decorate.list()</code>,
+<code>decorate_groups()</code>,
+<code>decorate_groups.data.frame()</code>,
+<code>decorations()</code>,
+<code>decorations_groups()</code>,
+<code>decorations_groups.data.frame()</code>,
+<code>group_by_decorations()</code>,
+<code>group_by_decorations.data.frame()</code>,
+<code>redecorate()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R"># prepare a decorated data.frame
+file &lt;- system.file(package = 'yamlet', 'extdata','quinidine.csv')
+x &lt;- decorate(file)
+
+# retrieve the decorations
+decorations(x, Subject, time, conc)
+</code></pre>
+
+
+</div>

@@ -1,0 +1,90 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>unionDataJoin</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Combines data from several sources</h2>
+
+<h3>Description</h3>
+
+<p>Takes any combination of several data frames or matrices and creates a new data
+frame. The rows are defined by a union of all row names in the arguments,
+and the columns are defined by a union of all column names in the arguments. The data
+are loaded into this new frame where column and row names match the individual
+inputs. Duplicates are tolerated with the last one specified being the one
+kept. NAs are returned for combinations of rows and columns where no data
+exist. Factors are processed as necessary.</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">unionDataJoin(...,warn=TRUE)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+<p>a list of data frames, matrices, or any combination.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>warn</code></td>
+<td>
+<p>when TRUE, warn when a column name is found in more than one data source.</p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>A data frame.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Nicholas L. Crookston <a href="mailto:ncrookston.fs@gmail.com">ncrookston.fs@gmail.com</a> <br>
+Andrew O. Finley <a href="mailto:finleya@msu.edu">finleya@msu.edu</a>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">require(yaImpute)
+
+d1=data.frame(x1=c("a","b","c","d","e","f"))
+d2=data.frame(x1=as.character(seq(1,4)),row.names=seq(5,8))
+d3=data.frame(x2=seq(1:10))
+
+# note the levels
+levels(d1$x1)
+# [1] "a" "b" "c" "d" "e" "f"
+
+levels(d2$x1)
+# [1] "1" "2" "3" "4"
+
+all=unionDataJoin(d1,d2,d3,warn=FALSE)
+all
+#      x1 x2
+# 1     a  1
+# 2     b  2
+# 3     c  3
+# 4     d  4
+# 5     1  5
+# 6     2  6
+# 7     3  7
+# 8     4  8
+# 9  &lt;NA&gt;  9
+# 10 &lt;NA&gt; 10
+
+levels(all$x1)
+# [1] "1" "2" "3" "4" "a" "b" "c" "d"
+
+</code></pre>
+
+
+</div>

@@ -1,0 +1,48 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>symmetric</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Enforce Symmetry</h2>
+
+<h3>Description</h3>
+
+<p>Enforces symmetric plot design: y axis includes opposites of the range of the data.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">symmetric()
+</code></pre>
+
+
+<h3>Value</h3>
+
+<p>ggplot_symmetric
+</p>
+
+
+<h3>See Also</h3>
+
+<p>ggplot_add.ggplot_symmetric
+</p>
+<p>Other isometric: 
+<code>ggplot_add.ggplot_isometric()</code>,
+<code>ggplot_add.ggplot_symmetric()</code>,
+<code>isometric()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">library(magrittr)
+library(ggplot2)
+data.frame(x = 1:10, y = c(-2, 5, 0, -1, 4, 0, 1, -3, 3, 0)) %&gt;%
+ggplot(aes(x, y)) + geom_point() + symmetric()
+
+</code></pre>
+
+
+</div>

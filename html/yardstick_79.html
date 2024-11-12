@@ -1,0 +1,237 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>lift_curve</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Lift curve</h2>
+
+<h3>Description</h3>
+
+<p><code>lift_curve()</code> constructs the full lift curve and returns a tibble. See
+<code>gain_curve()</code> for a closely related concept.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">lift_curve(data, ...)
+
+## S3 method for class 'data.frame'
+lift_curve(
+  data,
+  truth,
+  ...,
+  na_rm = TRUE,
+  event_level = yardstick_event_level(),
+  case_weights = NULL
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>data</code></td>
+<td>
+<p>A <code>data.frame</code> containing the columns specified by <code>truth</code> and
+<code>...</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+<p>A set of unquoted column names or one or more
+<code>dplyr</code> selector functions to choose which variables contain the
+class probabilities. If <code>truth</code> is binary, only 1 column should be selected,
+and it should correspond to the value of <code>event_level</code>. Otherwise, there
+should be as many columns as factor levels of <code>truth</code> and the ordering of
+the columns should be the same as the factor levels of <code>truth</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>truth</code></td>
+<td>
+<p>The column identifier for the true class results
+(that is a <code>factor</code>). This should be an unquoted column name although
+this argument is passed by expression and supports
+quasiquotation (you can unquote column
+names). For <code style="white-space: pre;">⁠_vec()⁠</code> functions, a <code>factor</code> vector.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>na_rm</code></td>
+<td>
+<p>A <code>logical</code> value indicating whether <code>NA</code>
+values should be stripped before the computation proceeds.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>event_level</code></td>
+<td>
+<p>A single string. Either <code>"first"</code> or <code>"second"</code> to specify
+which level of <code>truth</code> to consider as the "event". This argument is only
+applicable when <code>estimator = "binary"</code>. The default uses an internal helper
+that defaults to <code>"first"</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>case_weights</code></td>
+<td>
+<p>The optional column identifier for case weights.
+This should be an unquoted column name that evaluates to a numeric column
+in <code>data</code>. For <code style="white-space: pre;">⁠_vec()⁠</code> functions, a numeric vector,
+<code>hardhat::importance_weights()</code>, or <code>hardhat::frequency_weights()</code>.</p>
+</td>
+</tr>
+</table>
+<h3>Details</h3>
+
+<p>There is a <code>ggplot2::autoplot()</code> method for quickly visualizing the curve.
+This works for binary and multiclass output, and also works with grouped data
+(i.e. from resamples). See the examples.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A tibble with class <code>lift_df</code> or <code>lift_grouped_df</code> having
+columns:
+</p>
+
+<ul>
+<li> <p><code>.n</code> The index of the current sample.
+</p>
+</li>
+<li> <p><code>.n_events</code> The index of the current <em>unique</em> sample. Values with repeated
+<code>estimate</code> values are given identical indices in this column.
+</p>
+</li>
+<li> <p><code>.percent_tested</code> The cumulative percentage of values tested.
+</p>
+</li>
+<li> <p><code>.lift</code> First calculate the cumulative percentage of true results relative
+to the total number of true results. Then divide that by <code>.percent_tested</code>.
+</p>
+</li>
+</ul>
+<p>If using the <code>case_weights</code> argument, all of the above columns will be
+weighted. This makes the most sense with frequency weights, which are integer
+weights representing the number of times a particular observation should be
+repeated.
+</p>
+
+
+<h3>Gain and Lift Curves</h3>
+
+<p>The motivation behind cumulative gain and lift charts is as a visual method
+to determine the effectiveness of a model when compared to the results one
+might expect without a model. As an example, without a model, if you were to
+advertise to a random 10% of your customer base, then you might expect to
+capture 10% of the of the total number of positive responses had you
+advertised to your entire customer base. Given a model that predicts which
+customers are more likely to respond, the hope is that you can more
+accurately target 10% of your customer base and capture <code>&gt;</code>10% of the total
+number of positive responses.
+</p>
+<p>The calculation to construct lift curves is as follows:
+</p>
+
+<ol>
+<li> <p><code>truth</code> and <code>estimate</code> are placed in descending order by the <code>estimate</code>
+values (<code>estimate</code> here is a single column supplied in <code>...</code>).
+</p>
+</li>
+<li>
+<p> The cumulative number of samples with true results relative to the
+entire number of true results are found.
+</p>
+</li>
+<li>
+<p> The cumulative <code style="white-space: pre;">⁠%⁠</code> found is divided by the cumulative <code style="white-space: pre;">⁠%⁠</code> tested
+to construct the lift value. This ratio represents the factor of improvement
+over an uninformed model. Values <code>&gt;</code>1 represent a valuable model. This is the
+y-axis of the lift chart.
+</p>
+</li>
+</ol>
+<h3>Multiclass</h3>
+
+<p>If a multiclass <code>truth</code> column is provided, a one-vs-all
+approach will be taken to calculate multiple curves, one per level.
+In this case, there will be an additional column, <code>.level</code>,
+identifying the "one" column in the one-vs-all calculation.
+</p>
+
+
+<h3>Relevant Level</h3>
+
+<p>There is no common convention on which factor level should
+automatically be considered the "event" or "positive" result
+when computing binary classification metrics. In <code>yardstick</code>, the default
+is to use the <em>first</em> level. To alter this, change the argument
+<code>event_level</code> to <code>"second"</code> to consider the <em>last</em> level of the factor the
+level of interest. For multiclass extensions involving one-vs-all
+comparisons (such as macro averaging), this option is ignored and
+the "one" level is always the relevant result.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Max Kuhn
+</p>
+
+
+<h3>See Also</h3>
+
+<p>Other curve metrics: 
+<code>gain_curve()</code>,
+<code>pr_curve()</code>,
+<code>roc_curve()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R"># ---------------------------------------------------------------------------
+# Two class example
+
+# `truth` is a 2 level factor. The first level is `"Class1"`, which is the
+# "event of interest" by default in yardstick. See the Relevant Level
+# section above.
+data(two_class_example)
+
+# Binary metrics using class probabilities take a factor `truth` column,
+# and a single class probability column containing the probabilities of
+# the event of interest. Here, since `"Class1"` is the first level of
+# `"truth"`, it is the event of interest and we pass in probabilities for it.
+lift_curve(two_class_example, truth, Class1)
+
+# ---------------------------------------------------------------------------
+# `autoplot()`
+
+library(ggplot2)
+library(dplyr)
+
+# Use autoplot to visualize
+autoplot(lift_curve(two_class_example, truth, Class1))
+
+# Multiclass one-vs-all approach
+# One curve per level
+hpc_cv %&gt;%
+  filter(Resample == "Fold01") %&gt;%
+  lift_curve(obs, VF:L) %&gt;%
+  autoplot()
+
+# Same as above, but will all of the resamples
+hpc_cv %&gt;%
+  group_by(Resample) %&gt;%
+  lift_curve(obs, VF:L) %&gt;%
+  autoplot()
+
+</code></pre>
+
+
+</div>

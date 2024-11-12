@@ -1,0 +1,141 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>poisson_log_loss</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Mean log loss for Poisson data</h2>
+
+<h3>Description</h3>
+
+<p>Calculate the loss function for the Poisson distribution.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">poisson_log_loss(data, ...)
+
+## S3 method for class 'data.frame'
+poisson_log_loss(data, truth, estimate, na_rm = TRUE, case_weights = NULL, ...)
+
+poisson_log_loss_vec(truth, estimate, na_rm = TRUE, case_weights = NULL, ...)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>data</code></td>
+<td>
+<p>A <code>data.frame</code> containing the columns specified by the <code>truth</code>
+and <code>estimate</code> arguments.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+<p>Not currently used.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>truth</code></td>
+<td>
+<p>The column identifier for the true counts (that is <code>integer</code>).
+This should be an unquoted column name although this argument is passed by
+expression and supports quasiquotation (you can
+unquote column names). For <code style="white-space: pre;">⁠_vec()⁠</code> functions, an <code>integer</code> vector.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>estimate</code></td>
+<td>
+<p>The column identifier for the predicted
+results (that is also <code>numeric</code>). As with <code>truth</code> this can be
+specified different ways but the primary method is to use an
+unquoted variable name. For <code style="white-space: pre;">⁠_vec()⁠</code> functions, a <code>numeric</code> vector.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>na_rm</code></td>
+<td>
+<p>A <code>logical</code> value indicating whether <code>NA</code>
+values should be stripped before the computation proceeds.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>case_weights</code></td>
+<td>
+<p>The optional column identifier for case weights. This
+should be an unquoted column name that evaluates to a numeric column in
+<code>data</code>. For <code style="white-space: pre;">⁠_vec()⁠</code> functions, a numeric vector,
+<code>hardhat::importance_weights()</code>, or <code>hardhat::frequency_weights()</code>.</p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>A <code>tibble</code> with columns <code>.metric</code>, <code>.estimator</code>,
+and <code>.estimate</code> and 1 row of values.
+</p>
+<p>For grouped data frames, the number of rows returned will be the same as
+the number of groups.
+</p>
+<p>For <code>poisson_log_loss_vec()</code>, a single <code>numeric</code> value (or <code>NA</code>).
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Max Kuhn
+</p>
+
+
+<h3>See Also</h3>
+
+<p>Other numeric metrics: 
+<code>ccc()</code>,
+<code>huber_loss_pseudo()</code>,
+<code>huber_loss()</code>,
+<code>iic()</code>,
+<code>mae()</code>,
+<code>mape()</code>,
+<code>mase()</code>,
+<code>mpe()</code>,
+<code>msd()</code>,
+<code>rmse()</code>,
+<code>rpd()</code>,
+<code>rpiq()</code>,
+<code>rsq_trad()</code>,
+<code>rsq()</code>,
+<code>smape()</code>
+</p>
+<p>Other accuracy metrics: 
+<code>ccc()</code>,
+<code>huber_loss_pseudo()</code>,
+<code>huber_loss()</code>,
+<code>iic()</code>,
+<code>mae()</code>,
+<code>mape()</code>,
+<code>mase()</code>,
+<code>mpe()</code>,
+<code>msd()</code>,
+<code>rmse()</code>,
+<code>smape()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">count_truth &lt;- c(2L,   7L,   1L,   1L,   0L,  3L)
+count_pred  &lt;- c(2.14, 5.35, 1.65, 1.56, 1.3, 2.71)
+count_results &lt;- dplyr::tibble(count = count_truth, pred = count_pred)
+
+# Supply truth and predictions as bare column names
+poisson_log_loss(count_results, count, pred)
+
+</code></pre>
+
+
+</div>

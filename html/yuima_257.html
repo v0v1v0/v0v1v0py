@@ -1,0 +1,143 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>setPPR</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Point Process</h2>
+
+<h3>Description</h3>
+
+<p>Constructor of a Point Process Regression Model</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">setPPR(yuima, counting.var = "N", gFun, Kernel,
+  var.dx = "s", var.dt = "s", lambda.var = "lambda",
+  lower.var = "0", upper.var = "t", nrow = 1, ncol = 1)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>yuima</code></td>
+<td>
+<p>an object of <code>yuima.model-class</code> that describes the mathematical features of counting and covariates processes <code>Y[t]=(X[t],N[t])</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>counting.var</code></td>
+<td>
+<p>a label denoting the name of the counting process.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>gFun</code></td>
+<td>
+<p>a vector string that is the mathematical expression of the vector function <code>g(t,Y[t-],theta)</code> in the intensity process.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>Kernel</code></td>
+<td>
+<p>a matrix string that is the kernel <code>kappa(t-s,Y[s],theta)</code> in the definition of the intensity process.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>var.dx</code></td>
+<td>
+<p>a string denoting the integration variable in the intensity process.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>var.dt</code></td>
+<td>
+<p>a string denoting the integration time variable in the intensity process.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>lambda.var</code></td>
+<td>
+<p>name of the intensity process.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>lower.var</code></td>
+<td>
+<p>Lower bound of the support for the integral in the definition of the intensity process.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>upper.var</code></td>
+<td>
+<p>Upper bound of the support for the integral in the definition of the intensity process.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>nrow</code></td>
+<td>
+<p>number of rows in the kernel.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>ncol</code></td>
+<td>
+<p>number of columns in the kernel.</p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>An object of <code>yuima.PPR</code></p>
+
+
+<h3>Note</h3>
+
+<p>There may be missing information in the model description. Please contribute with suggestions and fixings.</p>
+
+
+<h3>Author(s)</h3>
+
+<p>The YUIMA Project Team
+</p>
+<p>Contacts: Lorenzo Mercuri <a href="mailto:lorenzo.mercuri@unimi.it">lorenzo.mercuri@unimi.it</a></p>
+
+
+<h3>References</h3>
+
+<p>Insert Here References</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">## Not run: 
+## Hawkes process with power law kernel
+
+# I. Law Definition:
+my.rHwk2 &lt;- function(n){
+  as.matrix(rep(1,n))
+  }
+Law.Hwk2 &lt;- setLaw(rng = my.rHwk2, dim = 1)
+
+# II. Definition of the counting process N_t
+mod.Hwk2 &lt;- setModel(drift = c("0"), diffusion = matrix("0",1,1),
+  jump.coeff = matrix(c("1"),1,1), measure = list(df = Law.Hwk2),
+  measure.type = "code", solve.variable = c("N"),
+  xinit=c("0"))
+
+# III. Definition of g() and kappa()
+g.Hwk2 &lt;- "mu"
+Kern.Hwk2 &lt;- "alpha/(1+(t-s))^beta"
+
+# IV. Construction of an yuima.PPR object
+PPR.Hwk2 &lt;- setPPR(yuima = mod.Hwk2, gFun=g.Hwk2,
+  Kernel = as.matrix(Kern.Hwk2),var.dx = "N")
+
+## End(Not run)
+</code></pre>
+
+
+</div>

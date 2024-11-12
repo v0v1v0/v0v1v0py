@@ -1,0 +1,142 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>setHawkes</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Constructor of Hawkes model</h2>
+
+<h3>Description</h3>
+
+<p>'<code>setHawkes</code>' constructs an object of class <code>yuima.Hawkes</code> that is a mathematical description of a multivariate Hawkes model
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">setHawkes(lower.var = "0", upper.var = "t", var.dt = "s",
+  process = "N", dimension = 1, intensity = "lambda",
+  ExpKernParm1 = "c", ExpKernParm2 = "a", const = "nu",
+  measure = NULL, measure.type = NULL)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>lower.var</code></td>
+<td>
+<p>Lower bound in the integral</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>upper.var</code></td>
+<td>
+<p>Upper bound in the integral</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>var.dt</code></td>
+<td>
+<p>Time variable</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>process</code></td>
+<td>
+<p>Counting process</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>dimension</code></td>
+<td>
+<p>An integer that indicates the components of the counting process</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>intensity</code></td>
+<td>
+<p>Intensity Process</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>ExpKernParm1</code></td>
+<td>
+<p>Kernel parameters</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>ExpKernParm2</code></td>
+<td>
+<p>Kernel parameters</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>const</code></td>
+<td>
+<p>Constant term in the intensity process</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>measure</code></td>
+<td>
+<p>Jump size. By default 1</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>measure.type</code></td>
+<td>
+<p>Type. By default <code>code</code>.</p>
+</td>
+</tr>
+</table>
+<h3>Details</h3>
+
+<p>By default the object is an univariate Hawkes process</p>
+
+
+<h3>Value</h3>
+
+<p>The function returns an object of class <code>yuima.Hawkes</code>.</p>
+
+
+<h3>Author(s)</h3>
+
+<p>YUIMA Team</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">## Not run: 
+# Definition of an univariate hawkes model
+
+provaHawkes2&lt;-setHawkes()
+str(provaHawkes2)
+
+# Simulation
+
+true.par &lt;- list(nu1=0.5, c11=3.5,  a11=4.5)
+
+simprv1 &lt;- simulate(object = provaHawkes2, true.parameter = true.par,
+  sampling = setSampling(Terminal =70, n=7000))
+
+plot(simprv1)
+
+# Computation of intensity
+
+lambda1 &lt;- Intensity.PPR(simprv1, param = true.par)
+
+plot(lambda1)
+
+# qmle
+
+res1 &lt;- qmle(simprv1, method="Nelder-Mead", start = true.par)
+
+summary(res1)
+
+## End(Not run)
+</code></pre>
+
+
+</div>

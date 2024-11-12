@@ -1,0 +1,114 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>explicit_guide.yamlet</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Coerce Yamlet Guide to Something More Explicit</h2>
+
+<h3>Description</h3>
+
+<p>Coerces yamlet 'guide' keys to something more explicit.
+The key 'guide' generally suggests a guide
+to interpretation of a data item, such as units, formats, codelists,
+and encodings.  The idea here is to replace 'guide' with something
+explicit in case required downstream.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">## S3 method for class 'yamlet'
+explicit_guide(
+  x,
+  ...,
+  test = getOption("yamlet_infer_guide", yamlet::infer_guide),
+  expand = getOption("yamlet_expand_codelist", TRUE),
+  data = NULL
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>x</code></td>
+<td>
+<p>yamlet</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+<p>passed to <code>select</code> to limit scope</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>test</code></td>
+<td>
+<p>function or function name; supply non-default or globally set <code>options(yamlet_infer_guide = )</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>expand</code></td>
+<td>
+<p>whether to expand empty guide list using sorted unique values. NA likely excluded.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>data</code></td>
+<td>
+<p>optional data.frame for testing guides with length &gt; 1</p>
+</td>
+</tr>
+</table>
+<h3>Details</h3>
+
+<p>If <code>data</code> is supplied, guides that are lists
+are checked to see if they evaluate to conditions in data context
+(see <code>isConditional.list</code>).
+If so, inferences are based on the first guide element rather
+than the guide as a whole.
+</p>
+<p>This method iterates across the guide elements, renaming them
+as specified by the value of <code>test</code>. (default: <code>infer_guide</code>).
+<code>test</code> should be a function (or name of one) that accepts x, data, and dots.
+If a data.frame is passed to explicit_guide(), the relevant column will
+be passed as data to <code>test</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>yamlet
+</p>
+
+
+<h3>See Also</h3>
+
+<p>Other explicit_guide: 
+<code>explicit_guide()</code>,
+<code>explicit_guide.data.frame()</code>,
+<code>explicit_guide.dvec()</code>,
+<code>implicit_guide()</code>,
+<code>implicit_guide.data.frame()</code>,
+<code>implicit_guide.dvec()</code>,
+<code>infer_guide()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">library(magrittr)
+'CONC: [ concentration, µg/mL ]' %&gt;% as_yamlet %&gt;% explicit_guide
+'RACE: [ subject race, [ Caucasian: 0, Latin: 1, Black: 2 ]]' %&gt;% as_yamlet %&gt;% explicit_guide
+'RACE: [ subject race, [ Caucasian, Latin, Black ]]' %&gt;% as_yamlet %&gt;% explicit_guide
+'RACE: [ subject race, //0/Caucasian//1/Latin//2/Black// ]' %&gt;% as_yamlet %&gt;% explicit_guide
+'DATE: [ date, "%Y-%m-%d" ]' %&gt;% as_yamlet %&gt;% explicit_guide
+'PRSE: [ standard error, "%" ]' %&gt;% as_yamlet %&gt;% explicit_guide
+
+</code></pre>
+
+
+</div>

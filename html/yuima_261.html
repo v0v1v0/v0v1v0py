@@ -1,0 +1,232 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>simBmllag</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>
+
+Simulation of increments of bivariate Brownian motions with multi-scale lead-lag relationships 
+</h2>
+
+<h3>Description</h3>
+
+
+<p>This function simulates increments of bivariate Brownian motions with multi-scale lead-lag relationships introduced in Hayashi and Koike (2018a) by the multi-dimensional circulant embedding method of Chan and Wood (1999).
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">simBmllag(n, J, rho, theta, delta = 1/2^(J + 1), imaginary = FALSE)
+simBmllag.coef(n, J, rho, theta, delta = 1/2^(J + 1))
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>n</code></td>
+<td>
+
+
+<p>the number of increments to be simulated.
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>J</code></td>
+<td>
+
+
+<p>a positive integer to determine the finest time resolution: <code>2^(-J-1)</code> is regarded as the finest time resolution.
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>rho</code></td>
+<td>
+
+
+<p>a vector of scale-by-scale correlation coefficients. If <code>length(rho) &lt; J</code>, zeros are appended to make the length equal to <code>J</code>.
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>theta</code></td>
+<td>
+
+
+<p>a vector of scale-by-scale lead-lag parameters. If <code>length(theta) &lt; J</code>, zeros are appended to make the length equal to <code>J</code>.
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>delta</code></td>
+<td>
+
+
+<p>the step size of time increments. This must be smaller than or equal to <code>2^(-J-1)</code>. 
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>imaginary</code></td>
+<td>
+
+
+<p>logical. 
+See ‘Details’. 
+</p>
+</td>
+</tr>
+</table>
+<h3>Details</h3>
+
+
+<p>Let <code class="reqn">B(t)</code> be a bivariate Gaussian process with stationary increments such that its marginal processes are standard Brownian motions and its cross-spectral density is given by Eq.(14) of Hayashi and Koike (2018a). The function <code>simBmllag</code> simulates the increments <code class="reqn">B(i\delta)-B((i-1)\delta)</code>, <code class="reqn">i=1,\dots,n</code>. The parameters <code class="reqn">R_j</code> and <code class="reqn">theta_j</code> in Eq.(14) of Hayashi and Koike (2018a) are specified by <code>rho</code> and <code>theta</code>, while <code class="reqn">\delta</code> and <code class="reqn">n</code> are specified by <code>delta</code> and <code>n</code>, respecitively. 
+</p>
+<p>Simulation is implemented by the multi-dimensional circulant embedding algorithm of Chan and Wood (1999). The last step of this algorithm returns a bivariate complex-valued sequence whose real and imaginary parts are independent and has the same law as <code class="reqn">B(k\delta)-B((k-1)\delta)</code>, <code class="reqn">k=1,\dots,n</code>; see Step 3 of Chan and Wood (1999, Section 3.2). 
+If <code>imaginary = TRUE</code>, the function <code>simBmllag</code> directly returns this bivariate complex-valued sequence, so we obtain two sets of simulated increments of <code class="reqn">B(t)</code> by taking its real and complex parts. If <code>imaginary = FALSE</code> (default), the function returns only the real part of this sequence, so we directly obtain simulated increments of <code class="reqn">B(t)</code>. 
+</p>
+<p>The function <code>simBmllag.coef</code> is internally used to compute the sequence of coefficient matrices <code class="reqn">R(k)\Lambda(k)^{1/2}</code> in Step 2 of Chan and Wood (1999, Section 3.2). This procedure can be implemented before generating random numbers. 
+Since this step typically takes the most computational cost, this function is useful to reduce computational time when we conduct a Monte Carlo simulation for <code class="reqn">(B(k\delta)-B((k-1)\delta))_{k=1}^n</code> with a fixed set of parameters. See ‘Examples’ for how to use this function to simulate <code class="reqn">(B(k\delta)-B((k-1)\delta))_{k=1}^n</code>.
+</p>
+
+
+<h3>Value</h3>
+
+
+
+
+
+
+<p><code>simBmllag</code> returns a <code>n</code> x 2 matrix if <code>imaginary = FALSE</code> (default). Otherwise, <code>simBmllag</code> returns a complex-valued <code>n</code> x 2 matrix. 
+</p>
+<p><code>simBmllag.coef</code> returns a complex-valued <code class="reqn">m</code> x 2 x 2 array, where <code class="reqn">m</code> is an integer determined by the rule described at the end of Chan and Wood (1999, Section 2.3). 
+</p>
+
+
+<h3>Note</h3>
+
+
+<p>There are typos in the first and second displayed equations in page 1221 of Hayashi and Koike (2018a): The <code class="reqn">j</code>-th summands on their right hand sides should be multiplied by <code class="reqn">2^j</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+
+<p>Yuta Koike with YUIMA project Team
+</p>
+
+
+<h3>References</h3>
+
+
+<p>Chan, G. and Wood, A. T. A. (1999).
+Simulation of stationary Gaussian vector fields,
+<em>Statistics and Computing</em>, <b>9</b>, 265–268.
+</p>
+<p>Hayashi, T. and Koike, Y. (2018a).
+Wavelet-based methods for high-frequency lead-lag analysis,
+<em>SIAM Journal of Financial Mathematics</em>, <b>9</b>, 1208–1248.
+</p>
+<p>Hayashi, T. and Koike, Y. (2018b). 
+Multi-scale analysis of lead-lag relationships in high-frequency financial markets. 
+<a href="https://doi.org/10.48550/arXiv.1708.03992">doi:10.48550/arXiv.1708.03992</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+
+<p><code>wllag</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">## Not run: 
+## Example 1 
+## Simulation setting of Hayashi and Koike (2018a, Section 4).
+
+n &lt;- 15000
+J &lt;- 13
+
+rho &lt;- c(0.3,0.5,0.7,0.5,0.5,0.5,0.5,0.5)
+theta &lt;- c(-1,-1, -2, -2, -3, -5, -7, -10)/2^(J + 1)
+
+set.seed(123)
+
+dB &lt;- simBmllag(n, J, rho, theta)
+str(dB)
+n/2^(J + 1) # about 0.9155
+sum(dB[ ,1]^2) # should be close to n/2^(J + 1)
+sum(dB[ ,2]^2) # should be close to n/2^(J + 1)
+
+# Plot the sample path of the process
+B &lt;- apply(dB, 2, "diffinv") # construct the sample path
+Time &lt;- seq(0, by = 1/2^(J+1), length.out = n) # Time index
+plot(zoo(B, Time), main = "Sample path of B(t)")
+
+# Using simBmllag.coef to implement the same simulation
+a &lt;- simBmllag.coef(n, J, rho, theta)
+m &lt;- dim(a)[1]
+
+set.seed(123)
+
+z1 &lt;- rnorm(m) + 1i * rnorm(m)
+z2 &lt;- rnorm(m) + 1i * rnorm(m)
+y1 &lt;- a[ ,1,1] * z1 + a[ ,1,2] * z2
+y2 &lt;- a[ ,2,1] * z1 + a[ ,2,2] * z2
+dW &lt;- mvfft(cbind(y1, y2))[1:n, ]/sqrt(m)
+dB2 &lt;- Re(dW)
+
+plot(diff(dB - dB2)) # identically equal to zero
+
+
+## Example 2
+## Simulation Scenario 2 of Hayashi and Koike (2018b, Section 5).
+
+# Simulation of Bm driving the log-price processes
+n &lt;- 30000
+J &lt;- 14
+
+rho &lt;- c(0.3,0.5,0.7,0.5,0.5,0.5,0.5,0.5)
+theta &lt;- c(-1,-1, -2, -2, -3, -5, -7, -10)/2^(J + 1)
+
+dB &lt;- simBmllag(n, J, rho, theta)
+
+# Simulation of Bm driving the volatility processes
+R &lt;- -0.5 # leverage parameter
+delta &lt;- 1/2^(J+1) # step size of time increments 
+dW1 &lt;- R * dB[ ,1] + sqrt(1 - R^2) * rnorm(n, sd = sqrt(delta))
+dW2 &lt;- R * dB[ ,2] + sqrt(1 - R^2) * rnorm(n, sd = sqrt(delta))
+
+# Simulation of the model by the simulate function
+dW &lt;- rbind(dB[,1], dB[,2], dW1, dW2) # increments of the driving Bm
+
+# defining the yuima object
+drift &lt;- c(0, 0, "kappa*(eta - x3)", "kappa*(eta - x4)")
+diffusion &lt;- diag(4)
+diag(diffusion) &lt;- c("sqrt(max(x3,0))", "sqrt(max(x4,0))", 
+                     "xi*sqrt(max(x3,0))", "xi*sqrt(max(x4,0))")
+xinit &lt;- c(0,0,"rgamma(1, 2*kappa*eta/xi^2,2*kappa/xi^2)",
+           "rgamma(1, 2*kappa*eta/xi^2,2*kappa/xi^2)")
+mod &lt;- setModel(drift = drift, diffusion = diffusion, 
+                xinit = xinit, state.variable = c("x1","x2","x3","x4"))
+samp &lt;- setSampling(Terminal = n * delta, n = n)
+yuima &lt;- setYuima(model = mod, sampling = samp)
+
+# simulation
+result &lt;- simulate(yuima, increment.W = dW,
+                   true.parameter = list(kappa = 5, eta = 0.04, xi = 0.5))
+
+plot(result)
+
+## End(Not run)</code></pre>
+
+
+</div>

@@ -1,0 +1,150 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>JBtest</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>
+Remove jumps and calculate the Gaussian quasi-likelihood estimator based on the Jarque-Bera normality test 
+</h2>
+
+<h3>Description</h3>
+
+<p>Remove jumps and calculate the Gaussian quasi-likelihood estimator based on the Jarque-Bera normality test 
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">JBtest(yuima,start,lower,upper,alpha,skewness=TRUE,kurtosis=TRUE,withdrift=FALSE)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>yuima</code></td>
+<td>
+<p>a yuima object (diffusion with compound Poisson jumps).</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>lower</code></td>
+<td>
+<p>a named list for specifying lower bounds of parameters.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>upper</code></td>
+<td>
+<p>a named list for specifying upper bounds of parameters.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>alpha</code></td>
+<td>
+<p>Insert Description Here.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>start</code></td>
+<td>
+<p>initial values to be passed to the optimizer.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>skewness</code></td>
+<td>
+<p>use third moment information ? by default, skewness=TRUE</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>kurtosis</code></td>
+<td>
+<p>use fourth moment information ? by default, kurtosis=TRUE</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>withdrift</code></td>
+<td>
+<p>use drift information for constructing self-normalized residuals or not? by default, withdrift = FALSE</p>
+</td>
+</tr>
+</table>
+<h3>Details</h3>
+
+<p>This function removes large increments which are regarded as jumps based on the iterative Jarque-Bera normality test, and after that, calculates the Gaussian quasi maximum likelihood estimator.
+</p>
+
+
+<h3>Value</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>Removed</code></td>
+<td>
+<p>Removed jumps and jump times</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>OGQMLE</code></td>
+<td>
+<p>Gaussian quasi maximum likelihood estimator before jump removal</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>JRGQMLE</code></td>
+<td>
+<p>Gaussian quasi maximum likelihood estimator after jump removal</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>Figures</code></td>
+<td>
+<p>For visualization, the jump points are presented. In addition, the histgram of the jump removed self-normalized residuals, transition of the estimators and the logarithm of Jarque-Bera statistics are given as figures</p>
+</td>
+</tr>
+</table>
+<h3>Author(s)</h3>
+
+<p>The YUIMA Project Team
+</p>
+<p>Contacts: Yuma Uehara <a href="mailto:y-uehara@ism.ac.jp">y-uehara@ism.ac.jp</a>
+</p>
+
+
+<h3>References</h3>
+
+<p>Masuda, H. (2013). Asymptotics for functionals of self-normalized residuals of discretely observed stochastic processes. 
+Stochastic Processes and their Applications 123 (2013), 2752–2778
+</p>
+<p>Masuda, H and Uehara, Y. (2018) Estimating Diffusion With Compound Poisson Jumps Based On Self-normalized Residuals, arXiv:1802.03945
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">## Not run: 
+set.seed(123)
+mod &lt;- setModel(drift="10-3*x",
+                diffusion="theta*(2+x^2)/(1+x^2)",
+               jump.coeff="1",
+               measure=list(intensity="1",df=list("dunif(z, 3, 5)")),
+               measure.type="CP")
+
+T &lt;- 10 ## Terminal
+n &lt;- 5000 ## generation size
+samp &lt;- setSampling(Terminal=T, n=n) ## define sampling scheme
+yuima &lt;- setYuima(model = mod, sampling = samp)
+
+yuima &lt;- simulate(yuima, xinit=1,true.parameter=list(theta=sqrt(2)), sampling = samp)
+
+JBtest(yuima,start=list(theta=0.5),upper=c(theta=100)
+,lower=c(theta=0),alpha=0.01)
+
+## End(Not run)
+</code></pre>
+
+
+</div>

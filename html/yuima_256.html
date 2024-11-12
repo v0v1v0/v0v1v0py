@@ -1,0 +1,129 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>setPoisson</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>
+Basic constructor for Compound Poisson processes
+</h2>
+
+<h3>Description</h3>
+
+<p>'setPoisson' construct a Compound Poisson model specification for a process of the form:
+</p>
+<p><code>Mt = m0+sum_{i=0}^Nt c*Y_{tau_i},  M0=m0</code>
+</p>
+<p>where Nt is a homogeneous or time-inhomogeneous Poisson process, tau_i is the
+sequence of random times of Nt and Y is a sequence of i.i.d. random jumps.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">setPoisson(intensity = 1, df = NULL, scale = 1, dimension=1, ...)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>intensity</code></td>
+<td>
+<p>either and expression or a numerical value representing the intensity function of the Poisson process Nt.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>df</code></td>
+<td>
+<p>is the density of jump random variables Y.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>scale</code></td>
+<td>
+<p>this is the scaling factor <code>c</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>dimension</code></td>
+<td>
+<p>this is the dimension of the jump component.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+<p>passed to <code>setModel</code></p>
+</td>
+</tr>
+</table>
+<h3>Details</h3>
+
+<p>An object of <code>yuima.model-class</code> where the <code>model</code> slot is of class <code>yuima.poisson-class</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<table><tr style="vertical-align: top;">
+<td><code>model</code></td>
+<td>
+<p>an object of  <code>yuima.model-class</code>.</p>
+</td>
+</tr></table>
+<h3>Author(s)</h3>
+
+<p>The YUIMA Project Team</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">## Not run: 
+Terminal &lt;- 10
+samp &lt;- setSampling(T=Terminal,n=1000)
+
+# Ex 1. (Simple homogeneous Poisson process)
+mod1 &lt;- setPoisson(intensity="lambda", df=list("dconst(z,1)"))
+set.seed(123)
+y1 &lt;- simulate(mod1, true.par=list(lambda=1),sampling=samp)
+plot(y1)
+
+# scaling the jumps
+mod2 &lt;- setPoisson(intensity="lambda", df=list("dconst(z,1)"),scale=5)
+set.seed(123)
+y2 &lt;- simulate(mod2, true.par=list(lambda=1),sampling=samp)
+plot(y2)
+
+# scaling the jumps through the constant distribution
+mod3 &lt;- setPoisson(intensity="lambda", df=list("dconst(z,5)"))
+set.seed(123)
+y3 &lt;- simulate(mod3, true.par=list(lambda=1),sampling=samp)
+plot(y3)
+
+# Ex 2. (Time inhomogeneous Poisson process)
+mod4 &lt;- setPoisson(intensity="beta*(1+sin(lambda*t))", df=list("dconst(z,1)"))
+set.seed(123)
+lambda &lt;- 3
+beta &lt;- 5
+y4 &lt;- simulate(mod4, true.par=list(lambda=lambda,beta=beta),sampling=samp)
+par(mfrow=c(2,1))
+par(mar=c(3,3,1,1))
+plot(y4)
+f &lt;- function(t) beta*(1+sin(lambda*t))
+curve(f, 0, Terminal, col="red")
+
+# Ex 2. (Time inhomogeneous Compound Poisson process with Gaussian Jumps)
+mod5 &lt;- setPoisson(intensity="beta*(1+sin(lambda*t))", df=list("dnorm(z,mu,sigma)"))
+set.seed(123)
+y5 &lt;- simulate(mod5, true.par=list(lambda=lambda,beta=beta,mu=0, sigma=2),sampling=samp)
+plot(y5)
+f &lt;- function(t)  beta*(1+sin(lambda*t))
+curve(f, 0, Terminal, col="red")
+
+## End(Not run)
+</code></pre>
+
+
+</div>

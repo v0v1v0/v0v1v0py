@@ -1,0 +1,103 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>data_playlistItem_request</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Playlist Item Data Requests - YouTube Data API</h2>
+
+<h3>Description</h3>
+
+<p>This is a function to make API calls to the YouTube Data API for playlist item data.
+While it can be called directly, it is primarily intended to help get lists of videos within
+a playlist. For more in-depth use of the Data API, please refer to <code>tuber</code>. For
+more details on the following arguments, please refer to
+<a href="https://developers.google.com/youtube/v3/docs/playlistItems/list">https://developers.google.com/youtube/v3/docs/playlistItems/list</a>
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">data_playlistItem_request(
+  part = NULL,
+  id = NULL,
+  maxResults = 5,
+  onBehalfOfContentOwner = NULL,
+  pageToken = NULL,
+  playlistId = NULL,
+  videoId = NULL,
+  token = getOption("YouTube_Token")
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>part</code></td>
+<td>
+<p>Required. String.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>id</code></td>
+<td>
+<p>String.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>maxResults</code></td>
+<td>
+<p>Integer.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>onBehalfOfContentOwner</code></td>
+<td>
+<p>String.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>pageToken</code></td>
+<td>
+<p>String.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>playlistId</code></td>
+<td>
+<p>String.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>videoId</code></td>
+<td>
+<p>String.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>token</code></td>
+<td>
+<p>Required.</p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>data.frame
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">## Not run: 
+data_playlistItem_request(part = "contentDetails",
+                          id = "PLA2387dsgkhfs9832hjkhuihsASDF",
+                          mine = "true")
+
+## End(Not run)
+</code></pre>
+
+
+</div>

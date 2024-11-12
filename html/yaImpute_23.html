@@ -1,0 +1,87 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>plot.notablyDifferent</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Plots the scaled root mean square differences between observed and predicted</h2>
+
+<h3>Description</h3>
+
+<p>Provides a descriptive plot of the <em>Imputation Error Profile</em> for object(s) 
+created by <code>notablyDifferent</code>. 
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">## S3 method for class 'notablyDifferent'
+plot(x,add=FALSE,...)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>x</code></td>
+<td>
+
+<ol>
+<li>
+<p> an object create by <code>notablyDifferent</code>, or 
+</p>
+</li>
+<li>
+<p> a (named) list of such objects.</p>
+</li>
+</ol>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>add</code></td>
+<td>
+<p>set <code>TRUE</code> if you want to add this plot to an existing plot.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+<p>passed to plot functions.</p>
+</td>
+</tr>
+</table>
+<h3>Author(s)</h3>
+
+<p>Nicholas L. Crookston <a href="mailto:ncrookston.fs@gmail.com">ncrookston.fs@gmail.com</a> <br></p>
+
+
+<h3>See Also</h3>
+
+<p><code>notablyDistant</code> and <code>yai</code></p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">require(yaImpute)
+
+data(iris)
+
+set.seed(12345)
+
+# form some test data
+refs=sample(rownames(iris),50)
+x &lt;- iris[,1:3]      # Sepal.Length Sepal.Width Petal.Length
+y &lt;- iris[refs,4:5]  # Petal.Width Species
+
+mal &lt;- notablyDifferent(yai(x=x,y=y,method="mahalanobis"),vars=colnames(x))
+if (require(randomForest))
+{
+  rf  &lt;- notablyDifferent(yai(x=x,y=y,method="randomForest"),vars=colnames(x))
+  plot.notablyDifferent(list(Mahalanobis=mal,randomForest=rf))
+}
+
+</code></pre>
+
+
+</div>

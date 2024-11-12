@@ -1,0 +1,91 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>batsmanWinProbDL</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Plot the  batsman win probability contribution using Deep Learning model</h2>
+
+<h3>Description</h3>
+
+<p>This function  plots the  win probability of batsman in a T20 match
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">batsmanWinProbDL(match,t1,t2,plot=1)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>match</code></td>
+<td>
+<p>The dataframe of the match</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>t1</code></td>
+<td>
+<p>The 1st team of the match</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>t2</code></td>
+<td>
+<p>the 2nd team in the match</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>plot</code></td>
+<td>
+<p>Plot=1 (static), Plot=2(interactive)</p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>none
+</p>
+
+
+<h3>Note</h3>
+
+<p>Maintainer: Tinniam V Ganesh <a href="mailto:tvganesh.85@gmail.com">tvganesh.85@gmail.com</a>
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Tinniam V Ganesh
+</p>
+
+
+<h3>References</h3>
+
+<p><a href="https://cricsheet.org/">https://cricsheet.org/</a><br><a href="https://gigadom.in/">https://gigadom.in/</a><br><a href="https://github.com/tvganesh/yorkrData/">https://github.com/tvganesh/yorkrData/</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code>getBatsmanDetails</code><br><code>getBowlerWicketDetails</code><br><code>batsmanDismissals</code><br><code>getTeamBattingDetails</code><br></p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">## Not run: 
+#Get the match details
+a &lt;- getMatchDetails("England","Pakistan","2006-09-05",dir="../temp")
+
+# Plot tne match worm plot
+batsmanWinProbDL(a,'England',"Pakistan")
+
+## End(Not run)
+</code></pre>
+
+
+</div>

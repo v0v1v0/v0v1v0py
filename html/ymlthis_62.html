@@ -1,0 +1,109 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>yml</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Create a new yml object</h2>
+
+<h3>Description</h3>
+
+<p><code>yml()</code> initializes a <code>yml</code> object. <code>yml</code> objects create valid YAML and print
+it cleanly to the console. By default, <code>yml()</code> looks for your name (using <code> getOption("usethis.full_name")</code>, <code>getOption("devtools.name")</code>, and
+<code>whoami::fullname()</code>) and uses today's date to use in the <code>author</code> and <code>date</code>
+fields, respectively. If you've set default YAML in
+<code>getOption("ymlthis.default_option")</code> (see <code>use_yml_defaults()</code>), <code>yml()</code>
+will also use include those fields by default. <code>yml_empty()</code> is a wrapper
+that doesn't use any of these default YAML fields. <code>yml()</code> and all
+related<code style="white-space: pre;">⁠yml_*()⁠</code> functions validate that the results are indeed valid YAML
+syntax, although not every function is able to check that the input fields
+are valid for the setting they are used in.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">yml(.yml = NULL, get_yml = TRUE, author = TRUE, date = TRUE)
+
+yml_empty()
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>.yml</code></td>
+<td>
+<p>a character vector, <code>yml</code> object, or YAML-like list. See details.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>get_yml</code></td>
+<td>
+<p>logical. Use YAML stored in
+<code>getOption("ymlthis.default_option")</code>? By default, <code>yml()</code> includes if it
+exists.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>author</code></td>
+<td>
+<p>logical. Get default author name?</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>date</code></td>
+<td>
+<p>logical. Get default date?</p>
+</td>
+</tr>
+</table>
+<h3>Details</h3>
+
+<p><code>.yml</code> accepts a character vector of YAML, such as "author: Hadley Wickham",
+an object returned by ymlthis functions that start with <code style="white-space: pre;">⁠yml_*()⁠</code>, or a
+<code>list</code> object (e.g. <code>list(author = "Hadley Wickham")</code>). <code>.yml</code> objects are
+processed with <code>as_yml()</code>, a wrapper around <code>yaml::yaml.load()</code>. See that
+function for more details.
+</p>
+
+
+<h3>Value</h3>
+
+<p>a <code>yml</code> object
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">
+yml()
+
+yml(date = FALSE)
+
+"author: Hadley Wickham\ndate: 2014-09-12" %&gt;%
+  yml() %&gt;%
+  yml_title("Tidy Data") %&gt;%
+  yml_keywords(
+    c("data cleaning", "data tidying", "relational databases", "R")
+  )
+
+yml() %&gt;%
+  yml_author(
+    c("Yihui Xie", "Hadley Wickham"),
+    affiliation = rep("RStudio", 2)
+  ) %&gt;%
+  yml_date("07/04/2019") %&gt;%
+  yml_output(
+    pdf_document(
+    keep_tex = TRUE,
+    includes = includes2(after_body = "footer.tex")
+   )
+  ) %&gt;%
+  yml_latex_opts(biblio_style = "apalike")
+
+</code></pre>
+
+
+</div>

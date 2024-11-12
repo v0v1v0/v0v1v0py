@@ -1,0 +1,87 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>ypr_sr</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Stock-Recruitment Parameters</h2>
+
+<h3>Description</h3>
+
+<p>Returns a single rowed data frame of the SR parameters:
+</p>
+
+<dl>
+<dt>alpha</dt>
+<dd>
+<p>Survival from egg to age tR at low density</p>
+</dd>
+<dt>beta</dt>
+<dd>
+<p>Density-dependence</p>
+</dd>
+<dt>Rk</dt>
+<dd>
+<p>Lifetime spawners per spawner at low density</p>
+</dd>
+<dt>phi</dt>
+<dd>
+<p>Lifetime eggs deposited per recruit at unfished equilibrium</p>
+</dd>
+<dt>phiF</dt>
+<dd>
+<p>Lifetime eggs deposited per recruit at the fished equilibrium</p>
+</dd>
+<dt>R0</dt>
+<dd>
+<p>Age tR recruits at the unfished equilibrium</p>
+</dd>
+<dt>R0F</dt>
+<dd>
+<p>Age tR recruits at the fished equilibrium</p>
+</dd>
+<dt>S0</dt>
+<dd>
+<p>Spawners at the unfished equilibrium</p>
+</dd>
+<dt>S0F</dt>
+<dd>
+<p>Spawners at the fished equilibrium</p>
+</dd>
+</dl>
+<h3>Usage</h3>
+
+<pre><code class="language-R">ypr_sr(object)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table><tr style="vertical-align: top;">
+<td><code>object</code></td>
+<td>
+<p>The population or populations.</p>
+</td>
+</tr></table>
+<h3>Value</h3>
+
+<p>A data frame of the SR parameters.
+</p>
+
+
+<h3>See Also</h3>
+
+<p>Other sr: 
+<code>ypr_plot_sr()</code>,
+<code>ypr_tabulate_sr()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">ypr_sr(ypr_population()) # Beverton-Holt
+ypr_sr(ypr_population(BH = 0L)) # Ricker
+</code></pre>
+
+
+</div>

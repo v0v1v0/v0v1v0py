@@ -1,0 +1,97 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>setLRM</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>
+A constructor of a t-Student Regression Model.
+</h2>
+
+<h3>Description</h3>
+
+<p>This function returns an object of <code>yuima.LevyRM-class</code>
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">setLRM(unit_Levy, yuima_regressors, LevyRM = "Y", coeff = c("mu", "sigma0"), 
+data = NULL, sampling = NULL, characteristic = NULL, functional = NULL, ...)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>unit_Levy</code></td>
+<td>
+<p>An object of <code>yuima.th-class</code> that describes the t - noise in the regression model.
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>yuima_regressors</code></td>
+<td>
+<p>An object of <code>yuima.model-class</code> that represents the regressors.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>LevyRM</code></td>
+<td>
+<p>The label of the output variable. Default <code>'Y'</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>coeff</code></td>
+<td>
+<p>Labels for the regressor coefficients and the scale parameter.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>data</code></td>
+<td>
+<p>An object of <code>yuima.data-class</code> that contains simulated or real data.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>sampling</code></td>
+<td>
+<p>An object of <code>yuima.sampling-class</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>characteristic</code></td>
+<td>
+<p>An object of <code>yuima.characteristic-class</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>functional</code></td>
+<td>
+<p>An object of class <code>yuima.functional-class</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+<p>Additional arguments. See <code>setYuima</code>.</p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>An object of <code>yuima.LevyRM-class.</code>
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>The YUIMA Project Team
+</p>
+<p>Contacts: Lorenzo Mercuri <a href="mailto:lorenzo.mercuri@unimi.it">lorenzo.mercuri@unimi.it</a>
+</p>
+
+
+</div>

@@ -1,0 +1,551 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>yai</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Find K nearest neighbors</h2>
+
+<h3>Description</h3>
+
+<p>Given a set of observations, <code>yai</code> </p>
+
+<ol>
+<li>
+<p> separates the observations into <em>reference</em> and <em>target</em> observations,
+</p>
+</li>
+<li>
+<p> applies the specified method to project X-variables into a Euclidean space (not
+always, see argument <code>method</code>), and 
+</p>
+</li>
+<li>
+<p> finds the <em>k</em>-nearest neighbors within the referenece observations 
+and between the reference and target observations.
+</p>
+</li>
+</ol>
+<p>An alternative method using <code>randomForest</code>
+classification and regression trees is provided for steps 2 and 3.
+<em>Target</em> observations are those with values for X-variables and
+not for Y-variables, while <em>reference</em> observations are those
+with no missing values for X-and Y-variables (see Details for the
+exception).
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">yai(x=NULL,y=NULL,data=NULL,k=1,noTrgs=FALSE,noRefs=FALSE,
+    nVec=NULL,pVal=.05,method="msn",ann=TRUE,mtry=NULL,ntree=500,
+    rfMode="buildClasses",bootstrap=FALSE,ppControl=NULL,sampleVars=NULL,
+    rfXsubsets=NULL)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>x</code></td>
+<td>
+<p>1) a matrix or data frame containing the X-variables for all
+observations with row names are the identification for the observations, or 2) a
+one-sided formula defining the X-variables as a linear formula. If
+a formula is coded for <code>x</code>, one must be used for <code>y</code> as well, if
+needed.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>y</code></td>
+<td>
+<p>1) a matrix or data frame containing the Y-variables for the
+reference observations, or 2) a one-sided formula defining the
+Y-variables as a linear formula.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>data</code></td>
+<td>
+<p>when <code>x</code> and <code>y</code> are formulas, then data is a data frame or
+matrix that contains all the variables with row names are the identification for the observations.
+The observations are split by <code>yai</code> into two sets.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>k</code></td>
+<td>
+<p>the number of nearest neighbors; default is 1.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>noTrgs</code></td>
+<td>
+<p>when TRUE, skip finding neighbors for target observations.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>noRefs</code></td>
+<td>
+<p>when TRUE, skip finding neighbors for reference observations.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>nVec</code></td>
+<td>
+<p>number of canonical vectors to use (methods <code>msn</code> and <code>msn2</code>),
+or number of independent of X-variables reference data when method
+<code>mahalanobis</code>. When NULL, the number is set by the function.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>pVal</code></td>
+<td>
+<p>significant level for canonical vectors, used when <code>method</code> is
+<code>msn</code> or <code>msn2</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>method</code></td>
+<td>
+<p>is the strategy used for computing distance and therefore for finding neighbors; the
+options are quoted key words (see details):
+</p>
+
+<ol>
+<li>
+<p> euclidean - distance is computed in a normalized X space.
+</p>
+</li>
+<li>
+<p> raw - like euclidean, except no normalization is done.
+</p>
+</li>
+<li>
+<p> mahalanobis - distance is computed in its namesakes space.
+</p>
+</li>
+<li>
+<p> ica - like mahalanobis, but based on <em>Independent Component Analysis</em> using
+package <code>fastICA</code>.
+</p>
+</li>
+<li>
+<p> msn - distance is computed in a projected canonical space.
+</p>
+</li>
+<li>
+<p> msn2 - like msn, but with variance weighting (canonical regression
+rather than correlation).
+</p>
+</li>
+<li>
+<p> msnPP - like msn, except that the canonical correlation is computed using
+projection pursuit from <span class="pkg">ccaPP</span> (see argument <code>ppControl</code>).
+</p>
+</li>
+<li>
+<p> gnn - distance is computed using a projected ordination of
+Xs found using canonical correspondence analysis
+(<code>cca</code> from package <span class="pkg">vegan</span>). 
+If <code>cca</code> fails, <code>rda</code> is used
+and a warning is issued.
+</p>
+</li>
+<li>
+<p> randomForest - distance is one minus the proportion of 
+<span class="pkg">randomForest</span> trees where a target observation is in the same terminal node 
+as a reference observation (see <code>randomForest</code>).
+</p>
+</li>
+<li>
+<p> random - like raw except that the X space is a single vector of uniform random [0,1]
+numbers generated using <code>runif</code>, results in random assignment of neighbors,
+and forces <code>ann</code> to be FALSE.
+</p>
+</li>
+<li>
+<p> gower - distance is computed in its namesakes space using function 
+<code>gower_topn</code> from package <span class="pkg">gower</span>; forces <code>ann</code> to be FALSE.
+</p>
+</li>
+</ol>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>ann</code></td>
+<td>
+<p>TRUE if <code>ann</code> is used to find neighbors, FALSE if a slow search is used.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>mtry</code></td>
+<td>
+<p>the number of X-variables picked at random when method is <code>randomForest</code>,
+see <code>randomForest</code>, default is sqrt(number of X-variables).</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>ntree</code></td>
+<td>
+<p>the number of classification and regression trees when method is <code>randomForest</code>.
+When more than one Y-variable is used, the trees are divided among the variables.
+Alternatively, ntree can be a vector of values corresponding to each Y-variable.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>rfMode</code></td>
+<td>
+<p>when <code>buildClasses</code> and method is <code>randomForest</code>, continuous variables
+are internally converted to classes forcing randomForest to build classification trees for
+the variable. Otherwise, regression trees are built if your version of
+<span class="pkg">randomForest</span> is newer than <code>4.5-18</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>bootstrap</code></td>
+<td>
+<p>if <code>TRUE</code>, the reference observations are sampled with replacement.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>ppControl</code></td>
+<td>
+<p>used to control how canoncial correlation analysis via 
+projection pursuit is done, see Details.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>sampleVars</code></td>
+<td>
+<p>the X- and/or Y-variables will be sampled (without replacement) 
+if this is not NULL and greater than zero. If specified as a single unnamed value, 
+that value is used to control the sample size of both X and Y variables. If two unnamed values, 
+then the first is taken for X-variables and the second for Y-variables. 
+If zero, no sampling is done. Otherwise, values are less than 1.0 they are taken as 
+the proportion of the number of variables. Values greater or equal to 1 are number of 
+variables to be included in the sample. Specification of a large number will cause the 
+sequence of variables to be randomized.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>rfXsubsets</code></td>
+<td>
+<p>a named list of character vectors where there is one vector for each
+Y-variable, see details, only applies when <code>method="randomForest"</code></p>
+</td>
+</tr>
+</table>
+<h3>Details</h3>
+
+<p>See the paper at <a href="https://doi.org/10.18637/jss.v023.i10">doi:10.18637/jss.v023.i10</a> (it includes examples).
+</p>
+<p>The following information is in addition to the content in the papers.
+</p>
+<p>You need not have any Y-variables to run yai for the following methods:
+<code>euclidean</code>, <code>raw</code>, <code>mahalanobis</code>, <code>ica</code>, <code>random</code>, and
+<code>randomForest</code> (in which case unsupervised classification is
+performed). However, normally <code>yai</code> classifies <em>reference</em>
+observations as those with no missing values for X- and Y- variables and
+<em>target</em> observations are those with values for X- variables and
+missing data for Y-variables. When Y is NULL (there are no Y-variables),
+all the observations are considered <em>references</em>. See
+<code>newtargets</code> for an example of how to use yai in this
+situation.
+</p>
+<p>When <code>bootstrap=TRUE</code> the reference observations are sampled with replacement. The
+sample size is set to the number of reference observations. Normally, about a third of
+the reference observations are left out of the sample; they are often called out-of-bag 
+samples. The out-of-bag observations are then treated as targets.
+</p>
+<p>When <code>method="msnPP"</code> projection pursuit from <span class="pkg">ccaPP</span> is used. The method is
+further controlled using argument <code>ppControl</code> to specify a character vector that has 
+has two named components.
+</p>
+
+<ol>
+<li>
+<p> method - One of the following 
+<code>"spearman", "kendall", "quadrant", "M", "pearson"</code>, default is "spearman"
+</p>
+</li>
+<li>
+<p> searc - If <code>"data"</code> or <code>"proj"</code>, then <code>ccaProj</code> 
+is used, otherwise the default <code>ccaGrid</code> is used.
+</p>
+</li>
+</ol>
+<p>Here are some details on argument <code>rfXsubsets</code>. When <code>method="randomForest"</code> 
+one call to <code>randomForest</code> is generated for for each Y-variable. When
+argument <code>rfXsubsets</code> is left <code>NULL</code>, all the X-variables are used for each of 
+the Y-variables. However, sometimes better results can be achieved by using specific subsets
+of X-variables for each Y-variable. This is done by setting <code>rfXsubsets</code> equal
+to a named list of character vectors. The names correspond to the Y-variable names and the
+character vectors hold the list of X-variables for the corresponding Y-variable. 
+</p>
+
+
+<h3>Value</h3>
+
+<p>An object of class <code>yai</code>, which is a list with
+the following tags:
+</p>
+<table>
+<tr style="vertical-align: top;">
+<td><code>call</code></td>
+<td>
+<p>the call.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>yRefs, xRefs</code></td>
+<td>
+<p>matrices of the X- and Y-variables for just
+the reference observations (unscaled). The scale factors
+are attached as attributes.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>obsDropped</code></td>
+<td>
+<p>a list of the row names for observations
+dropped for various reasons (missing data).</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>trgRows</code></td>
+<td>
+<p>a list of the row names for target observations
+as a subset of all observations.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>xall</code></td>
+<td>
+<p>the X-variables for all observations.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>cancor</code></td>
+<td>
+<p>returned from cancor function when method <code>msn</code> or
+<code>msn2</code> is used (NULL otherwise).</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>ccaVegan</code></td>
+<td>
+<p>an object of class cca (from package <span class="pkg">vegan</span>) when
+method <em>gnn</em> is used.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>ftest</code></td>
+<td>
+<p>a list containing partial F statistics and a vector of
+Pr&gt;F (pgf) corresponding to the canonical correlation coefficients
+when method msn or msn2 is used (NULL otherwise).</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>yScale, xScale</code></td>
+<td>
+<p>scale data used on yRefs and xRefs as needed.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>k</code></td>
+<td>
+<p>the value of <em>k</em>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>pVal</code></td>
+<td>
+<p>as input; only used when method <code>msn</code>, <code>msn2</code> or <code>msnPP</code> is used.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>projector</code></td>
+<td>
+<p>NULL when not used. For methods <code>msn</code>, <code>msn2</code>, <code>msnPP</code>, <code>gnn</code>
+and <code>mahalanobis</code>, this is a matrix that projects normalized X-variables
+into a space suitable for doing Eculidian distances.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>nVec</code></td>
+<td>
+<p>number of canonical vectors used (methods <code>msn</code> and <code>msn2</code>),
+or number of independent X-variables in the reference data when method
+<code>mahalanobis</code> is used.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>method</code></td>
+<td>
+<p>as input, the method used.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>ranForest</code></td>
+<td>
+<p>a list of the forests if method <code>randomForest</code> is used. There is
+one forest for each Y-variable, or just one forest when there are no
+Y-variables.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>ICA</code></td>
+<td>
+<p>a list of information from <code>fastICA</code>
+when method <code>ica</code> is used.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>ann</code></td>
+<td>
+<p>the value of ann, TRUE when <code>ann</code> is used, FALSE otherwise.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>xlevels</code></td>
+<td>
+<p>NULL if no factors are used as predictors; otherwise a list
+of predictors that have factors and their levels (see <code>lm</code>).</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>neiDstTrgs</code></td>
+<td>
+<p>a matrix of distances between a target
+(identified by its row name) and the <em>k</em> references. There are <em>k</em> columns.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>neiIdsTrgs</code></td>
+<td>
+<p>a matrix of reference identifications
+that correspond to neiDstTrgs.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>neiDstRefs, neiIdsRefs</code></td>
+<td>
+<p>counterparts for references.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>bootstrap</code></td>
+<td>
+<p>a vector of reference rownames that constitute the bootstrap sample; 
+or the value <code>FALSE</code> when bootstrap is not used.</p>
+</td>
+</tr>
+</table>
+<h3>Author(s)</h3>
+
+<p>Nicholas L. Crookston <a href="mailto:ncrookston.fs@gmail.com">ncrookston.fs@gmail.com</a> <br>
+John Coulston <a href="mailto:jcoulston@fs.usda.gov">jcoulston@fs.usda.gov</a> <br>
+Andrew O. Finley <a href="mailto:finleya@msu.edu">finleya@msu.edu</a> 
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code>grmsd</code> <code>ensembleImpute</code> 
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">
+require (yaImpute)
+
+data(iris)
+
+# set the random number seed so that example results are consistent
+# normally, leave out this command
+set.seed(12345)
+
+# form some test data, y's are defined only for reference
+# observations.
+refs=sample(rownames(iris),50)
+x &lt;- iris[,1:2]      # Sepal.Length Sepal.Width
+y &lt;- iris[refs,3:4]  # Petal.Length Petal.Width
+
+# build yai objects using 2 methods
+msn &lt;- yai(x=x,y=y)
+mal &lt;- yai(x=x,y=y,method="mahalanobis")
+# compare these results using the generalized mean distances. mal wins!
+grmsd(mal,msn)
+
+# use projection pursuit and specify ppControl (loads package ccaPP)
+if (require(ccaPP)) 
+{
+  msnPP &lt;- yai(x=x,y=y,method="msnPP",ppControl=c(method="kendall",search="proj"))
+  grmsd(mal,msnPP,msn)
+}
+
+#############
+
+data(MoscowMtStJoe)
+
+# convert polar slope and aspect measurements to cartesian
+# (which is the same as Stage's (1976) transformation).
+
+polar &lt;- MoscowMtStJoe[,40:41]
+polar[,1] &lt;- polar[,1]*.01      # slope proportion
+polar[,2] &lt;- polar[,2]*(pi/180) # aspect radians
+cartesian &lt;- t(apply(polar,1,function (x)
+               {return (c(x[1]*cos(x[2]),x[1]*sin(x[2]))) }))
+colnames(cartesian) &lt;- c("xSlAsp","ySlAsp")
+x &lt;- cbind(MoscowMtStJoe[,37:39],cartesian,MoscowMtStJoe[,42:64])
+y &lt;- MoscowMtStJoe[,1:35]
+
+msn &lt;- yai(x=x, y=y, method="msn", k=1)
+mal &lt;- yai(x=x, y=y, method="mahalanobis", k=1)
+# the results can be plotted.
+plot(mal,vars=yvars(mal)[1:16])
+
+# compare these results using the generalized mean distances..
+grmsd(mal,msn)
+
+# try method="gower"
+if (require(gower))
+{
+  gow &lt;- yai(x=x, y=y, method="gower", k=1)
+  # compare these results using the generalized mean distances..
+  grmsd(mal,msn,gow)
+}
+
+# try method="randomForest"
+if (require(randomForest))
+{
+  # reduce the plant community data for randomForest.
+  yba  &lt;- MoscowMtStJoe[,1:17]
+  ybaB &lt;- whatsMax(yba,nbig=7)  # see help on whatsMax
+  
+  rf &lt;- yai(x=x, y=ybaB, method="randomForest", k=1)
+  
+  # build the imputations for the original y's
+  rforig &lt;- impute(rf,ancillaryData=y)
+  
+  # compare the results using individual rmsd's
+  compare.yai(mal,msn,rforig)
+  plot(compare.yai(mal,msn,rforig))
+  
+  # build another randomForest case forcing regression
+  # to be used for continuous variables. The answers differ
+  # but one is not clearly better than the other.
+  
+  rf2 &lt;- yai(x=x, y=ybaB, method="randomForest", rfMode="regression")
+  rforig2 &lt;- impute(rf2,ancillaryData=y)
+  compare.yai(rforig2,rforig)
+}
+  
+</code></pre>
+
+
+</div>

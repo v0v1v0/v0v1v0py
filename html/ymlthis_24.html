@@ -1,0 +1,68 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>pandoc_template_types</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Use pandoc templates and custom highlight themes</h2>
+
+<h3>Description</h3>
+
+<p>Pandoc has several built in templates and code highlighting themes that can
+be customized and included in the <code>template</code> and <code>highlight-style</code> YAML
+fields, respectively. <code>pandoc_template_types()</code> and
+<code>pandoc_highlight_styles()</code> return the available templates and highlight
+styles in pandoc, respectively. <code>use_pandoc_template()</code> creates a new file
+based on a template from pandoc or R Markdown and
+<code>use_pandoc_highlight_style()</code> creates a new highlight theme file based on an
+existing pandoc theme.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">pandoc_template_types()
+
+pandoc_highlight_styles()
+
+use_pandoc_template(type, path, source = c("rmarkdown", "pandoc"))
+
+use_pandoc_highlight_style(theme, path)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>type</code></td>
+<td>
+<p>The template type</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>path</code></td>
+<td>
+<p>The path to write the file to</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>source</code></td>
+<td>
+<p>The template source ("pandoc" or "rmarkdown")</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>theme</code></td>
+<td>
+<p>The name of the theme</p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>a character vector
+</p>
+
+
+</div>

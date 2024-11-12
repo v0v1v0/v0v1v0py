@@ -1,0 +1,83 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>carma.info-class</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Class for information about CARMA(p,q) model</h2>
+
+<h3>Description</h3>
+
+<p>The <code>carma.info-class</code> is a class of the  <span class="pkg">yuima</span> package.  
+</p>
+
+
+<h3>Details</h3>
+
+<p>The <code>carma.info-class</code> object cannot be directly specified by the user
+but it is constructed when the <code>yuima.carma-class</code> object is
+constructed via <code>setCarma</code>.
+</p>
+
+
+<h3>Slots</h3>
+
+
+<dl>
+<dt>
+<code>p</code>:</dt>
+<dd>
+<p>Number of autoregressive coefficients.</p>
+</dd>
+<dt>
+<code>q</code>:</dt>
+<dd>
+<p>Number of moving average coefficients.</p>
+</dd>
+<dt>
+<code>loc.par</code>:</dt>
+<dd>
+<p>Label of location coefficient.</p>
+</dd>
+<dt>
+<code>scale.par</code>:</dt>
+<dd>
+<p>Label of scale coefficient.</p>
+</dd>
+<dt>
+<code>ar.par</code>:</dt>
+<dd>
+<p>Label of autoregressive coefficients.</p>
+</dd>
+<dt>
+<code>ma.par</code>:</dt>
+<dd>
+<p>Label of moving average coefficients.</p>
+</dd>
+<dt>
+<code>lin.par</code>:</dt>
+<dd>
+<p>Label of linear coefficients.</p>
+</dd>
+<dt>
+<code>Carma.var</code>:</dt>
+<dd>
+<p>Label of the observed process.</p>
+</dd>
+<dt>
+<code>Latent.var</code>:</dt>
+<dd>
+<p>Label of the unobserved process.</p>
+</dd>
+<dt>
+<code>XinExpr</code>:</dt>
+<dd>
+<p>Logical variable. If <code>XinExpr=FALSE</code>, the starting condition of <code>Latent.var</code> is zero otherwise each component of Latent.var has a parameter as a starting point. </p>
+</dd>
+</dl>
+<h3>Author(s)</h3>
+
+<p>The YUIMA Project Team</p>
+
+
+</div>

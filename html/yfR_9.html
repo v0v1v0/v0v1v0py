@@ -1,0 +1,45 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>yf_index_list</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Get available indices in package</h2>
+
+<h3>Description</h3>
+
+<p>This function will return all available market indices that are registered
+in the package.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">yf_index_list(print_description = FALSE)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table><tr style="vertical-align: top;">
+<td><code>print_description</code></td>
+<td>
+<p>Logical (TRUE/FALSE) - flag for printing description of
+available indices/collections</p>
+</td>
+</tr></table>
+<h3>Value</h3>
+
+<p>A vector of mkt indices
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">
+indices &lt;- yf_index_list()
+indices
+</code></pre>
+
+
+</div>

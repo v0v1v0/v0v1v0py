@@ -1,0 +1,57 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>is_rank</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Test if a lineage goes down to a specified rank</h2>
+
+<h3>Description</h3>
+
+<p>Test if a lineage goes down to a specified rank
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">is_rank(lineage, rank = yatah::all_ranks)
+
+is_at_least_rank(lineage, rank = yatah::all_ranks)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>lineage</code></td>
+<td>
+<p>string. Vector of lineages.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>rank</code></td>
+<td>
+<p>string. One of <code>c("kingdom", "phylum", "class",
+"order", "family", "genus", "species", "strain")</code> with partial matching.</p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>logical.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">lineage1 &lt;- "k__Bacteria|p__Verrucomicrobia|c__Verrucomicrobiae"
+lineage2 &lt;- "k__Bacteria|p__Firmicutes|c__Clostridia"
+is_rank(c(lineage1, lineage2), "class")
+is_rank(c(lineage1, lineage2), "order")
+is_at_least_rank(c(lineage1, lineage2), "phylum")
+is_at_least_rank(c(lineage1, lineage2), "order")
+</code></pre>
+
+
+</div>

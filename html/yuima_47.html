@@ -1,0 +1,88 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>cogarch.info-class</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Class for information about CoGarch(p,q)</h2>
+
+<h3>Description</h3>
+
+<p>The <code>cogarch.info-class</code> is a class of the  <span class="pkg">yuima</span> package
+</p>
+
+
+<h3>Slots</h3>
+
+
+<dl>
+<dt>
+<code>p</code>:</dt>
+<dd>
+<p>Number of autoregressive coefficients in the variance process. </p>
+</dd>
+<dt>
+<code>q</code>:</dt>
+<dd>
+<p>Number of moving average coefficients in the variance process. </p>
+</dd>
+<dt>
+<code>ar.par</code>:</dt>
+<dd>
+<p>Label of autoregressive coefficients. </p>
+</dd>
+<dt>
+<code>ma.par</code>:</dt>
+<dd>
+<p>Label of moving average coefficients. </p>
+</dd>
+<dt>
+<code>loc.par</code>:</dt>
+<dd>
+<p>Label of location coefficient in the variance process. </p>
+</dd>
+<dt>
+<code>Cogarch.var</code>:</dt>
+<dd>
+<p>Label of the observed process. </p>
+</dd>
+<dt>
+<code>V.var</code>:</dt>
+<dd>
+<p>Label of the variance process. </p>
+</dd>
+<dt>
+<code>Latent.var</code>:</dt>
+<dd>
+<p>Label of the latent process in the state representation of the variance.</p>
+</dd>
+<dt>
+<code>XinExpr</code>:</dt>
+<dd>
+<p>Logical variable. If <code>XinExpr=FALSE</code>, the starting condition of <code>Latent.var</code> is zero otherwise each component of Latent.var has a parameter as a starting point. </p>
+</dd>
+<dt>
+<code>measure</code>:</dt>
+<dd>
+<p>Levy measure for jump and quadratic part. </p>
+</dd>
+<dt>
+<code>measure.type</code>:</dt>
+<dd>
+<p>Type specification for Levy measure. </p>
+</dd>
+</dl>
+<h3>Note</h3>
+
+<p>The <code>cogarch.info-class</code> object cannot be directly specified by the user
+but it is built when the <code>yuima.cogarch-class</code> object is
+constructed via <code>setCogarch</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>The YUIMA Project Team</p>
+
+
+</div>

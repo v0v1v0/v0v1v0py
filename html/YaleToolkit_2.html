@@ -1,0 +1,53 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>getnrows</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Get the number of rows of the file</h2>
+
+<h3>Description</h3>
+
+<p>Use iterators to avoid the memory overhead of
+obtaining the number of rows of a file.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">getnrows(file, n = 10000)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>file</code></td>
+<td>
+<p>the name of a file (possible with a path)</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>n</code></td>
+<td>
+<p>the size of the chunks used by the iterator</p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>an integer
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">data(CO2)
+write.csv(CO2, "CO2.csv", row.names=FALSE)
+getnrows("CO2.csv")
+unlink("CO2.csv")
+</code></pre>
+
+
+</div>

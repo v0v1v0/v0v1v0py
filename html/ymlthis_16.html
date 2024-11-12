@@ -1,0 +1,69 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>includes2</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Include content within output</h2>
+
+<h3>Description</h3>
+
+<p><code>includes2()</code> is a version of the <code>includes()</code> helper function from rmarkdown
+that uses <code>yml_blank()</code> instead of <code>NULL</code> as the argument defaults, as
+ymlthis treats NULLs as literal YAML syntax ("null").
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">includes2(
+  in_header = yml_blank(),
+  before_body = yml_blank(),
+  after_body = yml_blank()
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>in_header</code></td>
+<td>
+<p>One or more files with content to be included in the header
+of the document.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>before_body</code></td>
+<td>
+<p>One or more files with content to be included before the
+document body.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>after_body</code></td>
+<td>
+<p>One or more files with content to be included after the
+document body.</p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>a list
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">
+yml() %&gt;%
+  yml_output(
+    pdf_document(includes = includes2(after_body = "footer.tex"))
+  )
+
+</code></pre>
+
+
+</div>

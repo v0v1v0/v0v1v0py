@@ -1,0 +1,96 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>vecTxt</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Easily parse a vector into a character value</h2>
+
+<h3>Description</h3>
+
+<p>Easily parse a vector into a character value
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">vecTxt(
+  vector,
+  delimiter = ", ",
+  useQuote = "",
+  firstDelimiter = NULL,
+  lastDelimiter = " &amp; ",
+  firstElements = 0,
+  lastElements = 1,
+  lastHasPrecedence = TRUE
+)
+
+vecTxtQ(vector, useQuote = "'", ...)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>vector</code></td>
+<td>
+<p>The vector to process.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>delimiter, firstDelimiter, lastDelimiter</code></td>
+<td>
+<p>The delimiters
+to use for respectively the middle, first
+<code>firstElements</code>, and last <code>lastElements</code> elements.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>useQuote</code></td>
+<td>
+<p>This character string is pre- and appended to all elements;
+so use this to quote all elements (<code>useQuote="'"</code>), doublequote all
+elements (<code>useQuote='"'</code>), or anything else (e.g. <code>useQuote='|'</code>).
+The only difference between <code>vecTxt</code> and <code>vecTxtQ</code> is that the
+latter by default quotes the elements.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>firstElements, lastElements</code></td>
+<td>
+<p>The number of elements for which to use
+the first respective last delimiters</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>lastHasPrecedence</code></td>
+<td>
+<p>If the vector is very short, it's possible that the
+sum of firstElements and lastElements is larger than the vector length. In
+that case, downwardly adjust the number of elements to separate with the
+first delimiter (<code>TRUE</code>) or the number of elements to separate with the
+last delimiter (<code>FALSE</code>)?</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+<p>Any addition arguments to <code>vecTxtQ</code> are passed on to
+<code>vecTxt</code>.</p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>A character vector of length 1.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">vecTxtQ(names(mtcars));
+</code></pre>
+
+
+</div>

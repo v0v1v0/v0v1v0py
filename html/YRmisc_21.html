@@ -1,0 +1,51 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>pl.2ts</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Time series plot for two variables</h2>
+
+<h3>Description</h3>
+
+<p>Plotting two time series in one plot, with title.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">pl.2ts(ts1,ts2,title)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>ts1</code></td>
+<td>
+<p>:time series variable one</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>ts2</code></td>
+<td>
+<p>:time series variable two</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>title</code></td>
+<td>
+<p>:title for the plot</p>
+</td>
+</tr>
+</table>
+<h3>Examples</h3>
+
+<pre><code class="language-R">DAX &lt;- EuStockMarkets[,1]
+FTSE &lt;- EuStockMarkets[,4]
+pl.2ts(DAX,FTSE, "Times Series Plot of DAX and FTSE")
+</code></pre>
+
+
+</div>

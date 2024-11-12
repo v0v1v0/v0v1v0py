@@ -1,0 +1,105 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>setLaw_th</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>
+Constructior of a t-Levy process.
+</h2>
+
+<h3>Description</h3>
+
+<p><code>setLaw_th</code> constructs an object of class <code>yuima.th-class</code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">setLaw_th(h = 1, method = "LAG", up = 7, low = -7, N = 180, 
+N_grid = 1000, regular_par = NULL, ...)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>h</code></td>
+<td>
+
+<p>a numeric object that is the time of the intervals
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>method</code></td>
+<td>
+
+<p>Method for the inversion of the characteristic function. Three methods are available: <code>cos</code>, <code>LAG</code>, and <code>FFT</code>. 
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>up</code></td>
+<td>
+
+<p>Upper bound for the integration support.
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>low</code></td>
+<td>
+
+<p>Lower bound for the integration support.
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>N</code></td>
+<td>
+
+<p>Integration grid.
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>N_grid</code></td>
+<td>
+
+<p>Number of points in the support.
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>regular_par</code></td>
+<td>
+
+<p>A scalar for controlling the Gibbs effect for the inversion of the characteristic function
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+
+<p>Additional arguments. See <code>setLaw</code> for more details.
+</p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>The function returns an object of class <code>yuima.th-class</code>.</p>
+
+
+<h3>Author(s)</h3>
+
+<p>The YUIMA Project Team
+</p>
+<p>Contacts: Lorenzo Mercuri <a href="mailto:lorenzo.mercuri@unimi.it">lorenzo.mercuri@unimi.it</a>
+</p>
+
+
+</div>

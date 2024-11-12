@@ -1,0 +1,121 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>promote.list</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Promote a List</h2>
+
+<h3>Description</h3>
+
+<p>Promotes attributes of list-like objects.
+For the plural attributes of each element,
+any singularity is promoted to the sole attribute.
+Reserved attributes are untouched.
+Methods <code>filter.decorated</code> and <code>[.decorated</code>
+automatically attempt to promote attributes for all elements.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">## S3 method for class 'list'
+promote(
+  x,
+  ...,
+  .reserved = getOption("yamlet_promote_reserved", c("class", "levels", "labels",
+    "names"))
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>x</code></td>
+<td>
+<p>list, or list-like</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+<p>indicated elements</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>.reserved</code></td>
+<td>
+<p>attributes to leave untouched</p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>same class as x
+</p>
+
+
+<h3>See Also</h3>
+
+<p>filter.decorated [.decorated
+</p>
+<p>Other promote: 
+<code>[.decorated()</code>,
+<code>filter.decorated()</code>,
+<code>promote()</code>,
+<code>promote.data.frame()</code>,
+<code>singularity()</code>
+</p>
+<p>Other interface: 
+<code>canonical.decorated()</code>,
+<code>classified.data.frame()</code>,
+<code>decorate.character()</code>,
+<code>decorate.data.frame()</code>,
+<code>desolve.decorated()</code>,
+<code>ggplot.decorated()</code>,
+<code>io_csv.character()</code>,
+<code>io_csv.data.frame()</code>,
+<code>io_res.character()</code>,
+<code>io_res.decorated()</code>,
+<code>io_table.character()</code>,
+<code>io_table.data.frame()</code>,
+<code>io_yamlet.character()</code>,
+<code>io_yamlet.data.frame()</code>,
+<code>is_parseable.default()</code>,
+<code>mimic.default()</code>,
+<code>modify.default()</code>,
+<code>read_yamlet()</code>,
+<code>resolve.decorated()</code>,
+<code>scripted.default()</code>,
+<code>selected.default()</code>,
+<code>write_yamlet()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">library(magrittr)
+file &lt;- system.file(package = 'yamlet', 'extdata','phenobarb.csv')
+x &lt;- file %&gt;% decorate
+
+# Note that there are two elements each for value label and value guide.
+x %&gt;% decorations(event, value)
+
+# After filtering, only one set is relevant.
+# promote() identifies and retains such.
+x %&gt;% dplyr:::filter.data.frame(event == 'dose') %&gt;% decorations(value)
+x %&gt;% dplyr:::filter.data.frame(event == 'dose') %&gt;% promote %&gt;% decorations(value)
+
+# If for some reason we do a partial promote, value attributes are unaffected.
+# Nonsense example:
+x %&gt;% dplyr:::filter.data.frame(event == 'dose') %&gt;% promote(event) %&gt;% decorations(value)
+
+# However, the 'decorated' method for filter() calls promote() internally.
+x %&gt;% filter(event == 'dose') %&gt;% decorations(value)
+
+</code></pre>
+
+
+</div>

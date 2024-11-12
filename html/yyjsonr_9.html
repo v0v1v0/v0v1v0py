@@ -1,0 +1,68 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>read_json_raw</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Convert JSON in a raw vector to R</h2>
+
+<h3>Description</h3>
+
+<p>Convert JSON in a raw vector to R
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">read_json_raw(raw_vec, opts = list(), ...)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>raw_vec</code></td>
+<td>
+<p>raw vector</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>opts</code></td>
+<td>
+<p>Named list of options for parsing. Usually created by <code>opts_read_json()</code></p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+<p>Other named options can be used to override any options in <code>opts</code>.
+The valid named options are identical to arguments to <code>opts_read_json()</code></p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>R object
+</p>
+
+
+<h3>See Also</h3>
+
+<p>Other JSON Parsers: 
+<code>read_json_conn()</code>,
+<code>read_json_file()</code>,
+<code>read_json_str()</code>,
+<code>read_ndjson_file()</code>,
+<code>read_ndjson_str()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">raw_str &lt;- as.raw(utf8ToInt('[1, 2, 3, "four"]'))
+read_json_raw(raw_str)
+</code></pre>
+
+
+</div>

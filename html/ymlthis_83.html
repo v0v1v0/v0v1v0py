@@ -1,0 +1,348 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>yml_latex_opts</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Set LaTeX YAML options for PDF output</h2>
+
+<h3>Description</h3>
+
+<p><code>yml_latex_opts()</code> sets top-level YAML fields for LaTeX options used by
+pandoc (<a href="https://pandoc.org/MANUAL.html">see the documentation</a>, from which
+these descriptions were derived), as when making a PDF document with
+<code>pdf_document()</code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">yml_latex_opts(
+  .yml,
+  block_headings = yml_blank(),
+  classoption = yml_blank(),
+  documentclass = yml_blank(),
+  geometry = yml_blank(),
+  indent = yml_blank(),
+  linestretch = yml_blank(),
+  margin_left = yml_blank(),
+  margin_right = yml_blank(),
+  margin_top = yml_blank(),
+  margin_bottom = yml_blank(),
+  pagestyle = yml_blank(),
+  papersize = yml_blank(),
+  secnumdepth = yml_blank(),
+  fontenc = yml_blank(),
+  fontfamily = yml_blank(),
+  fontfamilyoptions = yml_blank(),
+  fontsize = yml_blank(),
+  mainfont = yml_blank(),
+  sansfont = yml_blank(),
+  monofont = yml_blank(),
+  mathfont = yml_blank(),
+  CJKmainfont = yml_blank(),
+  mainfontoptions = yml_blank(),
+  sansfontoptions = yml_blank(),
+  monofontoptions = yml_blank(),
+  mathfontoptions = yml_blank(),
+  CJKoptions = yml_blank(),
+  microtypeoptions = yml_blank(),
+  colorlinks = yml_blank(),
+  linkcolor = yml_blank(),
+  filecolor = yml_blank(),
+  citecolor = yml_blank(),
+  urlcolor = yml_blank(),
+  toccolor = yml_blank(),
+  links_as_notes = yml_blank(),
+  lof = yml_blank(),
+  lot = yml_blank(),
+  thanks = yml_blank(),
+  toc = yml_blank(),
+  toc_depth = yml_blank(),
+  biblatexoptions = yml_blank(),
+  biblio_style = yml_blank(),
+  biblio_title = yml_blank(),
+  bibliography = yml_blank(),
+  natbiboptions = yml_blank()
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>.yml</code></td>
+<td>
+<p>a <code>yml</code> object created by <code>yml()</code>, <code>as_yml()</code>, or returned by
+a <code style="white-space: pre;">⁠yml_*()⁠</code> function</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>block_headings</code></td>
+<td>
+<p>make paragraph and subparagraph (fourth- and
+fifth-level headings, or fifth- and sixth-level with book classes)
+free-standing rather than run-in; requires further formatting to
+distinguish from subsubsection (third- or fourth-level headings). Note that
+the YAML field is actually called <code>block-headings</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>classoption</code></td>
+<td>
+<p>a character vector of options for document class, e.g.
+"oneside"</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>documentclass</code></td>
+<td>
+<p>the document class usually "article", "book", or
+"report"</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>geometry</code></td>
+<td>
+<p>a character vector of options for the <a href="https://ctan.org/pkg/geometry?lang=en">geometry LaTeX package</a>, e.g. "margin=1in"</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>indent</code></td>
+<td>
+<p>Logical. Use document class settings for indentation? The
+default LaTeX template otherwise removes indentation and adds space between
+paragraphs.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>linestretch</code></td>
+<td>
+<p>adjusts line spacing using the <a href="https://ctan.org/pkg/setspace?lang=en">setspace LaTeX package</a>, e.g. 1.25, 1.5</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>margin_left, margin_right, margin_top, margin_bottom</code></td>
+<td>
+<p>sets margins if
+<code>geometry</code> is not used, otherwise <code>geometry</code> overrides these. Note that the
+actual YAML fields use <code>-</code> instead of <code style="white-space: pre;">⁠_⁠</code>, e.g. <code>margin-left</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>pagestyle</code></td>
+<td>
+<p>control the <code>pagestyle</code> LaTeX command: the default article
+class supports "plain" (default), "empty" (no running heads or page
+numbers), and "headings" (section titles in running heads)</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>papersize</code></td>
+<td>
+<p>paper size, e.g. letter, a4</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>secnumdepth</code></td>
+<td>
+<p>numbering depth for sections (with <code>--number-sections</code>
+pandoc)</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>fontenc</code></td>
+<td>
+<p>allows font encoding to be specified through <a href="https://www.ctan.org/pkg/fontenc">fontenc LaTeX package</a> (with pdflatex); default is "T1"
+(see <a href="https://ctan.org/pkg/encguide">LaTeX font encodings guide</a>)</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>fontfamily</code></td>
+<td>
+<p>font package for use with pdflatex: TeX Live includes many
+options, documented in the <a href="https://tug.org/FontCatalogue/">LaTeX Font Catalogue</a>. The default is "Latin Modern".</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>fontfamilyoptions</code></td>
+<td>
+<p>a character vector of options for <code>fontfamily</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>fontsize</code></td>
+<td>
+<p>font size for body text. The standard classes allow "10pt",
+"11pt", and "12pt".</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>mainfont, sansfont, monofont, mathfont, CJKmainfont</code></td>
+<td>
+<p>font families for use
+with xelatex or lualatex: take the name of any system font, using the
+<a href="https://www.ctan.org/pkg/fontspec">fontspec LaTeX package</a>. CJKmainfont
+uses the <a href="https://www.ctan.org/pkg/xecjk">xecjk LaTeX package.</a>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>mainfontoptions, sansfontoptions, monofontoptions, mathfontoptions, CJKoptions</code></td>
+<td>
+<p>a
+character vector of options to use with mainfont, sansfont, monofont,
+mathfont, CJKmainfont in xelatex and lualatex. Allow for any choices
+available through fontspec.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>microtypeoptions</code></td>
+<td>
+<p>a character vector of options to pass to the
+<a href="https://www.ctan.org/pkg/microtype">microtype LaTeX package</a>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>colorlinks</code></td>
+<td>
+<p>Logical. Add color to link text? Automatically enabled if
+any of <code>linkcolor</code>, <code>filecolor</code>, <code>citecolor</code>, <code>urlcolor</code>, or <code>toccolor</code> are
+set.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>linkcolor, filecolor, citecolor, urlcolor, toccolor</code></td>
+<td>
+<p>color for internal
+links, external links, citation links, linked URLs, and links in table of
+contents, respectively: uses options allowed by
+<a href="https://ctan.org/pkg/xcolor?lang=en">xcolor</a>, including the dvipsnames,
+svgnames, and x11names lists</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>links_as_notes</code></td>
+<td>
+<p>Logical. Print links as footnotes? Note that the actual
+YAML field is <code>links-as-notes</code></p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>lof, lot</code></td>
+<td>
+<p>Logical. Include list of figures or list of tables?</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>thanks</code></td>
+<td>
+<p>contents of acknowledgments footnote after document title</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>toc</code></td>
+<td>
+<p>include table of contents</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>toc_depth</code></td>
+<td>
+<p>level of section to include in table of contents. Note that
+the actual YAML field is <code>toc-depth</code></p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>biblatexoptions</code></td>
+<td>
+<p>list of options for
+<a href="https://ctan.org/pkg/biblatex">biblatex</a>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>biblio_style</code></td>
+<td>
+<p>bibliography style, when used with
+<a href="https://ctan.org/pkg/natbib">natbib</a> and
+<a href="https://ctan.org/pkg/biblatex">biblatex</a>. Note that the actual YAML field
+is <code>biblio-style</code></p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>biblio_title</code></td>
+<td>
+<p>bibliography title, when used with
+<a href="https://ctan.org/pkg/natbib">natbib</a> and
+<a href="https://ctan.org/pkg/biblatex">biblatex</a>. Note that the actual YAML field
+is <code>biblio-title</code></p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>bibliography</code></td>
+<td>
+<p>a path to the bibliography file to use for references</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>natbiboptions</code></td>
+<td>
+<p>a character vector of options for
+<a href="https://ctan.org/pkg/natbib">natbib</a></p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>a <code>yml</code> object
+</p>
+
+
+<h3>See Also</h3>
+
+<p>Other yml: 
+<code>asis_yaml_output()</code>,
+<code>bib2yml()</code>,
+<code>draw_yml_tree()</code>,
+<code>has_field()</code>,
+<code>read_json()</code>,
+<code>use_yml_defaults()</code>,
+<code>use_yml_file()</code>,
+<code>use_yml()</code>,
+<code>yml_author()</code>,
+<code>yml_blogdown_opts()</code>,
+<code>yml_bookdown_opts()</code>,
+<code>yml_citations()</code>,
+<code>yml_clean()</code>,
+<code>yml_distill_opts()</code>,
+<code>yml_output()</code>,
+<code>yml_pagedown_opts()</code>,
+<code>yml_params()</code>,
+<code>yml_pkgdown()</code>,
+<code>yml_reference()</code>,
+<code>yml_replace()</code>,
+<code>yml_resource_files()</code>,
+<code>yml_rsconnect_email()</code>,
+<code>yml_rticles_opts()</code>,
+<code>yml_runtime()</code>,
+<code>yml_site_opts()</code>,
+<code>yml_toc()</code>,
+<code>yml_vignette()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">
+yml() %&gt;%
+   yml_output(pdf_document()) %&gt;%
+   yml_latex_opts(
+     fontfamily = "Fira Sans Thin",
+     fontsize = "11pt",
+     links_as_notes = TRUE
+   )
+
+</code></pre>
+
+
+</div>

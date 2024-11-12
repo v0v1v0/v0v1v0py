@@ -1,0 +1,140 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>opts_write_json</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Create named list of options for serializing R to JSON</h2>
+
+<h3>Description</h3>
+
+<p>Create named list of options for serializing R to JSON
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">opts_write_json(
+  digits = -1,
+  pretty = FALSE,
+  auto_unbox = FALSE,
+  dataframe = c("rows", "columns"),
+  factor = c("string", "integer"),
+  name_repair = c("none", "minimal"),
+  num_specials = c("null", "string"),
+  str_specials = c("null", "string"),
+  fast_numerics = FALSE,
+  yyjson_write_flag = 0L
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>digits</code></td>
+<td>
+<p>decimal places to keep for floating point numbers. Default: -1.
+Positive values specify number of decimal places. Using zero will
+write the numeric value as an integer. Values less than zero mean that
+the floating point value should be written as-is (the default).</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>pretty</code></td>
+<td>
+<p>Logical value indicating if the created JSON string should have
+whitespace for indentation and linebreaks. Default: FALSE.
+Note: this option is equivalent to <code>yyjson_write_flag = write_flag$YYJSON_WRITE_PRETTY</code></p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>auto_unbox</code></td>
+<td>
+<p>automatically unbox all atomic vectors of length 1 such that
+they appear as atomic elements in JSON rather than arrays of length 1.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>dataframe</code></td>
+<td>
+<p>how to encode data.frame objects. Options 'rows' or
+columns'.  Default: 'rows'</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>factor</code></td>
+<td>
+<p>how to encode factor objects: must be one of 'string' or 'integer'
+Default: 'string'</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>name_repair</code></td>
+<td>
+<p>How should unnamed items in a partially named list be handled?
+'none' means to leave their names blank in JSON (which may not be valid JSON).
+'minimal' means to use the integer position index of the item as its name if
+it is missing.  Default: 'none'</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>num_specials</code></td>
+<td>
+<p>Should special numeric values (i.e. NA, NaN, Inf) be
+converted to a JSON <code>null</code> value or converted to a string
+representation e.g. "NA"/"NaN" etc.   Default: 'null'</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>str_specials</code></td>
+<td>
+<p>Should a special value of <code>NA</code> in a character vector
+be converted to a
+JSON <code>null</code> value, or converted to a string "NA"?  Default: 'null'</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>fast_numerics</code></td>
+<td>
+<p>Does the user guarantee that there are no NA, NaN or Inf
+values in the numeric vectors?  Default: FALSE.  If <code>TRUE</code> then
+numeric and integer vectors will be written to JSON using a faster method.
+Note: if there are NA, NaN or Inf values, an error will be thrown.
+Expert users are invited to also consider the
+<code>YYJSON_WRITE_ALLOW_INF_AND_NAN</code> and
+<code>YYJSON_WRITE_INF_AND_NAN_AS_NULL</code> options for <code>yyjson_write_flags</code>
+and should consult the <code>yyjson</code> API documentation for
+further details.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>yyjson_write_flag</code></td>
+<td>
+<p>integer vector corresponding to internal <code>yyjson</code>
+options.  See <code>yyjson_write_flag</code> in this package, and read
+the yyjson API documentation for more information.  This is considered
+an advanced option.</p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>Named list of options for writing JSON
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code>yyjson_write_flag()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">write_json_str(head(iris, 3), opts = opts_write_json(factor = 'integer'))
+</code></pre>
+
+
+</div>

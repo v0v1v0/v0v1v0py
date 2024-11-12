@@ -1,0 +1,95 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>youtube_oauth</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>YouTube API OAuth</h2>
+
+<h3>Description</h3>
+
+<p>This creates or grabs a token to authorize API requests
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">youtube_oauth(
+  clientId = NULL,
+  clientSecret = NULL,
+  tokenFile = ".httr-oauth",
+  useOOB = FALSE,
+  setEnvVar = FALSE,
+  scopes = c("https://www.googleapis.com/auth/youtube.readonly",
+    "https://www.googleapis.com/auth/yt-analytics.readonly"),
+  reAuthOnFail = FALSE
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>clientId</code></td>
+<td>
+<p>Required. Client Id obtained from console.cloud.google.com.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>clientSecret</code></td>
+<td>
+<p>Required. Client Secret obtained from console.cloud.google.com</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>tokenFile</code></td>
+<td>
+<p>The name of the token httr-oauth file to read the token from. If the file does not exist then one will be created with the provided name.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>useOOB</code></td>
+<td>
+<p>If <code>TRUE</code>, use oob method to copy/paste token into R.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>setEnvVar</code></td>
+<td>
+<p>If <code>TRUE</code>, create an environment variable called "YouTube_Token" to store token.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>scopes</code></td>
+<td>
+<p>Scopes that must be passed when authenticating.
+See <a href="https://developers.google.com/youtube/analytics/reference">https://developers.google.com/youtube/analytics/reference</a> for more information.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>reAuthOnFail</code></td>
+<td>
+<p>If <code>TRUE</code>, will automatically begin authentication process
+if provided token is expired.</p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>token environment
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">## Not run: 
+youtube_oauth("123456789asdalksdjfhaslkdjfb.apps.googleusercontent.com",
+              "MasdfH5320208ladshf790",
+              token = ".httr-oauth-myToken")
+
+## End(Not run)
+</code></pre>
+
+
+</div>

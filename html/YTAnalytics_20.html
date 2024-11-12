@@ -1,0 +1,144 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>data_video_request</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Video Data Requests - YouTube Data API</h2>
+
+<h3>Description</h3>
+
+<p>This is a function to make API calls to the YouTube Data API for video data.
+While it can be called directly, it is primarily inteded to help get metadata about videos
+such as title or description. For more in-depth use of the Data API, please refer to
+<code>tuber</code>. For more details on the following arguments, please refer to
+<a href="https://developers.google.com/youtube/v3/docs/videos/list">https://developers.google.com/youtube/v3/docs/videos/list</a>
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">data_video_request(
+  part = NULL,
+  chart = NULL,
+  hl = NULL,
+  id = NULL,
+  locale = NULL,
+  maxHeight = NULL,
+  maxResults = NULL,
+  maxWidth = NULL,
+  myRating = NULL,
+  onBehalfOfContentOwner = NULL,
+  pageToken = NULL,
+  regionCode = NULL,
+  videoCategoryId = NULL,
+  token = getOption("YouTube_Token")
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>part</code></td>
+<td>
+<p>Required. String</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>chart</code></td>
+<td>
+<p>String.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>hl</code></td>
+<td>
+<p>String.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>id</code></td>
+<td>
+<p>String.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>locale</code></td>
+<td>
+<p>String.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>maxHeight</code></td>
+<td>
+<p>Integer.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>maxResults</code></td>
+<td>
+<p>Integer.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>maxWidth</code></td>
+<td>
+<p>Integer.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>myRating</code></td>
+<td>
+<p>String.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>onBehalfOfContentOwner</code></td>
+<td>
+<p>String.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>pageToken</code></td>
+<td>
+<p>String.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>regionCode</code></td>
+<td>
+<p>String.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>videoCategoryId</code></td>
+<td>
+<p>String.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>token</code></td>
+<td>
+<p>Required.</p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>data.frame()
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">## Not run: 
+data_video_request(part = "contentDetails",
+                          id = "dQw4w9WgXcQ")
+
+## End(Not run)
+</code></pre>
+
+
+</div>

@@ -1,0 +1,97 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>augment.ycevo</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Augment data with predicted discount functions and yield curves</h2>
+
+<h3>Description</h3>
+
+<p>Augment data with predicted discount functions and yield curves
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">## S3 method for class 'ycevo'
+augment(x, newdata = NULL, loess = TRUE, ...)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>x</code></td>
+<td>
+<p>A ycevo object</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>newdata</code></td>
+<td>
+<p>A data frame containing time-to-maturity in years <code>tau</code> and
+the quotation date at which the discount functions and the yield curves are to
+be predicted. The quotation date is to be named after the quotation
+date column in <code>x</code>, which is also the name of the quotation date column of
+the <code>data</code> argument in <code>ycevo()</code> that produces <code>x</code>. The default is <code>qdate</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>loess</code></td>
+<td>
+<p>Logical. If TRUE, the returned discount functions and yield curves
+are loess smoothed.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+<p>Additional arguments required for generic consistency. Currently
+not used. Warning: A misspelled argument will not raise an error. The
+misspelled argument will be either disregarded, or the default value will
+be applied if one exists.</p>
+</td>
+</tr>
+</table>
+<h3>Details</h3>
+
+<p>If <code>newdata</code> is not provided, returns the discount function and yield curve
+at the specified estimation points in <code>ycevo()</code>.
+</p>
+<p>If <code>newdata</code> is provided, the discount functions at the time-to-maturities
+specified in <code>newdata</code> are generated from loess smoothing (see
+<code>stats::loess()</code>), and interpolated to produce the discount function values at the
+quotation date specified in <code>newdata</code>, before being converted to the yield curves.
+</p>
+
+
+<h3>Value</h3>
+
+<p><code>newdata</code> augmented with <code>.discount</code> and <code>.yield</code> for the discount
+function and the yield curve respectively.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code>ycevo()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R"># Simulating bond data
+bonds &lt;- ycevo_data(n = 10)
+
+# Estimation can take up to 30 seconds
+res &lt;- ycevo(bonds, x = lubridate::ymd("2023-03-01"))
+# Augmentation
+augment(res)
+
+
+</code></pre>
+
+
+</div>

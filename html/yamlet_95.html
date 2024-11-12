@@ -1,0 +1,207 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>ggplot.decorated</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Create a New ggplot for a Decorated Data Frame</h2>
+
+<h3>Description</h3>
+
+<p>Creates a new ggplot object for a decorated data.frame.
+This is the ggplot() method for class 'decorated'.
+It creates a ggplot object using the default method,
+but reclassifies it as 'decorated_ggplot' so that a custom print method
+is invoked; see <code>print.decorated_ggplot</code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">## S3 method for class 'decorated'
+ggplot(data, ...)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>data</code></td>
+<td>
+<p>decorated, see <code>decorate</code></p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+<p>passed to <code>ggplot</code></p>
+</td>
+</tr>
+</table>
+<h3>Details</h3>
+
+<p>This approach is similar to but more flexible than
+the method for <code>ggready</code>.
+For fine control, you can switch between 'data.frame'
+and 'decorated' using <code>as_decorated</code>
+(supplies null decorations) and <code>as.data.frame</code>
+(preserves decorations).
+</p>
+
+
+<h3>Value</h3>
+
+<p>return value like <code>ggplot</code> but inheriting 'decorated_ggplot'
+</p>
+
+
+<h3>See Also</h3>
+
+<p>decorate resolve ggready
+</p>
+<p>Other decorated_ggplot: 
+<code>ggplot_build.decorated_ggplot()</code>,
+<code>print.decorated_ggplot()</code>
+</p>
+<p>Other interface: 
+<code>canonical.decorated()</code>,
+<code>classified.data.frame()</code>,
+<code>decorate.character()</code>,
+<code>decorate.data.frame()</code>,
+<code>desolve.decorated()</code>,
+<code>io_csv.character()</code>,
+<code>io_csv.data.frame()</code>,
+<code>io_res.character()</code>,
+<code>io_res.decorated()</code>,
+<code>io_table.character()</code>,
+<code>io_table.data.frame()</code>,
+<code>io_yamlet.character()</code>,
+<code>io_yamlet.data.frame()</code>,
+<code>is_parseable.default()</code>,
+<code>mimic.default()</code>,
+<code>modify.default()</code>,
+<code>promote.list()</code>,
+<code>read_yamlet()</code>,
+<code>resolve.decorated()</code>,
+<code>scripted.default()</code>,
+<code>selected.default()</code>,
+<code>write_yamlet()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">file &lt;- system.file(package = 'yamlet', 'extdata','quinidine.csv')
+library(ggplot2)
+library(dplyr)
+library(magrittr)
+# par(ask = FALSE)
+
+x &lt;- decorate(file)
+x %&lt;&gt;% filter(!is.na(conc))
+
+# Manipulate class to switch among ggplot methods.
+class(x)
+class(data.frame(x))
+class(as_decorated(data.frame(x)))
+
+# The bare data.frame gives boring labels and un-ordered groups.
+map &lt;- aes(x = time, y = conc, color = Heart)
+data.frame(x) %&gt;% ggplot(map) + geom_point()
+
+# Decorated data.frame uses supplied labels.
+# Notice CHF levels are still not ordered. (Moderate first.)
+x %&gt;% ggplot(map) + geom_point()
+
+# If we resolve Heart, CHF levels are ordered.
+x %&lt;&gt;% resolve(Heart)
+x %&gt;% ggplot(map) + geom_point()
+
+# We can map aesthetics as decorations.
+x %&lt;&gt;% decorate('Heart: [ color: [gold, purple, green]]')
+x %&gt;% ggplot(map) + geom_point()
+
+# Colors are matched to particular levels. Purple drops out here:
+x %&gt;% filter(Heart != 'Moderate') %&gt;% ggplot(map) + geom_point()
+
+# We can resolve other columns for a chance to enrich the output with units.
+x %&lt;&gt;% resolve
+suppressWarnings( # because this complains for columns with no units
+  x &lt;- modify(x, title = paste0(label, '\n(', units, ')'))
+)
+x %&gt;% ggplot(map) + geom_point()
+
+# Or something fancier.
+x %&lt;&gt;% modify(conc, title = 'conc_serum. (mg*L^-1.)')
+x %&gt;% ggplot(map) + geom_point()
+
+# The y-axis title is deliberately given in spork syntax for elegant coercion:
+library(spork)
+x %&lt;&gt;% modify(conc, expression = as.expression(as_plotmath(as_spork(title))))
+x %&gt;% ggplot(map) + geom_point()
+# Add a fancier label for Heart, and facet by a factor:
+x %&lt;&gt;% modify(Heart, expression = as.expression(as_plotmath(as_spork('CHF^\\*'))))
+x %&gt;% ggplot(map) + geom_point() + facet_wrap(~Creatinine)
+
+# ggready handles the units and plotmath implicitly for a 'standard' display:
+x %&gt;% ggready %&gt;% ggplot(map) + geom_point() + facet_wrap(~Creatinine)
+
+# Notice that instead of over-writing the label
+# attribute, we are creating a stack of label
+# substitutes (title, expression) so that
+# label is still available as an argument
+# if we want to try something else.  The
+# print method by default looks for all of these.
+# Precedence is expression, title, label, column name.
+# Precedence can be controlled using
+# options(decorated_ggplot_search = c(a, b, ...) ).
+
+# Here we try a dataset with conditional labels and units.
+
+file &lt;- system.file(package = 'yamlet', 'extdata','phenobarb.csv')
+x &lt;- file %&gt;% decorate %&gt;% resolve
+# Note that value has two elements for label and guide.
+x %&gt;% decorations(value)
+
+# The print method defaults to the first, with warning.
+map &lt;- aes(x = time, y = value, color = event)
+
+x %&gt;% ggplot(map) + geom_point()
+
+
+# If we subset appropriately, the relevant value is substituted.
+x %&gt;% filter(event == 'conc') %&gt;% ggplot(map) + geom_point()
+
+x %&gt;% filter(event == 'conc') %&gt;%
+ggplot(aes(x = time, y = value, color = ApgarInd)) + geom_point()
+
+x %&gt;% filter(event == 'dose') %&gt;%
+ggplot(aes(x = time, y = value, color = Wt)) +
+geom_point() +
+scale_y_log10() +
+scale_color_gradientn(colours = rainbow(4))
+
+# print.decorated_ggplot will attempt to honor coordinated aesthetics.
+x &lt;- data.frame(x = c(1:6, 3:8), y = c(1:6,1:6), z = letters[c(1:6,1:6)])
+x %&lt;&gt;% decorate('z: [color: ["red", "blue", "green", "gold", "black", "magenta"]]')
+x %&lt;&gt;% decorate('z: [fill: ["red", "blue", "green", "gold", "black", "magenta"]]')
+x %&lt;&gt;% decorate('z: [shape: [20, 21, 22, 23, 24, 25]]')
+x %&lt;&gt;% decorate('z: [linetype: [6, 5, 4, 3, 2, 1]]')
+x %&lt;&gt;% decorate('z: [alpha: [ .9, .8, .7, .6, .5, .4]]')
+x %&lt;&gt;% decorate('z: [size: [1, 1.5, 2, 2.5, 3, 3.5]]')
+x %&gt;% ggplot(aes(
+ x, y,
+  color = z,
+  fill = z,
+  shape = z,
+  linetype = z, 
+  alpha = z,
+  size = z,
+)) + 
+  geom_point() +
+  geom_line(size = 1)
+</code></pre>
+
+
+</div>

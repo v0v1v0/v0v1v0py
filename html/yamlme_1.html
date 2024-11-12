@@ -1,0 +1,54 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>coerce-methods</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Coercing lists and rmd_doc objects</h2>
+
+<h3>Description</h3>
+
+<p>Coercion of lists into rmd_doc objects and vice versa.
+</p>
+<p>Objects of class rmd_doc can be created from lists or converted back
+to lists. This is convenient for defining functions that manipulate the
+content of such objects.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">list2rmd_doc(object)
+
+rmd_doc2list(object)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table><tr style="vertical-align: top;">
+<td><code>object</code></td>
+<td>
+<p>Either a list or a rmd_doc object.</p>
+</td>
+</tr></table>
+<h3>Examples</h3>
+
+<pre><code class="language-R">## Create a document from a list
+my_document &lt;- list(
+    title = "Sample Document",
+    author = "Miguel Alavarez",
+    output = "html_document",
+    body = txt_body(
+        "# Intro",
+        "",
+        "This is just an example."
+    ))
+my_document &lt;- as(my_document, "rmd_doc")
+
+## Convert back to a list
+my_document &lt;- as(my_document, "list")
+</code></pre>
+
+
+</div>

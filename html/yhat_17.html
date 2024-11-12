@@ -1,0 +1,138 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>plotCI.yhat</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Plot CIs from yhat</h2>
+
+<h3>Description</h3>
+
+<p>This function plots CIs that have been produced from /codebooteval.yhat.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">  plotCI.yhat(sampStat, upperCI, lowerCI, pid=1:ncol(sampStat), nr=2, nc=2)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>sampStat</code></td>
+<td>
+
+<p>Set of sample statistics
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>upperCI</code></td>
+<td>
+
+<p>Set of upper CIs
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>lowerCI</code></td>
+<td>
+
+<p>Set of lower CIs
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>pid</code></td>
+<td>
+
+<p>Which set of Metrics to plot (default to all)
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>nr</code></td>
+<td>
+
+<p>Number of rows (default = 2)
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>nc</code></td>
+<td>
+
+<p>Number of columns(default = 2)
+</p>
+</td>
+</tr>
+</table>
+<h3>Details</h3>
+
+<p>This function plots CIs that have been produced from /codebooteval.yhat.   
+</p>
+
+
+<h3>Value</h3>
+
+<p>This returns a plot of CIs that have been produced from /codebooteval.yhat.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p> Kim Nimon &lt;kim.nimon@gmail.com&gt;</p>
+
+
+<h3>References</h3>
+
+<p>Nimon, K., &amp; Oswald, F. L. (2013). Understanding the results of multiple linear regression: Beyond standardized regression coefficients. <em>Organizational Research Methods</em>, <em>16</em>, 
+650-674.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code>lm</code>
+<code>calc.yhat</code>
+<code>boot</code>
+<code>booteval.yhat</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">  ## Bootstrap regression results predicting paragraph     
+  ## comprehension based on three verbal tests: general info, 
+  ## sentence comprehension, &amp; word classification 
+ 
+  ## Use HS dataset in MBESS 
+     if (require("MBESS")){
+     data(HS)
+
+  ## Regression
+     lm.out&lt;-lm(t6_paragraph_comprehension~
+                t5_general_information+t7_sentence+t8_word_classification,data=HS)
+
+  ## Calculate regression metrics
+     regrOut&lt;-calc.yhat(lm.out)
+
+  ## Bootstrap results
+     require ("boot")
+     boot.out&lt;-boot(HS,boot.yhat,100,lmOut=lm.out,regrout0=regrOut)
+
+  ## Evaluate bootstrap results
+     result&lt;-booteval.yhat(regrOut,boot.out,bty="perc")
+
+  ## Plot results
+  ## plotCI.yhat(regrOut$PredictorMetrics[-nrow(regrOut$PredictorMetrics),],
+  ## result$upperCIpm,result$lowerCIpm, pid=which(colnames(regrOut$PredictorMetrics) 
+  ## %in% c("Beta","rs","CD:0","CD:1","CD:2","GenDom","Pratt","RLW") == TRUE),nr=3,nc=3)
+     }
+</code></pre>
+
+
+</div>

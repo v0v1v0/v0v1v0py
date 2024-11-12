@@ -1,0 +1,101 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>dominance</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Dominance Weights</h2>
+
+<h3>Description</h3>
+
+<p>Computes dominance weights including conditional and general.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">  dominance(apsOut)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table><tr style="vertical-align: top;">
+<td><code>apsOut</code></td>
+<td>
+
+<p>Output from /codeaps
+</p>
+</td>
+</tr></table>
+<h3>Details</h3>
+
+<p>Provides full dominance weights table that are used to compute conditional and general dominance weights as well as reports conditional and general dominance weights.
+</p>
+
+
+<h3>Value</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>DA</code></td>
+<td>
+<p>Dominance analysis table</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>CD</code></td>
+<td>
+<p>Conditional dominance weights</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>GD</code></td>
+<td>
+<p>General dominance weights</p>
+</td>
+</tr>
+</table>
+<h3>Author(s)</h3>
+
+<p> Kim Nimon &lt;kim.nimon@gmail.com&gt;</p>
+
+
+<h3>References</h3>
+
+<p>Nimon, K., &amp; Oswald, F. L. (2013). Understanding the results of multiple linear regression: Beyond standardized regression coefficients. <em>Organizational Research Methods</em>, <em>16</em>, 
+650-674.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code>aps</code>
+<code>calc.yhat</code>
+<code>dombin</code>
+<code>rlw</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">  ## Predict paragraph comprehension based on three verbal
+  ## tests: general info, sentence comprehension, &amp; word
+  ## classification
+
+  ## Use HS dataset in MBESS 
+     if (require ("MBESS")){
+     data(HS)
+
+  ## All-possible-subsets regression
+     apsOut=aps(HS,"t6_paragraph_comprehension",
+            list("t5_general_information", "t7_sentence","t8_word_classification"))
+
+  ## Dominance weights
+     dominance(apsOut)
+     }
+
+</code></pre>
+
+
+</div>

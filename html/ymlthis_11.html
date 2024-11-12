@@ -1,0 +1,93 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>draw_yml_tree</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Draw an tree of YAML hierarchy</h2>
+
+<h3>Description</h3>
+
+<p><code>draw_yml_tree()</code> draws an ASCII tree of the hierarchy of a given <code>yml</code>
+object to the console.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">draw_yml_tree(.yml = last_yml(), indent = "")
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>.yml</code></td>
+<td>
+<p>a <code>yml</code> object created by <code>yml()</code>, <code>as_yml()</code>, or returned by
+a <code style="white-space: pre;">⁠yml_*()⁠</code> function</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>indent</code></td>
+<td>
+<p>a character vector used to indent the tree</p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>invisibly, <code>.yml</code>
+</p>
+
+
+<h3>See Also</h3>
+
+<p>Other yml: 
+<code>asis_yaml_output()</code>,
+<code>bib2yml()</code>,
+<code>has_field()</code>,
+<code>read_json()</code>,
+<code>use_yml_defaults()</code>,
+<code>use_yml_file()</code>,
+<code>use_yml()</code>,
+<code>yml_author()</code>,
+<code>yml_blogdown_opts()</code>,
+<code>yml_bookdown_opts()</code>,
+<code>yml_citations()</code>,
+<code>yml_clean()</code>,
+<code>yml_distill_opts()</code>,
+<code>yml_latex_opts()</code>,
+<code>yml_output()</code>,
+<code>yml_pagedown_opts()</code>,
+<code>yml_params()</code>,
+<code>yml_pkgdown()</code>,
+<code>yml_reference()</code>,
+<code>yml_replace()</code>,
+<code>yml_resource_files()</code>,
+<code>yml_rsconnect_email()</code>,
+<code>yml_rticles_opts()</code>,
+<code>yml_runtime()</code>,
+<code>yml_site_opts()</code>,
+<code>yml_toc()</code>,
+<code>yml_vignette()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R"># draw the most recently used `yml`
+draw_yml_tree()
+
+yml() %&gt;%
+  yml_output(
+    pdf_document(keep_tex = TRUE),
+    html_document()
+  ) %&gt;%
+    draw_yml_tree()
+
+</code></pre>
+
+
+</div>

@@ -1,0 +1,347 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>rng</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Random numbers and densities</h2>
+
+<h3>Description</h3>
+
+<p><code>simulate</code> function can use the specific random number generators to generate Levy paths.</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">rGIG(x,lambda,delta,gamma)
+dGIG(x,lambda,delta,gamma)
+rGH(x,lambda,alpha,beta,delta,mu,Lambda)
+dGH(x,lambda,alpha,beta,delta,mu,Lambda)
+rIG(x,delta,gamma)
+dIG(x,delta,gamma)
+rNIG(x,alpha,beta,delta,mu,Lambda)
+dNIG(x,alpha,beta,delta,mu,Lambda)
+rvgamma(x,lambda,alpha,beta,mu,Lambda)
+dvgamma(x,lambda,alpha,beta,mu,Lambda)
+rbgamma(x,delta.plus,gamma.plus,delta.minus,gamma.minus)
+dbgamma(x,delta.plus,gamma.plus,delta.minus,gamma.minus)
+rstable(x,alpha,beta,sigma,gamma)
+rpts(x,alpha,a,b)
+rnts(x,alpha,a,b,beta,mu,Lambda)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>x</code></td>
+<td>
+<p>Number of R.Ns to be geneated.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>a</code></td>
+<td>
+<p>parameter</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>b</code></td>
+<td>
+<p>parameter</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>delta</code></td>
+<td>
+<p>parameter written as <code class="reqn">\delta</code> below</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>gamma</code></td>
+<td>
+<p>parameter written as <code class="reqn">\gamma</code> below</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>mu</code></td>
+<td>
+<p>parameter written as <code class="reqn">\mu</code> below</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>Lambda</code></td>
+<td>
+<p>parameter written as <code class="reqn">\Lambda</code> below</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>alpha</code></td>
+<td>
+<p>parameter written as <code class="reqn">\alpha</code> below</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>lambda</code></td>
+<td>
+<p>parameter written as <code class="reqn">\lambda</code> below</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>sigma</code></td>
+<td>
+<p>parameter written as <code class="reqn">\sigma</code> below</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>beta</code></td>
+<td>
+<p>parameter written as <code class="reqn">\beta</code> below</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>delta.plus</code></td>
+<td>
+<p>parameter written as <code class="reqn">\delta_+</code> below</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>gamma.plus</code></td>
+<td>
+<p>parameter written as <code class="reqn">\gamma_+</code> below</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>delta.minus</code></td>
+<td>
+<p>parameter written as <code class="reqn">\delta_-</code> below</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>gamma.minus</code></td>
+<td>
+<p>parameter written as <code class="reqn">\gamma_-</code> below</p>
+</td>
+</tr>
+</table>
+<h3>Details</h3>
+
+<p><code>GIG</code> (generalized inverse Gaussian): 
+The density function of GIG distribution is expressed as:
+</p>
+<p><code class="reqn">f(x)= 1/2*(\gamma/\delta)^\lambda*1/bK_\lambda(\gamma*\delta)*x^(\lambda-1)*exp(-1/2*(\delta^2/x+\gamma^2*x))</code>
+</p>
+<p>where <code class="reqn">bK_\lambda()</code> is the modified Bessel function of the third kind with order lambda.
+The parameters <code class="reqn">\lambda, \delta</code> and <code class="reqn">\gamma</code> vary within the following regions:
+</p>
+<p><code class="reqn">\delta&gt;=0, \gamma&gt;0</code> if <code class="reqn">\lambda&gt;0</code>,
+</p>
+<p><code class="reqn">\delta&gt;0, \gamma&gt;0</code> if <code class="reqn">\lambda=0</code>,
+</p>
+<p><code class="reqn">\delta&gt;0, \gamma&gt;=0</code> if <code class="reqn">\lambda&lt;0</code>.
+</p>
+<p>The corresponding Levy measure is given in Eberlein, E., &amp; Hammerstein, E. A. V. (2004) (it contains IG).
+</p>
+<p><code>GH</code> (generalized hyperbolic): Generalized hyperbolic distribution is defined by the normal mean-variance mixture of generalized inverse Gaussian distribution. The parameters <code class="reqn">\alpha, \beta, \delta, \mu</code> express heaviness of tails, degree of asymmetry, scale and location, respectively. Here the parameter <code class="reqn">\Lambda</code> is supposed to be symmetric and positive definite with <code class="reqn">det(\Lambda)=1</code> and the parameters vary within the following region:
+</p>
+<p><code class="reqn">\delta&gt;=0, \alpha&gt;0, \alpha^2&gt;\beta^T \Lambda \beta</code> if <code class="reqn">\lambda&gt;0</code>,
+</p>
+<p><code class="reqn">\delta&gt;0, \alpha&gt;0, \alpha^2&gt;\beta^T \Lambda \beta</code> if <code class="reqn">\lambda=0</code>,
+</p>
+<p><code class="reqn">\delta&gt;0, \alpha&gt;=0, \alpha^2&gt;=\beta^T \Lambda \beta</code> if <code class="reqn">\lambda&lt;0</code>.
+</p>
+<p>The corresponding Levy measure is given in Eberlein, E., &amp; Hammerstein, E. A. V. (2004) (it contains NIG and vgamma).
+</p>
+<p><code>IG</code> (inverse Gaussian (the element of GIG)): <code class="reqn">\Delta</code> and <code class="reqn">\gamma</code> are positive (the case of <code class="reqn">\gamma=0</code> corresponds to the positive half stable, provided by the "rstable").
+</p>
+<p><code>NIG</code> (normal inverse Gaussian (the element of GH)): Normal inverse Gaussian distribution is defined by the normal mean-variance mixuture of inverse Gaussian distribution. The parameters <code class="reqn">\alpha, \beta, \delta</code> and <code class="reqn">\mu</code> express the heaviness of tails, degree of asymmetry, scale and location, respectively. They satisfy the following conditions:
+<code class="reqn">\Lambda</code> is symmetric and positive definite with <code class="reqn">det(\Lambda)=1; \delta&gt;0; \alpha&gt;0</code> with <code class="reqn">\alpha^2-\beta^T \Lambda \beta &gt;0</code>.
+</p>
+<p><code>vgamma</code> (variance gamma (the element of GH)): Variance gamma distribution is defined by the normal mean-variance mixture of gamma distribution. The parameters satisfy the following conditions:
+Lambda is symmetric and positive definite with <code class="reqn">det(\Lambda)=1; \lambda&gt;0; \alpha&gt;0</code> with <code class="reqn">\alpha^2-\beta^T \Lambda \beta &gt;0</code>. Especially in the case of <code class="reqn">\beta=0</code> it is variance gamma distribution.
+</p>
+<p><code>bgamma</code> (bilateral gamma): Bilateral gamma distribution is defined by the difference of independent gamma distributions <code class="reqn">Gamma(\delta_+,\gamma_+) and Gamma(\delta_-,\gamma_-)</code>. Its Levy density <code class="reqn">f(z)</code> is given by: 
+<code class="reqn">f(z)=\delta_+/z*exp(-\gamma_+*z)*ind(z&gt;0)+\delta_-/|z|*exp(-\gamma_-*|z|)*ind(z&lt;0)</code>, where the function <code class="reqn">ind()</code> denotes an indicator function.
+</p>
+<p><code>stable</code> (stable): Parameters <code class="reqn">\alpha, \beta, \sigma</code> and <code class="reqn">\gamma</code> express stability, degree of skewness, scale and location, respectively. They satisfy the following condition: <code class="reqn">0&lt;\alpha&lt;=2; -1&lt;=\beta&lt;=1; \sigma&gt;0; \gamma</code> is a real number.
+</p>
+<p><code>pts</code> (positive tempered stable): Positive tempered stable distribution is defined by the tilting of positive stable distribution. The parameters <code class="reqn">\alpha, a</code> and <code class="reqn">b</code> express stability, scale and degree of tilting, respectively. They satisfy the following condition: <code class="reqn">0&lt;\alpha&lt;1; a&gt;0; b&gt;0</code>. Its Levy density <code class="reqn">f(z)</code> is given by: <code class="reqn">f(z)=az^(-1-\alpha)exp(-bz)</code>.
+</p>
+<p><code>nts</code> (normal tempered stable): Normal tempered stable distribution is defined by the normal mean-variance mixture of positive tempered stable distribution. The parameters <code class="reqn">\alpha, a, b, \beta, \mu</code> and <code class="reqn">\Lambda</code> express stability, scale, degree of tilting, degree of asymmemtry, location and degree of mixture, respectively. They satisfy the following condition: Lambda is symmetric and positive definite with <code class="reqn">det(\Lambda)=1; 0&lt;\alpha&lt;1; a&gt;0; b&gt;0</code>. 
+In one-dimensional case, its Levy density <code class="reqn">f(z)</code> is given by: 
+<code class="reqn">f(z)=2a/(2\pi)^(1/2)*\exp(\beta*z)*(z^2/(2b+\beta^2))^(-\alpha/2-1/4)*bK_(\alpha+1/2)(z^2(2b+\beta^2)^(1/2))</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>rXXX</code></td>
+<td>
+<p>Collection of of random numbers or vectors</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>dXXX</code></td>
+<td>
+<p>Density function</p>
+</td>
+</tr>
+</table>
+<h3>Note</h3>
+
+<p>Some density-plot functions are still missing: as for the non-Gaussian stable densities, one can use, e.g., stabledist package.
+The rejection-acceptance method is used for generating pts and nts. It should be noted that its acceptance rate decreases at exponential order as <code class="reqn">a</code> and <code class="reqn">b</code> become larger: specifically, the rate is given by <code class="reqn">exp(a*\Gamma(-\alpha)*b^(\alpha))</code>
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>The YUIMA Project Team
+</p>
+<p>Contacts: Hiroki Masuda <a href="mailto:hmasuda@ms.u-tokyo.ac.jp">hmasuda@ms.u-tokyo.ac.jp</a> and Yuma Uehara <a href="mailto:y-uehara@kansai-u.ac.jp">y-uehara@kansai-u.ac.jp</a>
+</p>
+
+
+<h3>References</h3>
+
+<p>## rGIG, dGIG, rIG, dIG
+</p>
+<p>Chhikara, R. (1988). The Inverse Gaussian Distribution: Theory: Methodology, and Applications (Vol. 95). CRC Press.
+</p>
+<p>Hormann, W., &amp; Leydold, J. (2014). Generating generalized inverse Gaussian random variates. Statistics and Computing, 24(4), 547-557.
+<a href="https://doi.org/10.1111/1467-9469.00045">doi:10.1111/1467-9469.00045</a>
+</p>
+<p>Jorgensen, B. (2012). Statistical properties of the generalized inverse Gaussian distribution (Vol. 9). Springer Science &amp; Business Media.
+<a href="https://link.springer.com/book/10.1007/978-1-4612-5698-4">https://link.springer.com/book/10.1007/978-1-4612-5698-4</a>
+</p>
+<p>Michael, J. R., Schucany, W. R., &amp; Haas, R. W. (1976). Generating random variates using transformations with multiple roots. The American Statistician, 30(2), 88-90.
+<a href="https://doi.org/10.1080/00031305.1976.10479147">doi:10.1080/00031305.1976.10479147</a>
+</p>
+<p>## rGH, dGH, rNIG, dNIG, rvgamma, dvgamma
+</p>
+<p>Barndorff-Nielsen, O. (1977). Exponentially decreasing distributions for the logarithm of particle size. In Proceedings of the Royal Society of London A: Mathematical, Physical and Engineering Sciences (Vol. 353, No. 1674, pp. 401-419). The Royal Society.
+<a href="https://doi.org/10.1098/rspa.1977.0041">doi:10.1098/rspa.1977.0041</a>
+</p>
+<p>Barndorff-Nielsen, O. E. (1997). Processes of normal inverse Gaussian type. Finance and stochastics, 2(1), 41-68.
+<a href="https://doi.org/10.1007/s007800050032">doi:10.1007/s007800050032</a>
+</p>
+<p>Eberlein, E. (2001). Application of generalized hyperbolic Levy motions to finance. In Levy processes (pp. 319-336). Birkhauser Boston.
+<a href="https://doi.org/10.1007/978-1-4612-0197-7_14">doi:10.1007/978-1-4612-0197-7_14</a>
+</p>
+<p>Eberlein, E., &amp; Hammerstein, E. A. V. (2004). Generalized hyperbolic and inverse Gaussian distributions: limiting cases and approximation of processes. In Seminar on stochastic analysis, random fields and applications IV (pp. 221-264). Birkh??user Basel.
+<a href="https://doi.org/10.1007/978-1-4612-0197-7_14">doi:10.1007/978-1-4612-0197-7_14</a>
+</p>
+<p>Madan, D. B., Carr, P. P., &amp; Chang, E. C. (1998). The variance gamma process and option pricing. European finance review, 2(1), 79-105.
+<a href="https://doi.org/10.1111/1467-9469.00045">doi:10.1111/1467-9469.00045</a>
+</p>
+<p>## rbgamma, dbgamma
+</p>
+<p>Kuchler, U., &amp; Tappe, S. (2008). Bilateral Gamma distributions and processes in financial mathematics. Stochastic Processes and their Applications, 118(2), 261-283.
+<a href="https://doi.org/10.1016/j.spa.2007.04.006">doi:10.1016/j.spa.2007.04.006</a>
+</p>
+<p>Kuchler, U., &amp; Tappe, S. (2008). On the shapes of bilateral Gamma densities. Statistics &amp; Probability Letters, 78(15), 2478-2484.
+<a href="https://doi.org/10.1016/j.spa.2007.04.006">doi:10.1016/j.spa.2007.04.006</a>
+</p>
+<p>## rstable
+</p>
+<p>Chambers, John M., Colin L. Mallows, and B. W. Stuck.  (1976) A method for simulating stable random variables, Journal of the american statistical association, 71(354), 340-344.
+<a href="https://doi.org/10.1080/01621459.1976.10480344">doi:10.1080/01621459.1976.10480344</a>
+</p>
+<p>Weron, Rafal. (1996) On the Chambers-Mallows-Stuck method for simulating skewed stable random variables, Statistics &amp; probability letters, 28.2, 165-171.
+<a href="https://doi.org/10.1016/0167-7152%2895%2900113-1">doi:10.1016/0167-7152(95)00113-1</a>
+</p>
+<p>Weron, Rafal. (2010) Correction to:" On the Chambers-Mallows-Stuck Method for Simulating Skewed Stable Random Variables", No. 20761, University Library of Munich, Germany.
+<a href="https://ideas.repec.org/p/pra/mprapa/20761.html">https://ideas.repec.org/p/pra/mprapa/20761.html</a>
+</p>
+<p>## rpts
+</p>
+<p>Kawai, R., &amp; Masuda, H. (2011). On simulation of tempered stable random variates. Journal of Computational and Applied Mathematics, 235(8), 2873-2887.
+<a href="https://doi.org/10.1016/j.cam.2010.12.014">doi:10.1016/j.cam.2010.12.014</a>
+</p>
+<p>## rnts
+</p>
+<p>Barndorff-Nielsen, O. E., &amp; Shephard, N. (2001). Normal modified stable processes. Aarhus: MaPhySto, Department of Mathematical Sciences, University of Aarhus.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">## Not run: 
+set.seed(123)
+
+# Ex 1. (One-dimensional standard Cauchy distribution)
+# The value of parameters is alpha=1,beta=0,sigma=1,gamma=0.
+# Choose the values of x.
+x&lt;-10 # the number of r.n
+rstable(x,1,0,1,0)
+
+# Ex 2. (One-dimensional Levy distribution)
+# Choose the values of sigma, gamma, x.
+# alpha = 0.5, beta=1
+x&lt;-10 # the number of r.n
+beta &lt;- 1
+sigma &lt;- 0.1
+gamma &lt;- 0.1
+rstable(x,0.5,beta,sigma,gamma)
+
+# Ex 3. (Symmetric bilateral gamma)
+# delta=delta.plus=delta.minus, gamma=gamma.plus=gamma.minus.
+# Choose the values of delta and gamma and x.
+x&lt;-10 # the number of r.n
+rbgamma(x,1,1,1,1)
+
+# Ex 4. ((Possibly skewed) variance gamma)
+# lambda, alpha, beta, mu
+# Choose the values of lambda, alpha, beta, mu and x.
+x&lt;-10 # the number of r.n
+rvgamma(x,2,1,-0.5,0)
+
+# Ex 5. (One-dimensional normal inverse Gaussian distribution)
+# Lambda=1.
+# Choose the parameter values and x.
+x&lt;-10 # the number of r.n
+rNIG(x,1,1,1,1)
+
+# Ex 6. (Multi-dimensional normal inverse Gaussian distribution)
+# Choose the parameter values and x.
+beta&lt;-c(.5,.5)
+mu&lt;-c(0,0)
+Lambda&lt;-matrix(c(1,0,0,1),2,2)
+x&lt;-10 # the number of r.n
+rNIG(x,1,beta,1,mu,Lambda)
+
+# Ex 7. (Positive tempered stable)
+# Choose the parameter values and x.
+alpha&lt;-0.7
+a&lt;-0.2
+b&lt;-1
+x&lt;-10 # the number of r.n
+rpts(x,alpha,a,b)
+
+# Ex 8. (Generarized inverse Gaussian)
+# Choose the parameter values and x.
+lambda&lt;-0.3
+delta&lt;-1
+gamma&lt;-0.5
+x&lt;-10 # the number of r.n
+rGIG(x,lambda,delta,gamma)
+
+# Ex 9. (Multi-variate generalized hyperbolic)
+# Choose the parameter values and x.
+lambda&lt;-0.4
+alpha&lt;-1
+beta&lt;-c(0,0.5)
+delta&lt;-1
+mu&lt;-c(0,0)
+Lambda&lt;-matrix(c(1,0,0,1),2,2)
+x&lt;-10 # the number of r.n
+rGH(x,lambda,alpha,beta,delta,mu,Lambda)
+
+## End(Not run)
+</code></pre>
+
+
+</div>

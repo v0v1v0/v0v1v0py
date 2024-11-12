@@ -1,0 +1,198 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>rsq</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>R squared</h2>
+
+<h3>Description</h3>
+
+<p>Calculate the coefficient of determination using correlation. For the
+traditional measure of R squared, see <code>rsq_trad()</code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">rsq(data, ...)
+
+## S3 method for class 'data.frame'
+rsq(data, truth, estimate, na_rm = TRUE, case_weights = NULL, ...)
+
+rsq_vec(truth, estimate, na_rm = TRUE, case_weights = NULL, ...)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>data</code></td>
+<td>
+<p>A <code>data.frame</code> containing the columns specified by the <code>truth</code>
+and <code>estimate</code> arguments.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+<p>Not currently used.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>truth</code></td>
+<td>
+<p>The column identifier for the true results
+(that is <code>numeric</code>). This should be an unquoted column name although
+this argument is passed by expression and supports
+quasiquotation (you can unquote column
+names). For <code style="white-space: pre;">⁠_vec()⁠</code> functions, a <code>numeric</code> vector.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>estimate</code></td>
+<td>
+<p>The column identifier for the predicted
+results (that is also <code>numeric</code>). As with <code>truth</code> this can be
+specified different ways but the primary method is to use an
+unquoted variable name. For <code style="white-space: pre;">⁠_vec()⁠</code> functions, a <code>numeric</code> vector.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>na_rm</code></td>
+<td>
+<p>A <code>logical</code> value indicating whether <code>NA</code>
+values should be stripped before the computation proceeds.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>case_weights</code></td>
+<td>
+<p>The optional column identifier for case weights. This
+should be an unquoted column name that evaluates to a numeric column in
+<code>data</code>. For <code style="white-space: pre;">⁠_vec()⁠</code> functions, a numeric vector,
+<code>hardhat::importance_weights()</code>, or <code>hardhat::frequency_weights()</code>.</p>
+</td>
+</tr>
+</table>
+<h3>Details</h3>
+
+<p>The two estimates for the
+coefficient of determination, <code>rsq()</code> and <code>rsq_trad()</code>, differ by
+their formula. The former guarantees a value on (0, 1) while the
+latter can generate inaccurate values when the model is
+non-informative (see the examples). Both are measures of
+consistency/correlation and not of accuracy.
+</p>
+<p><code>rsq()</code> is simply the squared correlation between <code>truth</code> and <code>estimate</code>.
+</p>
+<p>Because <code>rsq()</code> internally computes a correlation, if either <code>truth</code> or
+<code>estimate</code> are constant it can result in a divide by zero error. In these
+cases, a warning is thrown and <code>NA</code> is returned. This can occur when a model
+predicts a single value for all samples. For example, a regularized model
+that eliminates all predictors except for the intercept would do this.
+Another example would be a CART model that contains no splits.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A <code>tibble</code> with columns <code>.metric</code>, <code>.estimator</code>,
+and <code>.estimate</code> and 1 row of values.
+</p>
+<p>For grouped data frames, the number of rows returned will be the same as
+the number of groups.
+</p>
+<p>For <code>rsq_vec()</code>, a single <code>numeric</code> value (or <code>NA</code>).
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Max Kuhn
+</p>
+
+
+<h3>References</h3>
+
+<p>Kvalseth. Cautionary note about <code class="reqn">R^2</code>.
+American Statistician (1985) vol. 39 (4) pp. 279-285.
+</p>
+
+
+<h3>See Also</h3>
+
+<p>Other numeric metrics: 
+<code>ccc()</code>,
+<code>huber_loss_pseudo()</code>,
+<code>huber_loss()</code>,
+<code>iic()</code>,
+<code>mae()</code>,
+<code>mape()</code>,
+<code>mase()</code>,
+<code>mpe()</code>,
+<code>msd()</code>,
+<code>poisson_log_loss()</code>,
+<code>rmse()</code>,
+<code>rpd()</code>,
+<code>rpiq()</code>,
+<code>rsq_trad()</code>,
+<code>smape()</code>
+</p>
+<p>Other consistency metrics: 
+<code>ccc()</code>,
+<code>rpd()</code>,
+<code>rpiq()</code>,
+<code>rsq_trad()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R"># Supply truth and predictions as bare column names
+rsq(solubility_test, solubility, prediction)
+
+library(dplyr)
+
+set.seed(1234)
+size &lt;- 100
+times &lt;- 10
+
+# create 10 resamples
+solubility_resampled &lt;- bind_rows(
+  replicate(
+    n = times,
+    expr = sample_n(solubility_test, size, replace = TRUE),
+    simplify = FALSE
+  ),
+  .id = "resample"
+)
+
+# Compute the metric by group
+metric_results &lt;- solubility_resampled %&gt;%
+  group_by(resample) %&gt;%
+  rsq(solubility, prediction)
+
+metric_results
+
+# Resampled mean estimate
+metric_results %&gt;%
+  summarise(avg_estimate = mean(.estimate))
+# With uninformitive data, the traditional version of R^2 can return
+# negative values.
+set.seed(2291)
+solubility_test$randomized &lt;- sample(solubility_test$prediction)
+rsq(solubility_test, solubility, randomized)
+rsq_trad(solubility_test, solubility, randomized)
+
+# A constant `truth` or `estimate` vector results in a warning from
+# a divide by zero error in the correlation calculation.
+# `NA` will be returned in these cases.
+truth &lt;- c(1, 2)
+estimate &lt;- c(1, 1)
+rsq_vec(truth, estimate)
+</code></pre>
+
+
+</div>

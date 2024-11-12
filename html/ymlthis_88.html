@@ -1,0 +1,146 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>yml_pagedown_opts</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Top-level YAML options for pagedown</h2>
+
+<h3>Description</h3>
+
+<p>pagedown offers several output functions for paginated output, resumes,
+business cards, theses, and morem as described in the <a href="https://pagedown.rbind.io/">pagedown vignette</a>. pagedown also accepts a few custom
+top-level YAML. See <code>pagedown_business_card_template()</code> for more on setting
+up the YAML for a business card.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">yml_pagedown_opts(
+  .yml,
+  toc = yml_blank(),
+  toc_title = yml_blank(),
+  lot = yml_blank(),
+  lot_title = yml_blank(),
+  chapter_name = yml_blank(),
+  links_to_footnotes = yml_blank(),
+  paged_footnotes = yml_blank()
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>.yml</code></td>
+<td>
+<p>a <code>yml</code> object created by <code>yml()</code>, <code>as_yml()</code>, or returned by
+a <code style="white-space: pre;">⁠yml_*()⁠</code> function</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>toc</code></td>
+<td>
+<p>Logical. Use a table of contents?</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>toc_title</code></td>
+<td>
+<p>The title for the table of contents. Note that the actual
+YAML field is <code>toc-title</code></p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>lot</code></td>
+<td>
+<p>Logical. Use a list of figures?</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>lot_title</code></td>
+<td>
+<p>The title for the list of figures. Note that the actual YAML
+field is <code>lot-title</code></p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>chapter_name</code></td>
+<td>
+<p>The chapter title prefix</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>links_to_footnotes</code></td>
+<td>
+<p>Logical. Transform all the URLs to footnotes? Note
+that the actual YAML field is <code>links-to-footnotes</code></p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>paged_footnotes</code></td>
+<td>
+<p>Logical. Render notes as footnotes? Note that the
+actual YAML field is <code>paged-footnotes</code></p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>a <code>yml</code> object
+</p>
+
+
+<h3>See Also</h3>
+
+<p>Other yml: 
+<code>asis_yaml_output()</code>,
+<code>bib2yml()</code>,
+<code>draw_yml_tree()</code>,
+<code>has_field()</code>,
+<code>read_json()</code>,
+<code>use_yml_defaults()</code>,
+<code>use_yml_file()</code>,
+<code>use_yml()</code>,
+<code>yml_author()</code>,
+<code>yml_blogdown_opts()</code>,
+<code>yml_bookdown_opts()</code>,
+<code>yml_citations()</code>,
+<code>yml_clean()</code>,
+<code>yml_distill_opts()</code>,
+<code>yml_latex_opts()</code>,
+<code>yml_output()</code>,
+<code>yml_params()</code>,
+<code>yml_pkgdown()</code>,
+<code>yml_reference()</code>,
+<code>yml_replace()</code>,
+<code>yml_resource_files()</code>,
+<code>yml_rsconnect_email()</code>,
+<code>yml_rticles_opts()</code>,
+<code>yml_runtime()</code>,
+<code>yml_site_opts()</code>,
+<code>yml_toc()</code>,
+<code>yml_vignette()</code>
+</p>
+<p>Other pagedown: 
+<code>pagedown_business_card_template()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">
+yml() %&gt;%
+  yml_pagedown_opts(
+    toc = TRUE,
+    toc_title = "TOC",
+    chapter_name = c("CHAPTER\\ ", "."),
+    links_to_footnotes = TRUE
+  )
+
+</code></pre>
+
+
+</div>

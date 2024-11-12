@@ -1,0 +1,164 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>use_yml</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Copy YAML code to your clipboard or write to a new R Markdown file</h2>
+
+<h3>Description</h3>
+
+<p><code>use_yml()</code> takes a <code>yml</code> object and puts the resulting YAML on your
+clipboard to paste into an R Markdown or YAML file. <code>use_rmarkdown()</code> takes
+the <code>yml</code> object and writes it to a new R Markdown file. You can add text to
+include in the body of the file. If it's not specified, <code>use_rmarkdown()</code>
+will use <code>setup_chunk()</code> by default. You can also set a default for <code>body</code>
+using <code>options(ymlthis.rmd_body = "{your text}")</code>; see <code>use_rmd_defaults()</code>.
+Together with specifying default YAML (see <code>use_yml_defaults()</code>),
+<code>use_rmarkdown()</code> also serves as an ad-hoc way to make R Markdown templates.
+You may also supply <code>use_rmarkdown()</code> with an existing R Markdown file from
+which to read the YAML header; the YAML header from the template is then
+combined with <code>.yml</code>, if it's supplied, and written to a new file.
+<code>use_index_rmd()</code> is a wrapper around <code>use_rmarkdown()</code> that specifically
+writes to a file called <code>index.Rmd</code>. By default, <code>use_yml()</code> and
+<code>use_rmarkdown()</code> use the most recently printed YAML via <code>last_yml()</code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">use_yml(.yml = last_yml())
+
+use_rmarkdown(
+  .yml = last_yml(),
+  path,
+  template = NULL,
+  include_yaml = TRUE,
+  include_body = TRUE,
+  body = NULL,
+  quiet = FALSE,
+  open_doc = interactive(),
+  overwrite = getOption("usethis.overwrite", FALSE)
+)
+
+use_index_rmd(
+  .yml = last_yml(),
+  path,
+  template = NULL,
+  include_yaml = TRUE,
+  include_body = TRUE,
+  body = NULL,
+  quiet = FALSE,
+  open_doc = interactive()
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>.yml</code></td>
+<td>
+<p>a <code>yml</code> object created by <code>yml()</code>, <code>as_yml()</code>, or returned by
+a <code style="white-space: pre;">⁠yml_*()⁠</code> function</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>path</code></td>
+<td>
+<p>A file path to write R Markdown file to</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>template</code></td>
+<td>
+<p>An existing R Markdown file to read YAML from</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>include_yaml</code></td>
+<td>
+<p>Logical. Include the template YAML?</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>include_body</code></td>
+<td>
+<p>Logical. Include the template body?</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>body</code></td>
+<td>
+<p>A character vector to use in the body of the R Markdown file. If
+no template is set, checks <code>getOption("ymlthis.rmd_body")</code> (see
+<code>use_rmd_defaults()</code>) and otherwise uses <code>setup_chunk()</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>quiet</code></td>
+<td>
+<p>Logical. Whether to message about what is happening.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>open_doc</code></td>
+<td>
+<p>Logical. Open the document after it's created? By default,
+this is <code>TRUE</code> if it is an interactive session and <code>FALSE</code> if not. Also
+checks that RStudio is available.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>overwrite</code></td>
+<td>
+<p>Logical. If <code>TRUE</code>, overwrites the file without asking for
+permission. If <code>FALSE</code>, asks interactively if the user wishes to do so.
+Checks the user's <code>usethis.overwrite</code> option if set and is otherwise
+<code>FALSE</code> by default.</p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p><code>use_yml()</code> invisibly returns the input <code>yml</code> object
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code>code_chunk()</code> <code>setup_chunk()</code>
+</p>
+<p>Other yml: 
+<code>asis_yaml_output()</code>,
+<code>bib2yml()</code>,
+<code>draw_yml_tree()</code>,
+<code>has_field()</code>,
+<code>read_json()</code>,
+<code>use_yml_defaults()</code>,
+<code>use_yml_file()</code>,
+<code>yml_author()</code>,
+<code>yml_blogdown_opts()</code>,
+<code>yml_bookdown_opts()</code>,
+<code>yml_citations()</code>,
+<code>yml_clean()</code>,
+<code>yml_distill_opts()</code>,
+<code>yml_latex_opts()</code>,
+<code>yml_output()</code>,
+<code>yml_pagedown_opts()</code>,
+<code>yml_params()</code>,
+<code>yml_pkgdown()</code>,
+<code>yml_reference()</code>,
+<code>yml_replace()</code>,
+<code>yml_resource_files()</code>,
+<code>yml_rsconnect_email()</code>,
+<code>yml_rticles_opts()</code>,
+<code>yml_runtime()</code>,
+<code>yml_site_opts()</code>,
+<code>yml_toc()</code>,
+<code>yml_vignette()</code>
+</p>
+
+
+</div>

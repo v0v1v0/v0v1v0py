@@ -1,0 +1,86 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>plot.varSel</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Boxplot of mean Mahalanobis distances from varSelection()</h2>
+
+<h3>Description</h3>
+
+<p>Provides a descriptive plot of now the mean Mahalanobis distances change
+as variables are added or deleted using <code>varSelection</code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">## S3 method for class 'varSel'
+plot(x,main=NULL,nbest=NULL,arrows=TRUE,...)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>x</code></td>
+<td>
+<p>an object create by <code>varSelection</code></p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>main</code></td>
+<td>
+<p>becomes the plot title, if NULL one is generated</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>nbest</code></td>
+<td>
+<p>number of variables designated in the plot as the best;
+if null the number is computed by <code>bestVars</code></p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>arrows</code></td>
+<td>
+<p>if true, an arrow is added to the plot designating 
+the best variables.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+<p>passed to boxplot functions</p>
+</td>
+</tr>
+</table>
+<h3>Author(s)</h3>
+
+<p>Nicholas L. Crookston <a href="mailto:ncrookston.fs@gmail.com">ncrookston.fs@gmail.com</a> <br></p>
+
+
+<h3>See Also</h3>
+
+<p><code>varSelection</code> and <code>yai</code></p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">require(yaImpute)
+
+data(iris)
+set.seed(12345)
+
+x &lt;- iris[,1:2]  # Sepal.Length Sepal.Width 
+y &lt;- iris[,3:4]  # Petal.Length Petal.Width 
+
+vsel &lt;- varSelection(x=x,y=y,nboot=5,useParallel=FALSE)
+
+plot(vsel)
+
+</code></pre>
+
+
+</div>

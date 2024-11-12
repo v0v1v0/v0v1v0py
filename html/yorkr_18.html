@@ -1,0 +1,91 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>bowlerMeanRunsConceded</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Mean runs conceded versus overs</h2>
+
+<h3>Description</h3>
+
+<p>This function computes and plots mean runs conceded by the bowler for the
+number of overs bowled by the bowler
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">bowlerMeanRunsConceded(df, name,dateRange,staticIntv1=1)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>df</code></td>
+<td>
+<p>Data frame</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>name</code></td>
+<td>
+<p>Name of bowler</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>dateRange</code></td>
+<td>
+<p>Date interval to consider</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>staticIntv1</code></td>
+<td>
+<p>Static or interactive -staticIntv1 =1 (static plot) &amp;  staticIntv1 =2 (interactive  plot)</p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>None
+</p>
+
+
+<h3>Note</h3>
+
+<p>Maintainer: Tinniam V Ganesh <a href="mailto:tvganesh.85@gmail.com">tvganesh.85@gmail.com</a>
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Tinniam V Ganesh
+</p>
+
+
+<h3>References</h3>
+
+<p><a href="https://cricsheet.org/">https://cricsheet.org/</a><br><a href="https://gigadom.in/">https://gigadom.in/</a><br><a href="https://github.com/tvganesh/yorkrData/">https://github.com/tvganesh/yorkrData/</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code>bowlerMovingAverage</code><br><code>bowlerWicketsVenue</code><br><code>bowlerMeanRunsConceded</code><br></p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">## Not run: 
+# Get the data frame for RA Jadeja
+jadeja &lt;- getBowlerWicketDetails(team="India",name="Jadeja",dir=pathToFile)
+bowlerMeanRunsConceded(jadeja,"RA Jadeja",dateRange)
+
+## End(Not run)
+
+</code></pre>
+
+
+</div>

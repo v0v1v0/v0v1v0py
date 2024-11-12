@@ -1,0 +1,163 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>ypreg</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>
+Fit a short-term and long-term hazard ratio model with proportional adjustment
+</h2>
+
+<h3>Description</h3>
+
+<p>The main results of the function are the estimations of:
+</p>
+
+<ul>
+<li>
+<p> parameters in the covariate-adjusted short-term and long-term hazard ratio model with confidence intervals;
+</p>
+</li>
+<li>
+<p> the average hazard ratio with the confidence interval; and
+</p>
+</li>
+<li>
+<p> the hazard ratio function along with point-wise and simultaneous confidence bands (confidence intervals for the hazard ratios at specific user input time points are also given).
+</p>
+</li>
+</ul>
+<h3>Usage</h3>
+
+<pre><code class="language-R">## Default S3 method:
+ypreg(data, alpha = 0.05, time.hr = NULL,
+  L = NULL, U = NULL, repnum = 5000, tau = NULL, ...)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+<p>for S4 method only.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>data</code></td>
+<td>
+<p>A numeric matrix containing all variables in the data set. The columns must follow this order: 1) time until event or censoring, 2) censoring status (1 = event, 0 = censored), 3) binary group indicator taking values of 0 and 1 (e.g., 1 = treatment, 0 = control for a randomized trial), and 4) a set of numeric vectors of covariates. See the data structure of <code>colonexample</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>alpha</code></td>
+<td>
+<p>A numeric value for the significance level. The default is <code class="reqn">0.05</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>time.hr</code></td>
+<td>
+<p>A numeric vector of time points at which hazard ratios will be estimated along with confidence intervals.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>L</code></td>
+<td>
+<p>A numeric value for the lower bound of the range [<code>L</code>, <code>U</code>] over which the simultaneous confidence bands for the hazard function are calculated. There must be at least one uncensored observation after the value of <code>L</code> and <code>L</code> &lt; <code>U</code>.
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>U</code></td>
+<td>
+<p>A numeric value for the upper bound of the range [<code>L</code>, <code>U</code>] over which the simultaneous confidence bands for the hazard function are calculated. There must be at least one uncensored observation before the value of <code>U</code> and <code>U</code> &gt; <code>L</code>.
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>repnum</code></td>
+<td>
+<p>The number of replications for the re-sampling method. The default is <code class="reqn">5000</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>tau</code></td>
+<td>
+<p>A numeric value for the maximum follow-up time. The default is <code class="reqn">0.9\times</code>the maximum of all observations.</p>
+</td>
+</tr>
+</table>
+<h3>Details</h3>
+
+<p>The confidence intervals for the hazard ratios are obtained using the logarithmic transformation. When the user input interval [<code>L</code>, <code>U</code>] is different from the default interval, the intersection of the user input interval and the default interval is used. The point-wise confidence intervals and the simultaneous confidence bands can be plotted by supplying the object being returned by the function <code>ypreg</code> to the function <code>plot.ypreg</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>an object of S3 <code>ypreg</code> class representing the fit. The object also includes the results of the Cox proportional hazards model, implemented by using the <code>coxph</code> function in the <code>survival</code> library.
+</p>
+<p>A list with at least the following elements:
+</p>
+<table>
+<tr style="vertical-align: top;">
+<td><code>fit_coxph</code></td>
+<td>
+<p>estimation results from the Cox proportional hazards model</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>best_b0</code></td>
+<td>
+<p>the estimates from the short-term and long-term hazard ratio model without proportional adjustment</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>best_ypx</code></td>
+<td>
+<p>the estimates from the short-term and long-term hazard ratio model with proportional adjustment</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>res_summ</code></td>
+<td>
+<p>summary of estimation results with the covariate-adjusted short-term and long-term hazard ratio model</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>res_hrci</code></td>
+<td>
+<p>estimation results of hazard ratios at <code>time.hr</code></p>
+</td>
+</tr>
+</table>
+<h3>References</h3>
+
+<p>Yang, S., &amp; Prentice, R. (2005). Semiparametric analysis of short-term and long-term hazard ratios with two-sample survival data. <em>Biometrika</em>, 92(1), 1-17.
+</p>
+<p>Yang, S., &amp; Prentice, R. L. (2015). Assessing potentially time-dependent treatment effect from clinical trials and observational studies for survival data, with applications to the Women's Health Initiative combined hormone therapy trial. <em>Statistics in medicine</em>, 34(11), 1801-1817.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code>plot.ypreg</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">library(YPmodelPhreg)
+data(colonexample)
+head(colonexample)
+
+res &lt;- ypreg(colonexample, time.hr = c(1, 7))
+res
+plot(res)
+
+</code></pre>
+
+
+</div>

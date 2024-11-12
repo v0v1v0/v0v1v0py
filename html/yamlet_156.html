@@ -1,0 +1,66 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>print.decorated_xtable</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Print Decorated Xtable</h2>
+
+<h3>Description</h3>
+
+<p>Prints a decorated xtable.
+Supplies a footnote.
+Experimental.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">## S3 method for class 'decorated_xtable'
+print(x, ...)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>x</code></td>
+<td>
+<p>decorated</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+<p>passed to other methods</p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>character
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">library(magrittr)
+library(xtable)
+set.seed(0)
+x &lt;- data.frame(
+ auc = rnorm(4, mean = 2400, sd = 200),
+ bmi = rnorm(4, mean = 20, sd = 5),
+ gen = 0:1
+)
+x %&lt;&gt;% decorate('auc: [AUC_0-24, ng*h/mL]')
+x %&lt;&gt;% decorate('bmi: [Body Mass Index, kg/m^2]')
+x %&lt;&gt;% decorate('gen: [Gender, [Male: 1, Female: 0]]')
+x %&gt;% resolve
+x %&gt;% resolve %&gt;% xtable
+
+
+</code></pre>
+
+
+</div>

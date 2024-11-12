@@ -1,0 +1,57 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>reconcile.list</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Reconcile Atttributes of List Members</h2>
+
+<h3>Description</h3>
+
+<p>Reconciles attributes of list members. Recursively arbitrates
+list members pairwise, returning the accumulated attributes.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">## S3 method for class 'list'
+reconcile(x, ...)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>x</code></td>
+<td>
+<p>list</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+<p>passed arguments</p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>list (of attributes)
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">library(magrittr)
+library(dplyr)
+a &lt;- data.frame(study = 1) %&gt;% decorate('study: [Study, [A: 1]]')
+b &lt;- data.frame(study = 2) %&gt;% decorate('study: [Study, [B: 2]]')
+bind_rows(a, b) %&gt;% decorations
+c(a$study, b$study)
+reconcile(list(a$study, b$study))
+</code></pre>
+
+
+</div>

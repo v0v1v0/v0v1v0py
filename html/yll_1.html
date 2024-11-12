@@ -1,0 +1,136 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>avg_yll</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Compute average years of life lost (YLL)</h2>
+
+<h3>Description</h3>
+
+<p><code>avg_yll</code> computes the average expected years of life lost (YLL), given
+the number of deaths, the average age of death and the standard life
+expectancy.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">avg_yll(ndeaths, avg.age.death, life.expectancy, discount.rate = 0.03,
+  beta = 0.04, modulation = 0, adjustment = 0.1658)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>ndeaths</code></td>
+<td>
+<p>Number of deaths (numeric).</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>avg.age.death</code></td>
+<td>
+<p>Average age of death (numeric).</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>life.expectancy</code></td>
+<td>
+<p>The interpolated life expectancy at that age. In other
+words, the expected remaining number of years to live (numeric).</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>discount.rate</code></td>
+<td>
+<p>Discount rate (default is set to 0.03) (numeric).</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>beta</code></td>
+<td>
+<p>Age-weighting constant (default is set to 0.04) (numeric).</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>modulation</code></td>
+<td>
+<p>Age-weighting modulation constant (= 0, no weighting; = 1,
+weighting, default is set to 0) (numeric).</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>adjustment</code></td>
+<td>
+<p>Adjustment constant for age-weights (default is set to
+0.1658) (numeric).</p>
+</td>
+</tr>
+</table>
+<h3>Details</h3>
+
+<p><code>avg_yll</code> computes the average expected years of life lost (YLL). The
+average YLL, which highlights premature causes of death and brings attention
+to preventable deaths is computed by dividing the standard YLL by the number
+of deaths (Aragon et al., 2008). The number of deaths, the average age of
+death and the standard life expectancy at least must be provided (as numeric
+vectors). Other arguments are provided to incorporate time discounting and
+age weighting.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Since all inputs are numeric vectors, the output will be a numeric
+vector.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Antoine Soetewey <a href="mailto:antoine.soetewey@uclouvain.be">antoine.soetewey@uclouvain.be</a>
+</p>
+
+
+<h3>References</h3>
+
+<p>Aragon, T. J., Lichtensztajn, D. Y., Katcher, B. S., Reiter, R.,
+&amp; Katz, M. H. (2008). Calculating expected years of life lost for assessing
+local ethnic disparities in causes of premature death. <em>BMC public
+health, 8</em>(1), 116.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code>yll</code> for the standard measure of years of life lost.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R"># For 100 deaths with an average age of death of 60 years
+# and an expected remaining number of years to live of 20 years:
+
+avg_yll(100, 60, 20)
+
+# Without discounting:
+
+avg_yll(100, 60, 20, discount.rate = 0)
+
+## Not run: 
+avg_yll("a", "b", "c") # arguments must be numeric
+avg_yll(100) # avg.age.death and life.expectancy are missing,
+# with no default
+avg_yll(100, 60) # life.expectancy is missing,
+# with no default
+
+## End(Not run)
+
+</code></pre>
+
+
+</div>

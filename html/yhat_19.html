@@ -1,0 +1,103 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>rlw</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Relative Weights</h2>
+
+<h3>Description</h3>
+
+<p>The function computes relative weights.  
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">  rlw(dataMatrix, dv, ivlist)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>dataMatrix</code></td>
+<td>
+
+<p>Dataset containing the dependent and independent variables
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>dv</code></td>
+<td>
+
+<p>The dependent variable named in the dataset
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>ivlist</code></td>
+<td>
+
+<p>List of independent variables named in the dataset
+</p>
+</td>
+</tr>
+</table>
+<h3>Details</h3>
+
+<p>The function computes relative weights. 
+</p>
+
+
+<h3>Value</h3>
+
+<p>The function returns relative weights for each predictor.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p> Kim Nimon &lt;kim.nimon@gmail.com&gt;</p>
+
+
+<h3>References</h3>
+
+<p>Nimon, K., &amp; Oswald, F. L. (2013). Understanding the results of multiple linear regression: Beyond standardized regression coefficients. <em>Organizational Research Methods</em>, <em>16</em>, 
+650-674.
+</p>
+<p>Thomas, D. R., Zumbo, B. D., Kwan, E., &amp; Schweitzer, L. (2014). On Johnson's (2000) relative weights method for assessing variable importance: A reanalysis. <em>Multivariate Behavioral Research</em>, <em>16</em>,
+49(4), 329-338. 
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code>aps</code>
+<code>calc.yhat</code>
+<code>commonality</code>
+<code>dominance</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">  ## Relative weights from regression model predicting paragraph 
+  ## comprehension based on three verbal tests: general info, 
+  ## sentence comprehension, &amp; word classification
+ 
+  ## Use HS dataset in MBESS 
+     if (require ("MBESS")){
+     data(HS)
+
+  ## Relative Weights
+     rwlOut&lt;-rlw(HS,"t6_paragraph_comprehension",
+                     c("t5_general_information","t7_sentence","t8_word_classification"))
+     }
+
+</code></pre>
+
+
+</div>

@@ -1,0 +1,93 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>metric_tweak</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Tweak a metric function</h2>
+
+<h3>Description</h3>
+
+<p><code>metric_tweak()</code> allows you to tweak an existing metric <code>.fn</code>, giving it a
+new <code>.name</code> and setting new optional argument defaults through <code>...</code>. It
+is similar to <code>purrr::partial()</code>, but is designed specifically for yardstick
+metrics.
+</p>
+<p><code>metric_tweak()</code> is especially useful when constructing a <code>metric_set()</code> for
+tuning with the tune package. After the metric set has been constructed,
+there is no way to adjust the value of any optional arguments (such as
+<code>beta</code> in <code>f_meas()</code>). Using <code>metric_tweak()</code>, you can set optional arguments
+to custom values ahead of time, before they go into the metric set.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">metric_tweak(.name, .fn, ...)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>.name</code></td>
+<td>
+<p>A single string giving the name of the new metric. This will be
+used in the <code>".metric"</code> column of the output.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>.fn</code></td>
+<td>
+<p>An existing yardstick metric function to tweak.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+<p>Name-value pairs specifying which optional arguments to override
+and the values to replace them with.
+</p>
+<p>Arguments <code>data</code>, <code>truth</code>, and <code>estimate</code> are considered <em>protected</em>,
+and cannot be overridden, but all other optional arguments can be
+altered.</p>
+</td>
+</tr>
+</table>
+<h3>Details</h3>
+
+<p>The function returned from <code>metric_tweak()</code> only takes <code>...</code> as arguments,
+which are passed through to the original <code>.fn</code>. Passing <code>data</code>, <code>truth</code>,
+and <code>estimate</code> through by position should generally be safe, but it is
+recommended to pass any other optional arguments through by name to ensure
+that they are evaluated correctly.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A tweaked version of <code>.fn</code>, updated to use new defaults supplied in <code>...</code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">mase12 &lt;- metric_tweak("mase12", mase, m = 12)
+
+# Defaults to `m = 1`
+mase(solubility_test, solubility, prediction)
+
+# Updated to use `m = 12`. `mase12()` has this set already.
+mase(solubility_test, solubility, prediction, m = 12)
+mase12(solubility_test, solubility, prediction)
+
+# This is most useful to set optional argument values ahead of time when
+# using a metric set
+mase10 &lt;- metric_tweak("mase10", mase, m = 10)
+metrics &lt;- metric_set(mase, mase10, mase12)
+metrics(solubility_test, solubility, prediction)
+</code></pre>
+
+
+</div>

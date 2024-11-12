@@ -1,0 +1,68 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>verbatim_logical</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>
+Alternative logical handler
+</h2>
+
+<h3>Description</h3>
+
+<p>A yaml handler function that causes logical vectors to emit 
+<code>true</code>/<code>false</code> instead of <code>yes</code>/<code>no</code> values.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">verbatim_logical(x)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table><tr style="vertical-align: top;">
+<td><code>x</code></td>
+<td>
+
+<p>logical vector to convert to <code>true</code>/<code>false</code>.
+</p>
+</td>
+</tr></table>
+<h3>Details</h3>
+
+<p>Pass this function to <code>as.yaml()</code> as part of the
+<code>handler</code> argument list like <code>list(logical = verbatim_logical)</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Returns a vector of strings of either <code>true</code> or <code>false</code> of class
+<code>verbatim</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Charles Dupont and James Goldie (jimjam-slam)
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code>as.yaml</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">vector &lt;- c(TRUE, FALSE, TRUE)
+
+as.yaml(vector, handlers=list(logical=verbatim_logical))
+</code></pre>
+
+
+</div>

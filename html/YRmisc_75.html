@@ -1,0 +1,49 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>reg.std.err</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Standard error for lim.fit</h2>
+
+<h3>Description</h3>
+
+<p>Calculate standard error for the outcome of lm.fit(). This function is built for reg.linreg for higher efficiency only.
+It can't be used for calculating standard error in general operation.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">reg.std.err(SSE,dof)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>SSE</code></td>
+<td>
+<p>:error sum of squared aka. residual sum of squared</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>dof</code></td>
+<td>
+<p>:degree of freedom</p>
+</td>
+</tr>
+</table>
+<h3>Examples</h3>
+
+<pre><code class="language-R">X &lt;- as.matrix(cbind(1,EuStockMarkets[,1:2])) # create the design matrix
+Y &lt;- as.data.frame(EuStockMarkets)$FTSE
+fit &lt;- lm.fit(x = X, y = Y)
+SSE &lt;- sum((Y - fit$fitted.values)^2)
+dof &lt;- reg.dof(fit)
+reg.std.err(SSE,dof)
+</code></pre>
+
+
+</div>

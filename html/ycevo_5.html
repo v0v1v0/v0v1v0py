@@ -1,0 +1,96 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>autoplot.ycevo</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Plot the estimated discount functions and yield curves</h2>
+
+<h3>Description</h3>
+
+<p>Plots the estimated discount functions and yield curves from a <code>ycevo()</code> object.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">## S3 method for class 'ycevo'
+autoplot(
+  object,
+  est = c("both", "discount", "yield"),
+  against = c("tau", "x", "both"),
+  loess = TRUE,
+  ...
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>object</code></td>
+<td>
+<p>A ycevo object</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>est</code></td>
+<td>
+<p>String. Indicates which estimated values to plot: discount function, yield curve, or
+both. Default is both.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>against</code></td>
+<td>
+<p>String. Indicates which variable to plot against, i.e. what is on the x axis.
+Time-to-maturity <code>tau</code>, quotation date <code>x</code>, or both (requires package
+<code>plotly</code>). If both, an interactive 3D plot is generated.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>loess</code></td>
+<td>
+<p>Logical. If TRUE, the returned discount functions and yield curves
+are loess smoothed.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+<p>Additional arguments required for generic consistency. Currently
+not used. Warning: A misspelled argument will not raise an error. The
+misspelled argument will be either disregarded, or the default value will
+be applied if one exists.</p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>A <code>ggplot2::ggplot()</code> object if only one dimension is specified in
+<code>against</code>. A <code>plotly::plot_ly()</code> object if <code>against</code> is set to both.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code>ycevo()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R"># Simulating bond data
+bonds &lt;- ycevo_data(n = 10)
+
+# Estimation can take up to 30 seconds
+res &lt;- ycevo(bonds, x = lubridate::ymd("2023-03-01"))
+# Plot
+autoplot(res)
+
+
+</code></pre>
+
+
+</div>

@@ -1,0 +1,92 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>poisson.random.sampling</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Poisson random sampling method</h2>
+
+<h3>Description</h3>
+
+<p>Poisson random sampling method.</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">poisson.random.sampling(x, rate, n)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>x</code></td>
+<td>
+<p>an object of  <code>yuima.data-class</code> or <code>yuima-class</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>rate</code></td>
+<td>
+<p>a Poisson intensity or a vector of Poisson intensities.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>n</code></td>
+<td>
+<p>a common multiplier to the Poisson intensities. The default value is 1.</p>
+</td>
+</tr>
+</table>
+<h3>Details</h3>
+
+<p>It returns an object
+of type <code>yuima.data-class</code> which is a copy of the original input 
+data where observations are sampled according to
+the Poisson process. The unsampled data are set to <code>NA</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>an object of  <code>yuima.data-class</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>The YUIMA Project Team</p>
+
+
+<h3>See Also</h3>
+
+<p>cce</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">## Set a model
+diff.coef.1 &lt;- function(t, x1=0, x2) x2*(1+t)
+diff.coef.2 &lt;- function(t, x1, x2=0) x1*sqrt(1+t^2)
+cor.rho &lt;- function(t, x1=0, x2=0) sqrt((1+cos(x1*x2))/2)
+diff.coef.matrix &lt;- matrix(c("diff.coef.1(t,x1,x2)",
+"diff.coef.2(t,x1,x2)*cor.rho(t,x1,x2)", "",
+"diff.coef.2(t,x1,x2)*sqrt(1-cor.rho(t,x1,x2)^2)"),2,2)
+cor.mod &lt;- setModel(drift=c("",""), diffusion=diff.coef.matrix, 
+solve.variable=c("x1", "x2"), xinit=c(3,2))
+set.seed(111)
+
+## We first simulate the two dimensional diffusion model
+yuima.samp &lt;- setSampling(Terminal=1, n=1200)
+yuima &lt;- setYuima(model=cor.mod, sampling=yuima.samp)
+yuima.sim &lt;- simulate(yuima)
+
+## Then we use function poisson.random.sampling to get observations
+## by Poisson sampling.
+psample &lt;- poisson.random.sampling(yuima.sim,  rate = c(0.2, 0.3), n=1000)
+str(psample)
+</code></pre>
+
+
+</div>

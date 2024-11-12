@@ -1,0 +1,314 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>spectralcov</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>
+
+Spectral Method for Cumulative Covariance Estimation
+</h2>
+
+<h3>Description</h3>
+
+
+<p>This function implements the local method of moments proposed in Bibinger et al. (2014) to estimate the cummulative covariance matrix of a non-synchronously observed multi-dimensional Ito process with noise.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">lmm(x, block = 20, freq = 50, freq.p = 10, K = 4, interval = c(0, 1), 
+    Sigma.p = NULL, noise.var = "AMZ", samp.adj = "direct", psd = TRUE)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>x</code></td>
+<td>
+
+
+<p>an object of  <code>yuima-class</code> or <code>yuima.data-class</code>.
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>block</code></td>
+<td>
+
+
+<p>a positive integer indicating the number of the blocks which the observation interval is split into.
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>freq</code></td>
+<td>
+
+
+<p>a positive integer indicating the number of the frequencies used to compute the final estimator.
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>freq.p</code></td>
+<td>
+
+
+<p>a positive integer indicating the number of the frequencies used to compute the pilot estimator for the spot covariance matrix (corresponding to the number <code class="reqn">J_n</code> in Eq.(29) from Altmeyer and Bibinger (2015)).
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>K</code></td>
+<td>
+
+
+<p>a positive integer indicating the number of the blocks used to compute the pilot estimator for the spot covariance matrix (corresponding to the number <code class="reqn">K_n</code> in Eq.(29) from Altmeyer and Bibinger (2015)).
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>interval</code></td>
+<td>
+
+
+<p>a vector indicating the observation interval. The first component represents the initial value and the second component represents the terminal value.
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>Sigma.p</code></td>
+<td>
+
+
+<p>a <code>block</code> by <code>dim(x)</code> matrix giving the pilot estimates of the spot covariance matrix plugged into the optimal weight matrices. If <code>NULL</code> (the default), it is computed by using formula (29) from Altmeyer and Bibinger (2015). 
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>noise.var</code></td>
+<td>
+
+
+<p>character string giving the method to estimate the noise variances. There are several options: <code>"AMZ"</code> (the default) uses equation (3.7) from Gatheral and Oomen (2010), i.e. the quasi-maximum likelihood estimator proposed by Ait-Sahalia et al. (2005) (see also Xiu (2010)). <code>"BR"</code> uses equation (3.9) from Gatheral and Oomen (2010), i.e. the sample average of the squared returns divided by 2, the estimator proposed by Bandi and Russel (2006). <code>"O"</code> uses equation (3.8) from Gatheral and Oomen (2010), i.e. another method-of-moments estimator proposed by Oomen (2006). It is also possible to directly specify the noise variances by setting this argument to a numeric vector. In this case the <code>i</code>-th component of <code>noise.var</code> must indicates the variance of the noise for the <code>i</code>-th component of the observation process. 
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>samp.adj</code></td>
+<td>
+
+
+<p>character string giving the method to adjust the effect of the sampling times on the variances of the spectral statistics for the noise part. The default method <code>"direct"</code> uses the local sums of the squares of the one-skip differences of the sampling times divided by 2, which directly appears in the representation of the variances of the spectral statistics for the noise part. Another choice is <code>"QVT"</code>, which uses the local quadratic variations of time as in Altmeyer and Bibinger (2015) and Bibinger et al. (2014).
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>psd</code></td>
+<td>
+
+
+<p>logical. If <code>TRUE</code> (the default), the estimated covariance matrix and variance-covariance matrix are converted to their spectral absolute values to ensure their positive semi-definiteness. This procedure does not matter in terms of the asymptotic theory.
+</p>
+</td>
+</tr>
+</table>
+<h3>Details</h3>
+
+
+<p>The default implementation is the adaptive version of the local method of moments estimator, which is only based on observation data. It is possible to implement oracle versions of the estimator by setting user-specified <code>Sigma.p</code> and/or <code>noise.var</code>. An example is given below.
+</p>
+
+
+<h3>Value</h3>
+
+
+
+
+
+
+<p>An object of class <code>"yuima.specv"</code>, which is a list with the following elements:
+</p>
+<table>
+<tr style="vertical-align: top;">
+<td><code>covmat</code></td>
+<td>
+<p>the estimated covariance matrix</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>vcov</code></td>
+<td>
+<p>the estimated variance-covariance matrix of <code>as.vector(covmat)</code></p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>Sigma.p</code></td>
+<td>
+<p>the pilot estimates of the spot covariance matrix</p>
+</td>
+</tr>
+</table>
+<h3>Author(s)</h3>
+
+
+<p>Yuta Koike with YUIMA Project Team
+</p>
+
+
+<h3>References</h3>
+
+
+<p>Ait-Sahalia, Y., Mykland, P. A. and Zhang, L. (2005)
+How often to sample a continuous-time process in the presence of market microstructure noise,
+<em>The Review of Financial Studies</em>, <b>18</b>, 351–416.
+</p>
+<p>Altmeyer, R. and Bibinger, M. (2015)
+Functional stable limit theorems for quasi-efficient spectral covolatility estimators,
+to appear in <em>Stochastic processes and their applications</em>, doi:10.1016/j.spa.2015.07.009.
+</p>
+<p>Bandi, F. M. and Russell, J. R. (2006)
+Separating microstructure noise from volatility,
+<em>Journal of Financial Economics</em>, <b>79</b>, 655–692.
+</p>
+<p>Bibinger, M., Hautsch, N., Malec, P. and Reiss, M. (2014)
+Estimating the quadratic covariation matrix from noisy observations: local method of moments and efficiency,
+<em>Annals of Statistics</em>, <b>42</b>, 80–114.
+</p>
+<p>Gatheral J. and Oomen, R. C. A. (2010)
+Zero-intelligence realized variance estimation,
+<em>Finance Stochastics</em>, <b>14</b>, 249–283.
+</p>
+<p>Oomen, R. C. A. (2006)
+Properties of realized variance under alternative sampling schemes,
+<em>Journal of Business and Economic Statistics</em>, <b>24</b>, 219–237.
+</p>
+<p>Reiss, M. (2011)
+Asymptotic equivalence for inference on the volatility from noisy observations,
+<em>Annals of Statistics</em>, <b>39</b>, 772–802.
+</p>
+<p>Xiu, D. (2010)
+Quasi-maximum likelihood estimation of volatility with high frequency data,
+<em>Journal of Econometrics</em>, <b>159</b>, 235–250.
+</p>
+
+
+<h3>See Also</h3>
+
+
+<p><code>cce</code>, <code>setData</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R"># Example. One-dimensional and regular sampling case
+# Here the simulated model is taken from Reiss (2011)
+
+## Set a model
+sigma &lt;- function(t) sqrt(0.02 + 0.2 * (t - 0.5)^4)
+modI &lt;- setModel(drift = 0, diffusion = "sigma(t)")
+
+## Generate a path of the process
+set.seed(117)
+n &lt;- 12000
+yuima.samp &lt;- setSampling(Terminal = 1, n = n) 
+yuima &lt;- setYuima(model = modI, sampling = yuima.samp) 
+yuima &lt;- simulate(yuima, xinit = 0)
+
+delta &lt;- 0.01 # standard deviation of microstructure noise
+yuima &lt;- noisy.sampling(yuima, var.adj = delta^2) # generate noisy observations
+plot(yuima)
+
+## Estimation of the integrated volatility
+est &lt;- lmm(yuima)
+est
+
+## True integrated volatility and theoretical standard error
+disc &lt;- seq(0, 1, by = 1/n)
+cat("true integrated volatility\n")
+print(mean(sigma(disc[-1])^2))
+cat("theoretical standard error\n")
+print(sqrt(8*delta*mean(sigma(disc[-1])^3))/n^(1/4))
+
+# Plotting the pilot estimate of the spot variance path
+block &lt;- 20
+G &lt;- seq(0,1,by=1/block)[1:block]
+Sigma.p &lt;- sigma(G)^2 # true spot variance
+plot(zoo(Sigma.p, G), col = "blue",, xlab = "time", 
+     ylab = expression(sigma(t)^2))
+lines(zoo(est$Sigma.p, G))
+
+## "Oracle" implementation
+lmm(yuima, block = block, Sigma.p = Sigma.p, noise.var = delta^2)
+
+# Example. Multi-dimensional case
+# We simulate noisy observations of a correlated bivariate Brownian motion
+# First we examine the regular sampling case since in this situsation the theoretical standard 
+# error can easily be computed via the formulae given in p.88 of Bibinger et al. (2014)
+
+## Set a model
+drift &lt;- c(0,0)
+
+rho &lt;- 0.5 # correlation
+
+diffusion &lt;- matrix(c(1,rho,0,sqrt(1-rho^2)),2,2)
+
+modII &lt;- setModel(drift=drift,diffusion=diffusion,
+                  state.variable=c("x1","x2"),solve.variable=c("x1","x2"))
+                  
+## Generate a path of the latent process
+set.seed(123)
+
+## We regard the unit interval as 6.5 hours and generate the path on it 
+## with the step size equal to 1 seconds
+
+n &lt;- 8000
+yuima.samp &lt;- setSampling(Terminal = 1, n = n) 
+yuima &lt;- setYuima(model = modII, sampling = yuima.samp) 
+yuima &lt;- simulate(yuima)
+
+## Generate noisy observations
+eta &lt;- 0.05
+yuima &lt;- noisy.sampling(yuima, var.adj = diag(eta^2, 2))
+plot(yuima)
+
+## Estimation of the integrated covariance matrix
+est &lt;- lmm(yuima)
+est
+
+## Theoretical standard error
+a &lt;- sqrt(4 * eta * (sqrt(1 + rho) + sqrt(1 - rho)))
+b &lt;- sqrt(2 * eta * ((1 + rho)^(3/2) + (1 - rho)^(3/2)))
+cat("theoretical standard error\n")
+print(matrix(c(a,b,b,a),2,2)/n^(1/4))
+
+## "Oracle" implementation
+block &lt;- 20
+Sigma.p &lt;- matrix(c(1,rho,rho,1),block,4,byrow=TRUE) # true spot covariance matrix
+lmm(yuima, block = block, Sigma.p = Sigma.p, noise.var = rep(eta^2,2))
+
+# Next we extract nonsynchronous observations from 
+# the path generated above by Poisson random sampling
+psample &lt;- poisson.random.sampling(yuima, rate = c(1/2,1/2), n = n)
+
+## Estimation of the integrated covariance matrix
+lmm(psample)
+
+## "Oracle" implementation
+lmm(psample, block = block, Sigma.p = Sigma.p, noise.var = rep(eta^2,2))
+
+## Other choices of tuning parameters (estimated values are not varied so much)
+lmm(psample, block = 25)
+lmm(psample, freq = 100)
+lmm(psample, freq.p = 15)
+lmm(psample, K = 8)
+
+</code></pre>
+
+
+</div>

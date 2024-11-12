@@ -1,0 +1,95 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>Svensson</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2> Estimation of the Svensson parameters</h2>
+
+<h3>Description</h3>
+
+<p>Returns the estimated coefficients of the Svensson's model.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">Svensson(rate, maturity )
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>rate</code></td>
+<td>
+<p> vector or matrix which contains the interest rates.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>maturity</code></td>
+<td>
+<p> vector which contains the maturity (in months) of the <code>rate</code>. The vector's length must be the same of the number of columns of the <code>rate</code>.</p>
+</td>
+</tr>
+</table>
+<h3>Details</h3>
+
+<p>The Svensson's model to describe the forward rate is:
+</p>
+<p style="text-align: center;"><code class="reqn">y_t(\tau) = \beta_{0} + \beta_{1} \exp\left( -\frac{\tau}{\lambda_1} \right) + \beta_2
+\frac{\tau}{\lambda_1} \exp \left( -\frac{\tau}{\lambda_1} \right) + \beta_3
+\frac{\tau}{\lambda_2} \exp \left( -\frac{\tau}{\lambda_2} \right) </code>
+</p>
+
+<p>The spot rate can be derived from forward rate and it is given by:
+</p>
+<p style="text-align: center;"><code class="reqn">
+y_t(\tau) = \beta_0 + \beta_1 \frac{ 1- \exp(
+-\frac{\tau}{\lambda_1}) }{\frac{\tau}{\lambda_1} } + \beta_2 \left[\frac{ 1- \exp(
+-\frac{\tau}{\lambda_1}) }{\frac{\tau}{\lambda_1} } - \exp( -\frac{\tau}{\lambda_1})
+\right]
++ \beta_3  \left[\frac{ 1- \exp(-\frac{\tau}{\lambda_2}) }{\frac{\tau}{\lambda_2} } -
+\exp( -\frac{\tau}{\lambda_2})
+\right]</code>
+</p>
+
+
+
+<h3>Value</h3>
+
+<p>Returns a data frame with the estimated coefficients: <code class="reqn">\beta_{0}</code>, <code class="reqn">\beta_{1}</code>, <code class="reqn">\beta_{2}</code>,<code class="reqn">\beta_{3}</code>, <code class="reqn">\lambda_1</code> and <code class="reqn">\lambda_2</code>. 
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p> Sergio Salvino Guirreri</p>
+
+
+<h3>References</h3>
+
+ 
+<p>Svensson, L.E. (1994), Estimating and Interpreting Forward Interest Rates: Sweden 1992-1994, <em>IMF Working Paper</em>, <b>WP/94/114</b>.
+</p>
+<p>Nelson, C.R., and A.F. Siegel (1987), Parsimonious Modeling of Yield Curve, <em>The Journal of Business</em>, <b>60</b>, 473-489.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">data(ECBYieldCurve)
+maturity.ECB &lt;- c(0.25,0.5,seq(1,30,by=1))
+A &lt;- Svensson(ECBYieldCurve[1:10,], maturity.ECB )
+Svensson.rate &lt;- Srates( A, maturity.ECB, "Spot" )
+plot(maturity.ECB, Svensson.rate[5,],main="Fitting Svensson yield curve",
+ xlab=c("Pillars in years"), type="l", col=3)
+lines( maturity.ECB, ECBYieldCurve[5,],col=2)
+legend("topleft",legend=c("fitted yield curve","observed yield curve"),
+col=c(3,2),lty=1)
+grid()
+</code></pre>
+
+
+</div>

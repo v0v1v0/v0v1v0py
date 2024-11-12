@@ -1,0 +1,65 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>as_spork.units</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Coerce Units to Spork</h2>
+
+<h3>Description</h3>
+
+<p>Coerces units to spork by coercing first
+to unit_string.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">## S3 method for class 'units'
+as_spork(x, canonical = TRUE, ...)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>x</code></td>
+<td>
+<p>units; see <code>as_units</code></p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+<p>ignored arguments</p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>spork
+</p>
+
+
+<h3>See Also</h3>
+
+<p>Other spork: 
+<code>as_spork.symbolic_units()</code>,
+<code>as_spork.unit_string()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">library(units)
+library(magrittr)
+library(spork)
+'kg.m^2/s^2' %&gt;% as_units %&gt;% as_spork
+'kg.m2 s-2' %&gt;% as_units %&gt;% as_spork
+'kg.m^2/s^2' %&gt;% as_units %&gt;% as_spork(FALSE)
+'kg.m2 s-2' %&gt;% as_units %&gt;% as_spork(FALSE)
+</code></pre>
+
+
+</div>

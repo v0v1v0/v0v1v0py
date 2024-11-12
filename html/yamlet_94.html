@@ -1,0 +1,99 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>gather.decorated</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Gather a Decorated Data Frame</h2>
+
+<h3>Description</h3>
+
+<p>Gathers a decorated data.frame.
+I.e. a gather method for class 'decorated'.
+Invokes tidyr::gather(), converting gathered
+labels to the guide attribute of <code>key</code>, and
+converting gathered guides ... if all the same ...
+to the guide attribute of <code>value</code>.
+Somewhat experimental!
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">## S3 method for class 'decorated'
+gather(
+  data,
+  key = "key",
+  value = "value",
+  ...,
+  na.rm = FALSE,
+  convert = FALSE,
+  factor_key = FALSE
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>data</code></td>
+<td>
+<p>see <code>gather</code></p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>key</code></td>
+<td>
+<p>see <code>gather</code></p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>value</code></td>
+<td>
+<p>see <code>gather</code></p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+<p>see <code>gather</code></p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>na.rm</code></td>
+<td>
+<p>see <code>gather</code></p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>convert</code></td>
+<td>
+<p>see <code>gather</code></p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>factor_key</code></td>
+<td>
+<p>see <code>gather</code></p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>decorated
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">library(magrittr)
+library(tidyr)
+file &lt;- system.file(package = 'yamlet', 'extdata','quinidine.csv')
+x &lt;- decorate(file)
+x %&gt;% gather('key', 'value', time, interval) %&gt;% decorations
+
+</code></pre>
+
+
+</div>

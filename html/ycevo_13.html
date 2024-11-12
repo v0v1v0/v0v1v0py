@@ -1,0 +1,205 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>ycevo_data</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Simulate bond data</h2>
+
+<h3>Description</h3>
+
+<p>Simulates bond transaction data at each weekday throughout the year 2023,
+following the extended version of Nelson &amp; Siegel model (Nelson, C. R., &amp;
+Siegel, A. F., 1987).
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">ycevo_data(
+  n = 40,
+  b0 = 0,
+  b1 = 0.05,
+  b2 = 2,
+  t1 = 0.75,
+  t2 = 125,
+  linear = -0.55,
+  quadratic = 0.55,
+  cubic = -0.55
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>n</code></td>
+<td>
+<p>Integer. Number of bonds of each maturity to simulation</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>b0</code></td>
+<td>
+<p>Level term in yield curve equation, Defaults is 0. See
+<code>Details</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>b1</code></td>
+<td>
+<p>Slope term in yield curve equation, Defaults is 0.05. See
+<code>Details</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>b2</code></td>
+<td>
+<p>Curvature term in yield curve equation, Defaults is 2. See
+<code>Details</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>t1</code></td>
+<td>
+<p>Scaling parameter in yield curve equation, Defaults is 0.75. See
+<code>Details</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>t2</code></td>
+<td>
+<p>Scaling parameter in yield curve equation, Defaults is 125. See
+<code>Details</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>linear</code></td>
+<td>
+<p>Linear term in yield curve evolution, Defaults is -0.55. See
+<code>Details</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>quadratic</code></td>
+<td>
+<p>Quadratic term in yield curve evolution. Defaults is 0.55.
+See <code>Details</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>cubic</code></td>
+<td>
+<p>Cubic term in yield curve evolution. Defaults is -0.55. See
+<code>Details</code>.</p>
+</td>
+</tr>
+</table>
+<h3>Details</h3>
+
+<p><code>n</code> bonds for each of the following maturities are simulated: 20, 10, 5,
+3, 2 and 0.8 years. The face value of all bonds is 100. Bonds with 0.8 years
+of maturity are similar to the US Treasury bills with no coupon. Bonds with
+maturity between 2 and 10 years correspond to the US Treasury notes. Their
+coupon rates are simulated from an Epanechnikov distribution with mean 4, and
+the distance from the mean to the boundary is 2.65. Bonds with maturity of 20
+years corresponds to the US Treasury bonds. Their coupon rates are simulated
+from an Epanechnikov distribution with mean 7.5, and the distance from the
+mean to the boundary is 2.65. Coupons are payable every 6 months.
+</p>
+<p>We artificially "observe" quotation data of bonds on every weekday through
+out 2023, starting with 2 Jan 2023. To ensure an adequate number of
+transactions are observed for the estimation of the yield curve, the earliest
+bond is issued prior to the beginning of 2023, determined by the length of
+maturity of that type of bond, such that the last payment can still be
+observed at the beginning of 2023. For example, the first bond with 20 years
+of maturity is issued at the beginning of 2003. The last bond within this type
+is issued at the end of 2023. The rest of the bonds have issue dates evenly
+distributed between the first and the last bonds.
+</p>
+<p>The initial yield at the beginning of 2023 is generated from the following
+equation
+</p>
+<p style="text-align: center;"><code class="reqn">Yield_{i, 0} = b_0 + b_1 * ((1 - \exp(-\tau_i / t_1)) / (\tau / t_1)) +
+b_2 * ((1 - \exp(-\tau_i / t_2)) / (\tau_i / t_2) - \exp(-\tau_i / t_2))</code>
+</p>
+
+<p>where <code class="reqn">\tau_i</code> is the time to maturity in years. The yield curve at
+quotation time <code class="reqn">t</code> is obtained by multiplying this curve by the cubic
+equation, </p>
+<p style="text-align: center;"><code class="reqn">Yield_{i, t} = Yield_{i, 0} * (1 + linear * time + quadratic *
+time^2 + cubic * time^3)</code>
+</p>
+<p> so the yield curve slowly changes over different
+quotation dates. The time <code class="reqn">t</code> is a value between 0 and 1, the proportion
+of time that has passed by a quotation date, identifying the progression
+through 2023. For example, the time <code class="reqn">t</code> corresponding to 31 Mar 2023 is
+0.25.
+</p>
+<p>The discount function is then derived from the yield curve, </p>
+<p style="text-align: center;"><code class="reqn">d_t(\tau) =
+\exp(-\tau y_t(\tau))</code>
+</p>
+<p> to discount all the future cash flows of a bond and
+calculate the price of that bond at the quotation date.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A <code>tibble::tibble()</code> object with 5 variables
+</p>
+
+<dl>
+<dt>qdate</dt>
+<dd>
+<p>The quotation date of a bond in a <code>Date()</code> class.</p>
+</dd>
+<dt>id</dt>
+<dd>
+<p>The unique identifier of a bond.</p>
+</dd>
+<dt>price</dt>
+<dd>
+<p>The price of a bond.</p>
+</dd>
+<dt>tupq</dt>
+<dd>
+<p>The remaining time until the given cash flow in days.</p>
+</dd>
+<dt>pdint</dt>
+<dd>
+<p>The payment amount of the cash flow.
+For a non-coupon-paying bond, the only cash flow occurs on the maturity
+date with a payment of 100, i.e., the face value of the bond.
+For a coupon-paying bond, the stream of cash flows includes the coupon
+payable on the interest payment date before maturity and the face value
+100 plus the coupon payment for the last cash flow on the maturity date.</p>
+</dd>
+</dl>
+<h3>References</h3>
+
+<p>Nelson, C. R., &amp; Siegel, A. F. (1987). Parsimonious Modeling of
+Yield Curves. The Journal of Business, 60(4), 473-489.
+</p>
+<p>Koo, B., La Vecchia, D., &amp; Linton, O. (2021). Estimation of a
+nonparametric model for bond prices from cross-section and time series
+information. Journal of Econometrics, 220(2), 562-588.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code>get_yield_at()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">ycevo_data()
+
+</code></pre>
+
+
+</div>

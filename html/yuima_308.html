@@ -1,0 +1,91 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>yuima.law-class</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>
+<code>yuima law-class</code>: A mathematical description for the noise.</h2>
+
+<h3>Description</h3>
+
+<p>A yuima class that contains all information on the noise. This class is a  bridge between a <code>yuima.model-class</code> and a noise constructed by users.</p>
+
+
+<h3>Slots</h3>
+
+
+<dl>
+<dt>rng</dt>
+<dd>
+<p>A user defined function that generates the noise sample.</p>
+</dd>
+<dt>density</dt>
+<dd>
+<p>A user defined function that is the density of the noise at time <code>t</code>.</p>
+</dd>
+<dt>cdf</dt>
+<dd>
+<p>A user defined function that is the cumulative distribution function of the noise at time <code>t</code>.</p>
+</dd>
+<dt>quantile</dt>
+<dd>
+<p>A user defined function that is the quantile of the noise at time <code>t</code>.</p>
+</dd>
+<dt>characteristic</dt>
+<dd>
+<p>A user defined function that is the characteristic function of the noise at time <code>t</code>.
+</p>
+</dd>
+<dt>param.measure</dt>
+<dd>
+<p>A <code>character</code> object that contains the parameters of the noise.</p>
+</dd>
+<dt>time.var</dt>
+<dd>
+<p>the label of the time variable.</p>
+</dd>
+<dt>dim</dt>
+<dd>
+<p>Dimension of the noise</p>
+</dd>
+</dl>
+<h3>Methods</h3>
+
+
+<dl>
+<dt>rand</dt>
+<dd>
+<p><code>signature(object = "yuima.law", n = "numeric",
+	  param = "list", ...)</code>: This method returns a sample of the noise, <code>n</code> is the sample size.</p>
+</dd>
+<dt>dens</dt>
+<dd>
+<p><code>signature(object = "yuima.law", x = "numeric",
+	  param = "list", log = FALSE, ...)</code>: This method returns the density of the noise, <code>x</code> is the vector of the support.</p>
+</dd>
+<dt>cdf</dt>
+<dd>
+<p><code>signature(object = "yuima.law", q = "numeric",
+	  param = "list", ...)</code>: This method returns the cdf of the noise, <code>q</code> is the vector of the support.</p>
+</dd>
+<dt>quant</dt>
+<dd>
+<p><code>signature(object = "yuima.law", p = "numeric",
+	  param = "list", ...)</code>: This method returns the quantile of the noise, <code>p</code> is the vector of the support.</p>
+</dd>
+<dt>char</dt>
+<dd>
+<p><code>signature(object = "yuima.law", u = "numeric",
+	  param = "list", ...)</code>: This method returns the characteristic function of the noise, <code>u</code> is the vector of the support.</p>
+</dd>
+</dl>
+<h3>Author(s)</h3>
+
+<p>The YUIMA Project Team
+</p>
+<p>Contacts: Lorenzo Mercuri <a href="mailto:lorenzo.mercuri@unimi.it">lorenzo.mercuri@unimi.it</a>
+</p>
+
+
+</div>

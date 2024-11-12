@@ -1,0 +1,95 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>getDeliveryWickets</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Get datframe of deliveries bowled and wickets taken</h2>
+
+<h3>Description</h3>
+
+<p>This function  creates a data frame of deliveries bowled and wickets taken. This data frame is
+then used by bowlerWktsPredict to predict the number of deliveries to wickets taken
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">getDeliveryWickets(team,dir=".",name,save=FALSE)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>team</code></td>
+<td>
+<p>The team for which dataframe is to be obtained</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>dir</code></td>
+<td>
+<p>The source directory in which the match .RData files exist</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>name</code></td>
+<td>
+<p>The name of the bowler</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>save</code></td>
+<td>
+<p>Whether the data frame needs to be saved to a file or nor</p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>dataframe
+The dataframe of delivery wickets
+</p>
+
+
+<h3>Note</h3>
+
+<p>Maintainer: Tinniam V Ganesh <a href="mailto:tvganesh.85@gmail.com">tvganesh.85@gmail.com</a>
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Tinniam V Ganesh
+</p>
+
+
+<h3>References</h3>
+
+<p><a href="https://cricsheet.org/">https://cricsheet.org/</a><br><a href="https://gigadom.in/">https://gigadom.in/</a><br><a href="https://github.com/tvganesh/yorkrData/">https://github.com/tvganesh/yorkrData/</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code>bowlerMovingAverage</code><br><code>getTeamBowlingDetails</code><br><code>bowlerWktsPredict</code><br><code>teamBowlersWicketRunsOppnAllMatches</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">## Not run: 
+# Create a data frame of deliveries to wickets from the stored .RData files
+jadeja1 &lt;- getDeliveryWickets(team="India",dir="../data",name="Jadeja",save=FALSE)
+
+# Use this to create a classification tree of deliveries to wickets
+bowlerWktsPredict(jadeja1,"RA Jadeja")
+
+## End(Not run)
+
+</code></pre>
+
+
+</div>

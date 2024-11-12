@@ -1,0 +1,226 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>yml_site_opts</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Add site options for <code style="white-space: pre;">⁠_site.yml⁠</code> and navbars for R Markdown websites</h2>
+
+<h3>Description</h3>
+
+<p>R Markdown has a simple website builder baked in (see the R <a href="https://bookdown.org/yihui/rmarkdown/rmarkdown-site.html#site_navigation">Markdown book</a>
+for a detailed description). An R Markdown website must have at least have an
+<code>index.Rmd</code> file and a <code style="white-space: pre;">⁠_site.yml⁠</code> file (which can be empty). Including YAML
+in <code style="white-space: pre;">⁠_site.yml⁠</code> will apply it to all R Markdown files for the website, e.g.
+setting the output format here will tell R Markdown to use that format across
+the website. R Markdown websites also support navbars, which you can specify
+with YAML (see <code>yml_navbar()</code>, as well as ?rmarkdown::render_site and
+?rmarkdown::html_document). Pass <code>navbar_page()</code> to the <code>left</code> or <code>right</code>
+field to set up page tabs and use <code>navbar_separator()</code> to include a
+separators. In addition to writing YAML with <code style="white-space: pre;">⁠yml_*()⁠</code> functions,
+<code>use_site_yml()</code> will take the a <code>yml</code> object and write it to a <code style="white-space: pre;">⁠_site.yml⁠</code>
+file for you.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">yml_site_opts(
+  .yml,
+  name = yml_blank(),
+  favicon = yml_blank(),
+  output_dir = yml_blank(),
+  include = yml_blank(),
+  exclude = yml_blank(),
+  new_session = yml_blank(),
+  ...
+)
+
+yml_navbar(
+  .yml,
+  title = yml_blank(),
+  type = yml_blank(),
+  left = yml_blank(),
+  right = yml_blank(),
+  ...
+)
+
+navbar_page(
+  text = yml_blank(),
+  href = yml_blank(),
+  icon = yml_blank(),
+  menu = yml_blank(),
+  ...
+)
+
+navbar_separator()
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>.yml</code></td>
+<td>
+<p>a <code>yml</code> object created by <code>yml()</code>, <code>as_yml()</code>, or returned by
+a <code style="white-space: pre;">⁠yml_*()⁠</code> function</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>name</code></td>
+<td>
+<p>The name of the website</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>favicon</code></td>
+<td>
+<p>Path to a file to use as the favicon</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>output_dir</code></td>
+<td>
+<p>Directory to copy site content into ("_site" is the default
+if none is specified)</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>include, exclude</code></td>
+<td>
+<p>Files to include or exclude from the copied into
+<code>output_dir</code>. You can use <code>*</code> to indicate a wildcard selection, e.g.
+"*.csv".</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>new_session</code></td>
+<td>
+<p>Logical. Should each website file be rendered in a new
+R session?</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+<p>additional named R objects, such as characters or lists, to
+transform into YAML</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>title</code></td>
+<td>
+<p>The title of the website</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>type</code></td>
+<td>
+<p>The color scheme for the navigation bar: either "default" or "inverse".</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>left, right</code></td>
+<td>
+<p>the side of the navbar a <code>navbar_page()</code> should go (see example)</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>text</code></td>
+<td>
+<p>The link text</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>href</code></td>
+<td>
+<p>The link URL</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>icon</code></td>
+<td>
+<p>An icon to include</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>menu</code></td>
+<td>
+<p>drop-down menus specified by including another <code>navbar_page()</code></p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>a <code>yml</code> object
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code>use_site_yml()</code> <code>use_navbar_yml()</code> <code>use_index_rmd()</code>
+</p>
+<p>Other yml: 
+<code>asis_yaml_output()</code>,
+<code>bib2yml()</code>,
+<code>draw_yml_tree()</code>,
+<code>has_field()</code>,
+<code>read_json()</code>,
+<code>use_yml_defaults()</code>,
+<code>use_yml_file()</code>,
+<code>use_yml()</code>,
+<code>yml_author()</code>,
+<code>yml_blogdown_opts()</code>,
+<code>yml_bookdown_opts()</code>,
+<code>yml_citations()</code>,
+<code>yml_clean()</code>,
+<code>yml_distill_opts()</code>,
+<code>yml_latex_opts()</code>,
+<code>yml_output()</code>,
+<code>yml_pagedown_opts()</code>,
+<code>yml_params()</code>,
+<code>yml_pkgdown()</code>,
+<code>yml_reference()</code>,
+<code>yml_replace()</code>,
+<code>yml_resource_files()</code>,
+<code>yml_rsconnect_email()</code>,
+<code>yml_rticles_opts()</code>,
+<code>yml_runtime()</code>,
+<code>yml_toc()</code>,
+<code>yml_vignette()</code>
+</p>
+<p>Other R Markdown: 
+<code>yml_clean()</code>,
+<code>yml_params()</code>,
+<code>yml_runtime()</code>,
+<code>yml_vignette()</code>
+</p>
+<p>Other websites: 
+<code>yml_distill_opts()</code>,
+<code>yml_pkgdown()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">yml_empty() %&gt;%
+  yml_site_opts(
+    name = "my-website",
+    output_dir =  "_site",
+    include = "demo.R",
+    exclude = c("docs.txt", "*.csv")
+  ) %&gt;%
+  yml_navbar(
+    title = "My Website",
+    left = list(
+      navbar_page("Home", href = "index.html"),
+      navbar_page(navbar_separator(), href = "about.html")
+    )
+  ) %&gt;%
+  yml_output(html_document(toc = TRUE, highlight = "textmate"))
+
+</code></pre>
+
+
+</div>

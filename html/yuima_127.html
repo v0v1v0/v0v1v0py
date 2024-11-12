@@ -1,0 +1,107 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>yuima.Map-class</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Class for the mathematical description of function of a stochastic process</h2>
+
+<h3>Description</h3>
+
+<p>The <code>yuima.Map</code> class is a class of the  <span class="pkg">yuima</span> package that extends the <code>yuima-class</code> it represents a map of a stochastic process
+</p>
+<p><code> zt = g(theta, Xt, t) : R^{q x d x 1} -&gt; R^{l1 x l2 x ...}</code>
+</p>
+<p>or an operator between two independent stochasic process:
+</p>
+<p><code> zt = h(theta, Xt, Yt, t)</code>
+</p>
+<p>where <code>Xt</code> and <code>Yt</code>  are object of class <code>yuima.model-class</code> or <code>yuima-class</code> with the same dimension.
+</p>
+
+
+<h3>Slots</h3>
+
+<p>Here we report the additional slots of an object of class <code>yuima.Map</code> with respect to the <code>yuima-class</code>:
+</p>
+
+<dl>
+<dt>
+<code>Output</code>:</dt>
+<dd>
+<p>It is an object of class <code>info.Map</code> and it is composed by the following slots:
+</p>
+
+<dl>
+<dt>
+<code>formula</code>:</dt>
+<dd>
+<p>It is a <code>vector</code> that contains the components of map <code>g(theta, Xt, t)</code> or the operator <code>h(theta, Xt, Yt, t)</code> </p>
+</dd>
+<dt>
+<code>dimension</code>:</dt>
+<dd>
+<p>a <code>numeric</code> object that is the dimensions of the Map.</p>
+</dd>
+<dt>
+<code>type</code>:</dt>
+<dd>
+<p>If <code>type = "Maps"</code>, the Map is a map of stochastic process, If <code>type = "Operator"</code>, the result is an operator between two independent stochastic process</p>
+</dd>
+<dt><code>param</code></dt>
+<dd>
+<p>it is an object of class <code>param.Map</code> and it is composed by the following slots:
+</p>
+
+<dl>
+<dt>
+<code>out.var</code>:</dt>
+<dd>
+<p>labels for Map.</p>
+</dd>
+<dt>
+<code>allparam</code>:</dt>
+<dd>
+<p>labels of all parameters (model and  map/operators).</p>
+</dd>
+<dt>
+<code>allparamMap</code>:</dt>
+<dd>
+<p>labels of map/operator parameters.</p>
+</dd>
+<dt>
+<code>common</code>:</dt>
+<dd>
+<p>common parameters.</p>
+</dd>
+<dt>
+<code>Input.var</code>:</dt>
+<dd>
+<p>labels for inputs.</p>
+</dd>
+<dt>
+<code>time.var</code>:</dt>
+<dd>
+<p>label for time variable.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+<h3>Methods</h3>
+
+
+<dl>
+<dt>simulate</dt>
+<dd>
+<p>simulation method. For more information see
+<code>simulate</code>.</p>
+</dd>
+</dl>
+<h3>Author(s)</h3>
+
+<p>The YUIMA Project Team</p>
+
+
+</div>

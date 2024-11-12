@@ -1,0 +1,59 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>blogdown_template</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Create YAML based on blogdown theme archetypes</h2>
+
+<h3>Description</h3>
+
+<p><code>blogdown_template()</code> creates YAML based on your blogdown theme archetypes.
+blogdown is based on Hugo, which supports many custom themes. Each theme uses
+YAML in a different way. However, many come with archetypes that define the
+YAML or TOML. To find out which types your theme has, use
+<code>blogdown_archetypes()</code> to see what's available. Use <code>blogdown_template()</code> to
+specify the archetype and it will convert the template to YAML that you can
+use in your post.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">blogdown_template(type, path = ".", theme = NULL)
+
+blogdown_archetypes(path = ".", theme = NULL)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>type</code></td>
+<td>
+<p>an archetype</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>path</code></td>
+<td>
+<p>the path to your blogdown site</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>theme</code></td>
+<td>
+<p>the theme to check for archetypes. By default,
+<code>blogdown_template()</code> will attempt to read your theme from your <code>config</code>
+file.</p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>a <code>yml</code> object
+</p>
+
+
+</div>

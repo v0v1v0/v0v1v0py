@@ -1,0 +1,119 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>classified.factor</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Create Classified from Factor</h2>
+
+<h3>Description</h3>
+
+<p>Creates classified from factor. Uses <code>classified.default</code>,
+but supplies existing levels by default.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">## S3 method for class 'factor'
+classified(
+  x = character(),
+  levels,
+  labels,
+  exclude = NA,
+  ordered = is.ordered(x),
+  nmax = NA,
+  token = character(0),
+  ...
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>x</code></td>
+<td>
+<p>see <code>factor</code></p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>levels</code></td>
+<td>
+<p>passed to <code>classified.default</code>; defaults to <code>levels(x)</code></p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>labels</code></td>
+<td>
+<p>passed to <code>classified.default</code>; must be same length as levels(after removing values in <code>exclude</code>) and must not contain duplicates</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>exclude</code></td>
+<td>
+<p>see <code>factor</code></p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>ordered</code></td>
+<td>
+<p>see <code>factor</code></p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>nmax</code></td>
+<td>
+<p>see <code>factor</code></p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>token</code></td>
+<td>
+<p>informative label for messages</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+<p>ignored</p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>'classified' 'factor'
+</p>
+
+
+<h3>See Also</h3>
+
+<p>Other classified: 
+<code>[.classified()</code>,
+<code>[&lt;-.classified()</code>,
+<code>[[.classified()</code>,
+<code>[[&lt;-.classified()</code>,
+<code>as.integer.classified()</code>,
+<code>c.classified()</code>,
+<code>classified()</code>,
+<code>classified.classified()</code>,
+<code>classified.data.frame()</code>,
+<code>classified.default()</code>,
+<code>classified.dvec()</code>,
+<code>desolve.classified()</code>,
+<code>unclassified()</code>,
+<code>unclassified.classified()</code>,
+<code>unclassified.data.frame()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">a &lt;- factor(c('c','b','a'))
+levels(classified(a))
+attr(classified(a), 'codelist')
+</code></pre>
+
+
+</div>

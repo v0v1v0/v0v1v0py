@@ -1,0 +1,178 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>helio.plot</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2> Helio Plots </h2>
+
+<h3>Description</h3>
+
+<p>Displays data using a circular layout; function is designed to be used with <code>cca</code> objects, but could perhaps be rigged for use in other circumstances.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">helio.plot(c, cv = 1, xvlab = c$xlab, yvlab = c$ylab, 
+    x.name = "X Variables", y.name = "Y Variables", lab.cex = 1,
+    wid.fact = 0.75, main = "Helio Plot", 
+    sub = paste("Canonical Variate", cv, sep = ""), zero.rad = 30, 
+    range.rad = 20, name.padding = 5, name.cex = 1.5, 
+    axis.circ = c(-1, 1), x.group = rep(0, dim(c$xstructcorr)[1]),
+    y.group = rep(0, dim(c$ystructcorr)[1]), type = "correlation")
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>c</code></td>
+<td>
+<p> object to be plotted (generally output from <code>cca</code>. </p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>cv</code></td>
+<td>
+<p> the canonical variate to display. </p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>xvlab</code></td>
+<td>
+<p> X variable labels. </p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>yvlab</code></td>
+<td>
+<p> Y variable labels. </p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>x.name</code></td>
+<td>
+<p> name for the X variable set. </p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>y.name</code></td>
+<td>
+<p> name for the Y variable set. </p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>lab.cex</code></td>
+<td>
+<p> character expansion for plot labels. </p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>wid.fact</code></td>
+<td>
+<p> width multiplier for data bars. </p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>main</code></td>
+<td>
+<p> plot main title. </p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>sub</code></td>
+<td>
+<p> plot subtitle. </p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>zero.rad</code></td>
+<td>
+<p> radius for the zero-value reference circle. </p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>range.rad</code></td>
+<td>
+<p> difference between inner and outer plotting radius. </p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>name.padding</code></td>
+<td>
+<p> offset for variable names. </p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>name.cex</code></td>
+<td>
+<p> character expansion for variable names. </p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>axis.circ</code></td>
+<td>
+<p> location to draw axis circles. </p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>x.group</code></td>
+<td>
+<p> optional grouping vector for X variables.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>y.group</code></td>
+<td>
+<p> optional grouping vector for Y variables. </p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>type</code></td>
+<td>
+<p> one of “correlation” or “variance”, depending on the type of data to be displayed. </p>
+</td>
+</tr>
+</table>
+<h3>Details</h3>
+
+<p>Helio plots display data in radial bars, with larger values pointing outward from a base reference circle and smaller (more negative) values pointing inward).  Such plots are well-suited to the display of multivariate information with several groups of variables, as with canonical correlation analysis.
+</p>
+
+
+<h3>Value</h3>
+
+<p>None.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p> Carter T. Butts &lt;buttsc@uci.edu&gt; </p>
+
+
+<h3>See Also</h3>
+
+ <p><code>cca</code> </p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">data(LifeCycleSavings)
+pop &lt;- LifeCycleSavings[, 2:3]
+oec &lt;- LifeCycleSavings[, -(2:3)]
+cca.fit &lt;- cca(pop, oec)
+
+#Show loadings on first canonical variate
+helio.plot(cca.fit, x.name="Population Variables", 
+    y.name="Economic Variables")
+
+#Show variances on second canonical variate
+helio.plot(cca.fit, cv=2, x.name="Population Variables", 
+    y.name="Economic Variables", type="variance")
+</code></pre>
+
+
+</div>

@@ -1,0 +1,53 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>pt.info</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Information ratio</h2>
+
+<h3>Description</h3>
+
+<p>The information ratio of asset's returns versus benchmark returns, is the
+quotient of the annualized excess return and the annualized standard deviation of the excess
+return.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">pt.info(ar,br,n)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>ar</code></td>
+<td>
+<p>:a vector of a risk asset return</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>br</code></td>
+<td>
+<p>:a vector of benchmark return</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>n</code></td>
+<td>
+<p>:number of years</p>
+</td>
+</tr>
+</table>
+<h3>Examples</h3>
+
+<pre><code class="language-R">brtn &lt;- runif(100, -1, 1)
+artn &lt;- runif(100, 0, 1)
+pt.info(artn,brtn,100)
+</code></pre>
+
+
+</div>

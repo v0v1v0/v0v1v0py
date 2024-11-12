@@ -1,0 +1,118 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>canonCommonality</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Commonality Coefficents for Canonical Correlation</h2>
+
+<h3>Description</h3>
+
+<p>The <code>canonCommonality</code> function produces commonality data 
+for both canonical variables sets. Variables in a given 
+canonical set are used to partition the variance of the 
+canonical variates produced from the <em>other</em> canonical 
+set and vica versa. Commonality data is supplied for the 
+number of canonical functions requested.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">  canonCommonality(A, B, nofns = 1)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>A</code></td>
+<td>
+<p>Matrix containing variable set A</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>B</code></td>
+<td>
+<p>Matrix containing variable set B</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>nofns</code></td>
+<td>
+<p>Number of canonical functions to analyze</p>
+</td>
+</tr>
+</table>
+<h3>Details</h3>
+
+<p>The function <code>canonCommonality</code> has two required arguments 
+and one optional argument. The first two arguments contain the 
+two variable sets. The third argument is optional and defnes 
+the number of canonical functions to analyze. Unless specifed, 
+the number of canonical functions defaults to 1. <br></p>
+<p>The function <code>canonCommonality</code> calls a function 
+<code>canonVariate</code> to decompose canonical varites twice: 
+the first time for the variable set identified in the first 
+argument, the second time for the variable set identified in 
+the second argument.
+</p>
+
+
+<h3>Value</h3>
+
+<p>The function <code>canonCommonality</code> returns commonality data 
+for both canonical variable sets. For the number of functions 
+requested, both canonical variates are analyzed. For each 
+canonical variate analyzed, two tables are returned. The first 
+table lists the commonality coefficients and their contribution 
+to the total effect, while the second table lists the unique 
+and common effects for each regressor. The function returns 
+the resulting output ordering the output according to the 
+function's paramaeters.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p> Kim Nimon &lt;kim.nimon@gmail.com&gt;</p>
+
+
+<h3>References</h3>
+
+<p>Nimon, K., Henson, R., &amp; Gates, M. (2010). Revisiting interpretation of canonical correlation analysis: A tutorial and demonstration of canonical commonality analysis.  <em>Multivariate Behavioral Research</em>, <em>45</em>,702-724.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code>canonVariate</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">  ## Example parallels the R builtin cancor and the 
+  ## yacca cca example
+     data(LifeCycleSavings)
+     pop &lt;- LifeCycleSavings[, 2:3]
+     oec &lt;- LifeCycleSavings[, -(2:3)]
+  ## Perform Commonality Coefficient Analysis
+     canonCommonData&lt;-canonCommonality(pop,oec,1)
+
+  ## Use HS dataset in MBESS 
+     if (require("MBESS")){
+     data(HS)
+     attach(HS)
+  ## Create canonical variable sets
+     MATH_REASON&lt;-HS[,c("t20_deduction","t22_problem_reasoning")]
+     MATH_FUND&lt;-HS[,c("t21_numerical_puzzles","t24_woody_mccall","t10_addition")] 
+  ## Perform Commonality Coefficient Analysis
+     canonCommonData&lt;-canonCommonality(MATH_FUND,MATH_REASON,1)
+     detach(HS)      
+     }
+</code></pre>
+
+
+</div>

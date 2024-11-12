@@ -1,0 +1,198 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>errorStats</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Compute error components of k-NN imputations</h2>
+
+<h3>Description</h3>
+
+<p>Error properties of estimates derived from imputation differ from those of regression-based
+estimates because the two methods include a different mix of error components. This function
+computes a partitioning of error statistics as proposed by Stage and Crookston (2007).
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">errorStats(mahal,...,scale=FALSE,pzero=0.1,plg=0.5,seeMethod="lm")
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>mahal</code></td>
+<td>
+<p>An object of class <code>yai</code> computed with <code>method="mahalanobis"</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+<p>Other objects of class <code>yai</code> for which statistics are desired. All
+objects should be for the same data and variables used for the first argument.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>scale</code></td>
+<td>
+<p>When <code>TRUE</code>, the errors are scaled by their respective standard deviations.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>pzero</code></td>
+<td>
+<p>The lower tail p-value used to pick <em>reference</em> observations that are zero
+distance from each other (used to compute <code>rmmsd0</code>).</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>plg</code></td>
+<td>
+<p>The upper tail p-value used to pick <em>reference</em> observations that are
+substantially distant from each other (used to compute <code>rmsdlg</code>).</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>seeMethod</code></td>
+<td>
+<p>Method used to compute <code>SEE</code>: <code>seeMethod="lm"</code> uses <code>lm</code>
+and <code>seeMethod="gam"</code> uses <code>gam</code>. In both cases, the model formula is
+a simple linear combination of the X-variables.</p>
+</td>
+</tr>
+</table>
+<h3>Details</h3>
+
+<p>See <a href="https://academic.oup.com/forestscience/article/53/1/62/4604364">https://academic.oup.com/forestscience/article/53/1/62/4604364</a>
+</p>
+
+
+<h3>Value</h3>
+
+<p>A list that contains several data frames. The column names of each are a combination
+of the name of the object used to compute the statistics and the name of the statistic. The
+rownames correspond the the Y-variables from the first argument. The data frame names are as follows:
+</p>
+<table>
+<tr style="vertical-align: top;">
+<td><code>common</code></td>
+<td>
+<p>statistics used to compute other statistics.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>name of first argument</code></td>
+<td>
+<p>error statistics for the first <code>yai</code> object.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>names of ... arguments</code></td>
+<td>
+<p>error statistics for each of the remaining <code>yai</code> objects,
+if any.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>see</code></td>
+<td>
+<p>standard error of estimate for individual regressions fit for
+corresponding Y-variables.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>rmmsd0</code></td>
+<td>
+<p>root mean square difference for imputations based on <code>method="mahalanobis"</code>
+(always based on the first argument to the function).</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>mlf</code></td>
+<td>
+<p>square root of the model lack of fit: <code class="reqn">sqrt(see^2 - (rmmsd0^2/2))</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>rmsd</code></td>
+<td>
+<p>root mean square error.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>rmsdlg</code></td>
+<td>
+<p>root mean square error of the observations with larger distances.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>sei</code></td>
+<td>
+<p>standard error of imputation <code class="reqn">sqrt(rmsd^2 - (rmmsd0^2/2))</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>dstc</code></td>
+<td>
+<p>distance component: <code class="reqn">sqrt(rmsd^2 - rmmsd0^2)</code>.</p>
+</td>
+</tr>
+</table>
+<p>Note that unlike Stage and Crookston (2007), all statistics reported here are in the natural
+units, not squared units.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Nicholas L. Crookston <a href="mailto:ncrookston.fs@gmail.com">ncrookston.fs@gmail.com</a> <br>
+Albert R. Stage
+</p>
+
+
+<h3>References</h3>
+
+<p>Stage, A.R.; Crookston, N.L. (2007). Partitioning error components
+for accuracy-assessment of near neighbor methods of imputation.
+<em>For. Sci.</em> 53(1):62-72.
+<a href="https://academic.oup.com/forestscience/article/53/1/62/4604364">https://academic.oup.com/forestscience/article/53/1/62/4604364</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code>yai</code>, <code>TallyLake</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">
+require (yaImpute)
+
+data(TallyLake)
+
+diag(cov(TallyLake[,1:8])) # see col A in Table 3 in Stage and Crookston
+
+mal=yai(x=TallyLake[,9:29],y=TallyLake[,1:8],
+        noTrgs=TRUE,method="mahalanobis")
+
+
+msn=yai(x=TallyLake[,9:29],y=TallyLake[,1:8],
+        noTrgs=TRUE,method="msn")
+
+
+# variable "see" for "mal" matches col B (when squared and scaled)
+# other columns don't match exactly as Stage and Crookston used different
+# software to compute values
+
+errorStats(mal,msn)
+
+</code></pre>
+
+
+</div>

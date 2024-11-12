@@ -1,0 +1,174 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>CarmaNoise</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Estimation for the underlying Levy in a carma model</h2>
+
+<h3>Description</h3>
+
+<p>Retrieve the increment of the underlying Levy for the carma(p,q) process using the approach developed in Brockwell et al.(2011)</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">CarmaNoise(yuima, param, data=NULL, NoNeg.Noise=FALSE)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>yuima</code></td>
+<td>
+<p>a yuima object or an object of <code>yuima.carma-class</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>param</code></td>
+<td>
+<p><code>list</code> of parameters for the carma.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>data</code></td>
+<td>
+<p>an object of class <code>yuima.data-class</code> contains the observations available at uniformly spaced time. If <code>data=NULL</code>, the default, the 'CarmaNoise' uses the data in an object of <code>yuima.data-class</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>NoNeg.Noise</code></td>
+<td>
+<p>Estimate a non-negative Levy-Driven Carma process. By default <code>NoNeg.Noise=FALSE</code>.</p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+
+<table><tr style="vertical-align: top;">
+<td><code>incr.Levy</code></td>
+<td>
+<p>a numeric object contains the estimated increments.</p>
+</td>
+</tr></table>
+<h3>Note</h3>
+
+
+<p>The function <code>qmle</code> uses the function <code>CarmaNoise</code> for estimation of underlying Levy in the carma model.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>The YUIMA Project Team</p>
+
+
+<h3>References</h3>
+
+<p>Brockwell, P., Davis, A. R. and Yang. Y. (2011)
+Estimation for Non-Negative Levy-Driven CARMA Process, <em>Journal of Business And Economic Statistics</em>, <b>29</b> - 2, 250-259.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">## Not run: 
+#Ex.1: Carma(p=3, q=0) process driven by a brownian motion.
+
+mod0&lt;-setCarma(p=3,q=0)
+
+# We fix the autoregressive and moving average parameters
+# to ensure the existence of a second order stationary solution for the process.
+
+true.parm0 &lt;-list(a1=4,a2=4.75,a3=1.5,b0=1)
+
+# We simulate a trajectory of the Carma model.
+
+numb.sim&lt;-1000
+samp0&lt;-setSampling(Terminal=100,n=numb.sim)
+set.seed(100)
+incr.W&lt;-matrix(rnorm(n=numb.sim,mean=0,sd=sqrt(100/numb.sim)),1,numb.sim)
+
+sim0&lt;-simulate(mod0,
+               true.parameter=true.parm0,
+               sampling=samp0, increment.W=incr.W)
+
+#Applying the CarmaNoise
+
+system.time(
+  inc.Levy0&lt;-CarmaNoise(sim0,true.parm0)
+)
+
+# We compare the orginal with the estimated noise increments 
+
+par(mfrow=c(1,2))
+plot(t(incr.W)[1:998],type="l", ylab="",xlab="time")
+title(main="True Brownian Motion",font.main="1")
+plot(inc.Levy0,type="l", main="Filtered Brownian Motion",font.main="1",ylab="",xlab="time")
+
+# Ex.2: carma(2,1) driven  by a compound poisson
+# where jump size is normally distributed and
+# the lambda is equal to 1.
+
+mod1&lt;-setCarma(p=2,               
+               q=1,
+               measure=list(intensity="Lamb",df=list("dnorm(z, 0, 1)")),
+               measure.type="CP") 
+
+true.parm1 &lt;-list(a1=1.39631, a2=0.05029,
+                  b0=1,b1=2,
+                  Lamb=1)
+
+# We generate a sample path.
+
+samp1&lt;-setSampling(Terminal=100,n=200)
+set.seed(123)
+sim1&lt;-simulate(mod1,
+               true.parameter=true.parm1,
+               sampling=samp1)
+
+# We estimate the parameter using qmle.
+carmaopt1 &lt;- qmle(sim1, start=true.parm1)
+summary(carmaopt1)
+# Internally qmle uses CarmaNoise. The result is in 
+plot(carmaopt1)
+
+# Ex.3: Carma(p=2,q=1) with scale and location parameters 
+# driven by a Compound Poisson
+# with jump size normally distributed.
+mod2&lt;-setCarma(p=2,                
+               q=1,
+               loc.par="mu",
+               scale.par="sig",
+               measure=list(intensity="Lamb",df=list("dnorm(z, 0, 1)")),
+               measure.type="CP") 
+
+true.parm2 &lt;-list(a1=1.39631,
+                  a2=0.05029,
+                  b0=1,
+                  b1=2,
+                  Lamb=1,
+                  mu=0.5,
+                  sig=0.23)
+# We simulate the sample path 
+set.seed(123)
+sim2&lt;-simulate(mod2,
+               true.parameter=true.parm2,
+               sampling=samp1)
+
+# We estimate the Carma and we plot the underlying noise.
+
+carmaopt2 &lt;- qmle(sim2, start=true.parm2)
+summary(carmaopt2)
+
+# Increments estimated by CarmaNoise
+plot(carmaopt2)
+
+## End(Not run)
+</code></pre>
+
+
+</div>

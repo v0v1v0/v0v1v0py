@@ -1,0 +1,67 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>[.yamlet</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Subset Yamlet</h2>
+
+<h3>Description</h3>
+
+<p>Subsets yamlet. Preserves class, since a subset of yamlet is still yamlet.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">## S3 method for class 'yamlet'
+x[...]
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>x</code></td>
+<td>
+<p>object to subset</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+<p>passed to next method</p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>yamlet
+</p>
+
+
+<h3>See Also</h3>
+
+<p>Other yamlet: 
+<code>as.character.yamlet()</code>,
+<code>as_yamlet()</code>,
+<code>as_yamlet.character()</code>,
+<code>as_yamlet.data.frame()</code>,
+<code>as_yamlet.list()</code>,
+<code>as_yamlet.yam()</code>,
+<code>as_yamlet.yamlet()</code>,
+<code>print.yamlet()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">meta &lt;- system.file(package = 'yamlet', 'extdata','quinidine.yaml')
+meta &lt;- as_yamlet(meta)
+class(meta)
+stopifnot(inherits(meta[1:2],'yamlet'))
+</code></pre>
+
+
+</div>

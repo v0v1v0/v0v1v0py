@@ -1,0 +1,125 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>equal_opportunity</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Equal opportunity</h2>
+
+<h3>Description</h3>
+
+<p>Equal opportunity is satisfied when a model's predictions have the same
+true positive and false negative rates across protected groups. A value of
+0 indicates parity across groups.
+</p>
+<p><code>equal_opportunity()</code> is calculated as the difference between the largest
+and smallest value of <code>sens()</code> across groups.
+</p>
+<p>Equal opportunity is sometimes referred to as equality of opportunity.
+</p>
+<p>See the "Measuring Disparity" section for details on implementation.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">equal_opportunity(by)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table><tr style="vertical-align: top;">
+<td><code>by</code></td>
+<td>
+<p>The column identifier for the sensitive feature. This should be an
+unquoted column name referring to a column in the un-preprocessed data.</p>
+</td>
+</tr></table>
+<h3>Value</h3>
+
+<p>This function outputs a yardstick <em>fairness metric</em> function. Given a
+grouping variable <code>by</code>, <code>equal_opportunity()</code> will return a yardstick metric
+function that is associated with the data-variable grouping <code>by</code> and a
+post-processor. The outputted function will first generate a set
+of sens metric values by group before summarizing across
+groups using the post-processing function.
+</p>
+<p>The outputted function only has a data frame method and is intended to
+be used as part of a metric set.
+</p>
+
+
+<h3>Measuring Disparity</h3>
+
+<p>By default, this function takes the difference in range of sens
+<code>.estimate</code>s across groups. That is, the maximum pair-wise disparity between
+groups is the return value of <code>equal_opportunity()</code>'s <code>.estimate</code>.
+</p>
+<p>For finer control of group treatment, construct a context-aware fairness
+metric with the <code>new_groupwise_metric()</code> function by passing a custom <code>aggregate</code>
+function:
+</p>
+<div class="sourceCode"><pre># the actual default `aggregate` is:
+diff_range &lt;- function(x, ...) {diff(range(x$.estimate))}
+
+equal_opportunity_2 &lt;-
+  new_groupwise_metric(
+    fn = sens,
+    name = "equal_opportunity_2",
+    aggregate = diff_range
+  )
+</pre></div>
+<p>In <code>aggregate()</code>, <code>x</code> is the <code>metric_set()</code> output with sens values
+for each group, and <code>...</code> gives additional arguments (such as a grouping
+level to refer to as the "baseline") to pass to the function outputted
+by <code>equal_opportunity_2()</code> for context.
+</p>
+
+
+<h3>References</h3>
+
+<p>Hardt, M., Price, E., &amp; Srebro, N. (2016). "Equality of opportunity in
+supervised learning". Advances in neural information processing systems, 29.
+</p>
+<p>Verma, S., &amp; Rubin, J. (2018). "Fairness definitions explained". In
+Proceedings of the international workshop on software fairness (pp. 1-7).
+</p>
+<p>Bird, S., Dudík, M., Edgar, R., Horn, B., Lutz, R., Milan, V., ... &amp; Walker,
+K. (2020). "Fairlearn: A toolkit for assessing and improving fairness in AI".
+Microsoft, Tech. Rep. MSR-TR-2020-32.
+</p>
+
+
+<h3>See Also</h3>
+
+<p>Other fairness metrics: 
+<code>demographic_parity()</code>,
+<code>equalized_odds()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">library(dplyr)
+
+data(hpc_cv)
+
+head(hpc_cv)
+
+# evaluate `equal_opportunity()` by Resample
+m_set &lt;- metric_set(equal_opportunity(Resample))
+
+# use output like any other metric set
+hpc_cv %&gt;%
+  m_set(truth = obs, estimate = pred)
+
+# can mix fairness metrics and regular metrics
+m_set_2 &lt;- metric_set(sens, equal_opportunity(Resample))
+
+hpc_cv %&gt;%
+  m_set_2(truth = obs, estimate = pred)
+</code></pre>
+
+
+</div>

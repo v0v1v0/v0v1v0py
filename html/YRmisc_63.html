@@ -1,0 +1,46 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>pt.te</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Tracking error</h2>
+
+<h3>Description</h3>
+
+<p>Tracking error, in finance, is a measure of risk in a portfolio that is due to active management
+decisions made by the manager. It indicates how closely the portfolio follows the benchmark of choosing.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">pt.te(pr,br)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>pr</code></td>
+<td>
+<p>:portfolio return</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>br</code></td>
+<td>
+<p>:benchmark return</p>
+</td>
+</tr>
+</table>
+<h3>Examples</h3>
+
+<pre><code class="language-R">prtn &lt;- runif(12,-1,1)
+brtn &lt;- runif(12,-1,1)
+pt.te(prtn,brtn)
+</code></pre>
+
+
+</div>

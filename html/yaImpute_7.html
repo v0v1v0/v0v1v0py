@@ -1,0 +1,110 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>compare.yai</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Compares different k-NN solutions</h2>
+
+<h3>Description</h3>
+
+<p>Provides a convenient display of the root mean square differences
+(see <code>rmsd.yai</code>) or correlations (see <code>cor.yai</code>) between observed and
+imputed values for each of several imputations. Each column of the returned
+data frame corresponds to an imputation result and each row corresponds to a
+variable.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">compare.yai(...,ancillaryData=NULL,vars=NULL,method="rmsd",scale=TRUE)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+<p>a list of objects created by <code>yai</code> or <code>impute.yai</code>
+that you wish to compare.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>ancillaryData</code></td>
+<td>
+<p>a data frame that defines new variables, passed to <code>impute.yai</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>vars</code></td>
+<td>
+<p>a list of variable names you want to include; if NULL all available
+variables are included.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>method</code></td>
+<td>
+<p>when <em>rmsd</em> is specified, the comparison is based on root mean
+square differences between observed an imputed, and <br>
+when <em>cor</em> is specified, the comparison is based on correlations between
+observed and imputed.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>scale</code></td>
+<td>
+<p>passed to <code>rmsd.yai</code></p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>A data.frame of class <code>c("compare.yai","data.frame")</code>, where the columns
+are the names of the ...-arguments and the rows are a union of
+variable names. NA's are returned when the variables are factors. The scale values (if used)
+are returned as an attribute (all if some are different than others, a warning is issued).
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Nicholas L. Crookston <a href="mailto:ncrookston.fs@gmail.com">ncrookston.fs@gmail.com</a> <br>
+Andrew O. Finley <a href="mailto:finleya@msu.edu">finleya@msu.edu</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code>yai</code>, <code>plot.compare.yai</code>,
+<code>impute.yai</code>, <code>rmsd.yai</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">require(yaImpute)
+
+data(iris)
+
+# form some test data
+refs=sample(rownames(iris),50)
+x &lt;- iris[,1:2]      # Sepal.Length Sepal.Width
+y &lt;- iris[refs,3:4]  # Petal.Length Petal.Width
+
+# build yai objects using 2 methods
+msn &lt;- yai(x=x,y=y)
+mal &lt;- yai(x=x,y=y,method="mahalanobis")
+
+# compare the y variables
+compare.yai(msn,mal)
+
+# compare the all variables in iris
+compare.yai(msn,mal,ancillaryData=iris)  # Species is a factor, no comparison is made
+</code></pre>
+
+
+</div>

@@ -1,0 +1,39 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>pl.mv</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Plot mean-variance simulation result</h2>
+
+<h3>Description</h3>
+
+<p>This function is used to plot the result of portfolio simulation by pt.mv().
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">pl.mv(port)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table><tr style="vertical-align: top;">
+<td><code>port</code></td>
+<td>
+<p>:portfolio simulation result from pt.mv()</p>
+</td>
+</tr></table>
+<h3>Examples</h3>
+
+<pre><code class="language-R">set.seed(1)
+rtn &lt;- data.frame(runif(120,-1,1),runif(120,-1,1),runif(120,-1,1),runif(120,-1,1))
+names(rtn) &lt;- c("asset1","asset2","asset3","asset4")
+portfolio &lt;- pt.hismv(rtn,1000,0)
+pl.mv(portfolio)
+</code></pre>
+
+
+</div>

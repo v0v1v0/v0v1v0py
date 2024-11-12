@@ -1,0 +1,98 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>print.decorated_ggplot</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Substitute Expressions, Titles, Labels and Aesthetics in ggplots</h2>
+
+<h3>Description</h3>
+
+<p>Default labels (e.g. mappings for <code>x</code>, <code>y</code>, etc.)
+will be used to search <code>data</code> for more meaningful
+labels, taking first available from attributes
+with names in <code>search</code>.  Likewise, if mappings for 
+colour (color), fill, size, etc. (see defaults for <code>discrete</code>)
+indicate columns that have these defined as attributes, 
+an attempt is made to add a corresponding discrete scale if
+one does not exist already. Values are recycled if necessary
+and are specific by ordinal position to the corresponding
+level of the corresponding variable.  Levels are defined
+in increasing priority by
+<code>sort(unique(x))</code>,
+any guide attribute,
+any factor levels,
+any codelist attribute, or
+any plotmath attribute.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">## S3 method for class 'decorated_ggplot'
+print(
+  x,
+  ...,
+  search = getOption("yamlet_decorated_ggplot_search", c("expression", "title", "label")),
+  discrete = getOption("yamlet_decorated_ggplot_discrete", c("colour", "fill", "size",
+    "shape", "linetype", "linewidth", "alpha")),
+  drop = getOption("yamlet_decorated_ggplot_drop", TRUE)
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>x</code></td>
+<td>
+<p>class 'decorated_ggplot' from <code>ggplot.decorated</code></p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+<p>ignored</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>search</code></td>
+<td>
+<p>attribute names from which to seek label substitutes</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>discrete</code></td>
+<td>
+<p>discrete aesthetics to map from data decorations where available</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>drop</code></td>
+<td>
+<p>should unused factor levels be omitted from data-driven discrete scales?</p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>see <code>print.ggplot</code>
+</p>
+
+
+<h3>See Also</h3>
+
+<p>Other decorated_ggplot: 
+<code>ggplot.decorated()</code>,
+<code>ggplot_build.decorated_ggplot()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">example(ggplot.decorated)
+</code></pre>
+
+
+</div>

@@ -1,0 +1,68 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>code_chunk</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Write code chunks programmatically</h2>
+
+<h3>Description</h3>
+
+<p><code>code_chunk()</code> assembles a knitr code chunk as a character vector.
+<code>setup_chunk()</code> is a wrapper around <code>code_chunk()</code> to create setup chunks. By
+default it uses <code>include = FALSE</code> and inserts <code>knitr::opts_chunk$set(echo = TRUE)</code> into the chunk body. These are helper functions to write R Markdown
+bodies for <code>use_rmarkdown()</code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">code_chunk(chunk_code, chunk_name = NULL, chunk_args = NULL)
+
+setup_chunk(chunk_code = NULL, chunk_args = list(include = FALSE))
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>chunk_code</code></td>
+<td>
+<p>An expression. Surround with <code>{}</code> to capture multiple
+lines.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>chunk_name</code></td>
+<td>
+<p>The name of the chunk</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>chunk_args</code></td>
+<td>
+<p>A <code>list</code> of chunk options</p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>a character vector
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">
+setup_chunk()
+
+code_chunk({
+  yml() %&gt;%
+    yml_output(pdf_document())
+}, chunk_name = "yml_example")
+
+</code></pre>
+
+
+</div>

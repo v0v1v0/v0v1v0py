@@ -1,0 +1,59 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>playlist_playback_location</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Playlist Playback Location</h2>
+
+<h3>Description</h3>
+
+<p>Returns the type of page or application where video playbacks occurred.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">playlist_playback_location(playlistId = NULL, ...)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>playlistId</code></td>
+<td>
+<p>Required. String. Id of YouTube playlist.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+<p>Addt. arguments passed to <code>analytics_request</code></p>
+</td>
+</tr>
+</table>
+<h3>Details</h3>
+
+<p>For more information, refer to
+<a href="https://developers.google.com/youtube/analytics/dimensions#Playback_Location_Dimensions">https://developers.google.com/youtube/analytics/dimensions#Playback_Location_Dimensions</a>
+</p>
+
+
+<h3>Value</h3>
+
+<p>data.frame
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">## Not run: 
+playlist_playback_location(playlistId = "PL2MI040U_GXq1L5JUxNOulWCyXn-7QyZK")
+
+## End(Not run)
+</code></pre>
+
+
+</div>

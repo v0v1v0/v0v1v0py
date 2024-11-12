@@ -1,0 +1,115 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>simCIR</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Simulation of the Cox-Ingersoll-Ross diffusion</h2>
+
+<h3>Description</h3>
+
+<p>This is a function to simulate a Cox-Ingersoll-Ross process given via the SDE 
+</p>
+<p><code class="reqn">\mathrm{d} X_t = (\alpha-\beta X_t)\mathrm{d} t + \sqrt{\gamma X_t}\mathrm{d} W_t</code>
+</p>
+<p>with a Brownian motion <code class="reqn">(W_t)_{t\geq 0}</code> and parameters <code class="reqn">\alpha,\beta,\gamma&gt;0.</code> We use an exact CIR simulator for <code class="reqn">(X_{t_j} )_{j=1,\dots,n}</code> through the non-central chi-squares distribution.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">simCIR(time.points, n, h, alpha, beta, gamma, equi.dist=FALSE )
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>alpha, beta, gamma</code></td>
+<td>
+
+<p>numbers given as in the SDE above. 
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>equi.dist</code></td>
+<td>
+<p>a logical value indicating whether the sampling points are equidistant (default <code>equi.dist=FALSE</code>).
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>n</code></td>
+<td>
+
+<p>a number indicating the quantity of sampling points in the case <code>equi.dist=TRUE</code>.
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>h</code></td>
+<td>
+
+<p>a number indicating the step size in the case <code>equi.dist=TRUE</code>.  
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>time.points</code></td>
+<td>
+
+<p>a numeric vector of sampling times (necessary if <code>equi.dist=FALSE</code>).
+</p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>A numeric matrix containing the realization of <code class="reqn">(t_0,X_{t_0}),\dots, (t_n,X_{t_n})</code> with <code class="reqn">t_j</code> denoting the <code class="reqn">j</code>-th sampling times.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Nicole Hufnagel 
+</p>
+<p>Contacts: <a href="mailto:nicole.hufnagel@math.tu-dortmund.de">nicole.hufnagel@math.tu-dortmund.de</a>
+</p>
+
+
+<h3>References</h3>
+
+<p>S. J. A. Malham and A. Wiese. Chi-square simulation of the CIR process
+and the Heston model. Int. J. Theor. Appl. Finance, 16(3):1350014, 38,
+2013.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">## You always need the parameters alpha, beta and gamma
+## Additionally e.g. time.points
+data &lt;- simCIR(alpha=3,beta=1,gamma=1,
+               time.points = c(0,0.1,0.2,0.25,0.3))
+## or n, number of observations, h, distance between observations,
+## and equi.dist=TRUE
+data &lt;- simCIR(alpha=3,beta=1,gamma=1,n=1000,h=0.1,equi.dist=TRUE)
+plot(data[1,],data[2,], type="l",col=4)
+
+## If you input every value and equi.dist=TRUE, time.points are not
+## used for the simulations.
+
+data &lt;- simCIR(alpha=3,beta=1,gamma=1,n=1000,h=0.1,
+               time.points = c(0,0.1,0.2,0.25,0.3),
+               equi.dist=TRUE)
+
+## If you leave equi.dist=FALSE, the parameters n and h are not
+## used for the simulation.
+data &lt;- simCIR(alpha=3,beta=1,gamma=1,n=1000,h=0.1,
+               time.points = c(0,0.1,0.2,0.25,0.3))
+</code></pre>
+
+
+</div>

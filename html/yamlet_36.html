@@ -1,0 +1,80 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>as_unit_string.symbolic_units</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Coerce Symbolic Units to Unit String.</h2>
+
+<h3>Description</h3>
+
+<p>Coerces symbolic units to unit_string.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">## S3 method for class 'symbolic_units'
+as_unit_string(x, canonical = TRUE, ...)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>x</code></td>
+<td>
+<p>symbolic_units; see <code>as_units</code></p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>canonical</code></td>
+<td>
+<p>whether to return the form having all positive exponents</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+<p>ignored arguments</p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>unit_string
+</p>
+
+
+<h3>See Also</h3>
+
+<p>Other unit_string: 
+<code>[.unit_string()</code>,
+<code>[[.unit_string()</code>,
+<code>as_unit_string()</code>,
+<code>as_unit_string.character()</code>,
+<code>as_unit_string.factor()</code>,
+<code>as_unit_string.units()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">library(units)
+x &lt;- as_units('kg.m/s^2')
+names(attributes(x))
+y &lt;- attr(x,'units')
+class(y)
+as.character(y)
+as.character(attr(x, 'units'))
+as_unit_string(y)
+library(magrittr)
+'kg.m^2/s^2' %&gt;% as_units %&gt;% attr('units') %&gt;% as_unit_string
+'kg.m2 s-2' %&gt;% as_units %&gt;% attr('units') %&gt;% as_unit_string
+'kg.m^2/s^2' %&gt;% as_units %&gt;% attr('units') %&gt;% as_unit_string(FALSE)
+'kg.m2 s-2' %&gt;% as_units %&gt;% attr('units') %&gt;% as_unit_string(FALSE)
+</code></pre>
+
+
+</div>

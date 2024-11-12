@@ -1,0 +1,76 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>effect.size</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Effect Size Computation for lm</h2>
+
+<h3>Description</h3>
+
+<p>Creates adjusted effect sizes for linear regression.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">  effect.size(lm.out)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table><tr style="vertical-align: top;">
+<td><code>lm.out</code></td>
+<td>
+<p>Output from lm class object</p>
+</td>
+</tr></table>
+<h3>Details</h3>
+
+<p>The function <code>effect.size</code> produces a family of effect
+size corrections for the R-squared metric produced from an
+<code>lm</code> class object. Suggestions for recommended correction
+are supplied, based on Yin and Fan (2001).
+</p>
+
+
+<h3>Value</h3>
+
+<p>Returns adjusted R-squared metric.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p> J. Kyle Roberts &lt;kyler@smu.edu&gt;</p>
+
+
+<h3>References</h3>
+
+<p>Yin, P., &amp; Fan. X. (2001) Estimated R^2 shrinkage in multiple
+regression: A comparison of different analytical methods. 
+<em>The Journal of Experimental Education</em>, <em>69</em>, 
+203-224.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code>regr</code>,<code>yhat</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">     if (require("MBESS")){
+     data(HS)
+     attach(HS)
+     lm.out&lt;-lm(t20_deduction~t10_addition*t24_woody_mccall)
+     effect.size(lm.out)
+     detach(HS)
+     }
+</code></pre>
+
+
+</div>

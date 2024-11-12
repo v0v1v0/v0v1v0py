@@ -1,0 +1,52 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>pt.updwcap</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Up and down capture</h2>
+
+<h3>Description</h3>
+
+<p>The up and down capture is a measure of how an asset was able to improve on benchmark returns
+or how it underperforms over the benchmark.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">pt.updwcap(ar,br,n)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>ar</code></td>
+<td>
+<p>:a vector of a risk asset return</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>br</code></td>
+<td>
+<p>:a vector of benchmark return</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>n</code></td>
+<td>
+<p>:number of years of asset return, used to calculate annualized return</p>
+</td>
+</tr>
+</table>
+<h3>Examples</h3>
+
+<pre><code class="language-R">artn &lt;- runif(12, -1, 1)
+brtn &lt;- runif(12,-1,1)
+pt.updwcap(artn,brtn,1)
+</code></pre>
+
+
+</div>

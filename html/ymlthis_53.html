@@ -1,0 +1,164 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>use_yml_file</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Write YAML to file</h2>
+
+<h3>Description</h3>
+
+<p>Write <code>yml</code> objects to a file. <code>use_yml_file()</code> writes to any given file
+name. <code>use_output_yml()</code> creates file <code style="white-space: pre;">⁠_output.yml⁠</code>, which can be used by
+multiple R Markdown documents. All documents located in the same directory as
+<code style="white-space: pre;">⁠_output.yml⁠</code> will inherit its output options. Options defined within
+document YAML headers will override those specified in <code style="white-space: pre;">⁠_output.yml⁠</code>. Note
+that <code>use_output_yml()</code> plucks the output field from <code>yml</code>; any other YAML
+top-level fields will be ignored. <code>use_site_yml</code> creates <code style="white-space: pre;">⁠_site.yml⁠</code> for use
+with R Markdown websites and third-party tools like the distill package (see
+<a href="https://bookdown.org/yihui/rmarkdown/rmarkdown-site.html#">the R Markdown book for more</a>).
+<code>use_navbar_yml</code> is a special type of site YAML that only specifies the
+navbar in <code style="white-space: pre;">⁠_navbar.yml⁠</code> <code>use_pkgdown_yml()</code> and <code>use_bookdown_yml()</code> write
+YAML files specific to those packages; see the
+<a href="https://pkgdown.r-lib.org/articles/pkgdown.html">pkgdown</a> and
+<a href="https://bookdown.org/yihui/bookdown/configuration.html">blogdown</a>
+documentation for more.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">use_yml_file(
+  .yml = NULL,
+  path,
+  build_ignore = FALSE,
+  git_ignore = FALSE,
+  quiet = FALSE
+)
+
+use_output_yml(
+  .yml = NULL,
+  path = ".",
+  build_ignore = FALSE,
+  git_ignore = FALSE,
+  quiet = FALSE
+)
+
+use_site_yml(
+  .yml = NULL,
+  path = ".",
+  build_ignore = FALSE,
+  git_ignore = FALSE,
+  quiet = FALSE
+)
+
+use_navbar_yml(
+  .yml = NULL,
+  path = ".",
+  build_ignore = FALSE,
+  git_ignore = FALSE,
+  quiet = FALSE
+)
+
+use_pkgdown_yml(
+  .yml = NULL,
+  path = ".",
+  build_ignore = TRUE,
+  git_ignore = FALSE,
+  quiet = FALSE
+)
+
+use_bookdown_yml(
+  .yml = NULL,
+  path = ".",
+  build_ignore = FALSE,
+  git_ignore = FALSE,
+  quiet = FALSE
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>.yml</code></td>
+<td>
+<p>a <code>yml</code> object created by <code>yml()</code>, <code>as_yml()</code>, or returned by
+a <code style="white-space: pre;">⁠yml_*()⁠</code> function</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>path</code></td>
+<td>
+<p>a file path to write the file to</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>build_ignore</code></td>
+<td>
+<p>Logical. Should the file be added to the <code>.Rbuildignore</code>
+file?</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>git_ignore</code></td>
+<td>
+<p>Logical. Should the file be added to the <code>.gitignore</code> file?</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>quiet</code></td>
+<td>
+<p>Logical. Whether to message about what is happening.</p>
+</td>
+</tr>
+</table>
+<h3>Details</h3>
+
+<p>By default, the yaml package adds a new line to the end of files. Some
+environments, such as RStudio Projects, allow you to append new lines
+automatically. Thus, you may end up with 2 new lines at the end of your file.
+If you'd like to automatically remove the last new line in the file, set
+<code>options(ymlthis.remove_blank_line = TRUE)</code>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p>yml_bookdown_opts yml_bookdown_site yml_pkgdown yml_pkgdown_articles
+yml_pkgdown_docsearch yml_pkgdown_figures yml_pkgdown_news
+yml_pkgdown_reference
+</p>
+<p>Other yml: 
+<code>asis_yaml_output()</code>,
+<code>bib2yml()</code>,
+<code>draw_yml_tree()</code>,
+<code>has_field()</code>,
+<code>read_json()</code>,
+<code>use_yml_defaults()</code>,
+<code>use_yml()</code>,
+<code>yml_author()</code>,
+<code>yml_blogdown_opts()</code>,
+<code>yml_bookdown_opts()</code>,
+<code>yml_citations()</code>,
+<code>yml_clean()</code>,
+<code>yml_distill_opts()</code>,
+<code>yml_latex_opts()</code>,
+<code>yml_output()</code>,
+<code>yml_pagedown_opts()</code>,
+<code>yml_params()</code>,
+<code>yml_pkgdown()</code>,
+<code>yml_reference()</code>,
+<code>yml_replace()</code>,
+<code>yml_resource_files()</code>,
+<code>yml_rsconnect_email()</code>,
+<code>yml_rticles_opts()</code>,
+<code>yml_runtime()</code>,
+<code>yml_site_opts()</code>,
+<code>yml_toc()</code>,
+<code>yml_vignette()</code>
+</p>
+
+
+</div>

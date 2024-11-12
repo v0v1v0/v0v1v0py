@@ -1,0 +1,95 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>singularity</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Choose Singular Expression</h2>
+
+<h3>Description</h3>
+
+<p>For a list of expressions evaluated within data,
+this returns the index of the one expression that evaluates
+to an all-true vector (after coercing NA to FALSE).
+Returns 0 if no expressions succeed, and NA_integer_ if
+more than one succeed. Returns -1 if any expression
+does not evaluate to logical or if list is empty.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">singularity(x, data, ...)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>x</code></td>
+<td>
+<p>list of expressions</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>data</code></td>
+<td>
+<p>something coercible to a data environment (typically data.frame)</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+<p>ignored</p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>integer, possibly NA
+</p>
+
+
+<h3>See Also</h3>
+
+<p>Other promote: 
+<code>[.decorated()</code>,
+<code>filter.decorated()</code>,
+<code>promote()</code>,
+<code>promote.data.frame()</code>,
+<code>promote.list()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">meta &lt;- system.file(package = 'yamlet', 'extdata','phenobarb.csv')
+x &lt;- read.csv(meta)
+singularity(
+  data = x,
+  list(
+    "event == 'conc'",
+    "event == 'dose'",
+    "event == 'metabolite'"
+  )
+)
+singularity(
+  data = x[x$event == 'dose',],
+  list(
+    "event == 'conc'",
+    "event == 'dose'",
+    "event == 'metabolite'"
+  )
+)
+singularity(
+  data = x[x$event == 'dose',],
+  list(
+    "time &gt;= 0",
+    "event == 'dose'"
+  )
+)
+</code></pre>
+
+
+</div>

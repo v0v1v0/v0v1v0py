@@ -1,0 +1,98 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>unwrap</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>unwrap</h2>
+
+<h3>Description</h3>
+
+<p>Remove pair(s) of characters from a string. The pair(s) to be removed
+can be at any position within the string.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">unwrap(x, left, right = left, n_pairs = Inf)
+
+unparens(x, n_pairs = Inf)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>x</code></td>
+<td>
+<p>character vector</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>left</code></td>
+<td>
+<p>left character to remove</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>right</code></td>
+<td>
+<p>right character to remove. Only removed if position is after <code>left</code></p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>n_pairs</code></td>
+<td>
+<p>number of character pairs to remove</p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>character vector with pairs removed
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code>wrap</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R"># by default, removes all matching pairs of left and right
+x &lt;- c("a", "(a)", "((a))", "(a) b", "a (b)", "(a) (b)" )
+data.frame( x, unparens(x), check.names = FALSE )
+
+# specify n_pairs to remove a specific number of pairs
+x &lt;- c("(a)", "((a))", "(((a)))", "(a) (b)", "(a) (b) (c)", "(a) (b) (c) (d)")
+data.frame( x,
+            "n_pairs=1"   = unparens(x, n_pairs = 1),
+            "n_pairs=2"   = unparens(x, n_pairs = 2),
+            "n_pairs=3"   = unparens(x, n_pairs = 3),
+            "n_pairs=Inf" = unparens(x), # the default
+            check.names = FALSE )
+
+# use unwrap() to specify any pair of characters for left and right
+x &lt;- "A string with some \\emph{latex tags}."
+unwrap(x, "\\emph{", "}")
+
+# by default, only pairs are removed. Set a character to "" to override.
+x &lt;- c("a)", "a))", "(a", "((a" )
+data.frame(x, unparens(x),
+  'left=""' = unwrap(x, left = "", right = ")"),
+  check.names = FALSE)
+
+# make your own functions like this
+# markdown bold
+unbold &lt;- function(x) unwrap(x, "**")
+bold &lt;- function(...) wrap(paste(...), "**")
+(x &lt;- (p("make a word", bold("bold"))))
+unbold(x)
+</code></pre>
+
+
+</div>

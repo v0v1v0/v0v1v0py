@@ -1,0 +1,67 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>write_ndjson_str</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Write list or data.frame object to NDJSON in a string</h2>
+
+<h3>Description</h3>
+
+<p>For <code>list</code> input, each element of the list is written as a single JSON string.
+For <code>data.frame</code> input, each row of the <code>data.frame</code> is written
+as aJSON string.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">write_ndjson_str(x, opts = list(), ...)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>x</code></td>
+<td>
+<p><code>data.frame</code> or <code>list</code> to be written as multiple JSON strings</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>opts</code></td>
+<td>
+<p>Named list of serialization options. Usually created by <code>opts_write_json()</code></p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+<p>Other named options can be used to override any options in <code>opts</code>.
+The valid named options are identical to arguments to <code>opts_write_json()</code></p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>String containing multiple JSON strings separated by newlines.
+</p>
+
+
+<h3>See Also</h3>
+
+<p>Other JSON Serializer: 
+<code>write_json_file()</code>,
+<code>write_json_str()</code>,
+<code>write_ndjson_file()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">write_ndjson_str(head(mtcars))
+</code></pre>
+
+
+</div>

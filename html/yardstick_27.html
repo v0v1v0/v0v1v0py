@@ -1,0 +1,150 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>check_metric</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Developer function for checking inputs in new metrics</h2>
+
+<h3>Description</h3>
+
+<p><code>check_numeric_metric()</code>, <code>check_class_metric()</code>, and <code>check_prob_metric()</code>
+are useful alongside metric-summarizers for implementing new custom
+metrics. metric-summarizers call the metric function inside
+<code>dplyr::summarise()</code>. These functions perform checks on the inputs in
+accordance with the type of metric that is used.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">check_numeric_metric(truth, estimate, case_weights, call = caller_env())
+
+check_class_metric(
+  truth,
+  estimate,
+  case_weights,
+  estimator,
+  call = caller_env()
+)
+
+check_prob_metric(
+  truth,
+  estimate,
+  case_weights,
+  estimator,
+  call = caller_env()
+)
+
+check_dynamic_survival_metric(
+  truth,
+  estimate,
+  case_weights,
+  call = caller_env()
+)
+
+check_static_survival_metric(
+  truth,
+  estimate,
+  case_weights,
+  call = caller_env()
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>truth</code></td>
+<td>
+<p>The realized vector of <code>truth</code>.
+</p>
+
+<ul>
+<li>
+<p> For <code>check_numeric_metric()</code>, a numeric vector.
+</p>
+</li>
+<li>
+<p> For <code>check_class_metric()</code>, a factor.
+</p>
+</li>
+<li>
+<p> For <code>check_prob_metric()</code>, a factor.
+</p>
+</li>
+<li>
+<p> For <code>check_dynamic_survival_metric()</code>, a Surv object.
+</p>
+</li>
+<li>
+<p> For <code>check_static_survival_metric()</code>, a Surv object.
+</p>
+</li>
+</ul>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>estimate</code></td>
+<td>
+<p>The realized <code>estimate</code> result.
+</p>
+
+<ul>
+<li>
+<p> For <code>check_numeric_metric()</code>, a numeric vector.
+</p>
+</li>
+<li>
+<p> For <code>check_class_metric()</code>, a factor.
+</p>
+</li>
+<li>
+<p> For <code>check_prob_metric()</code>, a numeric vector for binary <code>truth</code>,
+a numeric matrix for multic-class <code>truth</code>.
+</p>
+</li>
+<li>
+<p> For <code>check_dynamic_survival_metric()</code>, list-column of data.frames.
+</p>
+</li>
+<li>
+<p> For <code>check_static_survival_metric()</code>, a numeric vector.
+</p>
+</li>
+</ul>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>case_weights</code></td>
+<td>
+<p>The realized case weights, as a numeric vector. This must
+be the same length as <code>truth</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>call</code></td>
+<td>
+<p>The execution environment of a currently
+running function, e.g. <code>caller_env()</code>. The function will be
+mentioned in error messages as the source of the error. See the
+<code>call</code> argument of <code>abort()</code> for more information.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>estimator</code></td>
+<td>
+<p>This can either be <code>NULL</code> for the default auto-selection of
+averaging (<code>"binary"</code> or <code>"macro"</code>), or a single character to pass along to
+the metric implementation describing the kind of averaging to use.</p>
+</td>
+</tr>
+</table>
+<h3>See Also</h3>
+
+<p>metric-summarizers
+</p>
+
+
+</div>

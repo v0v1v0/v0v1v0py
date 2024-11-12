@@ -1,0 +1,74 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>vec_ptype2.dvec.dvec</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Find Common Type for dvec, dvec</h2>
+
+<h3>Description</h3>
+
+<p>Find common type for dvec, dvec.
+</p>
+<p>Find common type for dvec, dvec.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">## S3 method for class 'dvec.dvec'
+vec_ptype2(x, y, ...)
+
+## S3 method for class 'dvec.dvec'
+vec_ptype2(x, y, ...)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>x</code></td>
+<td>
+<p>dvec</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>y</code></td>
+<td>
+<p>dvec</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+<p>ignored</p>
+</td>
+</tr>
+</table>
+<h3>Examples</h3>
+
+<pre><code class="language-R">str(vctrs::vec_ptype2(as_dvec(1L), as_dvec(1)))
+str(vctrs::vec_ptype2(as_dvec(1), as_dvec(1L)))
+str(vctrs::vec_ptype2(as_dvec(TRUE), as_dvec(1L)))
+str(vctrs::vec_ptype2(as_dvec(TRUE), as_dvec(1)))
+str(vctrs::vec_ptype2(as_dvec(1), as_dvec(1+0i)))
+
+vctrs::vec_ptype2(
+  structure(as_dvec(1), guide = 'mg'),
+  structure(as_dvec(1), guide = 'kg')
+)
+str(vctrs::vec_ptype2(as_dvec(1L), as_dvec(1)))
+str(vctrs::vec_ptype2(as_dvec(1), as_dvec(1L)))
+str(vctrs::vec_ptype2(as_dvec(TRUE), as_dvec(1L)))
+str(vctrs::vec_ptype2(as_dvec(TRUE), as_dvec(1)))
+str(vctrs::vec_ptype2(as_dvec(1), as_dvec(1+0i)))
+
+vctrs::vec_ptype2(
+  structure(as_dvec(1), guide = 'mg'),
+  structure(as_dvec(1), guide = 'kg')
+)
+</code></pre>
+
+
+</div>

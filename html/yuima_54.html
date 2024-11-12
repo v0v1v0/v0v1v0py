@@ -1,0 +1,124 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>DataPPR</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>From <code>zoo</code> data to <code>yuima.PPR</code>.</h2>
+
+<h3>Description</h3>
+
+<p>The function converts an object of class <code>zoo</code> to an object of class <code>yuima.PPR</code>.</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">DataPPR(CountVar, yuimaPPR, samp)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>CountVar</code></td>
+<td>
+<p>An object of class <code>zoo</code> that contains counting variables and covariates. <code>index(CountVar)</code> returns the arrival times.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>yuimaPPR</code></td>
+<td>
+<p>An object of class <code>yuima.PPR</code> that contains a mathematical description of the point process regression model assumed to be the generator of the observed data.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>samp</code></td>
+<td>
+<p>An object of class <code>yuima.sampling</code>.</p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>The function returns an object of class <code>yuima.PPR</code> where the slot <code>model</code> contains the Point process described in <code>yuimaPPR@model</code>, the slot <code>data</code> contains the counting variables and the covariates observed on the grid in <code>samp</code>.</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">## Not run: 
+# In this example we generate a dataset contains the Counting Variable N
+# and the Covariate X.
+# The covariate X is an OU driven by a Gamma process.
+
+# Values of parameters.
+mu &lt;- 2
+alpha &lt;- 4
+beta &lt;-5
+
+# Law definition
+my.rKern &lt;- function(n,t){
+  res0 &lt;- t(t(rgamma(n, 0.1*t)))
+  res1 &lt;- t(t(rep(1,n)))
+  res &lt;- cbind(res0,res1)
+  return(res)
+}
+
+Law.PPRKern &lt;- setLaw(rng = my.rKern)
+
+# Point Process definition
+modKern &lt;- setModel(drift = c("0.4*(0.1-X)","0"),
+                    diffusion = c("0","0"),
+                    jump.coeff = matrix(c("1","0","0","1"),2,2),
+                    measure = list(df = Law.PPRKern),
+                    measure.type = c("code","code"),
+                    solve.variable = c("X","N"),
+                    xinit=c("0.25","0"))
+
+gFun &lt;- "exp(mu*log(1+X))"
+#
+Kernel &lt;- "alpha*exp(-beta*(t-s))"
+
+prvKern &lt;- setPPR(yuima = modKern,
+                  counting.var="N", gFun=gFun,
+                  Kernel = as.matrix(Kernel),
+                  lambda.var = "lambda", var.dx = "N",
+                  lower.var="0", upper.var = "t")
+
+# Simulation
+
+Term&lt;-200
+seed&lt;-1
+n&lt;-20000
+
+true.parKern &lt;- list(mu=mu, alpha=alpha, beta=beta)
+
+
+set.seed(seed)
+# set.seed(1)
+
+time.simKern &lt;-system.time(
+  simprvKern &lt;- simulate(object = prvKern, true.parameter = true.parKern,
+                         sampling = setSampling(Terminal =Term, n=n))
+)
+
+
+plot(simprvKern,main ="Counting Process with covariates" ,cex.main=0.9)
+
+# Using the function get.counting.data we extract from an object of class
+# yuima.PPR the counting process N and the covariate X at the arrival times.
+
+CountVar &lt;- get.counting.data(simprvKern)
+
+plot(CountVar)
+
+# We convert the zoo object in the yuima.PPR object.
+
+sim2 &lt;- DataPPR(CountVar, yuimaPPR=simprvKern, samp=simprvKern@sampling)
+
+
+## End(Not run)
+</code></pre>
+
+
+</div>

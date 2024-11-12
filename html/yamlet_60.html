@@ -1,0 +1,121 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>conditionalize.data.frame</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Conditionalize Attributes of Data Frame</h2>
+
+<h3>Description</h3>
+
+<p>Conditionalizes attributes of data.frame.
+Creates a conditional <code>attribute</code> definition
+for <code>column</code> by mapping <code>value</code> to
+<code>test</code>. Only considers records where
+both <code>test</code> and <code>value</code> are defined,
+and gives an error if there is not one-to-one mapping.
+Can be used with write methods as an alternative
+to hand-coding conditional metadata.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">## S3 method for class 'data.frame'
+conditionalize(x, column, attribute, test, value, ...)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>x</code></td>
+<td>
+<p>data.frame</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>column</code></td>
+<td>
+<p>unquoted name of column to conditionalize</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>attribute</code></td>
+<td>
+<p>unquoted name of attribute to create for column</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>test</code></td>
+<td>
+<p>unquoted name of column to test</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>value</code></td>
+<td>
+<p>unquoted name of column supplying attribute value</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+<p>ignored arguments</p>
+</td>
+</tr>
+</table>
+<h3>Details</h3>
+
+<p>If the test column is character, individual
+elements should not contain both single and
+double quotes. For the conditional expressions,
+these values will be single-quoted by default,
+or double-quoted if they contain single quotes.
+</p>
+
+
+<h3>Value</h3>
+
+<p>class 'decorated' 'data.frame'
+</p>
+
+
+<h3>See Also</h3>
+
+<p>Other conditionalize: 
+<code>conditionalize()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">library(magrittr)
+library(dplyr)
+library(csv)
+file &lt;- system.file(package = 'yamlet', 'extdata','phenobarb.csv')
+x &lt;- as.csv(file)
+head(x,3)
+
+# suppose we have an event label stored as a column:
+
+x %&lt;&gt;% mutate(evid = ifelse(
+  event == 'dose',
+  'dose of drug administered',
+  'serum phenobarbital concentration'
+ )
+)
+
+# We can define a conditional label for 'value'
+# by mapping evid to event:
+
+x %&lt;&gt;% conditionalize(value, label, event, evid)
+
+x %&gt;% as_yamlet
+x %&gt;% write_yamlet
+
+</code></pre>
+
+
+</div>

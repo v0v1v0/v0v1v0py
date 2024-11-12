@@ -1,0 +1,92 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>cogarchNoise</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Estimation for the underlying Levy in a COGARCH(p,q) model</h2>
+
+<h3>Description</h3>
+
+<p>Retrieve the increment of the underlying Levy for the COGARCH(p,q) process</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">cogarchNoise(yuima, data=NULL, param, mu=1)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>yuima</code></td>
+<td>
+<p>a yuima object or an object of <code>yuima.cogarch-class</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>data</code></td>
+<td>
+<p>an object of class <code>yuima.data-class</code> contains the observations available at uniformly spaced time. If <code>data=NULL</code>, the default, the <code>cogarchNoise</code> uses the data in an object of <code>yuima.data-class</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>param</code></td>
+<td>
+<p><code>list</code> of parameters for the COGARCH(p,q).</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>mu</code></td>
+<td>
+<p>a numeric object that contains the value of the second moments of the levy measure.</p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>incr.Levy</code></td>
+<td>
+<p>a numeric object contains the estimated increments.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>model</code></td>
+<td>
+<p>an object of class yuima containing the state, the variance and the cogarch process.</p>
+</td>
+</tr>
+</table>
+<h3>Note</h3>
+
+
+<p>The function <code>cogarchNoise</code> assumes the underlying Levy process is centered in zero.
+</p>
+<p>The function <code>gmm</code> uses the function <code>cogarchNoise</code> for estimation of underlying Levy in the COGARCH(p,q) model.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>The YUIMA Project Team</p>
+
+
+<h3>References</h3>
+
+<p>Chadraa. (2009)
+Statistical Modelling with COGARCH(P,Q) Processes, <em>PhD Thesis</em>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R"># Insert here some examples
+</code></pre>
+
+
+</div>

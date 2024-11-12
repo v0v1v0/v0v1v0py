@@ -1,0 +1,107 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>explicit_guide.dvec</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Coerce Decorated Vector Guide to Something More Explicit</h2>
+
+<h3>Description</h3>
+
+<p>Coerces dvec 'guide' attribute to something more explicit.
+The attribute 'guide' generally suggests a guide
+to interpretation of a data item, such as units, formats, codelists,
+and encodings.  The idea here is to replace 'guide' with something
+explicit in case required downstream.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">## S3 method for class 'dvec'
+explicit_guide(
+  x,
+  ...,
+  overwrite = getOption("yamlet_explicit_guide_overwrite", TRUE),
+  simplify = getOption("yamlet_explicit_guide_simplify", TRUE),
+  expand = getOption("yamlet_expand_codelist", TRUE)
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>x</code></td>
+<td>
+<p>dvec</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+<p>named arguments passed to <code>as_yamlet</code>, <code>explicit_guide</code>, and <code>decorate</code>; un-named arguments ignored</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>overwrite</code></td>
+<td>
+<p>whether to overwrite attributes</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>simplify</code></td>
+<td>
+<p>whether to remove guide attribute</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>expand</code></td>
+<td>
+<p>whether to expand empty guide list using sorted unique values. NA likely excluded.</p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>dvec
+</p>
+
+
+<h3>See Also</h3>
+
+<p>Other explicit_guide: 
+<code>explicit_guide()</code>,
+<code>explicit_guide.data.frame()</code>,
+<code>explicit_guide.yamlet()</code>,
+<code>implicit_guide()</code>,
+<code>implicit_guide.data.frame()</code>,
+<code>implicit_guide.dvec()</code>,
+<code>infer_guide()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">library(magrittr)
+x &lt;- data.frame(
+ ID = as_dvec(1),
+ CONC = as_dvec(1),
+ RACE = as_dvec(1),
+ SEX = as_dvec(1),
+ DATE = as_dvec(1)
+)
+x %&lt;&gt;% modify(ID, label = 'subject identifier')
+x %&lt;&gt;% modify(CONC, label = 'concentration', guide = 'ng/mL')
+x %&lt;&gt;% modify(RACE, label = 'race', guide = list(white = 0, black = 1, asian = 2))
+x %&lt;&gt;% modify(SEX, label = 'sex', guide = list(female = 0, male = 1))
+x %&lt;&gt;% modify(DATE, label  = 'date', guide = '%Y-%m-%d')
+x %&gt;% decorations
+x %&gt;% explicit_guide %&gt;% decorations
+x %&gt;% explicit_guide(DATE) %&gt;% decorations # limit scope
+x %$% DATE %&gt;% explicit_guide
+</code></pre>
+
+
+</div>

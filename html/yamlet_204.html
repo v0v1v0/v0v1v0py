@@ -1,0 +1,59 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>unnest</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Collapse Uninformative Levels</h2>
+
+<h3>Description</h3>
+
+<p>Each element of a list that is itself a list
+and does not have a name but has exactly one element
+that DOES have a name should become that element
+and have that name (recursively, from depth).
+Collapses uninformative levels of nested lists.
+Formerly used in as_yam; now superceded by <code>parsimonious.list</code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">unnest(x, ...)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table><tr style="vertical-align: top;">
+<td><code>x</code></td>
+<td>
+<p>object</p>
+</td>
+</tr></table>
+<h3>Value</h3>
+
+<p>named list
+</p>
+
+
+<h3>See Also</h3>
+
+<p>Other unnest: 
+<code>unnest.default()</code>,
+<code>unnest.list()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">
+# yaml.load reads this as a list of two un-named lists whose elements are named.
+str(yaml::yaml.load('[foo: 1, bar: 3]'))
+
+# yamlet treats it as a list of two named integers.
+str(unnest(yaml::yaml.load('[foo: 1, bar: 3]')))
+</code></pre>
+
+
+</div>

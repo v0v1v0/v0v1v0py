@@ -1,0 +1,83 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>mmfrac</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>
+mmfrac
+</h2>
+
+<h3>Description</h3>
+
+<p>Estimates the drift of a fractional Ornstein-Uhlenbeck and, if necessary, also the Hurst and diffusion parameters.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">mmfrac(yuima, ...)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>yuima</code></td>
+<td>
+<p>a <code>yuima</code> object.
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+<p>arguments passed to <code>qgv</code>.
+</p>
+</td>
+</tr>
+</table>
+<h3>Details</h3>
+
+<p>Estimates the drift of s fractional Ornstein-Uhlenbeck and, if necessary, also the Hurst and diffusion parameters.
+</p>
+
+
+<h3>Value</h3>
+
+<p>an object of class mmfrac
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>The YUIMA Project Team</p>
+
+
+<h3>References</h3>
+
+<p>Brouste, A., Iacus, S.M. (2013) Parameter estimation for the discretely observed fractional Ornstein-Uhlenbeck process and the Yuima R package, Computational Statistics, pp. 1129–1147.
+</p>
+
+
+<h3>See Also</h3>
+
+<p>See also <code>qgv</code>.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R"># Estimating all Hurst parameter, diffusion coefficient  and drift coefficient 
+# in fractional Ornstein-Uhlenbeck
+
+model&lt;-setModel(drift="-x*lambda",hurst=NA,diffusion="theta")
+sampling&lt;-setSampling(T=100,n=10000)
+yui1&lt;-simulate(model,true.param=list(theta=1,lambda=4),hurst=0.7,sampling=sampling)
+mmfrac(yui1)
+
+</code></pre>
+
+
+</div>

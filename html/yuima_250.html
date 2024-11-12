@@ -1,0 +1,148 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>setIntegral</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Integral of Stochastic Differential Equation</h2>
+
+<h3>Description</h3>
+
+<p>'<code>setIntegral</code>' is the constructor of an object of class yuima.Integral
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">setIntegral(yuima, integrand, var.dx, lower.var, upper.var,
+ out.var = "", nrow = 1, ncol = 1)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>yuima</code></td>
+<td>
+
+<p>an object of class <code>yuima.model</code> that is the SDE.
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>integrand</code></td>
+<td>
+
+<p>A matrix or a vector of strings that describe each component of the integrand.
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>var.dx</code></td>
+<td>
+<p> A label that indicates the variable of integration </p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>lower.var</code></td>
+<td>
+
+<p>A label that indicates the lower variable in the support of integration, by default <code>lower.var = 0</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>upper.var</code></td>
+<td>
+
+<p>A label that indicates the upper variable in the support of integration, by default <code>upper.var = t</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>out.var</code></td>
+<td>
+
+<p>Label for the output
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>nrow</code></td>
+<td>
+
+<p>Dimension of output if <code>integrand</code> is a vector of string.
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>ncol</code></td>
+<td>
+<p>Dimension of output if <code>integrand</code> is a vector of string.</p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>The constructor returns an object of class <code>yuima.Integral</code>.</p>
+
+
+<h3>Author(s)</h3>
+
+<p>The YUIMA Project Team</p>
+
+
+<h3>References</h3>
+
+<p>Yuima Documentation</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">## Not run: 
+# Definition Model
+
+Mod1&lt;-setModel(drift=c("a1"), diffusion = matrix(c("s1"),1,1),
+  solve.variable = c("X"), time.variable = "s")
+
+# In this example we define an integral of SDE such as
+# \[
+# I=\int^{t}_{0} b*exp(-a*(t-s))*(X_s-a1*s)dX_s
+# \]
+
+integ &lt;- matrix("b*exp(-a*(t-s))*(X-a1*s)",1,1)
+
+Integral &lt;- setIntegral(yuima = Mod1,integrand = integ,
+  var.dx = "X", lower.var = "0", upper.var = "t",
+  out.var = "", nrow =1 ,ncol=1)
+
+# Structure of slots
+
+is(Integral)
+# Function h in the above definition
+Integral@Integral@Integrand@IntegrandList
+# Dimension of Intgrand
+Integral@Integral@Integrand@dimIntegrand
+
+# all parameters are $\left(b,a,a1,s1\right)$
+Integral@Integral@param.Integral@allparam
+
+# the parameters in the integrand are $\left(b,a,a1\right)$ \newline
+Integral@Integral@param.Integral@Integrandparam
+
+# common parameters are $a1$
+Integral@Integral@param.Integral@common
+
+# integral variable dX_s
+Integral@Integral@variable.Integral@var.dx
+Integral@Integral@variable.Integral@var.time
+
+# lower and upper vars
+Integral@Integral@variable.Integral@lower.var
+Integral@Integral@variable.Integral@upper.var
+
+
+## End(Not run)
+</code></pre>
+
+
+</div>

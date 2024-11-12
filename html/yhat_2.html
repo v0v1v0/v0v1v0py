@@ -1,0 +1,135 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>aps</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>All Possible Subsets Regression</h2>
+
+<h3>Description</h3>
+
+<p>The function runs all possible subsets regression and 
+returns data needed to run commonality and dominance analysis.  
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">  aps(dataMatrix, dv, ivlist)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>dataMatrix</code></td>
+<td>
+
+<p>Dataset containing the dependent and independent variables
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>dv</code></td>
+<td>
+
+<p>The dependent variable named in the dataset
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>ivlist</code></td>
+<td>
+
+<p>List of independent variables named in the dataset
+</p>
+</td>
+</tr>
+</table>
+<h3>Details</h3>
+
+<p>Function returns all possible subset information that is used by <code>commonality</code> 
+and <code>dominance</code>.
+If data are missing, non-missing data are eliminated based on listwise deletion for full model. 
+</p>
+
+
+<h3>Value</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>ivID</code></td>
+<td>
+ 
+<p>Matrix containing independent variable IDS.
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>PredBitMap</code></td>
+<td>
+ 
+<p>All possible subsets predictor bit map.
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>apsBitMap</code></td>
+<td>
+ 
+<p>Index into all possible subsets predictor bit map.
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>APSMatrix</code></td>
+<td>
+ 
+<p>Table containing the number of predictors and Multiple R^2  for each possible set of predictors. 
+</p>
+</td>
+</tr>
+</table>
+<h3>Author(s)</h3>
+
+<p> Kim Nimon &lt;kim.nimon@gmail.com&gt;</p>
+
+
+<h3>References</h3>
+
+<p>Nimon, K., &amp; Oswald, F. L. (2013). Understanding the results of multiple linear regression: Beyond standardized regression coefficients. <em>Organizational Research Methods</em>, <em>16</em>, 
+650-674.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code>calc.yhat</code>
+<code>commonality</code>
+<code>dominance</code>
+<code>rlw</code></p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">  ## APS regression predicting miles per gallon based 
+  ## on vehicle weight, type of 
+  ## carborator, &amp; number of engine cylinders
+     apsOut&lt;-aps(mtcars,"mpg",list("wt","carb","cyl"))
+
+  ## APS regression predicting paragraph comprehension based 
+  ## on thre verbal tests: general info, sentence comprehension,
+  ## &amp; word classification
+ 
+  ## Use HS dataset in MBESS 
+     if (require ("MBESS")){
+     data(HS)
+  ## APS
+     apsOut&lt;-aps(HS,"t6_paragraph_comprehension",list("t5_general_information","t7_sentence",
+                                         "t8_word_classification"))
+     }
+</code></pre>
+
+
+</div>

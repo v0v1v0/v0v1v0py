@@ -1,0 +1,104 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>resolve.decorated</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Resolve Guide for Decorated</h2>
+
+<h3>Description</h3>
+
+<p>Resolves implicit usage of default key 'guide' to
+explicit usage for decorated class.
+Calls 
+<code>explicit_guide</code>,
+<code>classified</code>, and
+<code>make_title</code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">## S3 method for class 'decorated'
+resolve(x, ...)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>x</code></td>
+<td>
+<p>decorated</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+<p>passed to <code>explicit_guide</code>, <code>classified</code>, and <code>make_title</code></p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>decorated
+</p>
+
+
+<h3>See Also</h3>
+
+<p>Other resolve: 
+<code>desolve()</code>,
+<code>desolve.classified()</code>,
+<code>desolve.data.frame()</code>,
+<code>desolve.decorated()</code>,
+<code>desolve.dvec()</code>,
+<code>resolve()</code>,
+<code>resolve.classified()</code>,
+<code>resolve.data.frame()</code>,
+<code>resolve.dvec()</code>
+</p>
+<p>Other interface: 
+<code>canonical.decorated()</code>,
+<code>classified.data.frame()</code>,
+<code>decorate.character()</code>,
+<code>decorate.data.frame()</code>,
+<code>desolve.decorated()</code>,
+<code>ggplot.decorated()</code>,
+<code>io_csv.character()</code>,
+<code>io_csv.data.frame()</code>,
+<code>io_res.character()</code>,
+<code>io_res.decorated()</code>,
+<code>io_table.character()</code>,
+<code>io_table.data.frame()</code>,
+<code>io_yamlet.character()</code>,
+<code>io_yamlet.data.frame()</code>,
+<code>is_parseable.default()</code>,
+<code>mimic.default()</code>,
+<code>modify.default()</code>,
+<code>promote.list()</code>,
+<code>read_yamlet()</code>,
+<code>scripted.default()</code>,
+<code>selected.default()</code>,
+<code>write_yamlet()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R"># generate some decorated data
+library(magrittr)
+file &lt;- system.file(package = 'yamlet', 'extdata','quinidine.csv')
+x &lt;- decorate(file)
+x %&gt;% decorations(Age, glyco)
+
+# resolve everything, and show selected decorations
+x %&gt;% resolve %&gt;% decorations(Age, glyco)
+
+# resolve selectively, and show selected decorations
+x %&gt;% resolve(glyco) %&gt;% decorations(Age, glyco)
+</code></pre>
+
+
+</div>

@@ -1,0 +1,96 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>getMatchDetails</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Get  match details of 2 countries</h2>
+
+<h3>Description</h3>
+
+<p>This function  gets the details of a matc palyed between 2 countries from the saved RData files
+and returns a dataframe
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">getMatchDetails(team1,team2,date,dir=".")
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>team1</code></td>
+<td>
+<p>The 1st team in the match</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>team2</code></td>
+<td>
+<p>The 2nd team in the matcj</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>date</code></td>
+<td>
+<p>The date on which the match was played</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>dir</code></td>
+<td>
+<p>The source directory of the RData files with all matches</p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>match
+The dataframe of the match
+</p>
+
+
+<h3>Note</h3>
+
+<p>Maintainer: Tinniam V Ganesh <a href="mailto:tvganesh.85@gmail.com">tvganesh.85@gmail.com</a>
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Tinniam V Ganesh
+</p>
+
+
+<h3>References</h3>
+
+<p><a href="https://cricsheet.org/">https://cricsheet.org/</a><br><a href="https://gigadom.in/">https://gigadom.in/</a><br><a href="https://github.com/tvganesh/yorkrData/">https://github.com/tvganesh/yorkrData/</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code>getBatsmanDetails</code><br><code>getBowlerWicketDetails</code><br><code>getTeamBattingDetails</code><br><code>getTeamBowlingDetails</code><br></p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">## Not run: 
+# convertAllYaml2RDataframes() &amp; convertYaml2RDataframe convert yaml files
+# to data frame and store as RData
+# We have to point to this directory for the call below
+a &lt;- getMatchDetails("England","Pakistan","2006-09-05",dir="../data")
+
+# Use this to create a classification tree of deliveries to wickets
+bowlerWktsPredict(jadeja1,"RA Jadeja")
+
+## End(Not run)
+
+</code></pre>
+
+
+</div>

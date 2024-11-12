@@ -1,0 +1,82 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>canonical.yamlet</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Sort Yamlet</h2>
+
+<h3>Description</h3>
+
+<p>Enforces canonical attribute order for class 'yamlet'.
+Set of default_keys will be augmented with all observed attribute names
+and will be expanded or reduced as necessary for each
+data item.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">## S3 method for class 'yamlet'
+canonical(
+  x,
+  default_keys = getOption("yamlet_default_keys", list("label", "guide")),
+  ...
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>x</code></td>
+<td>
+<p>yamlet</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>default_keys</code></td>
+<td>
+<p>attribute names in preferred order</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+<p>ignored</p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>decorated
+</p>
+
+
+<h3>See Also</h3>
+
+<p>Other canonical: 
+<code>canonical()</code>,
+<code>canonical.decorated()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">library(magrittr)
+x &lt;- data.frame(x = 1, y = 1, z = factor('a'))
+x %&lt;&gt;% decorate('
+x: [ guide: mm, desc: this, label: foo ]
+"y": [ guide: bar, desc: other ]
+')
+
+decorations(x)
+decorations(canonical(x))
+canonical(decorations(x))
+write_yamlet(x)
+
+</code></pre>
+
+
+</div>

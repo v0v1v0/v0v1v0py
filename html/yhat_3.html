@@ -1,0 +1,117 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>boot.yhat</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Bootstrap metrics produced from /codecalc.yhat</h2>
+
+<h3>Description</h3>
+
+<p>This function is input to <code>boot</code> to bootstrap metrics
+computed from <code>calc.yhat</code>. 
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">  boot.yhat(data, indices, lmOut,regrout0)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>data</code></td>
+<td>
+
+<p>Original dataset
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>indices</code></td>
+<td>
+
+<p>Vector of indices which define the bootstrap sample
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>lmOut</code></td>
+<td>
+
+<p>Ouput of /codelm
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>regrout0</code></td>
+<td>
+
+<p>Output of /codecalc.yhat
+</p>
+</td>
+</tr>
+</table>
+<h3>Details</h3>
+
+<p>This function is input to <code>boot</code> to bootstrap metrics
+computed from <code>calc.yhat</code>.  
+</p>
+
+
+<h3>Value</h3>
+
+<p>The output of <code>boot.yhat</code> when used in conjunction with    <code>boot</code> is of class <code>boot</code> and is not further described
+here. The output is designed to be useful as input for <code>booteval.yhat</code> 
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p> Kim Nimon &lt;kim.nimon@gmail.com&gt;</p>
+
+
+<h3>References</h3>
+
+<p>Nimon, K., &amp; Oswald, F. L. (2013). Understanding the results of multiple linear regression: Beyond standardized regression coefficients. <em>Organizational Research Methods</em>, <em>16</em>, 
+650-674.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code>lm</code>
+<code>calc.yhat</code>
+<code>boot</code>
+<code>booteval.yhat</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">  ## Bootstrap regression results predicting paragraph     
+  ## comprehension based on three verbal tests: general info, 
+  ## sentence comprehension, &amp; word classification
+ 
+  ## Use HS dataset in MBESS 
+     if (require ("MBESS")){
+     data(HS)
+
+  ## Regression
+     lm.out&lt;-lm(t6_paragraph_comprehension~
+                t5_general_information+t7_sentence+t8_word_classification,data=HS)
+
+  ## Calculate regression metrics
+     regrOut&lt;-calc.yhat(lm.out)
+
+  ## Bootstrap results
+     require ("boot")
+     boot.out&lt;-boot(HS,boot.yhat,100,lmOut=lm.out,regrout0=regrOut)
+     }
+</code></pre>
+
+
+</div>

@@ -1,0 +1,152 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>Diagnostic.Cogarch</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>
+Function for checking the statistical properties of the COGARCH(p,q) model
+</h2>
+
+<h3>Description</h3>
+
+<p>The function check the statistical properties of the COGARCH(p,q) model. We verify if the process has a strict positive stationary variance model.</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">Diagnostic.Cogarch(yuima.cogarch, param = list(), matrixS = NULL, mu = 1, display = TRUE)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>yuima.cogarch</code></td>
+<td>
+<p> an object of class <code>yuima.cogarch</code>, <code>yuima</code> or a class <code>cogarch.gmm-class</code>
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>param</code></td>
+<td>
+<p> a list containing the values of the parameters</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>matrixS</code></td>
+<td>
+<p> a Square matrix.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>mu</code></td>
+<td>
+<p> first moment of the Levy measure.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>display</code></td>
+<td>
+<p> a logical variable, if <code>TRUE</code> the function displays the result in the <code>console</code>. </p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>The functon returns a List with entries:
+
+
+</p>
+<table>
+<tr style="vertical-align: top;">
+<td><code>meanVarianceProc </code></td>
+<td>
+<p> Unconditional Stationary mean of the variance process. </p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>meanStateVariable</code></td>
+<td>
+<p> Unconditional Stationary mean of the state process.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>stationary</code></td>
+<td>
+<p> If <code>TRUE</code>, the COGARCH(p,q) has stationary variance.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>positivity</code></td>
+<td>
+<p> If <code>TRUE</code>, the variance process is strictly positive.</p>
+</td>
+</tr>
+</table>
+<h3>Author(s)</h3>
+
+<p>YUIMA Project Team</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">## Not run: 
+# Definition of the COGARCH(1,1) process driven by a Variance Gamma nois:
+param.VG &lt;- list(a1 = 0.038,  b1 =  0.053,
+                  a0 = 0.04/0.053,lambda = 1, alpha = sqrt(2), beta = 0, mu = 0, 
+                  x01 = 50.33)
+
+cog.VG &lt;- setCogarch(p = 1, q = 1, work = FALSE,
+                      measure=list(df="rvgamma(z, lambda, alpha, beta, mu)"),
+                      measure.type = "code", 
+                      Cogarch.var = "y",
+                      V.var = "v", Latent.var="x",
+                      XinExpr=TRUE)
+
+# Verify the stationarity and the positivity of th variance process
+
+test &lt;- Diagnostic.Cogarch(cog.VG,param=param.VG)
+show(test)
+
+# Simulate a sample path
+
+set.seed(210)
+
+Term=800
+num=24000
+
+samp.VG &lt;- setSampling(Terminal=Term, n=num)
+
+sim.VG &lt;- simulate(cog.VG,
+                    true.parameter=param.VG,
+                    sampling=samp.VG,
+                    method="euler")
+plot(sim.VG)
+
+# Estimate the model
+
+res.VG &lt;- gmm(sim.VG, start = param.VG, Est.Incr = "IncrPar")
+
+summary(res.VG)
+
+#  Check if the estimated COGARCH(1,1) has a positive and stationary variance
+
+test1&lt;-Diagnostic.Cogarch(res.VG)
+show(test1)
+
+# Simulate a COGARCH sample path using the estimated COGARCH(1,1) 
+# and the recovered increments of underlying Variance Gamma Noise
+
+esttraj&lt;-simulate(res.VG)
+plot(esttraj)
+
+
+
+## End(Not run)  
+</code></pre>
+
+
+</div>

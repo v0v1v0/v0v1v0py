@@ -1,0 +1,121 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>build_tree</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Convert the objects loaded from YAML fragments into a tree</h2>
+
+<h3>Description</h3>
+
+<p>If the data.tree::data.tree package is installed, this function
+can be used to convert a list of objects, as loaded from extracted
+YAML fragments, into a <code>data.tree::Node()</code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">build_tree(
+  x,
+  idName = "id",
+  parentIdName = "parentId",
+  childrenName = "children",
+  autofill = c(label = "id"),
+  rankdir = "LR",
+  directed = "false",
+  silent = TRUE
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>x</code></td>
+<td>
+<p>Either a list of YAML fragments loaded from a file with
+<code>load_yaml_fragments()</code>, or a list of such lists loaded from all files
+in a directory with <code>load_yaml_dir()</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>idName</code></td>
+<td>
+<p>The name of the field containing each elements' identifier,
+used to build the data tree when there are references to a parent from a child
+element.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>parentIdName</code></td>
+<td>
+<p>The name of the field containing references to an element's
+parent element (i.e. the field containing the identifier of the corresponding
+parent element).</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>childrenName</code></td>
+<td>
+<p>The name of the field containing an element's children, either
+as a list of elements, or using the 'shorthand' notation, in which case a vector
+is supplied with the identifiers of the children.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>autofill</code></td>
+<td>
+<p>A named vector where the names represent fields to fill with
+the values of the fields specified in the vector values. Note that autofill
+replacements are only applied if the fields to be autofilled (i.e. the names of
+the vector specified in <code>autofill</code>) do not already have a value.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>rankdir</code></td>
+<td>
+<p>How to plot the plot when it's plotted: the default <code>"LR"</code> plots from
+left to right. Specify e.g. <code>"TB"</code> to plot from top to bottom.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>directed</code></td>
+<td>
+<p>Whether the edges should have arrows (<code>"forward"</code> or <code>"backward"</code>)
+or not (<code>"false"</code>).</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>silent</code></td>
+<td>
+<p>Whether to provide (<code>FALSE</code>) or suppress (<code>TRUE</code>) more detailed progress updates.</p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>a <code>data.tree::Node()</code> object.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">loadedYum &lt;- yum::load_yaml_fragments(text=c(
+"---",
+"-",
+"  id: firstFragment",
+"---",
+"Outside of YAML",
+"---",
+"-",
+"  id: secondFragment",
+"  parentId: firstFragment",
+"---",
+"Also outside of YAML"));
+yum::build_tree(loadedYum);
+</code></pre>
+
+
+</div>

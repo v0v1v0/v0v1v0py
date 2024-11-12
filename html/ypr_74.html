@@ -1,0 +1,136 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>ypr_tabulate_sr</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Tabulate Stock-Recruitment Parameters</h2>
+
+<h3>Description</h3>
+
+<p>Tabulate Stock-Recruitment Parameters
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">ypr_tabulate_sr(object, ...)
+
+## Default S3 method:
+ypr_tabulate_sr(
+  object,
+  Ly = 0,
+  harvest = TRUE,
+  biomass = FALSE,
+  all = FALSE,
+  ...
+)
+
+## S3 method for class 'ypr_populations'
+ypr_tabulate_sr(
+  object,
+  Ly = 0,
+  harvest = TRUE,
+  biomass = FALSE,
+  all = FALSE,
+  ...
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>object</code></td>
+<td>
+<p>The population or populations.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+<p>Unused parameters.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>Ly</code></td>
+<td>
+<p>The minimum length (trophy) fish to consider when calculating the
+yield (cm).</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>harvest</code></td>
+<td>
+<p>A flag specifying whether to calculate the yield for harvested
+fish or captures.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>biomass</code></td>
+<td>
+<p>A flag specifying whether to calculate the yield in terms of
+the biomass versus number of individuals.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>all</code></td>
+<td>
+<p>A flag specifying whether to include all parameter values.</p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>A data.frame of stock-recruitment parameters.
+</p>
+
+
+<h3>Methods (by class)</h3>
+
+
+<ul>
+<li> <p><code>ypr_tabulate_sr(default)</code>: Tabulate Stock-Recruitment Parameters
+</p>
+</li>
+<li> <p><code>ypr_tabulate_sr(ypr_populations)</code>: Tabulate Stock-Recruitment Parameters
+</p>
+</li>
+</ul>
+<h3>See Also</h3>
+
+<p>Other tabulate: 
+<code>ypr_detabulate_parameters()</code>,
+<code>ypr_report()</code>,
+<code>ypr_tabulate_biomass()</code>,
+<code>ypr_tabulate_fish()</code>,
+<code>ypr_tabulate_parameters()</code>,
+<code>ypr_tabulate_schedule()</code>,
+<code>ypr_tabulate_yields()</code>,
+<code>ypr_tabulate_yield()</code>
+</p>
+<p>Other populations: 
+<code>as_ypr_populations()</code>,
+<code>chilliwack_bt_05</code>,
+<code>ypr_plot_yield()</code>,
+<code>ypr_populations_expand()</code>,
+<code>ypr_populations()</code>,
+<code>ypr_tabulate_yields()</code>,
+<code>ypr_tabulate_yield()</code>
+</p>
+<p>Other sr: 
+<code>ypr_plot_sr()</code>,
+<code>ypr_sr()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">ypr_tabulate_sr(ypr_population()) # Beverton-Holt
+ypr_tabulate_sr(ypr_population(BH = 0L)) # Ricker
+ypr_tabulate_sr(ypr_populations(Rk = c(2.5, 4.6)))
+</code></pre>
+
+
+</div>

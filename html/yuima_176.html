@@ -1,0 +1,299 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>mllag</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>
+
+Multiple Lead-Lag Detector
+</h2>
+
+<h3>Description</h3>
+
+
+<p>Detecting the lead-lag parameters of discretely observed processes by picking time shifts at which the Hayashi-Yoshida cross-correlation functions exceed thresholds, which are constructed based on the asymptotic theory of Hayashi and Yoshida (2011).
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">mllag(x, from = -Inf, to = Inf, division = FALSE, grid, psd = TRUE, 
+      plot = TRUE, alpha = 0.01, fisher = TRUE, bw)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>x</code></td>
+<td>
+
+
+<p>an object of  <code>yuima-class</code> or <code>yuima.data-class</code> or <code>yuima.llag-class</code> (output of <code>llag</code>) or <code>yuima.mllag-class</code> (output of this function).
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>from</code></td>
+<td>
+
+
+<p>passed to <code>llag</code>.
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>to</code></td>
+<td>
+
+
+<p>passed to <code>llag</code>.
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>division</code></td>
+<td>
+
+
+<p>passed to <code>llag</code>.
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>grid</code></td>
+<td>
+
+
+<p>passed to <code>llag</code>.
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>psd</code></td>
+<td>
+
+
+<p>passed to <code>llag</code>.
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>plot</code></td>
+<td>
+
+
+<p>logical. If <code>TRUE</code>, the estimated cross-correlation functions and the pointwise confidence intervals (under the null hypothesis that the corresponding correlation is zero) as well as the detected lead-lag parameters are plotted. 
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>alpha</code></td>
+<td>
+
+
+<p>a posive number indicating the significance level of the confidence intervals for the cross-correlation functions.
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>fisher</code></td>
+<td>
+
+
+<p>logical. If <code>TRUE</code>, the p-values and the confidence intervals for the cross-correlation functions is evaluated after applying the Fisher z transformation.
+</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>bw</code></td>
+<td>
+
+
+<p>passed to <code>llag</code>.
+</p>
+</td>
+</tr>
+</table>
+<h3>Details</h3>
+
+
+<p>The computation method of cross-correlation functions and confidence intervals is the same as the one used in <code>llag</code>. The exception between this function and <code>llag</code> is how to detect the lead-lag parameters. While <code>llag</code> only returns the maximizer of the absolute value of the cross-correlations following the theory of Hoffmann et al. (2013),  this function returns all the time shifts at which the cross-correlations exceed (so there is also the possiblity that <em>no</em> lead-lag is returned). Note that this approach is mathematically debetable because there would be a multiple testing problem (see also 'Note' of <code>llag</code>), so the interpretation of the result from this function should carefully be addressed. In particular, the significance level <code>alpha</code> probably does not give the "correct" level.
+</p>
+
+
+<h3>Value</h3>
+
+
+
+
+
+
+<p>An object of class <code>"yuima.mllag"</code>, which is a list with the following elements:
+</p>
+<table>
+<tr style="vertical-align: top;">
+<td><code>mlagcce</code></td>
+<td>
+<p>a list of <code>data.frame</code>-class objects consisting of <code>lagcce</code> (lead-lag parameters), <code>p.value</code> and <code>correlation</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>LLR</code></td>
+<td>
+<p>a matrix consisting of lead-lag ratios. See Huth and Abergel (2014) for details.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>ccor</code></td>
+<td>
+<p>a list of computed cross-correlation functions.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>avar</code></td>
+<td>
+<p>a list of computed asymptotic variances of the cross-correlations (if <code>ci = TRUE</code>).</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>CI</code></td>
+<td>
+<p>a list of computed confidence intervals.</p>
+</td>
+</tr>
+</table>
+<h3>Author(s)</h3>
+
+
+<p>Yuta Koike with YUIMA Project Team
+</p>
+
+
+<h3>References</h3>
+
+
+<p>Hayashi, T. and Yoshida, N. (2011)
+Nonsynchronous covariation process and limit theorems,
+<em>Stochastic processes and their applications</em>, <b>121</b>, 2416–2454.
+</p>
+<p>Hoffmann, M., Rosenbaum, M. and Yoshida, N. (2013)
+Estimation of the lead-lag parameter from non-synchronous data, 
+<em>Bernoulli</em>, <b>19</b>, no. 2, 426–461.
+</p>
+<p>Huth, N. and Abergel, F. (2014)
+High frequency lead/lag relationships — Empirical facts,
+<em>Journal of Empirical Finance</em>, <b>26</b>, 41–58.
+</p>
+
+
+<h3>See Also</h3>
+
+
+<p><code>llag</code>, <code>hyavar</code>, <code>llag.test</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">
+# The first example is taken from llag
+
+## Set a model
+diff.coef.matrix &lt;- matrix(c("sqrt(x1)", "3/5*sqrt(x2)",
+ "1/3*sqrt(x3)", "", "4/5*sqrt(x2)","2/3*sqrt(x3)",
+ "","","2/3*sqrt(x3)"), 3, 3) 
+drift &lt;- c("1-x1","2*(10-x2)","3*(4-x3)")
+cor.mod &lt;- setModel(drift = drift, 
+ diffusion = diff.coef.matrix,
+ solve.variable = c("x1", "x2","x3")) 
+
+set.seed(111) 
+
+## We use a function poisson.random.sampling 
+## to get observation by Poisson sampling.
+yuima.samp &lt;- setSampling(Terminal = 1, n = 1200) 
+yuima &lt;- setYuima(model = cor.mod, sampling = yuima.samp) 
+yuima &lt;- simulate(yuima,xinit=c(1,7,5)) 
+
+## intentionally displace the second time series
+
+  data2 &lt;- yuima@data@zoo.data[[2]]
+  time2 &lt;- time(data2)
+  theta2 &lt;- 0.05   # the lag of x2 behind x1
+  stime2 &lt;- time2 + theta2  
+  time(yuima@data@zoo.data[[2]]) &lt;- stime2
+
+  data3 &lt;- yuima@data@zoo.data[[3]]
+  time3 &lt;- time(data3)
+  theta3 &lt;- 0.12   # the lag of x3 behind x1
+  stime3 &lt;- time3 + theta3 
+  time(yuima@data@zoo.data[[3]]) &lt;- stime3
+
+## sampled data by Poisson rules
+psample&lt;- poisson.random.sampling(yuima, 
+ rate = c(0.2,0.3,0.4), n = 1000) 
+ 
+ ## We search lead-lag parameters on the interval [-0.1, 0.1] with step size 0.01 
+G &lt;- seq(-0.1,0.1,by=0.01)
+
+## lead-lag estimation by mllag
+par(mfcol=c(3,1))
+result &lt;- mllag(psample, grid = G)
+
+## Since the lead-lag parameter for the pair(x1, x3) is not contained in G,
+## no lead-lag parameter is detected for this pair
+
+par(mfcol=c(1,1))
+
+# The second example is a situation where multiple lead-lag effects exist
+set.seed(222)
+
+n &lt;- 3600
+Times &lt;- seq(0, 1, by = 1/n)
+R1 &lt;- 0.6
+R2 &lt;- -0.3
+
+dW1 &lt;- rnorm(n + 10)/sqrt(n)
+dW2 &lt;- rnorm(n + 5)/sqrt(n)
+dW3 &lt;- rnorm(n)/sqrt(n)
+
+x &lt;- zoo(diffinv(dW1[-(1:10)] + dW2[1:n]), Times)
+y &lt;- zoo(diffinv(R1 * dW1[1:n] + R2 * dW2[-(1:5)] + 
+                 sqrt(1- R1^2 - R2^2) * dW3), Times)
+
+## In this setting, both x and y have a component leading to the other, 
+## but x's leading component dominates y's one
+
+yuima &lt;- setData(list(x, y))
+
+## Lead-lag estimation by llag
+G &lt;- seq(-30/n, 30/n, by = 1/n)
+est &lt;- llag(yuima, grid = G, ci = TRUE)
+
+## The shape of the plotted cross-correlation is evidently bimodal,
+## so there are likely two lead-lag parameters
+
+## Lead-lag estimation by mllag
+mllag(est) # succeeds in detecting two lead-lag parameters
+
+## Next consider a non-synchronous sampling case
+psample &lt;- poisson.random.sampling(yuima, n = n, rate = c(0.8, 0.7))
+
+## Lead-lag estimation by mllag
+est &lt;- mllag(psample, grid = G) 
+est # detects too many lead-lag parameters
+
+## Using a lower significant level
+mllag(est, alpha = 0.001) # insufficient
+
+## As the plot reveals, one reason is because the grid is too dense
+## In fact, this phenomenon can be avoided by using a coarser grid
+mllag(psample, grid = seq(-30/n, 30/n, by=5/n)) # succeeds!
+
+</code></pre>
+
+
+</div>

@@ -1,0 +1,289 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>roc_auc</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Area under the receiver operator curve</h2>
+
+<h3>Description</h3>
+
+<p><code>roc_auc()</code> is a metric that computes the area under the ROC curve. See
+<code>roc_curve()</code> for the full curve.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">roc_auc(data, ...)
+
+## S3 method for class 'data.frame'
+roc_auc(
+  data,
+  truth,
+  ...,
+  estimator = NULL,
+  na_rm = TRUE,
+  event_level = yardstick_event_level(),
+  case_weights = NULL,
+  options = list()
+)
+
+roc_auc_vec(
+  truth,
+  estimate,
+  estimator = NULL,
+  na_rm = TRUE,
+  event_level = yardstick_event_level(),
+  case_weights = NULL,
+  options = list(),
+  ...
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>data</code></td>
+<td>
+<p>A <code>data.frame</code> containing the columns specified by <code>truth</code> and
+<code>...</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+<p>A set of unquoted column names or one or more
+<code>dplyr</code> selector functions to choose which variables contain the
+class probabilities. If <code>truth</code> is binary, only 1 column should be selected,
+and it should correspond to the value of <code>event_level</code>. Otherwise, there
+should be as many columns as factor levels of <code>truth</code> and the ordering of
+the columns should be the same as the factor levels of <code>truth</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>truth</code></td>
+<td>
+<p>The column identifier for the true class results
+(that is a <code>factor</code>). This should be an unquoted column name although
+this argument is passed by expression and supports
+quasiquotation (you can unquote column
+names). For <code style="white-space: pre;">⁠_vec()⁠</code> functions, a <code>factor</code> vector.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>estimator</code></td>
+<td>
+<p>One of <code>"binary"</code>, <code>"hand_till"</code>, <code>"macro"</code>, or
+<code>"macro_weighted"</code> to specify the type of averaging to be done. <code>"binary"</code>
+is only relevant for the two class case. The others are general methods for
+calculating multiclass metrics. The default will automatically choose
+<code>"binary"</code> if <code>truth</code> is binary, <code>"hand_till"</code> if <code>truth</code> has &gt;2 levels and
+<code>case_weights</code> isn't specified, or <code>"macro"</code> if <code>truth</code> has &gt;2 levels and
+<code>case_weights</code> is specified (in which case <code>"hand_till"</code> isn't
+well-defined).</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>na_rm</code></td>
+<td>
+<p>A <code>logical</code> value indicating whether <code>NA</code>
+values should be stripped before the computation proceeds.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>event_level</code></td>
+<td>
+<p>A single string. Either <code>"first"</code> or <code>"second"</code> to specify
+which level of <code>truth</code> to consider as the "event". This argument is only
+applicable when <code>estimator = "binary"</code>. The default uses an internal helper
+that defaults to <code>"first"</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>case_weights</code></td>
+<td>
+<p>The optional column identifier for case weights.
+This should be an unquoted column name that evaluates to a numeric column
+in <code>data</code>. For <code style="white-space: pre;">⁠_vec()⁠</code> functions, a numeric vector,
+<code>hardhat::importance_weights()</code>, or <code>hardhat::frequency_weights()</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>options</code></td>
+<td>
+<p><code style="white-space: pre;">⁠[deprecated]⁠</code>
+</p>
+<p>No longer supported as of yardstick 1.0.0. If you pass something here it
+will be ignored with a warning.
+</p>
+<p>Previously, these were options passed on to <code>pROC::roc()</code>. If you need
+support for this, use the pROC package directly.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>estimate</code></td>
+<td>
+<p>If <code>truth</code> is binary, a numeric vector of class probabilities
+corresponding to the "relevant" class. Otherwise, a matrix with as many
+columns as factor levels of <code>truth</code>. <em>It is assumed that these are in the
+same order as the levels of <code>truth</code>.</em></p>
+</td>
+</tr>
+</table>
+<h3>Details</h3>
+
+<p>Generally, an ROC AUC value is between <code>0.5</code> and <code>1</code>, with <code>1</code> being a
+perfect prediction model. If your value is between <code>0</code> and <code>0.5</code>, then
+this implies that you have meaningful information in your model, but it
+is being applied incorrectly because doing the opposite of what the model
+predicts would result in an AUC <code style="white-space: pre;">⁠&gt;0.5⁠</code>.
+</p>
+<p>Note that you can't combine <code>estimator = "hand_till"</code> with <code>case_weights</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>A <code>tibble</code> with columns <code>.metric</code>, <code>.estimator</code>,
+and <code>.estimate</code> and 1 row of values.
+</p>
+<p>For grouped data frames, the number of rows returned will be the same as
+the number of groups.
+</p>
+<p>For <code>roc_auc_vec()</code>, a single <code>numeric</code> value (or <code>NA</code>).
+</p>
+
+
+<h3>Relevant Level</h3>
+
+<p>There is no common convention on which factor level should
+automatically be considered the "event" or "positive" result
+when computing binary classification metrics. In <code>yardstick</code>, the default
+is to use the <em>first</em> level. To alter this, change the argument
+<code>event_level</code> to <code>"second"</code> to consider the <em>last</em> level of the factor the
+level of interest. For multiclass extensions involving one-vs-all
+comparisons (such as macro averaging), this option is ignored and
+the "one" level is always the relevant result.
+</p>
+
+
+<h3>Multiclass</h3>
+
+<p>The default multiclass method for computing <code>roc_auc()</code> is to use the
+method from Hand, Till, (2001). Unlike macro-averaging, this method is
+insensitive to class distributions like the binary ROC AUC case.
+Additionally, while other multiclass techniques will return <code>NA</code> if any
+levels in <code>truth</code> occur zero times in the actual data, the Hand-Till method
+will simply ignore those levels in the averaging calculation, with a warning.
+</p>
+<p>Macro and macro-weighted averaging are still provided, even though they are
+not the default. In fact, macro-weighted averaging corresponds to the same
+definition of multiclass AUC given by Provost and Domingos (2001).
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Max Kuhn
+</p>
+
+
+<h3>References</h3>
+
+<p>Hand, Till (2001). "A Simple Generalisation of the Area Under the
+ROC Curve for Multiple Class Classification Problems". <em>Machine Learning</em>.
+Vol 45, Iss 2, pp 171-186.
+</p>
+<p>Fawcett (2005). "An introduction to ROC analysis". <em>Pattern Recognition
+Letters</em>. 27 (2006), pp 861-874.
+</p>
+<p>Provost, F., Domingos, P., 2001. "Well-trained PETs: Improving probability
+estimation trees", CeDER Working Paper #IS-00-04, Stern School of Business,
+New York University, NY, NY 10012.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><code>roc_curve()</code> for computing the full ROC curve.
+</p>
+<p>Other class probability metrics: 
+<code>average_precision()</code>,
+<code>brier_class()</code>,
+<code>classification_cost()</code>,
+<code>gain_capture()</code>,
+<code>mn_log_loss()</code>,
+<code>pr_auc()</code>,
+<code>roc_aunp()</code>,
+<code>roc_aunu()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R"># ---------------------------------------------------------------------------
+# Two class example
+
+# `truth` is a 2 level factor. The first level is `"Class1"`, which is the
+# "event of interest" by default in yardstick. See the Relevant Level
+# section above.
+data(two_class_example)
+
+# Binary metrics using class probabilities take a factor `truth` column,
+# and a single class probability column containing the probabilities of
+# the event of interest. Here, since `"Class1"` is the first level of
+# `"truth"`, it is the event of interest and we pass in probabilities for it.
+roc_auc(two_class_example, truth, Class1)
+
+# ---------------------------------------------------------------------------
+# Multiclass example
+
+# `obs` is a 4 level factor. The first level is `"VF"`, which is the
+# "event of interest" by default in yardstick. See the Relevant Level
+# section above.
+data(hpc_cv)
+
+# You can use the col1:colN tidyselect syntax
+library(dplyr)
+hpc_cv %&gt;%
+  filter(Resample == "Fold01") %&gt;%
+  roc_auc(obs, VF:L)
+
+# Change the first level of `obs` from `"VF"` to `"M"` to alter the
+# event of interest. The class probability columns should be supplied
+# in the same order as the levels.
+hpc_cv %&gt;%
+  filter(Resample == "Fold01") %&gt;%
+  mutate(obs = relevel(obs, "M")) %&gt;%
+  roc_auc(obs, M, VF:L)
+
+# Groups are respected
+hpc_cv %&gt;%
+  group_by(Resample) %&gt;%
+  roc_auc(obs, VF:L)
+
+# Weighted macro averaging
+hpc_cv %&gt;%
+  group_by(Resample) %&gt;%
+  roc_auc(obs, VF:L, estimator = "macro_weighted")
+
+# Vector version
+# Supply a matrix of class probabilities
+fold1 &lt;- hpc_cv %&gt;%
+  filter(Resample == "Fold01")
+
+roc_auc_vec(
+   truth = fold1$obs,
+   matrix(
+     c(fold1$VF, fold1$F, fold1$M, fold1$L),
+     ncol = 4
+   )
+)
+
+</code></pre>
+
+
+</div>

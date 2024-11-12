@@ -1,0 +1,127 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>read_json</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Read and write to JSON and TOML</h2>
+
+<h3>Description</h3>
+
+<p>Read JSON and TOML files in as <code>yml</code> objects with <code style="white-space: pre;">⁠read_*()⁠</code>. Write <code>yml</code>
+objects out as JSON and YAML files with <code style="white-space: pre;">⁠write_as_*()⁠</code>. You can also provide
+<code style="white-space: pre;">⁠write_as_*()⁠</code> a path to an existing <code>.yml</code> file to translate to JSON or
+TOML. These functions rely on Hugo and blogdown, so you must have blogdown
+installed.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">read_json(path)
+
+read_toml(path)
+
+write_as_json(
+  .yml = NULL,
+  path = NULL,
+  out = NULL,
+  build_ignore = FALSE,
+  git_ignore = FALSE,
+  quiet = FALSE
+)
+
+write_as_toml(
+  .yml = NULL,
+  path = NULL,
+  out = NULL,
+  build_ignore = FALSE,
+  git_ignore = FALSE,
+  quiet = FALSE
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>path</code></td>
+<td>
+<p>a path to a JSON or TOML file</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>.yml</code></td>
+<td>
+<p>a <code>yml</code> object created by <code>yml()</code>, <code>as_yml()</code>, or returned by
+a <code style="white-space: pre;">⁠yml_*()⁠</code> function</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>out</code></td>
+<td>
+<p>The path to write out to. If <code>NULL</code>, will write to the <code>path</code> but
+change the file extension to <code>.toml</code> or <code>.json</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>build_ignore</code></td>
+<td>
+<p>Logical. Should the file be added to the <code>.Rbuildignore</code>
+file?</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>git_ignore</code></td>
+<td>
+<p>Logical. Should the file be added to the <code>.gitignore</code> file?</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>quiet</code></td>
+<td>
+<p>Logical. Whether to message about what is happening.</p>
+</td>
+</tr>
+</table>
+<h3>Value</h3>
+
+<p>a <code>yml</code> object (if reading) or the path (if writing)
+</p>
+
+
+<h3>See Also</h3>
+
+<p>Other yml: 
+<code>asis_yaml_output()</code>,
+<code>bib2yml()</code>,
+<code>draw_yml_tree()</code>,
+<code>has_field()</code>,
+<code>use_yml_defaults()</code>,
+<code>use_yml_file()</code>,
+<code>use_yml()</code>,
+<code>yml_author()</code>,
+<code>yml_blogdown_opts()</code>,
+<code>yml_bookdown_opts()</code>,
+<code>yml_citations()</code>,
+<code>yml_clean()</code>,
+<code>yml_distill_opts()</code>,
+<code>yml_latex_opts()</code>,
+<code>yml_output()</code>,
+<code>yml_pagedown_opts()</code>,
+<code>yml_params()</code>,
+<code>yml_pkgdown()</code>,
+<code>yml_reference()</code>,
+<code>yml_replace()</code>,
+<code>yml_resource_files()</code>,
+<code>yml_rsconnect_email()</code>,
+<code>yml_rticles_opts()</code>,
+<code>yml_runtime()</code>,
+<code>yml_site_opts()</code>,
+<code>yml_toc()</code>,
+<code>yml_vignette()</code>
+</p>
+
+
+</div>

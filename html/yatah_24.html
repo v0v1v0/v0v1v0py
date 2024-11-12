@@ -1,0 +1,68 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>trim_void</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Trim void ranks in lineages</h2>
+
+<h3>Description</h3>
+
+<p>Trim void ranks in lineages
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">trim_void(lineage, same = TRUE, only_tail = FALSE)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>lineage</code></td>
+<td>
+<p>string. Vector of lineages.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>same</code></td>
+<td>
+<p>logical. Does the lineage have the same depth? Default to <code>TRUE</code>.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>only_tail</code></td>
+<td>
+<p>Logical. If <code>FALSE</code> (default), void ranks amid
+lineages and subranks are removed. If <code>TRUE</code>, only final
+void ranks are removed.</p>
+</td>
+</tr>
+</table>
+<h3>Details</h3>
+
+<p>If there is a void rank amid a lineage, deeper ranks
+will be removed. See the example with <code>lineage3</code>.
+</p>
+
+
+<h3>Value</h3>
+
+<p>The trimmed lineages. Depth could be different among them.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">lineage1 &lt;- "k__Bacteria|p__Verrucomicrobia|c__Verrucomicrobiae|o__|f__"
+lineage2 &lt;- "k__Bacteria|p__Firmicutes|c__"
+lineage3 &lt;- "k__Bacteria|p__|c__Verrucomicrobiae|o__|f__"
+trim_void(c(lineage1, lineage2, lineage3), same = FALSE)
+trim_void(c(lineage1, lineage2, lineage3), same = FALSE, only_tail = TRUE)
+</code></pre>
+
+
+</div>

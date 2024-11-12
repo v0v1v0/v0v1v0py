@@ -1,0 +1,95 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>ypr_yield</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Yield</h2>
+
+<h3>Description</h3>
+
+<p>Calculates the yield for a population.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">ypr_yield(object, Ly = 0, harvest = TRUE, biomass = FALSE, ...)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>object</code></td>
+<td>
+<p>The population or populations.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>Ly</code></td>
+<td>
+<p>The minimum length (trophy) fish to consider when calculating the
+yield (cm).</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>harvest</code></td>
+<td>
+<p>A flag specifying whether to calculate the yield for harvested
+fish or captures.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>biomass</code></td>
+<td>
+<p>A flag specifying whether to calculate the yield in terms of
+the biomass versus number of individuals.</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>...</code></td>
+<td>
+<p>Unused parameters.</p>
+</td>
+</tr>
+</table>
+<h3>Details</h3>
+
+<p>By default, with <code>Rmax = 1</code> the number of individuals is the proportion of
+the recruits at the carrying capacity. If the yield is given in terms of the
+biomass (kg) then the scaling also depends on the value of <code>Wa</code> (g).
+</p>
+
+
+<h3>Value</h3>
+
+<p>The yield as number of fish or biomass.
+</p>
+
+
+<h3>See Also</h3>
+
+<p>Other yield: 
+<code>ypr_plot_yield()</code>,
+<code>ypr_tabulate_yield()</code>,
+<code>ypr_yields()</code>
+</p>
+<p>Other calculate: 
+<code>ypr_age_at_length()</code>,
+<code>ypr_exploitation()</code>,
+<code>ypr_length_at_age()</code>,
+<code>ypr_optimize()</code>,
+<code>ypr_yields()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">ypr_yield(ypr_population())
+ypr_yield(ypr_ecotypes(Linf = c(100, 200)))
+</code></pre>
+
+
+</div>

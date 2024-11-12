@@ -1,0 +1,109 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>calc.yhat</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>More regression indices for lm class objects</h2>
+
+<h3>Description</h3>
+
+<p>Reports beta weights, validity coefficients, structure coefficients, product measures, commonality analysis coefficients, and dominance analysis weights for <code>lm</code> class objects.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">calc.yhat(lm.out,prec=3)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>lm.out</code></td>
+<td>
+<p>lm class object</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>prec</code></td>
+<td>
+<p>level of precision for rounding, defaults to 3</p>
+</td>
+</tr>
+</table>
+<h3>Details</h3>
+
+<p>Takes the lm class object and reports beta weights, validity coefficients, 
+structure coefficients, product measures, commonality analysis coefficients, 
+and dominance analysis weights.
+</p>
+
+
+<h3>Value</h3>
+
+<table>
+<tr style="vertical-align: top;">
+<td><code>PredictorMetrics</code></td>
+<td>
+<p>Predictor metrics associated with lm class object</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>OrderedPredictorMetrics</code></td>
+<td>
+<p>Rank order of predictor metrics</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>PairedDominanceMetrics</code></td>
+<td>
+<p>Dominance analysis for predictor pairs</p>
+</td>
+</tr>
+<tr style="vertical-align: top;">
+<td><code>APSRelatedMetrics</code></td>
+<td>
+<p>APS metrics associated with lm class object</p>
+</td>
+</tr>
+</table>
+<h3>Author(s)</h3>
+
+<p>Kim Nimon &lt;kim.nimon@gmail.com&gt;
+</p>
+
+
+<h3>References</h3>
+
+<p>Nimon, K., &amp; Oswald, F. L. (2013). Understanding the results of multiple linear regression: Beyond standardized regression coefficients. <em>Organizational Research Methods</em>, <em>16</em>, 
+650-674.
+</p>
+<p>Thomas, D. R., Zumbo, B. D., Kwan, E., &amp; Schweitzer, L. (2014). On Johnson's (2000) relative weights method for assessing variable importance: A reanalysis. <em>Multivariate Behavioral Research</em>, <em>16</em>,
+49(4), 329-338.
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">  ## Predict paragraph comprehension based on three verbal
+  ## tests: general info, sentence comprehension, &amp; word
+  ## classification
+  
+  ## Use HS dataset in MBESS 
+     if (require("MBESS")){
+     data(HS)
+  
+  ## Regression
+     lm.out&lt;-lm(t6_paragraph_comprehension~
+                t5_general_information+t7_sentence+t8_word_classification,data=HS)
+  
+  ## Regression Indices
+     regr.out&lt;-calc.yhat(lm.out)
+     }
+</code></pre>
+
+
+</div>

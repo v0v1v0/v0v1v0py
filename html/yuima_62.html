@@ -1,0 +1,62 @@
+<div class="container">
+
+<table style="width: 100%;"><tr>
+<td>Diagnostic.Carma</td>
+<td style="text-align: right;">R Documentation</td>
+</tr></table>
+<h2>Diagnostic Carma model</h2>
+
+<h3>Description</h3>
+
+<p>This function verifies if the condition of stationarity is satisfied.</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class="language-R">Diagnostic.Carma(carma)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table><tr style="vertical-align: top;">
+<td><code>carma</code></td>
+<td>
+<p> An object of class <code>yuima.qmle-class</code> where the slot <code>model</code> is a carma process.
+</p>
+</td>
+</tr></table>
+<h3>Value</h3>
+
+<p>Logical variable. If <code>TRUE</code>, Carma is stationary.</p>
+
+
+<h3>Author(s)</h3>
+
+<p>YUIMA TEAM
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class="language-R">
+mod1 &lt;- setCarma(p = 2, q = 1, scale.par = "sig",
+          Carma.var = "y")
+
+param1 &lt;- list(a1 = 1.39631, a2 = 0.05029, b0 = 1,
+            b1 = 1, sig = 1)
+samp1 &lt;- setSampling(Terminal = 100, n = 200)
+
+set.seed(123)
+
+sim1 &lt;- simulate(mod1, true.parameter = param1,
+          sampling = samp1)
+
+est1 &lt;- qmle(sim1, start = param1)
+
+Diagnostic.Carma(est1)
+
+</code></pre>
+
+
+</div>
